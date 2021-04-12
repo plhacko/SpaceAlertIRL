@@ -26,7 +26,7 @@ https://docs.microsoft.com/en-us/samples/xamarin/monodroid-samples/cardreader/
   -> udělat NFC reader a spstit ho na telefon (https://www.youtube.com/watch?v=n-8Aq3tp5IE&ab_channel=MasteringProgramming)
   -> (optional) najít podobné hry a jak se dělají
   
-11.4.21 - plnění 01_target
+11.04.21 - plnění 01_target
   -> NFC tagy zatím nedorazily, zkusím jim zavolat v pondělí po konzultaci
   -> dělání jednoduché app na Sndroid
       -> instalace android Studia (podařilo se na 4. pokus - SDK z nějakého důvodu padalo)
@@ -36,4 +36,15 @@ https://docs.microsoft.com/en-us/samples/xamarin/monodroid-samples/cardreader/
         -> podařilo se mi odemknout vývojářské funkce pro můj telefon (7x tapnout na build verzi telefonu - je to magie) a poté na něm spustit jednoduchou aplikaci    
         -> už pomalu začínám rozumět, views
   -> NFC tutorial: https://www.youtube.com/watch?v=n-8Aq3tp5IE&ab_channel=MasteringProgramming
-    ->    
+    -> nehotové 
+  -> také jsem konečně vytvořil gitHub repozitář   
+
+12.04 - druhá konzultace
+02_target:
+  -> rozhodnout se zda používat Unity nebo Godot (odkazy v discord chatu)
+    -> Godot je opensource engine a měl by mít dobře vyřešené síťování
+    -> Unity má síťování zatím nově a tak by stálo za to to vyzkoušet
+    -> obecně mít prototipy v obou sw -> do bc by se hodilo je mít na ukázání, proč jsme se rozhodli pro tento engine (sekce volba enginu)
+  -> dodělat NFC prototyp v android studiu
+  -> dále prozkoumávat možnosti multiplayeru 
+  
