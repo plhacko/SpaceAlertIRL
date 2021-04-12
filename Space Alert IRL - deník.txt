@@ -1,0 +1,39 @@
+Ročníkový projekt Space Alert IRL
+konzultace: pondělí 10:40 (každých 14dní, počínaje 29.03)
+cíle: dovést to do Bakalářské práce
+background check-literary review
+  -> jak se používají techologie
+  -> najít zda již podobný projekt neexistuje nebo najít jemu podobné (zjistit, jak funguje)
+způsob: Unity má NFC plugin (https://assetstore.unity.com/packages/tools/integration/digits-nfc-toolkit-131674)
+
+
+nápady:
+  -> v deskové verzi SpaceAlerm má počítač úsporný režim, kde se zobrazuje logo sponzora -> místo toho hrát reklamy od CGE (nebo reálné reklamy a vydělávat reálné $$$)
+
+
+
+29.03.21
+prozkoumávání technologie NFC
+https://www.youtube.com/watch?v=tJue55MIqi4&ab_channel=XamarinDevelopers
+https://www.youtube.com/watch?v=STfzU18v7gE&ab_channel=SaamerMansoor
+první projekt
+https://docs.microsoft.com/en-us/samples/xamarin/monodroid-samples/cardreader/
+-> stáhnul jsem Xamarine pro VisualStudio
+
+29.03.21 - první kozultace
+01_target:
+  -> udělat Java aplikaci pro telefon jako proof of concept
+  -> udělat NFC reader a spstit ho na telefon (https://www.youtube.com/watch?v=n-8Aq3tp5IE&ab_channel=MasteringProgramming)
+  -> (optional) najít podobné hry a jak se dělají
+  
+11.4.21 - plnění 01_target
+  -> NFC tagy zatím nedorazily, zkusím jim zavolat v pondělí po konzultaci
+  -> dělání jednoduché app na Sndroid
+      -> instalace android Studia (podařilo se na 4. pokus - SDK z nějakého důvodu padalo)
+      -> Proč je v základu Kotlin? -> rozhodl jsem se pokračovat v Javě
+      -> tutoriál, který jsem použil: https://www.youtube.com/watch?v=EOfCEhWq8sg&ab_channel=Treehouse
+        -> ukázalo se, že se mnohé věci přemístili od roku 2018, ale nakonec to dopadlo celkem v pořádku
+        -> podařilo se mi odemknout vývojářské funkce pro můj telefon (7x tapnout na build verzi telefonu - je to magie) a poté na něm spustit jednoduchou aplikaci    
+        -> už pomalu začínám rozumět, views
+  -> NFC tutorial: https://www.youtube.com/watch?v=n-8Aq3tp5IE&ab_channel=MasteringProgramming
+    ->    
