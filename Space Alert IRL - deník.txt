@@ -47,4 +47,56 @@ https://docs.microsoft.com/en-us/samples/xamarin/monodroid-samples/cardreader/
     -> obecně mít prototipy v obou sw -> do bc by se hodilo je mít na ukázání, proč jsme se rozhodli pro tento engine (sekce volba enginu)
   -> dodělat NFC prototyp v android studiu
   -> dále prozkoumávat možnosti multiplayeru 
-  
+
+16-18.04. - GameJam YOLO
+  -> během krátké doby (48h) jsem si relativně vzato potykal s Unity (trocha skriptování a zvuků, ale hlavně animace)
+
+25.04 - plnění 02_target (2h25min + 2h05min)
+  -> společnost u které jsem koupil NFC tagy neodpovídá, tak jsem našel společnost jinou, dostal jsem hned další den
+  -> aplikace NFC Tools na nich funguje
+  ->možnosti multiplayeru 
+    ¤ Unity      https://docs-multiplayer.unity3d.com/
+     -> nepodporuje p2p, ale snad by bylo i lepší mít klient Server
+     -> MLAPI - Unity  https://github.com/Unity-Technologies/com.unity.multiplayer.mlapi
+       -> high level networking
+     -> Unity.NetworkingTransport  https://docs.unity3d.com/Packages/com.unity.transport@0.6/manual/index.html
+       -> nový balíček Unity pro přidání multiplayeru (Unity 2020.1.2 a pozdější)
+       -> 
+    ¤ Godot https://docs.godotengine.org/en/stable/tutorials/networking/high_level_multiplayer.html#high-level-vs-low-level-api
+      
+
+  -> Co vlastně budu požadovat od Multiplayeru?
+    -> komunikace server-klient __ANO__
+    -> synchronizované animace => není vyloženě nutné (v Unity bychom mohli mít v datech, které updatujeme mít i data, podle kterých se řídí animace)
+    -> synchronizované pozice hráčů __??__ (asi ano, ale to by stačilo monitorovat pokaždé, když hráč "projde dveřmi" nebo přistoupí k nějakému zařízení)
+    -> Chceme p2p nebo host server?
+      -> v Unity už ani dedikované p2p není
+      -> mohl by být problém, pokud by nějaký server stratil signál, což se při chaosu přebíhání po bytě klidně mohlo stát     
+        -> to samé s klientem, ale to by snad neměl být takový problém
+  MLAPI - výukový Unity projekt BoosRoom    tutorial: https://www.youtube.com/watch?v=CmwZPYV-a1o&ab_channel=DapperDino
+  -> narazil jsem na problém s importem, zdá se, že jsem nikdy nenainstaloval základní Git       
+    
+         
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
