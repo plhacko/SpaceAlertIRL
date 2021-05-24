@@ -65,7 +65,7 @@ https://docs.microsoft.com/en-us/samples/xamarin/monodroid-samples/cardreader/
     ¤ Godot https://docs.godotengine.org/en/stable/tutorials/networking/high_level_multiplayer.html#high-level-vs-low-level-api
       
 
-  -> Co vlastně budu požadovat od Multiplayeru?
+  -> Co vlastně budu požadovat od Multiplayeru?  (úvaha v čase kompilace)
     -> komunikace server-klient __ANO__
     -> synchronizované animace => není vyloženě nutné (v Unity bychom mohli mít v datech, které updatujeme mít i data, podle kterých se řídí animace)
     -> synchronizované pozice hráčů __??__ (asi ano, ale to by stačilo monitorovat pokaždé, když hráč "projde dveřmi" nebo přistoupí k nějakému zařízení)
@@ -75,8 +75,46 @@ https://docs.microsoft.com/en-us/samples/xamarin/monodroid-samples/cardreader/
         -> to samé s klientem, ale to by snad neměl být takový problém
   MLAPI - výukový Unity projekt BoosRoom    tutorial: https://www.youtube.com/watch?v=CmwZPYV-a1o&ab_channel=DapperDino
   -> narazil jsem na problém s importem, zdá se, že jsem nikdy nenainstaloval základní Git       
-    
-         
+
+26.04 -> plnění 02_target (1h40min)
+  -> plnění tutoriálů pro MLAPI   https://docs-multiplayer.unity3d.com/docs/tutorials/helloworldintro/index.html
+    -> (inicializace projektu v Unity je vždy děsná bolest, potom ale už funguje hezky) 
+    -> zdá se, že MLAPI hezky funguje na lokální síti, ale i na internetu obecně (mělo by stačit znát správnou IP adresu)
+    -> MLAPI se také stará o šifrování a autentikaci (jen je potřeba to někde zapnout)
+27.04 -> třetí konzultace
+  -> rozhodnutí o použití Unity a nového nástroje na mutliplayer MLAPI
+  -> dále také jsme se rozhodli použít srver-klient architekturu
+    -> samotný uživatel by nakonec ani neměl mít přístup k implementaci (která bude na serveru)
+03_target:
+  -> pokračovat v tutoriálech na MLAPI
+  -> naprogramovat prototyp
+    -> nasymulovat race condition a zjistit, zda ji náhodou MLAPI neřeší vnitřně
+  -> optional: přenést prototyp na telefon
+
+18.05.21
+plnění 03_target:
+  -> doposlechnutí si tutoriálů na MLAPI
+    -> HelloWorld-testProject oživení 45min        
+    -> BuildingGoldenPath-testProject 35min  https://docs-multiplayer.unity3d.com/docs/tutorials/goldenpath/index.html   
+      -> tutorial, jak spuštět MLAPI jako server, client nebo host(anglický význam, né český) z příkazové řádky (mohlo by být užitečné, až hra poběží někde na serveru)
+        -> (stačí přidat do NetworkManageru GameObjekt se skriptem NetworkCommandLine)
+20.05.21
+nápady pro implementaci hratelnosti (gameplay):
+  -> hlavní laser dané části se bude nabíjet z energetického jezírka, kde musí být dostatek energie
+    -> zajímavé bude, že energie se nebude brát automaticky, ale bude jí muset někdo převést
+      -> tj. buď ji hráč převede a poběží k Laseru nebo budou dva a jeden bude střílet a druhý převádět energii
+        -> odměnnou za spolupráci by mohlo být to, že s čerstvě nabitou energií by mohl hráč udělit větší poškození
+      
+plnění 03_target:
+  -> při pročítání Networking části dokumentace, jsem se rozhodl, že by mohlo být zajímavé to zkusit uplatnit na již existující projekt 1h
+    -> rozhodl jsem se pro roll a ball z turtoriálů (viz předmět indtroduction to GameDev)
+  -> RollABall
+    -> podařilo se mi vytvořit build, který "funguje" (asi stejně dobře jako Helloworld projekt) 15min
+  -> pokračování ve čtení 
+
+  -> server list tutorial: https://www.youtube.com/watch?v=77L3MMKDWmo&ab_channel=FirstGearGames
+        
+     
 
 
 
