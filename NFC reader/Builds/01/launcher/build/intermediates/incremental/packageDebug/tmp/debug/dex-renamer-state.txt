@@ -1,0 +1,4 @@
+#Sat Jun 05 23:49:31 CEST 2021
+base.0=D\:\\Plocha\\SpaceAlertIRL\\NFC reader\\Builds\\01\\launcher\\build\\intermediates\\dex\\debug\\out\\classes.dex
+path.0=classes.dex
+renamed.0=classes.dex

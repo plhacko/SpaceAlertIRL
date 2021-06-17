@@ -113,7 +113,22 @@ plnění 03_target:
   -> pokračování ve čtení 
 
   -> server list tutorial: https://www.youtube.com/watch?v=77L3MMKDWmo&ab_channel=FirstGearGames
-        
+
+čtvrtá konzultace
+Target_04
+  -> NFC čtečka
+  -> callback messages
+  -> multiplayer na lokální síti
+
+05.06 -> plnění 04_target
+ -> našel jsem NFC Reader gitHubu a rozchodil jej na svém telefonu
+  -> zatím nevím, jak přečíst text
+  -> hraním si s androidJavaObject jsem strávil asi 4h bez většího postupu
+    -> problém je, že základní tag nepodporuje přečtení svých dat a musí se předat třídě speciálního typu (mé současné chipy implementují NPCA a ultraLight)
+    -> navíc stále se mi nepodařilo, aby aplikace byl výchozí bod po načtení chipu, co jsem tak zjistil je, že bych musel si pořídit jiné tagy
+  -> nakonec jsem se rozhodl vzdát a napsat si čtečku v Javě a propojit jí s unity později
+   
+          
      
 
 
