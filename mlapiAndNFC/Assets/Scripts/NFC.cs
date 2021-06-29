@@ -36,23 +36,21 @@ public class NFC : MonoBehaviour
 					sAction = mIntent.Call<String>("getAction"); // resulte are returned in the Intent object
 					if (sAction == "android.nfc.action.NDEF_DISCOVERED")
 					{
-						//TODO: delete comments (debug)
-
 						Debug.Log("Tag of type NDEF");
-						//tag_output_text.text = "DEBUG_1";
+						tag_output_text.text = "DEBUG_1";
 
+						
 						AndroidJavaObject[] rawMsg = mIntent.Call<AndroidJavaObject[]>("getParcelableArrayExtra", "android.nfc.extra.NDEF_MESSAGES");
-						//tag_output_text.text += "\nDEBUG_2 length:" + rawMsg.Length.ToString() + " name:" + rawMsg.ToString();
+						tag_output_text.text += "\nDEBUG_2 length:" + rawMsg.Length.ToString() + " name:" + rawMsg.ToString();
 
 						AndroidJavaObject[] records = rawMsg[0].Call<AndroidJavaObject[]>("getRecords");
-						//tag_output_text.text += "\nDEBUG_3 length:" + records.Length.ToString() + " name:" + records.ToString();
+						tag_output_text.text += "\nDEBUG_3 length:" + records.Length.ToString() + " name:" + records.ToString();
 
 						byte[] payLoad = records[0].Call<byte[]>("getPayload");
-						//tag_output_text.text += "\nDEBUG_4 length:" + payLoad.Length.ToString() + " name:" + payLoad.ToString();
+						tag_output_text.text += "\nDEBUG_4 length:" + payLoad.Length.ToString() + " name:" + payLoad.ToString();
 
 						string result = System.Text.Encoding.Default.GetString(payLoad);
-						//tag_output_text.text += "\nDEBUG_5 length:" + result.Length.ToString() + " name:" + result;
-						tag_output_text.text = result;
+						tag_output_text.text += "\nDEBUG_5 length:" + result.Length.ToString() + " name:" + result;
 
 					}
 					/*
