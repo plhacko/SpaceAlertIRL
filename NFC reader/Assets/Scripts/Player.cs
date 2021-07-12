@@ -16,7 +16,8 @@ namespace HelloWorld
 
         public override void NetworkStart()
         {
-            Move();
+            //todo: smazat
+            //Move(); // you cannot move with object if you don't own the object (there is a possibility to diable that, but I don't need it now)
         }
 
         public void Move()

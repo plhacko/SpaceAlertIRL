@@ -1,20 +1,25 @@
 using MLAPI;
 using MLAPI.Transports.UNET;
 using UnityEngine;
-using UnityEngine.UI;  
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
-namespace HelloWorld
+namespace HelloWorld //TODO: pøejhmenovat nebo smazat namespace
 {
     public class GameManager : MonoBehaviour
     {
-        public InputField InputField;
+        public InputField IPAddressToJoin;
+        
+        //
+        // MLAPI and networking
+        //
 
         void OnGUI()
         {
             GUILayout.BeginArea(new Rect(10, 10, 300, 300));
             if (!NetworkManager.Singleton.IsClient && !NetworkManager.Singleton.IsServer)
             {
-                StartButtons();
+                //StartButtons();
             }
             else
             {
@@ -26,19 +31,22 @@ namespace HelloWorld
             GUILayout.EndArea();
         }
 
-        static void StartButtons()
+        public void JoinGame()
         {
-            if (GUILayout.Button("Host")) NetworkManager.Singleton.StartHost();
-            if (GUILayout.Button("Client")) NetworkManager.Singleton.StartClient();
-            if (GUILayout.Button("Server")) NetworkManager.Singleton.StartServer();
-        }
-
-        public void Join()
-        {
-            NetworkManager.Singleton.GetComponent<UNetTransport>().ConnectAddress = InputField.text;
+            NetworkManager.Singleton.GetComponent<UNetTransport>().ConnectAddress = IPAddressToJoin.text;
             NetworkManager.Singleton.StartClient();
         }
 
+        public void HostGame()
+        {
+            NetworkManager.Singleton.StartHost();
+        }
+
+        // TODO: rename?
+        public void ServerGame()
+        {
+            NetworkManager.Singleton.StartServer();
+        }
 
         static void StatusLabels()
         {
@@ -50,9 +58,12 @@ namespace HelloWorld
             GUILayout.Label("Mode: " + mode);
         }
 
+        //
+        // actual game mechanics
+        //
+
         static void SubmitNewPosition()
         {
-            
             if (GUILayout.Button(NetworkManager.Singleton.IsServer ? "Move" : "Request Position Change"))
             {
                 if (NetworkManager.Singleton.ConnectedClients.TryGetValue(NetworkManager.Singleton.LocalClientId,
@@ -62,11 +73,10 @@ namespace HelloWorld
                     if (player)
                     {
                         player.Move();
-                    }       
+                    }
                 }
-                
-            }
 
+            }
         }
     }
 }

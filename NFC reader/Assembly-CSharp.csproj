@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
-    <LangVersion>8.0</LangVersion>
+    <LangVersion>7.3</LangVersion>
   </PropertyGroup>
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -53,13 +53,15 @@
     <UnityVersion>2020.3.4f1</UnityVersion>
   </PropertyGroup>
   <ItemGroup>
-    <Analyzer Include="C:\Program Files (x86)\Microsoft Visual Studio Tools for Unity\16.0\Analyzers\Microsoft.Unity.Analyzers.dll" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Assets\Scripts\ImAliveButton.cs" />
-    <Compile Include="Assets\Scripts\NFC.cs" />
-    <Compile Include="Assets\Scripts\GameManager.cs" />
+    <Compile Include="Assets\Scripts\DontDestroyOnLoad.cs" />
     <Compile Include="Assets\Scripts\Player.cs" />
+    <Compile Include="Assets\Scripts\ImAliveButton.cs" />
+    <Compile Include="Assets\Scripts\GetID.cs" />
+    <Compile Include="Assets\Scripts\NFC.cs" />
+    <Compile Include="Assets\Scripts\SceneChanger.cs" />
+    <Compile Include="Assets\Scripts\GameManager.cs" />
+    <Compile Include="Assets\Scripts\ServerDataContainer.cs" />
+    <Compile Include="Assets\Scripts\CountDown.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">
@@ -680,14 +682,20 @@
     <Reference Include="Unity.Rider.Editor">
       <HintPath>Library\ScriptAssemblies\Unity.Rider.Editor.dll</HintPath>
     </Reference>
+    <Reference Include="Unity.Multiplayer.MLAPI.Runtime">
+      <HintPath>Library\ScriptAssemblies\Unity.Multiplayer.MLAPI.Runtime.dll</HintPath>
+    </Reference>
     <Reference Include="UnityEngine.UI">
       <HintPath>Library\ScriptAssemblies\UnityEngine.UI.dll</HintPath>
     </Reference>
-    <Reference Include="Unity.Mathematics">
-      <HintPath>Library\ScriptAssemblies\Unity.Mathematics.dll</HintPath>
-    </Reference>
     <Reference Include="Unity.2D.IK.Runtime">
       <HintPath>Library\ScriptAssemblies\Unity.2D.IK.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Multiplayer.MLAPI.Prototyping">
+      <HintPath>Library\ScriptAssemblies\Unity.Multiplayer.MLAPI.Prototyping.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Mathematics">
+      <HintPath>Library\ScriptAssemblies\Unity.Mathematics.dll</HintPath>
     </Reference>
     <Reference Include="Unity.2D.Animation.Triangle.Runtime">
       <HintPath>Library\ScriptAssemblies\Unity.2D.Animation.Triangle.Runtime.dll</HintPath>
@@ -715,12 +723,6 @@
     </Reference>
     <Reference Include="Unity.2D.SpriteShape.Runtime">
       <HintPath>Library\ScriptAssemblies\Unity.2D.SpriteShape.Runtime.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.Multiplayer.MLAPI.Prototyping">
-      <HintPath>Library\ScriptAssemblies\Unity.Multiplayer.MLAPI.Prototyping.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.Multiplayer.MLAPI.Runtime">
-      <HintPath>Library\ScriptAssemblies\Unity.Multiplayer.MLAPI.Runtime.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>

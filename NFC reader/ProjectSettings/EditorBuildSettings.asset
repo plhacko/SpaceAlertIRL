@@ -8,4 +8,16 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/SampleScene.unity
     guid: 2cda990e2423bbf4892e6590ba056729
+  - enabled: 1
+    path: Assets/Scenes/TestScene.unity
+    guid: 38f5c69e984d1f948a5ddd80f43bbbb4
+  - enabled: 1
+    path: Assets/Scenes/MainRoom.unity
+    guid: 779af739db1d04047ae767d46bead008
+  - enabled: 1
+    path: Assets/Scenes/CountDownRoom.unity
+    guid: bd287ba453bd7b148981b5bdb2b44877
+  - enabled: 1
+    path: Assets/Scenes/ChangingColorRoom.unity
+    guid: 4af930813010f01478778aaac8ffa6ba
   m_configObjects: {}

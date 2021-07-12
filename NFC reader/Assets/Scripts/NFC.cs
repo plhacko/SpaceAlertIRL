@@ -7,53 +7,51 @@ using UnityEngine.UI;
 
 public class NFC : MonoBehaviour
 {
+	public string TagOutputSceneName = "";
+	public bool TagFound = false;
 
-	public string tagID;
-	public Text tag_output_text;
-	public bool tagFound = false;
+	private AndroidJavaObject _mActivity;
+	private AndroidJavaObject _mIntent;
+	private string _sAction;
 
-	private AndroidJavaObject mActivity;
-	private AndroidJavaObject mIntent;
-	private string sAction;
+    private SceneChanger _sceneChanger;
+
+    private void Start()
+    {
+        _sceneChanger = GetComponent<SceneChanger>();
+    }
+
+    public void ChangeScene()
+    {
+        _sceneChanger.ChangeScene(TagOutputSceneName);
+    }
 
 
-	void Start()
-	{
-		tag_output_text.text = "Scan a NFC tag to make the cube disappear...";
-	}
-
-	void Update()
+    void Update()
 	{
 		if (Application.platform == RuntimePlatform.Android)
 		{
-			if (!tagFound)
+			if (!TagFound)
 			{
 				try
 				{
 					// Create new NFC Android object
-					mActivity = new AndroidJavaClass("com.unity3d.player.UnityPlayer").GetStatic<AndroidJavaObject>("currentActivity"); // Activities open apps
-					mIntent = mActivity.Call<AndroidJavaObject>("getIntent");
-					sAction = mIntent.Call<String>("getAction"); // resulte are returned in the Intent object
-					if (sAction == "android.nfc.action.NDEF_DISCOVERED")
+					_mActivity = new AndroidJavaClass("com.unity3d.player.UnityPlayer").GetStatic<AndroidJavaObject>("currentActivity"); // Activities open apps
+					_mIntent = _mActivity.Call<AndroidJavaObject>("getIntent");
+					_sAction = _mIntent.Call<String>("getAction"); // results are returned in the Intent object
+					if (_sAction == "android.nfc.action.NDEF_DISCOVERED")
 					{
-						//TODO: delete comments (debug)
-
 						Debug.Log("Tag of type NDEF");
-						//tag_output_text.text = "DEBUG_1";
-
-						AndroidJavaObject[] rawMsg = mIntent.Call<AndroidJavaObject[]>("getParcelableArrayExtra", "android.nfc.extra.NDEF_MESSAGES");
-						//tag_output_text.text += "\nDEBUG_2 length:" + rawMsg.Length.ToString() + " name:" + rawMsg.ToString();
-
+						AndroidJavaObject[] rawMsg = _mIntent.Call<AndroidJavaObject[]>("getParcelableArrayExtra", "android.nfc.extra.NDEF_MESSAGES");
 						AndroidJavaObject[] records = rawMsg[0].Call<AndroidJavaObject[]>("getRecords");
-						//tag_output_text.text += "\nDEBUG_3 length:" + records.Length.ToString() + " name:" + records.ToString();
-
 						byte[] payLoad = records[0].Call<byte[]>("getPayload");
-						//tag_output_text.text += "\nDEBUG_4 length:" + payLoad.Length.ToString() + " name:" + payLoad.ToString();
-
 						string result = System.Text.Encoding.Default.GetString(payLoad);
-						//tag_output_text.text += "\nDEBUG_5 length:" + result.Length.ToString() + " name:" + result;
-						tag_output_text.text = result;
 
+
+                        result = result.Remove(0, 3); // removes information abouth language "en..."
+
+                        ChangeScene();
+                        TagOutputSceneName = result;
 					}
 					/*
 					else if (sAction == "android.nfc.action.TECH_DISCOVERED")
@@ -91,13 +89,16 @@ public class NFC : MonoBehaviour
 				catch (Exception ex)
 				{
 					string text = ex.Message;
-					tag_output_text.text = text;
+                    print(text);
+					// tag_output_text = text; //TODO: if an exception would happen, it would be good to somehow tell the user
 				}
 			}
 		}
 	}
 }
 
+// TODO: delete this
+// it was a solution that did'n work for me, but I based my solution on it
 /** /
 
 
