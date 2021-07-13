@@ -20,6 +20,24 @@ public class NFCEditor : Editor
             (target as NFC).TagOutputSceneName = "CountDownRoom";
             (target as NFC).ChangeScene();
         }
+
+        if (GUILayout.Button("Scene: ChangingColorRoom"))
+        {
+            (target as NFC).TagOutputSceneName = "ChangingColorRoom";
+            (target as NFC).ChangeScene();
+        }
+
+        if (GUILayout.Button("Scene: MainRoom"))
+        {
+            (target as NFC).TagOutputSceneName = "MainRoom";
+            (target as NFC).ChangeScene();
+        }
+
+        if (GUILayout.Button("Scene: SoundRoom"))
+        {
+            (target as NFC).TagOutputSceneName = "SoundRoom";
+            (target as NFC).ChangeScene();
+        }
     }
 
 }
