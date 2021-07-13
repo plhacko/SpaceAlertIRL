@@ -11,7 +11,7 @@ public class PlaySound : MonoBehaviour
     {
         ServerDataContainer = GameObject.Find("ServerDataContainer").GetComponent<ServerDataContainer>();
 
-        // TODO: will be needed later
+        // TODO: will be needed later (or not)
         /*/
         ListOfAudioClips = new List<AudioClip>();
 
@@ -26,5 +26,17 @@ public class PlaySound : MonoBehaviour
     public void PlayOneClip(int i)
     {
         ServerDataContainer.PlaySoundServerRpc(i);
+    }
+
+    public void PlayOneClip_2(int i)
+    {
+        ServerDataContainer.PlaySoundClientRpc(i);
+    }
+
+    public void PlayOneClip_3(int i)
+    {
+        ulong u = MLAPI.NetworkManager.Singleton.LocalClientId;
+        print("DEBUG-playsoundSTART: clientID:" + u + "; time:" + Time.time);
+        ServerDataContainer.PlaySoundBackServerRpc(u, i);
     }
 }

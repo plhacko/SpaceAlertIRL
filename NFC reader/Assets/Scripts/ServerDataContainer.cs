@@ -55,6 +55,31 @@ public class ServerDataContainer : NetworkBehaviour
         AudioSource.PlayOneShot(ListOfAudioClips[index]);
     }
 
+    [ServerRpc(RequireOwnership = false)]
+    public void PlaySoundBackServerRpc(ulong clientId, int soundIndex)
+    {
+        ClientRpcParams clientRpcParams = new ClientRpcParams
+        {
+            Send = new ClientRpcSendParams
+            {
+                TargetClientIds = new ulong[] { clientId }
+            }
+        };
+
+        PlaySoundBackClientRpc(soundIndex, clientRpcParams);
+    }
+
+    [ClientRpc]
+    public void PlaySoundBackClientRpc(int index, ClientRpcParams clientRpcParams = default)
+    {
+        if (index < 0 || index >= ListOfAudioClips.Count)
+        { return; }
+        // play a sound
+        AudioSource.PlayOneShot(ListOfAudioClips[index]);
+
+        print("DEBUG-playsoundEND: time:" + Time.time);
+    }
+
 
 
     // Start is called before the first frame update
