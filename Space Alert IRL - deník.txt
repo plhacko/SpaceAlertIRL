@@ -127,7 +127,20 @@ Target_04
     -> problém je, že základní tag nepodporuje přečtení svých dat a musí se předat třídě speciálního typu (mé současné chipy implementují NPCA a ultraLight)
     -> navíc stále se mi nepodařilo, aby aplikace byl výchozí bod po načtení chipu, co jsem tak zjistil je, že bych musel si pořídit jiné tagy
   -> nakonec jsem se rozhodl vzdát a napsat si čtečku v Javě a propojit jí s unity později
-   
+
+__dlouhá doba__
+
+shrnutí stavu o jehož vytváření není záznam:
+  -> NFC reade funguje a to dobře (pomocí AndroidJavaObject) (zatím púouze pro Android)
+  -> MLAPI funguje relativně dobře pro LAN, nic víc jsem nezkoušel
+  -> je vytvořený demo soubor  
+
+09.11.
+cíle minulé konzultace:
+  -> vytvořit si dokument o všech stavech, které mohou při chození po lodi nastat
+  -> naprogramovat nějakou základní verzi pohybu po lodi
+  -> zápis a učení se s figma
+      
           
      
 
