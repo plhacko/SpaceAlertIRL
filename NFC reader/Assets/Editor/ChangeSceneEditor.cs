@@ -38,6 +38,11 @@ public class NFCEditor : Editor
             (target as NFC).TagOutputSceneName = "SoundRoom";
             (target as NFC).ChangeScene();
         }
+        if (GUILayout.Button("Scene: RoomScene"))
+        {
+            (target as NFC).TagOutputSceneName = "RoomScene";
+            (target as NFC).ChangeScene();
+        }
     }
 
 }

@@ -141,7 +141,24 @@ cíle minulé konzultace:
   -> naprogramovat nějakou základní verzi pohybu po lodi
   -> zápis a učení se s figma
       
-          
+18.11.
+  -> přepsal jsem plán do figma
+  -> a vytvářím prototyp nějaké základní lodi
+  -> práce na scéně zobrazující obecnou místnost
+  -> práce na základních třídách (Room, Door, Amenity, Player, ..)
+  -> jednoduché zobrazování hráčů a v jaké místnosti jsou (čistě vypsané textově)
+  -> rozhodnutí:
+    -> libovolná akce hráče se vždy dělá přes server
+    -> zobrazování stavu se bude dělat pomocí NetworkObject a NetworkVariable
+      -> scéna bude mít za úkol zobrazovat data místa, kde se zrovna nachází hráč (RoomScene, DoorScene, LaserScene) 
+      -> NetworkObject jesou sdílené objekty (Room, Door, Amenities, ..)
+      -> NetworkVariable bude vždy upravovat pouze server
+      -> NetworkVariable bude sloužit k tomu, aby se četli z ní data zobrazované hráči
+          -> pravděpodobně se omezíme a základní datové typy
+      -> předpřipravené lodě prozatím budou uloženy na nějaké scéně scéně (Ship_A)
+          -> to nám zaručí, že všichni budou mít stejnou loď
+          -> z této scény přejdou na obyčejnou scému Room a začně hra (části lodě jsou don't destroy on load)
+                         
      
 
 
