@@ -26,4 +26,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/RoomScene.unity
     guid: 50092f6f806d2f045965277305ee0ca2
+  - enabled: 1
+    path: Assets/Scenes/Ship_A.unity
+    guid: 4bcba218b5115d34b85c080465c937ce
   m_configObjects: {}

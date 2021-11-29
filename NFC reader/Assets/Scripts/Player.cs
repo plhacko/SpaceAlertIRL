@@ -19,7 +19,7 @@ public class Player : NetworkBehaviour
     {
         WritePermission = NetworkVariablePermission.OwnerOnly,
         ReadPermission = NetworkVariablePermission.Everyone
-    }, "TestPlayerName");
+    });
 
 
 

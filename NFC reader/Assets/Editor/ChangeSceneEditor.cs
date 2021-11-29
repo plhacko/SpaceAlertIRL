@@ -43,6 +43,11 @@ public class NFCEditor : Editor
             (target as NFC).TagOutputSceneName = "RoomScene";
             (target as NFC).ChangeScene();
         }
+        if (GUILayout.Button("Scene: Ship_A"))
+        {
+            (target as NFC).TagOutputSceneName = "Ship_A";
+            (target as NFC).ChangeScene();
+        }
     }
 
 }

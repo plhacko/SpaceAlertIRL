@@ -115,7 +115,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CurrentRoomName:
-    m_InternalValue: 
+    m_InternalValue: TestRoomName
   Name:
     m_InternalValue: TestPlayerName
   Position:

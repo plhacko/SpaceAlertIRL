@@ -6,7 +6,7 @@ using UnityEngine;
 public class PlayerListToText : MonoBehaviour
 {
 
-    public List<Player> Players = new List<Player>();
+    public List<Player> Players = new List<Player>(); // TODO: make private
     public TextMeshProUGUI Text;
 
     // Start is called before the first frame update
