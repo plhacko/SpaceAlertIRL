@@ -115,9 +115,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CurrentRoomName:
-    m_InternalValue: TestRoomName
+    m_InternalValue: A0
   Name:
-    m_InternalValue: TestPlayerName
+    m_InternalValue: Marvin
   Position:
     m_InternalValue: {x: 0, y: 0, z: 0}
 --- !u!114 &8877389806550896944
