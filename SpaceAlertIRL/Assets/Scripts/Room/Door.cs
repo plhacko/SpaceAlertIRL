@@ -3,9 +3,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using MLAPI;
-using MLAPI.NetworkVariable;
-using MLAPI.Messaging;
+using Unity.Netcode;
+//rm using MLAPI;
+//rm using MLAPI.NetworkVariable;
+//rm using MLAPI.Messaging;
 using System;
 
 
@@ -43,11 +44,11 @@ public class Door : NetworkBehaviour
     //     ReadPermission = NetworkVariablePermission.Everyone
     // }, false));
 
-    public NetworkVariableBool IsOpen;
+    public NetworkVariable<bool> IsOpen;
     public UpdateUIActions IsOpenUIActions;
 
     // todo: rename this
-    public NetworkVariableFloat OpenningClosingProgress;
+    public NetworkVariable<float> OpenningClosingProgress;
     public UpdateUIActions OpenningClosingProgressUIActions;
 
     // Start is called before the first frame update
@@ -57,19 +58,11 @@ public class Door : NetworkBehaviour
         AddSelfToRoom(RoomB);
 
 
-        IsOpen = new NetworkVariableBool(new NetworkVariableSettings
-        {
-            WritePermission = NetworkVariablePermission.ServerOnly,
-            ReadPermission = NetworkVariablePermission.Everyone
-        }, false);
+        IsOpen = new NetworkVariable<bool>(false);
         IsOpenUIActions = new UpdateUIActions();
         IsOpenUIActions.AddOnValueChangeDependency(IsOpen);
 
-        OpenningClosingProgress = new NetworkVariableFloat(new NetworkVariableSettings
-        {
-            WritePermission = NetworkVariablePermission.ServerOnly,
-            ReadPermission = NetworkVariablePermission.Everyone
-        }, 1.0f);
+        OpenningClosingProgress = new NetworkVariable<float>(1.0f);
         OpenningClosingProgressUIActions = new UpdateUIActions();
         OpenningClosingProgressUIActions.AddOnValueChangeDependency(OpenningClosingProgress);
     }

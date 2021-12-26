@@ -1,9 +1,13 @@
-
-using MLAPI;
-using MLAPI.Messaging;
-using MLAPI.NetworkVariable;
+using Unity.Netcode;
+//rm using MLAPI;
+//rm using MLAPI.Messaging;
+//rm using MLAPI.NetworkVariable;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+//rm using UnityEngine.CoreModule;
+using System.Text;
+using TMPro;
+using Unity.Collections;
 
 
 public class Player : NetworkBehaviour
@@ -13,18 +17,10 @@ public class Player : NetworkBehaviour
 
     // this singals, where the player is currently loccated
     // the important part is, that the players can't change this variable themself, they must request the server
-    public NetworkVariableString CurrentRoomName = new NetworkVariableString(new NetworkVariableSettings
-    {
-        WritePermission = NetworkVariablePermission.ServerOnly,
-        ReadPermission = NetworkVariablePermission.Everyone
-    }, StartingRoom);
+    public NetworkVariable<FixedString32Bytes> CurrentRoomName = new NetworkVariable<FixedString32Bytes>(StartingRoom);
     public UpdateUIActions CurrentRoomNameUIActions;
 
-    public NetworkVariableString Name = new NetworkVariableString(new NetworkVariableSettings
-    {
-        WritePermission = NetworkVariablePermission.ServerOnly,
-        ReadPermission = NetworkVariablePermission.Everyone
-    }, BasePlayerName);
+    public NetworkVariable<FixedString32Bytes> Name = new NetworkVariable<FixedString32Bytes>(BasePlayerName);
     public UpdateUIActions NameUIActions;
 
     // TODO: remove this placeholder
@@ -33,7 +29,7 @@ public class Player : NetworkBehaviour
     [ServerRpc]
     public void ChangeRoomServerRpc(string roomName, ServerRpcParams rpcParams = default)
     {
-        Room r = GameObject.Find(CurrentRoomName.Value).GetComponent<Room>();
+        Room r = GameObject.Find(CurrentRoomName.Value.ToString()).GetComponent<Room>();
         foreach (var d in r.Doors)
         {
             if (d.IsOpen.Value && (d.RoomA.Name == roomName || d.RoomB.Name == roomName))
@@ -64,19 +60,9 @@ public class Player : NetworkBehaviour
 
 
     // TODO: dselete this
-    public NetworkVariableVector3 Position = new NetworkVariableVector3(new NetworkVariableSettings
-    {
-        WritePermission = NetworkVariablePermission.ServerOnly,
-        ReadPermission = NetworkVariablePermission.Everyone
-    });
+    public NetworkVariable<Vector3> Position = new NetworkVariable<Vector3>();
 
 
-    // TODO: delete this
-    public override void NetworkStart()
-    {
-        //todo: smazat
-        //Move(); // you cannot move with object if you don't own the object (there should be a possibility to diable that, but I don't need it now)
-    }
 
     // TODO: delete this
     public void Move()

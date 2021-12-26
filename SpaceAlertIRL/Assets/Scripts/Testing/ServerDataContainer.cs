@@ -1,15 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using MLAPI;
-using MLAPI.NetworkVariable;
-using MLAPI.Messaging;
+using Unity.Netcode;
+//rm using MLAPI;
+//rm using MLAPI.NetworkVariable;
+//rm using MLAPI.Messaging;
+using Unity.Collections;
 
 public class ServerDataContainer : NetworkBehaviour
 {
-    public NetworkVariableString myString = new NetworkVariableString("testText");
-    public NetworkVariableInt myInt = new NetworkVariableInt(0);
-    public NetworkVariableInt myInt_Everyone = new NetworkVariableInt(new NetworkVariableSettings { WritePermission = NetworkVariablePermission.Everyone }, 0);
+    public NetworkVariable<FixedString32Bytes> myString = new NetworkVariable<FixedString32Bytes>("testText");
+    public NetworkVariable<int> myInt = new NetworkVariable<int>(0);
+    public NetworkVariable<int> myInt_Everyone = new NetworkVariable<int>(0);
 
 
     [ServerRpc(RequireOwnership = false)]

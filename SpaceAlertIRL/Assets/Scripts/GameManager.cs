@@ -1,5 +1,6 @@
-using MLAPI;
-using MLAPI.Transports.UNET;
+//rm using MLAPI;
+//rm using MLAPI.Transports.UNET;
+using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -33,7 +34,8 @@ namespace HelloWorld //TODO: pøejhmenovat nebo smazat namespace
 
         public void JoinGame()
         {
-            NetworkManager.Singleton.GetComponent<UNetTransport>().ConnectAddress = IPAddressToJoin.text;
+            // TODO: add changing IP address
+            // NetworkManager.Singleton.GetComponent<UNetTransport>().ConnectAddress = IPAddressToJoin.text;
             NetworkManager.Singleton.StartClient();
         }
 

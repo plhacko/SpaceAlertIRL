@@ -3,14 +3,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using MLAPI;
-using MLAPI.NetworkVariable;
+using Unity.Netcode;
+//rm using MLAPI;
+//rm using MLAPI.NetworkVariable;
 
 public class PowerGenerator : EnergyPool
 {
     const int EnergyPowerCellStartCountConst = 3;
 
-    public NetworkVariableInt EnergyPowerCellCount;
+    public NetworkVariable<int> EnergyPowerCellCount;
 
 #if (SERVER)
     public override void GetEnergy()
@@ -30,11 +31,7 @@ public class PowerGenerator : EnergyPool
     {
         base.Start();
 
-        EnergyPowerCellCount = new NetworkVariableInt(new NetworkVariableSettings
-        {
-            WritePermission = NetworkVariablePermission.ServerOnly,
-            ReadPermission = NetworkVariablePermission.Everyone
-        }, EnergyPowerCellStartCountConst);
+        EnergyPowerCellCount = new NetworkVariable<int>(EnergyPowerCellStartCountConst);
         
     }
 

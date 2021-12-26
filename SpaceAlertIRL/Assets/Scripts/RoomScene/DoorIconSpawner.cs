@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using Unity.Netcode;
 
 public class DoorIconSpawner : MonoBehaviour
 {
@@ -18,9 +19,9 @@ public class DoorIconSpawner : MonoBehaviour
         foreach (GameObject playerObject in GameObject.FindGameObjectsWithTag("Player"))
         {
             player = playerObject.GetComponent<Player>();
-            if (player.OwnerClientId == MLAPI.NetworkManager.Singleton.LocalClientId)
+            if (player.OwnerClientId == NetworkManager.Singleton.LocalClientId)
             {
-                string _RoomName = player.CurrentRoomName.Value;
+                string _RoomName = player.CurrentRoomName.Value.ToString();
                 Room = GameObject.Find(_RoomName).GetComponent<Room>();
                 break;
                 // TODO: if player object or the room doesn't exist, there is a problem (make it a ?method?)

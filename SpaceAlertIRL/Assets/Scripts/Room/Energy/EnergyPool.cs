@@ -3,16 +3,17 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using MLAPI;
-using MLAPI.NetworkVariable;
+using Unity.Netcode;
+//rm using MLAPI;
+//rm using MLAPI.NetworkVariable;
 using System;
 
 public class EnergyPool : EnergyNode
 {
     protected const int MaxEnergyStorageConst = 5;
 
-    public NetworkVariableInt MaxEnergyStorage;
-    public NetworkVariableInt EnergyStorage;
+    public NetworkVariable<int> MaxEnergyStorage;
+    public NetworkVariable<int> EnergyStorage;
     
 
 // hose methods should be called only by server
@@ -68,11 +69,7 @@ public class EnergyPool : EnergyNode
     {
         base.Start();
 
-        EnergyStorage = new NetworkVariableInt(new NetworkVariableSettings
-        {
-            WritePermission = NetworkVariablePermission.ServerOnly,
-            ReadPermission = NetworkVariablePermission.Everyone
-        }, MaxEnergyStorageConst);
+        EnergyStorage = new NetworkVariable<int>(MaxEnergyStorageConst);
 
         UIActions.AddOnValueChangeDependency(EnergyStorage);
         

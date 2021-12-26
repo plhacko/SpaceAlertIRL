@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using System;
+using Unity.Netcode;
 
 public class DoorActionPanel : MonoBehaviour
 {
@@ -53,7 +54,7 @@ public class DoorActionPanel : MonoBehaviour
         foreach (GameObject playerObject in GameObject.FindGameObjectsWithTag("Player"))
         {
             player = playerObject.GetComponent<Player>();
-            if (player.OwnerClientId == MLAPI.NetworkManager.Singleton.LocalClientId)
+            if (player.OwnerClientId == NetworkManager.Singleton.LocalClientId)
             {
                 if (player.CurrentRoomName.Value != Door.RoomA.Name)
                 {

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Unity.Netcode;
 
 public class PlaySound : MonoBehaviour
 {
@@ -35,7 +36,7 @@ public class PlaySound : MonoBehaviour
 
     public void PlayOneClip_3(int i)
     {
-        ulong u = MLAPI.NetworkManager.Singleton.LocalClientId;
+        ulong u = NetworkManager.Singleton.LocalClientId;
         print("DEBUG-playsoundSTART: clientID:" + u + "; time:" + Time.time);
         ServerDataContainer.PlaySoundBackServerRpc(u, i);
     }
