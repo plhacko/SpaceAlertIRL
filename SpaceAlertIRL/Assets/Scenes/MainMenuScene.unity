@@ -1614,12 +1614,6 @@ MonoBehaviour:
   ConnectAddress: 127.0.0.1
   ConnectPort: 7777
   ServerListenPort: 7777
-  ServerWebsocketListenPort: 8887
-  SupportWebsocket: 0
-  Channels: []
-  UseMLAPIRelay: 0
-  MLAPIRelayAddress: 184.72.104.138
-  MLAPIRelayPort: 8888
   MessageSendMode: 0
 --- !u!114 &1192574364
 MonoBehaviour:
@@ -1639,55 +1633,38 @@ MonoBehaviour:
   NetworkConfig:
     ProtocolVersion: 0
     NetworkTransport: {fileID: 1192574363}
-    RegisteredScenes:
-    - SampleScene
-    - TestScene
-    - MainRoom
-    - ChangingColorRoom
-    - CountDownRoom
-    - SoundRoom
-    - RoomScene
-    - MainMenuScene
-    AllowRuntimeSceneChanges: 0
+    PlayerPrefab: {fileID: 7316973931043200052, guid: 95f6543474206034b89cdd0e9394311a, type: 3}
     NetworkPrefabs:
-    - Prefab: {fileID: 7316973931043200052, guid: 95f6543474206034b89cdd0e9394311a, type: 3}
-      PlayerPrefab: 1
-    - Prefab: {fileID: 3387296848211047391, guid: 2e90e3c4772d7b042b79a3a56e3c07cd, type: 3}
-      PlayerPrefab: 0
-    - Prefab: {fileID: 5625665632546703409, guid: 471bf78691f07aa4082146925bf04781, type: 3}
-      PlayerPrefab: 0
-    - Prefab: {fileID: 1483811975863011663, guid: 44144bc850d1c29459acade8f756841b, type: 3}
-      PlayerPrefab: 0
-    PlayerPrefabHash:
-      id: 0
-    CreatePlayerPrefab: 1
-    ReceiveTickrate: 64
-    NetworkTickIntervalSec: 0.05
-    MaxReceiveEventsPerTickRate: 500
-    EventTickrate: 64
+    - Override: 0
+      Prefab: {fileID: 3387296848211047391, guid: 2e90e3c4772d7b042b79a3a56e3c07cd, type: 3}
+      SourcePrefabToOverride: {fileID: 0}
+      SourceHashToOverride: 0
+      OverridingTargetPrefab: {fileID: 0}
+    - Override: 0
+      Prefab: {fileID: 5625665632546703409, guid: 471bf78691f07aa4082146925bf04781, type: 3}
+      SourcePrefabToOverride: {fileID: 0}
+      SourceHashToOverride: 0
+      OverridingTargetPrefab: {fileID: 0}
+    - Override: 0
+      Prefab: {fileID: 1483811975863011663, guid: 44144bc850d1c29459acade8f756841b, type: 3}
+      SourcePrefabToOverride: {fileID: 0}
+      SourceHashToOverride: 0
+      OverridingTargetPrefab: {fileID: 0}
+    TickRate: 30
     ClientConnectionBufferTimeout: 10
     ConnectionApproval: 0
     ConnectionData: 
     EnableTimeResync: 0
     TimeResyncInterval: 30
-    EnableNetworkVariable: 1
     EnsureNetworkVariableLengthSafety: 0
     EnableSceneManagement: 1
     ForceSamePrefabs: 1
-    UsePrefabSync: 0
     RecycleNetworkIds: 1
     NetworkIdRecycleDelay: 120
     RpcHashSize: 0
     LoadSceneTimeOut: 120
-    EnableMessageBuffering: 1
     MessageBufferTimeout: 20
     EnableNetworkLogs: 1
-  references:
-    version: 1
-    00000000:
-      type: {class: NullableBoolSerializable, ns: MLAPI.Configuration, asm: Unity.Multiplayer.MLAPI.Runtime}
-      data:
-        Value: 1897319656204293034
 --- !u!4 &1192574365
 Transform:
   m_ObjectHideFlags: 0
