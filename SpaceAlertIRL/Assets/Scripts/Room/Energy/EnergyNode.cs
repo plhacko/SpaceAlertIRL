@@ -12,6 +12,11 @@ public class EnergyNode : Amenity
     [SerializeField]
     protected EnergyNode Source;
 
+    public string GetSourceName()
+    {
+        return Source.Room.name;
+    }
+
     public override void SpawnIconAsChild(GameObject parent)
     {
         throw new System.NotImplementedException();

@@ -23,5 +23,6 @@ public abstract class Amenity : NetworkBehaviour
         Room.Amenities.Add(this);
     }
 
-    string Name { get; }
+    // TODO: remove
+    // string Name { get; }
 }

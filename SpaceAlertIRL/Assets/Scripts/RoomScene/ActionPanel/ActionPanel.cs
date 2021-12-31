@@ -27,6 +27,11 @@ public class ActionPanel : MonoBehaviour
         _go.GetComponent<DoorActionPanel>().Door = door;
     }
 
+    public void DisplayThis(EnergyNode energyNode)
+    {
+        // TODO: implement
+    }
+
     public void DisplayThis(Player player)
     {
         // TODO: ...
