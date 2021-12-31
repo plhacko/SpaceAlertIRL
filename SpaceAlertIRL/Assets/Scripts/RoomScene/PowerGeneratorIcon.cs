@@ -6,18 +6,20 @@ using TMPro;
 
 public class PowerGeneratorIcon : Icon
 {
+    [SerializeField]
     private PowerGenerator PowerGenerator;
-    //rm private Action UpdateUIAction;
 
     public void Initialise(PowerGenerator powerGenerator)
     {
         PowerGenerator = powerGenerator;
         UpdateUIAction = UpdateUI;
-        
-        // old
-        // PowerGenerator.MaxEnergyStorageUIActions.AddAction(UpdateUIAction);
-        // PowerGenerator.EnergyPowerCellCountUIActions.AddAction(UpdateUIAction);
-        // PowerGenerator.MaxEnergyStorageUIActions.AddAction(UpdateUIAction);
+        UpdateUIAction();
+        PowerGenerator.UIActions.AddAction(UpdateUIAction);
+    }
+
+    public void SpawnActionPanel()
+    {
+        GameObject.Find("ActionPanel").GetComponent<ActionPanel>().DisplayThis(PowerGenerator);
     }
 
     override protected void UpdateUI()
@@ -32,6 +34,7 @@ public class PowerGeneratorIcon : Icon
         else
         { Debug.Log("Door or NextRoom were not given to DoorIcon"); } // TODO: smazat else
     }
+
 
     override protected void OnDisable()
     {

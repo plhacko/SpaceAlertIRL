@@ -32,11 +32,16 @@ public class PowerGenerator : EnergyPool
     }
 #endif
 
+    [ServerRpc(RequireOwnership = false)]   
+    public void RequestBurningPowerCellServerRpc()
+    {
+        GetEnergy();
+    }
+
     // Start is called before the first frame update
     protected override void Start()
     {
         base.Start();
         EnergyPowerCellCount = new NetworkVariable<int>(EnergyPowerCellStartCountConst);
     }
-
 }

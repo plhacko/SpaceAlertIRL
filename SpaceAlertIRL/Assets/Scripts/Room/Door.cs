@@ -57,7 +57,6 @@ public class Door : NetworkBehaviour
         AddSelfToRoom(RoomA);
         AddSelfToRoom(RoomB);
 
-
         IsOpen = new NetworkVariable<bool>(false);
         IsOpenUIActions = new UpdateUIActions();
         IsOpenUIActions.AddOnValueChangeDependency(IsOpen);
@@ -108,8 +107,6 @@ public class Door : NetworkBehaviour
         // old
         // IsOpen.Value = false;
     }
-
-
 
     void AddSelfToRoom(Room r)
     {

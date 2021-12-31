@@ -10,26 +10,30 @@ public class PowerGeneratorActionPanel : MonoBehaviour
     public PowerGenerator PowerGenerator;
     private Action UpdateUIAction;
     // Start is called before the first frame update
-    void Start()
+    public void Initialise(PowerGenerator powerGenerator)
     {
-        transform.Find("RoomIcon_A").GetComponentInChildren<TextMeshProUGUI>().text = $"RoomA : {Door.RoomA.Name}";
-        transform.Find("RoomIcon_B").GetComponentInChildren<TextMeshProUGUI>().text = $"RoomB : {Door.RoomB.Name}";
-
+        PowerGenerator = powerGenerator;
         // UI changing actions
         UpdateUIAction = UpdateUI;
+        UpdateUIAction();
         PowerGenerator.UIActions.AddAction(UpdateUIAction);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-    }
 
     private void UpdateUI()
     {
-        string a1 = PowerGenerator.EnergyPowerCellCount.Value.ToString();
-        string a2 = PowerGenerator.EnergyStorage.Value.ToString();
+        var _energyStorage = PowerGenerator.EnergyStorage.Value;
+        var _maxEnergyStorage = PowerGenerator.MaxEnergyStorage.Value;
+        var _energyPowerCellCount = PowerGenerator.EnergyPowerCellCount.Value;
 
+        transform.Find("Status").GetComponentInChildren<TextMeshProUGUI>().text = "Status : good"; // TODO: redo this
+        transform.Find("Energy").GetComponentInChildren<TextMeshProUGUI>().text = $"Energy : {_energyStorage}/{_maxEnergyStorage}";
+        transform.Find("PowerCell").GetComponentInChildren<TextMeshProUGUI>().text = $"Power Cell : {_energyPowerCellCount}";
+    }
+
+    public void RequestBurningOfPowerCell()
+    {
+        PowerGenerator.RequestBurningPowerCellServerRpc();
     }
 
     private void OnDisable()
@@ -38,29 +42,4 @@ public class PowerGeneratorActionPanel : MonoBehaviour
         if (PowerGenerator != null)
         { PowerGenerator.UIActions.RemoveAction(UpdateUIAction); }
     }
-
-    /*
-    //TODO: DELETE
-    public void RequestRoomChangeForCurrentPlayer()
-    {
-        Player player;
-        foreach (GameObject playerObject in GameObject.FindGameObjectsWithTag("Player"))
-        {
-            player = playerObject.GetComponent<Player>();
-            if (player.OwnerClientId == NetworkManager.Singleton.LocalClientId)
-            {
-                if (player.CurrentRoomName.Value != Door.RoomA.Name)
-                {
-                    player.ChangeRoomServerRpc(Door.RoomA.Name);
-                }
-                else if (player.CurrentRoomName.Value != Door.RoomB.Name)
-                {
-                    player.ChangeRoomServerRpc(Door.RoomB.Name);
-                }
-                else
-                { Debug.Log("player is not at the same room as doors and is trying to go through"); }
-            }
-        }
-
-    }*/
 }

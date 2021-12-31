@@ -7,8 +7,6 @@ abstract public class Icon : MonoBehaviour
 {
     protected Action UpdateUIAction;
 
-    [SerializeField]
-    protected GameObject ActionPanlePrefab;
 
     abstract protected void UpdateUI();
 

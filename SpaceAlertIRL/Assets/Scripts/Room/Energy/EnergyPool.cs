@@ -4,20 +4,26 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Unity.Netcode;
-//rm using MLAPI;
-//rm using MLAPI.NetworkVariable;
 using System;
 
 public class EnergyPool : EnergyNode
 {
     protected const int MaxEnergyStorageConst = 5;
+    protected const int StartingEnergyStorageConst = 4;
 
     public NetworkVariable<int> MaxEnergyStorage;
     public NetworkVariable<int> EnergyStorage;
 
     public override void SpawnIconAsChild(GameObject parent)
     {
-        throw new System.NotImplementedException();
+        GameObject _go = Instantiate(IconPrefab, parent.transform.position, parent.transform.rotation, parent.transform);
+        _go.GetComponent<EnergyPoolIcon>().Initialise(this);
+    }
+
+    [ServerRpc(RequireOwnership = false)]
+    public void RequestEnergyTransferServerRpc()
+    {
+        GetEnergy();
     }
 
     // hose methods should be called only by server
@@ -26,7 +32,7 @@ public class EnergyPool : EnergyNode
     {
         if (!NetworkManager.Singleton.IsServer) { throw new System.Exception("Is not a server"); }
 
-        EnergyStorage.Value = PullEnergyUpTo(MaxEnergyStorageConst);
+        EnergyStorage.Value += Source.PullEnergyUpTo(MaxEnergyStorageConst - AvailableEnergy());
     }
 
     public override bool PullEnergy(int amount)
@@ -73,7 +79,8 @@ public class EnergyPool : EnergyNode
     {
         base.Start();
 
-        EnergyStorage = new NetworkVariable<int>(MaxEnergyStorageConst);
+        EnergyStorage = new NetworkVariable<int>(StartingEnergyStorageConst);
+        MaxEnergyStorage = new NetworkVariable<int>(MaxEnergyStorageConst);
 
         UIActions.AddOnValueChangeDependency(EnergyStorage);
         
