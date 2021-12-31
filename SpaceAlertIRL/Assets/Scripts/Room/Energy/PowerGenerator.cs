@@ -13,6 +13,12 @@ public class PowerGenerator : EnergyPool
 
     public NetworkVariable<int> EnergyPowerCellCount;
 
+    public override void SpawnIconAsChild(GameObject parent)
+    {
+        GameObject _go = Instantiate(IconPrefab, parent.transform.position, parent.transform.rotation, parent.transform);
+        _go.GetComponent<PowerGeneratorIcon>().Initialise(this);
+    }
+
 #if (SERVER)
     public override void GetEnergy()
     {
@@ -30,16 +36,7 @@ public class PowerGenerator : EnergyPool
     protected override void Start()
     {
         base.Start();
-
         EnergyPowerCellCount = new NetworkVariable<int>(EnergyPowerCellStartCountConst);
-        
     }
 
-
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
 }

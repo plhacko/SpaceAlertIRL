@@ -8,24 +8,14 @@ using System;
 
 
 
-public class DoorIcon : MonoBehaviour
+public class DoorIcon : Icon
 {
     private Door Door;
     private Room NextRoom; //this is the room, that the player is NOT in
-    private Action UpdateUIAction;
+    //rm private Action UpdateUIAction;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        // done in Initialise
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
-    }
-
-    private void OnDisable()
+    override protected void OnDisable()
     {
         if (Door != null)
         {
@@ -52,7 +42,7 @@ public class DoorIcon : MonoBehaviour
         GameObject.Find("ActionPanel").GetComponent<ActionPanel>().DisplayThis(Door);
     }
 
-    private void UpdateUI()
+    override protected void UpdateUI()
     {
         if (Door != null && NextRoom != null)
         {

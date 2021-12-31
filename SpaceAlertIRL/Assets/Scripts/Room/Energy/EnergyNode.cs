@@ -12,6 +12,11 @@ public class EnergyNode : Amenity
     [SerializeField]
     protected EnergyNode Source;
 
+    public override void SpawnIconAsChild(GameObject parent)
+    {
+        throw new System.NotImplementedException();
+    }
+
 #if (SERVER)
     // is used to detect circles
     protected bool IsOnEnergyPath = false;
@@ -55,17 +60,8 @@ public class EnergyNode : Amenity
         return result;
     }
 #endif
-
-
-    // Start is called before the first frame update
-    protected virtual void Start()
+    protected override void Start()
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        base.Start();
     }
 }

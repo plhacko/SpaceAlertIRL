@@ -12,7 +12,16 @@ public abstract class Amenity : NetworkBehaviour
     [SerializeField]
     protected Room Room;
 
-    protected UpdateUIActions UIActions = new UpdateUIActions();
+    [SerializeField]
+    protected GameObject IconPrefab;
+    public abstract void SpawnIconAsChild(GameObject parent);
+
+    public UpdateUIActions UIActions = new UpdateUIActions();
+
+    protected virtual void Start()
+    {
+        Room.Amenities.Add(this);
+    }
 
     string Name { get; }
 }

@@ -14,10 +14,14 @@ public class EnergyPool : EnergyNode
 
     public NetworkVariable<int> MaxEnergyStorage;
     public NetworkVariable<int> EnergyStorage;
-    
 
-// hose methods should be called only by server
-#if(SERVER)
+    public override void SpawnIconAsChild(GameObject parent)
+    {
+        throw new System.NotImplementedException();
+    }
+
+    // hose methods should be called only by server
+#if (SERVER)
     public virtual void GetEnergy()
     {
         if (!NetworkManager.Singleton.IsServer) { throw new System.Exception("Is not a server"); }

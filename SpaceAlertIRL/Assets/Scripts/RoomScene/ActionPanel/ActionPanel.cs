@@ -4,7 +4,10 @@ using UnityEngine;
 
 public class ActionPanel : MonoBehaviour
 {
-    public GameObject RoomActionPanelPrefab;
+    [SerializeField]
+    private GameObject RoomActionPanelPrefab;
+    [SerializeField]
+    private GameObject PowerGeneratorActionPanelPrefab;
 
     public void ResetSelf()
     {
@@ -25,6 +28,13 @@ public class ActionPanel : MonoBehaviour
     public void DisplayThis(Player player)
     {
         // TODO: ...
+    }
+
+    public void DisplayThis(PowerGenerator powerGenerator)
+    {
+        ResetSelf();
+        GameObject _go = Instantiate(PowerGeneratorActionPanelPrefab, transform.position, transform.rotation, transform);
+        //todo: _go.GetComponent<>
     }
 
     private void Start()

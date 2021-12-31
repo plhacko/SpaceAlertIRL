@@ -3,15 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using System;
-public class PlayerIcon : MonoBehaviour
+
+public class PlayerIcon : Icon
 {
     private Player Player;
-    private Action UpdateUIAction;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-    }
 
     public void Initialise(Player player)
     {
@@ -24,7 +19,7 @@ public class PlayerIcon : MonoBehaviour
         //TODO: add one for player status
     }
 
-    private void OnDisable()
+    override protected void OnDisable()
     {
         if (Player != null)
         {
@@ -32,12 +27,7 @@ public class PlayerIcon : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-    }
-
-    private void UpdateUI()
+    override protected void UpdateUI()
     {
         GetComponentInChildren<TextMeshProUGUI>().text = $"{Player.Name.Value} : {Player.CurrentRoomName.Value} : {Player.Status}";
     }
