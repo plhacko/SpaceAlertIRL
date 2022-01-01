@@ -10,6 +10,8 @@ public class ActionPanel : MonoBehaviour
     private GameObject PowerGeneratorActionPanelPrefab;
     [SerializeField]
     private GameObject EnergyPoolActionPanelPrefab;
+    [SerializeField]
+    private GameObject EnergyNodeActionPanelPrefab;
 
     public void ResetSelf()
     {
@@ -29,7 +31,9 @@ public class ActionPanel : MonoBehaviour
 
     public void DisplayThis(EnergyNode energyNode)
     {
-        // TODO: implement
+        ResetSelf();
+        GameObject _go = Instantiate(EnergyNodeActionPanelPrefab, transform.position, transform.rotation, transform);
+        _go.GetComponent<EnergyNodeActionPanel>().Initialise(energyNode);
     }
 
     public void DisplayThis(Player player)

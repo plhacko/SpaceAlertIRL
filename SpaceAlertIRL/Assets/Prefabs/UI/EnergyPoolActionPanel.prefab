@@ -142,7 +142,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1665385353437071247}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: EnergyPoolActionPanel, Assembly-CSharp
         m_MethodName: RequestEnergyTranfer
         m_Mode: 1
@@ -396,7 +396,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1665385353437071243}
-  - component: {fileID: 1665385353437071247}
+  - component: {fileID: 3707095403131874129}
   m_Layer: 5
   m_Name: EnergyPoolActionPanel
   m_TagString: Untagged
@@ -427,7 +427,7 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1665385353437071247
+--- !u!114 &3707095403131874129
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -436,10 +436,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1665385353437071244}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7a833f20b0f015c43b862a63ba6ea32f, type: 3}
+  m_Script: {fileID: 11500000, guid: aa01ba042f25c4b4286341d3e7d5fa4c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  EnergyPool: {fileID: 0}
+  EnergyNode: {fileID: 0}
 --- !u!1 &1665385354042727597
 GameObject:
   m_ObjectHideFlags: 0

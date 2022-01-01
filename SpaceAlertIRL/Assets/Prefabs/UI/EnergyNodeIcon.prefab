@@ -122,9 +122,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 5895735316119502606}
-        m_TargetAssemblyTypeName: EnergyPoolIcon, Assembly-CSharp
-        m_MethodName: 
+      - m_Target: {fileID: 9101914952716557629}
+        m_TargetAssemblyTypeName: EnergyNodeIcon, Assembly-CSharp
+        m_MethodName: SpawnActionPanel
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

@@ -1675,6 +1675,11 @@ MonoBehaviour:
       SourcePrefabToOverride: {fileID: 0}
       SourceHashToOverride: 0
       OverridingTargetPrefab: {fileID: 0}
+    - Override: 0
+      Prefab: {fileID: 3616397404161810846, guid: d2d6f34e20dcb1747895a879d8e131f9, type: 3}
+      SourcePrefabToOverride: {fileID: 0}
+      SourceHashToOverride: 0
+      OverridingTargetPrefab: {fileID: 0}
     TickRate: 30
     ClientConnectionBufferTimeout: 10
     ConnectionApproval: 0
@@ -2176,6 +2181,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c48806a263424454f85f30e29ae8ce04, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1541201243 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6470646743694999632, guid: c516a6304e246e14ca651b20ec874884, type: 3}
+  m_PrefabInstance: {fileID: 8444310740442504297}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b798859534257e47a0e0a9c56370e5f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &1553743055
@@ -2853,6 +2869,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3168670459139111587, guid: d2d6f34e20dcb1747895a879d8e131f9, type: 3}
+      propertyPath: Room
+      value: 
+      objectReference: {fileID: 390266525}
+    - target: {fileID: 3168670459139111587, guid: d2d6f34e20dcb1747895a879d8e131f9, type: 3}
+      propertyPath: Source
+      value: 
+      objectReference: {fileID: 1541201243}
     - target: {fileID: 3616397404161810841, guid: d2d6f34e20dcb1747895a879d8e131f9, type: 3}
       propertyPath: m_RootOrder
       value: 20

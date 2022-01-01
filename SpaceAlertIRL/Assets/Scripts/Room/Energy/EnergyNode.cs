@@ -19,7 +19,8 @@ public class EnergyNode : Amenity
 
     public override void SpawnIconAsChild(GameObject parent)
     {
-        throw new System.NotImplementedException();
+        GameObject _go = Instantiate(IconPrefab, parent.transform.position, parent.transform.rotation, parent.transform);
+        _go.GetComponent<EnergyNodeIcon>().Initialise(this);
     }
 
 #if (SERVER)

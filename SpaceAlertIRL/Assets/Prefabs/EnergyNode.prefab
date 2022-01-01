@@ -126,5 +126,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Room: {fileID: 0}
-  IconPrefab: {fileID: 0}
+  IconPrefab: {fileID: 5895735316119502606, guid: 75ead6c456c735348b8bab266087d9fc, type: 3}
   Source: {fileID: 0}
