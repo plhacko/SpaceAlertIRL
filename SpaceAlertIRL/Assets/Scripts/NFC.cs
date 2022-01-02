@@ -41,7 +41,7 @@ public class NFC : MonoBehaviour
 					_sAction = _mIntent.Call<String>("getAction"); // results are returned in the Intent object
 					if (_sAction == "android.nfc.action.NDEF_DISCOVERED")
 					{
-						Debug.Log("Tag of type NDEF");
+						Debug.Log("Tag of type NDEF"); // TODO: delete this line
 						AndroidJavaObject[] rawMsg = _mIntent.Call<AndroidJavaObject[]>("getParcelableArrayExtra", "android.nfc.extra.NDEF_MESSAGES");
 						AndroidJavaObject[] records = rawMsg[0].Call<AndroidJavaObject[]>("getRecords");
 						byte[] payLoad = records[0].Call<byte[]>("getPayload");
