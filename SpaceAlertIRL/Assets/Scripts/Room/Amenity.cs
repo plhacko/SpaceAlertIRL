@@ -10,19 +10,16 @@ using System;
 public abstract class Amenity : NetworkBehaviour
 {
     [SerializeField]
-    protected Room Room;
-
-    [SerializeField]
     protected GameObject IconPrefab;
+
+    protected Room Room;
     public abstract void SpawnIconAsChild(GameObject parent);
 
     public UpdateUIActions UIActions = new UpdateUIActions();
 
     protected virtual void Start()
     {
+        Room = transform.parent.GetComponent<Room>();
         Room.Amenities.Add(this);
     }
-
-    // TODO: remove
-    // string Name { get; }
 }

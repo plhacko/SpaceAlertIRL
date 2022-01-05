@@ -30,7 +30,7 @@ public class PowerGenerator : EnergyPool
     }
 #endif
 
-    [ServerRpc(RequireOwnership = false)]   
+    [ServerRpc(RequireOwnership = false)]
     public void RequestBurningPowerCellServerRpc()
     {
         GetEnergy();

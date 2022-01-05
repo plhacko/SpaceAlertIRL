@@ -10,6 +10,8 @@ using Unity.Netcode;
 public class EnergyNode : Amenity
 {
     [SerializeField]
+    protected Room SourceRoom;
+    [SerializeField] // TODO: delete SerializeField
     protected EnergyNode Source;
 
     public string GetSourceName()
@@ -69,5 +71,18 @@ public class EnergyNode : Amenity
     protected override void Start()
     {
         base.Start();
+        Room.AddEnergySource(this);
+
+        if (SourceRoom != null)
+        {
+            // the room has Room.EnergySource, but we can't use that, because is it instantiated at runtime as you can see above
+            EnergyNode[] energyNodeArray = SourceRoom.GetComponentsInChildren<EnergyNode>();
+            if (energyNodeArray.Length < 1)
+            { throw new System.Exception($"The room \"{SourceRoom.Name}\" doesn't have energySource (from room : {this.Room.Name})"); }
+            else if (energyNodeArray.Length > 1)
+            { throw new System.Exception($"The room \"{SourceRoom.Name}\" has too many energySources ({energyNodeArray.Length}) (from room : {this.Room.Name})"); }
+
+            Source = energyNodeArray[0];
+        }
     }
 }

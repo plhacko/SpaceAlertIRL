@@ -13,16 +13,15 @@ public class Room : NetworkBehaviour
     public List<Door> Doors; // TODO: make {get; private set}
     public List<Amenity> Amenities;
 
-    // Start is called before the first frame update
-    void Start()
+    // the EnergySource will also be in the List of Amenities
+    // note: there are derived classes form EnergyNode
+    [SerializeField] //TODO: remove SerializeField
+    private EnergyNode EnergySource;
+    public EnergyNode GetEnergySource() => EnergySource;
+    public void AddEnergySource(EnergyNode energySource)
     {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
+        if (EnergySource != null) { throw new System.Exception($"The EnergySource for this room \"{Name}\" can be added only once."); }
+        EnergySource = energySource;
     }
 
     public string GetName() => Name;
