@@ -13,7 +13,8 @@ using System;
 
 public class Door : NetworkBehaviour
 {
-    const float OpenningSpeedConst = 0.5f;
+    [SerializeField]
+    float OpenningSpeedConst = 0.2f;
 
     public string Name { get => gameObject.name; }
 
