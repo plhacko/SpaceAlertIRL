@@ -12,13 +12,6 @@ public class UpdateUIActions
 {
     private Action Body;
 
-    // old
-    // public UpdateUIActions(NetworkVariable<T> nv)
-    // {
-    //     Body = () => { };
-    //     nv.OnValueChanged = UpdateUI;
-    // }
-
     public UpdateUIActions()
     {
         Body = () => { };
@@ -32,12 +25,6 @@ public class UpdateUIActions
     { nv.OnValueChanged = UpdateUI<bool>; }
     public void AddOnValueChangeDependency(NetworkVariable<FixedString32Bytes> nv)
     { nv.OnValueChanged = UpdateUI<FixedString32Bytes>; }
-
-    // old //TODO: try again generic
-    // public void AddOnValueChangeDependency<T>(NetworkVariable<T> nv)
-    // {
-    //     nv.OnValueChanged = UpdateUI<T>;
-    // }
 
     public void AddAction(Action a)
     {
@@ -58,10 +45,4 @@ public class UpdateUIActions
     {
         Body();
     }
-
-    // old
-    // void UpdateUI(T t1, T t2)
-    // {
-    //     Body();
-    // }
 }

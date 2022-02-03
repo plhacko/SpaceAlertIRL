@@ -1,3 +1,5 @@
+#define SERVER
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -15,6 +17,30 @@ public class EnergyShield : Amenity
     {
         GameObject _go = Instantiate(IconPrefab, parent.transform.position, parent.transform.rotation, parent.transform);
         _go.GetComponent<EnergyShieldIcon>().Initialise(this);
+    }
+
+#if (SERVER)
+    private void RechargeEnergyShield()
+    {
+        if (!NetworkManager.Singleton.IsServer) { throw new System.Exception("Is not a server"); }
+
+        EnergyNode energySource = Room.GetEnergySource(); // might me a child of EnergyNode
+        int requestedEnergy = Mathf.Max(MaxShieldValue.Value - ShieldValue.Value, 0); // requestedEnergy must be more than 0
+
+        int receivedEnergy = energySource.PullEnergyUpTo(requestedEnergy);
+        ShieldValue.Value = ShieldValue.Value + receivedEnergy;
+
+        if (receivedEnergy == 0)
+        {
+            //TODO: make message to the Player, that the transaction eneded with 0 energy added
+        }
+    }
+#endif
+
+    [ServerRpc(RequireOwnership = false)]
+    public void RequestRechargeEnergyShieldServerRpc()
+    {
+        RechargeEnergyShield();
     }
 
     protected override void Start()

@@ -25,7 +25,10 @@ public class EnergyShieldIcon : Icon
     {
         if (EnergyShield != null)
         {
-            GetComponentInChildren<TextMeshProUGUI>().text = $"E. Shield : {3}/{5}";
+            var _energyShieldValue = EnergyShield.ShieldValue.Value;
+            var _energyShieldMaxValue = EnergyShield.MaxShieldValue.Value;
+
+            GetComponentInChildren<TextMeshProUGUI>().text = $"E. Shield : {_energyShieldValue}/{_energyShieldMaxValue}";
         }
         else
         { Debug.Log("Door or NextRoom were not given to DoorIcon"); } // TODO: smazat else

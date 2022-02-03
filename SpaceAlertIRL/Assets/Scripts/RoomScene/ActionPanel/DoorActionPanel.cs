@@ -20,10 +20,6 @@ public class DoorActionPanel : MonoBehaviour
         Door.IsOpenUIActions.AddAction(UpdateUIAction);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-    }
 
     public void OpenDoor()
     {
