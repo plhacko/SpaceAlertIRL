@@ -14,7 +14,7 @@ using System;
 public class Door : NetworkBehaviour
 {
     [SerializeField]
-    float OpenningSpeedConst = 0.2f;
+    float OpenningSpeedConst = 0.5f;
 
     public string Name { get => gameObject.name; }
 

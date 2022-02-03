@@ -105,7 +105,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a52b96551bb30f04d9ecf5b9423aaa8f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  OpenningSpeedConst: 0.2
+  OpenningSpeedConst: 1
   RoomA: {fileID: 0}
   RoomB: {fileID: 0}
   IsOpen:
