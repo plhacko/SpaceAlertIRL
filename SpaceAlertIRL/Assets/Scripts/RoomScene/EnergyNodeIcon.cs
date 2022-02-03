@@ -29,7 +29,7 @@ public class EnergyNodeIcon : Icon
             GetComponentInChildren<TextMeshProUGUI>().text = $"Source : {EnergyNode.GetSourceName()}";
         }
         else
-        { Debug.Log("Door or NextRoom were not given to DoorIcon"); } // TODO: smazat else
+        { Debug.Log("Missing Icon"); } // TODO: smazat else
     }
 
     override protected void OnDisable()

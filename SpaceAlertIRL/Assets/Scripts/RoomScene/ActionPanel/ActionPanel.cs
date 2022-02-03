@@ -14,6 +14,8 @@ public class ActionPanel : MonoBehaviour
     private GameObject EnergyNodeActionPanelPrefab;
     [SerializeField]
     private GameObject EnergyShieldActionPanelPrefab;
+    [SerializeField]
+    private GameObject LaserActionPanelPrefab;
 
     public void ResetSelf()
     {
@@ -36,6 +38,13 @@ public class ActionPanel : MonoBehaviour
         ResetSelf();
         GameObject _go = Instantiate(EnergyShieldActionPanelPrefab, transform.position, transform.rotation, transform);
         _go.GetComponent<EnergyShieldActionPanel>().Initialise(energyShield);
+    }
+
+    public void DisplayThis(Laser laser)
+    {
+        ResetSelf();
+        GameObject _go = Instantiate(LaserActionPanelPrefab, transform.position, transform.rotation, transform);
+        _go.GetComponent<LaserActionPanel>().Initialise(laser);
     }
 
     public void DisplayThis(EnergyNode energyNode)

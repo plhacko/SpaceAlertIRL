@@ -53,6 +53,6 @@ public class DoorIcon : Icon
             else { GetComponent<Image>().color = Color.white; }
         }
         else
-        { Debug.Log("Door or NextRoom were not given to DoorIcon"); } // TODO: smazat else
+        { Debug.Log("Missing Icon"); } // TODO: smazat else
     }
 }
