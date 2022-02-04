@@ -5,15 +5,28 @@ using Unity.Netcode;
 
 public abstract class Enemy : NetworkBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    abstract protected int StratingHPConst { get; }
+    abstract protected int StartingEnergyShieldsConst { get; }
+
+    protected NetworkVariable<int> HP;
+    protected NetworkVariable<int> EnergyShields;
+
+    protected Zone Zone;
+
+    public UpdateUIActions UIActions = new UpdateUIActions();
+
+    public abstract void SpawnIconAsChild(GameObject parent);
+
+    public virtual void Start()
     {
-        
+        Zone = GetComponentInParent<Zone>();
+
+        HP = new NetworkVariable<int>(StratingHPConst);
+        EnergyShields = new NetworkVariable<int>(StratingHPConst);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    abstract public void TakeDamage(Weapon w); // the weapon is needed if there is a special exception
+    abstract public void Die();
+
+
 }
