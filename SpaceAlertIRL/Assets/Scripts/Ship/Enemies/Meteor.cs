@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class Meteor : Enemy
 {
@@ -17,8 +18,17 @@ public class Meteor : Enemy
         throw new System.NotImplementedException();
     }
 
-    public override void TakeDamage(Weapon w)
+    public override void TakeDamage(int damage, Weapon w)
     {
-        
+        if (damage < 0) { Debug.Log("damage can't be negative"); return; }
+
+        int _newHP = HP.Value - damage;
+        if (_newHP > 0)
+        { HP.Value = _newHP; }
+        else
+        {
+            HP.Value = 0;
+            Die();
+        }
     }
 }

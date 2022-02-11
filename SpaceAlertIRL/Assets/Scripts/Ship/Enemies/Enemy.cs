@@ -5,6 +5,9 @@ using Unity.Netcode;
 
 public abstract class Enemy : NetworkBehaviour
 {
+    [SerializeField]
+    protected GameObject IconPrefab;
+
     abstract protected int StratingHPConst { get; }
     abstract protected int StartingEnergyShieldsConst { get; }
 
@@ -25,7 +28,7 @@ public abstract class Enemy : NetworkBehaviour
         EnergyShields = new NetworkVariable<int>(StratingHPConst);
     }
 
-    abstract public void TakeDamage(Weapon w); // the weapon is needed if there is a special exception
+    abstract public void TakeDamage(int damage, Weapon w); // the weapon is needed if there is a special exception
     abstract public void Die();
 
 
