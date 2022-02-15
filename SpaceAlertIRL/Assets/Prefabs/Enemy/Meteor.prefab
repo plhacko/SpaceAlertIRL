@@ -105,3 +105,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05811e08fc20bb54688d1ec5b399fe7f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IconPrefab: {fileID: 6932641647045043630, guid: 1587913358f226b40a55f5fa9cfde9d9, type: 3}
+  _Impact:
+    m_InternalValue: 0

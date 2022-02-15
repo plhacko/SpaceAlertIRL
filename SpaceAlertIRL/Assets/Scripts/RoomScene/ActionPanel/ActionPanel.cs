@@ -57,6 +57,7 @@ public class ActionPanel : MonoBehaviour
     public void DisplayThis(Player player)
     {
         // TODO: ...
+        throw new System.NotImplementedException();
     }
     public void DisplayThis(EnergyPool energyPool)
     {

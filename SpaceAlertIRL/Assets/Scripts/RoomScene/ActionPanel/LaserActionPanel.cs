@@ -17,6 +17,9 @@ public class LaserActionPanel : MonoBehaviour
         UpdateUIAction = UpdateUI;
         UpdateUIAction();
         Laser.UIActions.AddAction(UpdateUIAction);
+
+        // 
+        transform.GetComponentInChildren<EnemyIconSpawner>().Initialise(Laser.Zone);
     }
 
     private void UpdateUI()

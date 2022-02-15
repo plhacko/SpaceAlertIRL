@@ -56,7 +56,8 @@ public class Meteor : Enemy
 
     public override void SpawnIconAsChild(GameObject parent)
     {
-        throw new System.NotImplementedException();
+        GameObject _go = Instantiate(IconPrefab, parent.transform.position, parent.transform.rotation, parent.transform);
+        _go.GetComponent<MeteorIcon>().Initialise(this);
     }
 
     public override void TakeDamage(int damage, Weapon w)
