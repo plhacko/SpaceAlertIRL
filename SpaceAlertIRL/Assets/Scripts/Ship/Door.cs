@@ -22,7 +22,7 @@ public class Door : NetworkBehaviour
     public Room RoomB;
 
     public string Status
-    { //TODO: need to be finished up -> open/slosed/...
+    { //TODO: need to be finished up -> open/closed/...
         get
         {
             if (IsOpen.Value)

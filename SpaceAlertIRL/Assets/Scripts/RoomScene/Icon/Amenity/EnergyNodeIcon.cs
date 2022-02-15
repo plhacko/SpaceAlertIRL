@@ -22,7 +22,7 @@ public class EnergyNodeIcon : Icon
         GameObject.Find("ActionPanel").GetComponent<ActionPanel>().DisplayThis(EnergyNode);
     }
 
-    override protected void UpdateUI()
+    protected override void UpdateUI()
     {
         if (EnergyNode != null)
         {

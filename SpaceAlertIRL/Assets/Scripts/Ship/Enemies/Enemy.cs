@@ -11,8 +11,8 @@ public abstract class Enemy : NetworkBehaviour
     abstract protected int StratingHPConst { get; }
     abstract protected int StartingEnergyShieldsConst { get; }
 
-    protected NetworkVariable<int> HP;
-    protected NetworkVariable<int> EnergyShields;
+    protected NetworkVariable<int> _HP;
+    protected NetworkVariable<int> _EnergyShields;
 
     protected Zone Zone;
 
@@ -20,16 +20,25 @@ public abstract class Enemy : NetworkBehaviour
 
     public abstract void SpawnIconAsChild(GameObject parent);
 
-    public virtual void Start()
+    protected virtual void Start()
     {
         Zone = GetComponentInParent<Zone>();
 
-        HP = new NetworkVariable<int>(StratingHPConst);
-        EnergyShields = new NetworkVariable<int>(StratingHPConst);
+        // TODO: this used to be problem elsewere (If I remember correctly) -> this needs to be set up only on server
+        _HP = new NetworkVariable<int>(StratingHPConst);
+        _EnergyShields = new NetworkVariable<int>(StratingHPConst);
     }
 
     abstract public void TakeDamage(int damage, Weapon w); // the weapon is needed if there is a special exception
     abstract public void Die();
+
+
+
+    // geters for UI
+    public int HP { get => _HP.Value; }
+    public int MaxHP { get => StratingHPConst; }
+    public int EnergyShields { get => _EnergyShields.Value; }
+    public int MaxEnergyShields { get => StartingEnergyShieldsConst; }
 
 
 }

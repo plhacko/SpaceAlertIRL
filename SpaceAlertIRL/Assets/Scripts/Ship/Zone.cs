@@ -6,6 +6,11 @@ using Unity.Netcode;
 public class Zone : NetworkBehaviour
 {
 
+    public void TakeDmage(int damage)
+    {
+        throw new System.NotImplementedException();
+    }
+
     // Start is called before the first frame update
     void Start()
     {
