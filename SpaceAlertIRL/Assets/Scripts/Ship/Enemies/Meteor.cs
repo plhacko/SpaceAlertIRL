@@ -10,7 +10,7 @@ public class Meteor : Enemy
 {
     protected override int StratingHPConst => 5;
     protected override int StartingEnergyShieldsConst => 0;
-    protected virtual int StartingImpactConst => 15;
+    protected virtual int StartingImpactConst => 42;
 
     [SerializeField]
     protected NetworkVariable<int> _Impact;
@@ -37,6 +37,8 @@ public class Meteor : Enemy
     {
         base.Start();
         _Impact = new NetworkVariable<int>(StartingImpactConst);
+        UIActions.AddOnValueChangeDependency(_Impact);
+
 #if (SERVER)
         Impact_serverVariable = (float)StartingImpactConst;
 #endif

@@ -8,9 +8,13 @@ using Unity.Netcode;
 public class Zone : NetworkBehaviour
 {
     public NetworkVariable<int> TmpDmgTaken = new NetworkVariable<int> (0);
+
+    [SerializeField]
     protected List<Enemy> EnemyList = new List<Enemy>();
 
     public IList<Enemy> GetEnemyList() => EnemyList.AsReadOnly();
+
+    public void AddEnemy(Enemy e) { EnemyList.Add(e); }
 
 #if (SERVER)
     public void TakeDmage(int damage)

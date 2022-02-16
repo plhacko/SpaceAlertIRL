@@ -23,10 +23,14 @@ public abstract class Enemy : NetworkBehaviour
     protected virtual void Start()
     {
         Zone = GetComponentInParent<Zone>();
+        Zone.AddEnemy(this);
 
         // TODO: this used to be problem elsewere (If I remember correctly) -> this needs to be set up only on server
         _HP = new NetworkVariable<int>(StratingHPConst);
         _EnergyShields = new NetworkVariable<int>(StratingHPConst);
+
+        UIActions.AddOnValueChangeDependency(_HP);
+        UIActions.AddOnValueChangeDependency(_EnergyShields);
     }
 
     abstract public void TakeDamage(int damage, Weapon w); // the weapon is needed if there is a special exception
