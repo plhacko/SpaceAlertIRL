@@ -8,6 +8,7 @@ public class Laser : Weapon
     const int DamageConst = 5;
     const int RangeConst = 4;
     const float StartHeatConst = 0.0f;
+    const int EnergyCostToShootConst = 1;
 
     public NetworkVariable<int> Damage;
     public NetworkVariable<int> Range;
@@ -32,4 +33,38 @@ public class Laser : Weapon
         UIActions.AddOnValueChangeDependency(Range);
         UIActions.AddOnValueChangeDependency(Heat);
     }
+
+    public void ShootAtClosesEnemy()
+    {
+        if (!NetworkManager.Singleton.IsServer) { throw new System.Exception("Is not a server"); }
+
+        // requestenergy
+        var energySource = Room.GetEnergySource();
+
+        Enemy enemy = Zone.GetClosestEnemy();
+
+        if (enemy == null)
+        {
+            //TODO: notify the player
+            Debug.Log("there is no enemy to shoot at");
+            return;
+        }
+
+        if (!energySource.PullEnergy(EnergyCostToShootConst))
+        {
+            //TODO: notify the player
+            Debug.Log("there is not enough energy");
+            return;
+        }
+
+        enemy.TakeDamage(Damage.Value, this);
+
+    }
+
+    [ServerRpc(RequireOwnership = false)]
+    public void RequestShootingAtClosesEnemyServerRpc()
+    {
+        ShootAtClosesEnemy();
+    }
 }
+

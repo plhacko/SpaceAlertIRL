@@ -40,4 +40,9 @@ public class LaserActionPanel : MonoBehaviour
         if (Laser != null)
         { Laser.UIActions.RemoveAction(UpdateUIAction); }
     }
+
+    public void RequestShootingAtClosesEnemy()
+    {
+        Laser.RequestShootingAtClosesEnemyServerRpc();
+    }
 }

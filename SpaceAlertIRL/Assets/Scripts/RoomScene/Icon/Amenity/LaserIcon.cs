@@ -16,6 +16,11 @@ public class LaserIcon : Icon
         Laser.UIActions.AddAction(UpdateUIAction);
     }
 
+    public void ShootAtClosestEnemy()
+    {
+        throw new System.NotImplementedException();
+    }
+
     public void SpawnActionPanel()
     {
         GameObject.Find("ActionPanel").GetComponent<ActionPanel>().DisplayThis(Laser);
@@ -33,7 +38,7 @@ public class LaserIcon : Icon
     {
         if (Laser != null)
         {
-            GetComponentInChildren<TextMeshProUGUI>().text = $"Laser {3}r {5}d"; //TODO:
+            GetComponentInChildren<TextMeshProUGUI>().text = $"Laser {3}r {5}d"; //TODO: r = range, d = damage
         }
         else
         { Debug.Log("Missing Icon"); } // TODO: smazat else

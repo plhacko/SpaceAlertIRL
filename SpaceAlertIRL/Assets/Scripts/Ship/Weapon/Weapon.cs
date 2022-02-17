@@ -4,7 +4,7 @@ using UnityEngine;
 
 public abstract class Weapon : Amenity
 {
-    public Zone Zone;
+    public Zone Zone; //TODO make private and make for it public getter
 
     protected override void Start()
     {

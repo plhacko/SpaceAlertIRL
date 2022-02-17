@@ -25,17 +25,19 @@ public class Zone : NetworkBehaviour
         TmpDmgTaken.Value = TmpDmgTaken.Value + damage;
         //throw new System.NotImplementedException();
     }
+
+    public Enemy GetClosestEnemy()
+    {
+        if (!NetworkManager.Singleton.IsServer)
+        { throw new System.Exception("this method should be called only on server"); }
+        
+        Enemy[] Enemies = GetComponentsInChildren<Enemy>();
+
+        // TODO: sort them by distance
+        var enemy = Enemies.Length != 0 ? Enemies[0] : null;
+
+        return enemy;
+    }
 #endif
 
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
 }
