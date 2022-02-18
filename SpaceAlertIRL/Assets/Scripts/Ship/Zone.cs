@@ -23,7 +23,8 @@ public class Zone : NetworkBehaviour
         { throw new System.Exception("this method should be called only on server");  }
 
         TmpDmgTaken.Value = TmpDmgTaken.Value + damage;
-        //throw new System.NotImplementedException();
+        
+        //TODO: for now we are just counting the damage
     }
 
     public Enemy GetClosestEnemy()
