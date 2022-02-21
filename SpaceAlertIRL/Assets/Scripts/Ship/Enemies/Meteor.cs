@@ -10,7 +10,7 @@ public class Meteor : Enemy
 {
     protected override int StratingHPConst => 5;
     protected override int StartingEnergyShieldsConst => 0;
-    protected virtual int StartingImpactConst => 42;
+    protected virtual int StartingImpactConst => 10;
 
     [SerializeField]
     protected NetworkVariable<int> _Impact;
@@ -28,7 +28,7 @@ public class Meteor : Enemy
         if ((int)Impact_serverVariable != _Impact.Value)
         {
             _Impact.Value = (int)Impact_serverVariable;
-            if (_Impact.Value == 0) { Die(); }
+            if (_Impact.Value == 0) { DoDamageAndDie(); }
         }
     }
 #endif
@@ -44,10 +44,10 @@ public class Meteor : Enemy
 #endif
     }
 
-    protected void DoDamage()
+    protected void DoDamageAndDie()
     {
         // does damage equal to it's HP and dies
-        Zone.TakeDmage(this.HP);
+        Zone.TakeDmage(this.HP, this);
         Die();
     }
 

@@ -3,26 +3,65 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using Unity.Netcode;
+using System;
 
 public class RoomNameToText : MonoBehaviour
 {
-    public TextMeshProUGUI Text; //TODO: make private
+    [SerializeField]
+    private TextMeshProUGUI RoomNameText;
+    [SerializeField]
+    private TextMeshProUGUI ZoneHPText;
+    [SerializeField]
+    private Zone Zone;
 
-    // Start is called before the first frame update
+    private Action UpdateUIAction;
+
     void Start()
     {
-        Text = this.GetComponent<TextMeshProUGUI>();
-        Player Player;
+        RoomNameText = this.GetComponent<TextMeshProUGUI>();
 
+        // writes the name of the current room to the GUI (of the local player)
         foreach (GameObject playerObject in GameObject.FindGameObjectsWithTag("Player"))
         {
-            Player = playerObject.GetComponent<Player>();
-            if (Player.OwnerClientId == NetworkManager.Singleton.LocalClientId)
+            Player player = playerObject.GetComponent<Player>();
+            if (player.OwnerClientId == NetworkManager.Singleton.LocalClientId)
             {
-                Text.text = Player.CurrentRoomName.Value.ToString();
+                string _roomName = player.CurrentRoomName.Value.ToString();
+
+                RoomNameText.text = $"{_roomName}";
+                Zone = GetZoneFromRoomName(_roomName); // getsZonme
                 break;
                 // TODO: if player object doesn't exist, there is a problem (make it a method)
             }
+        }
+
+        // updating UI using aciton onValueChangedependency
+        UpdateUIAction = UpdateUI;
+        UpdateUIAction();
+        Zone.UIActions.AddAction(UpdateUIAction);
+
+        Zone GetZoneFromRoomName(string roomName)
+        {
+            Room room = GameObject.Find(roomName).GetComponent<Room>();
+            return room.GetComponentInParent<Zone>();
+        }
+    }
+
+    protected void UpdateUI()
+    {
+        if (Zone != null)
+        {
+            transform.Find("RoomHP").GetComponent<TextMeshProUGUI>().text = $"HP\n{Zone.HP}/{Zone.MaxHP}";
+        }
+        else
+        { Debug.Log("Missing Icon"); } // TODO: smazat else
+    }
+
+    protected void OnDisable()
+    {
+        if (Zone != null)
+        {
+            Zone.UIActions.RemoveAction(UpdateUIAction);
         }
     }
 }
