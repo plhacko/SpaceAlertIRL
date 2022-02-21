@@ -28,11 +28,7 @@ public class Meteor : Enemy
         if ((int)Impact_serverVariable != _Impact.Value)
         {
             _Impact.Value = (int)Impact_serverVariable;
-            if (_Impact.Value == 0)
-            {
-                DoDamage();
-                Die();
-            }
+            if (_Impact.Value == 0) { Die(); }
         }
     }
 #endif
