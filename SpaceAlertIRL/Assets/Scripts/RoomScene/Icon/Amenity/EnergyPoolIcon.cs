@@ -3,42 +3,23 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-public class EnergyPoolIcon : Icon
+public class EnergyPoolIcon : AmenityIcon<EnergyPool>
 {
-    [SerializeField]
-    private EnergyPool EnergyPool;
-
-    public void Initialise(EnergyPool energyPool)
-    {
-        EnergyPool = energyPool;
-        UpdateUIAction = UpdateUI;
-        UpdateUIAction();
-        EnergyPool.UIActions.AddAction(UpdateUIAction);
-    }
-
     public void SpawnActionPanel()
     {
-        GameObject.Find("ActionPanel").GetComponent<ActionPanel>().DisplayThis(EnergyPool);
+        GameObject.Find("ActionPanel").GetComponent<ActionPanel>().DisplayThis(Amenity);
     }
 
     override protected void UpdateUI()
     {
-        if (EnergyPool != null)
+        if (Amenity != null)
         {
-            var _energyStorage = EnergyPool.EnergyStorage.Value;
-            var _maxEnergyStorage = EnergyPool.MaxEnergyStorage.Value;
+            var _energyStorage = Amenity.EnergyStorage.Value;
+            var _maxEnergyStorage = Amenity.MaxEnergyStorage.Value;
 
             GetComponentInChildren<TextMeshProUGUI>().text = $"power : {_energyStorage}/{_maxEnergyStorage}";
         }
         else
         { Debug.Log("Door or NextRoom were not given to DoorIcon"); } // TODO: smazat else
-    }
-
-    override protected void OnDisable()
-    {
-        if (EnergyPool != null)
-        {
-            EnergyPool.UIActions.RemoveAction(UpdateUIAction);
-        }
     }
 }

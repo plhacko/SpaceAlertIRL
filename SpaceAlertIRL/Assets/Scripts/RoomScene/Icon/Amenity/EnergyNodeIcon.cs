@@ -4,39 +4,20 @@ using UnityEngine;
 using System;
 using TMPro;
 
-public class EnergyNodeIcon : Icon
+public class EnergyNodeIcon : AmenityIcon<EnergyNode>
 {
-    [SerializeField]
-    private EnergyNode EnergyNode;
-
-    public void Initialise(EnergyNode energyNode)
-    {
-        EnergyNode = energyNode;
-        UpdateUIAction = UpdateUI;
-        UpdateUIAction();
-        EnergyNode.UIActions.AddAction(UpdateUIAction);
-    }
-
     public void SpawnActionPanel()
     {
-        GameObject.Find("ActionPanel").GetComponent<ActionPanel>().DisplayThis(EnergyNode);
+        GameObject.Find("ActionPanel").GetComponent<ActionPanel>().DisplayThis(Amenity);
     }
 
     protected override void UpdateUI()
     {
-        if (EnergyNode != null)
+        if (Amenity != null)
         {
-            GetComponentInChildren<TextMeshProUGUI>().text = $"Source : {EnergyNode.GetSourceName()}";
+            GetComponentInChildren<TextMeshProUGUI>().text = $"Source : {Amenity.GetSourceName()}";
         }
         else
         { Debug.Log("Missing Icon"); } // TODO: smazat else
-    }
-
-    override protected void OnDisable()
-    {
-        if (EnergyNode != null)
-        {
-            EnergyNode.UIActions.RemoveAction(UpdateUIAction);
-        }
     }
 }
