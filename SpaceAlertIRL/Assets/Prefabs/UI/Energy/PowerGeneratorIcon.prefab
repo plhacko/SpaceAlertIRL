@@ -146,7 +146,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eecf1805c45a7904d8e70e4be1fcc9aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ActionPanlePrefab: {fileID: 0}
+  ActionPanelPrefab: {fileID: 1490360538589189551, guid: a7a91cd0d32a4ce4382201be891c86cc, type: 3}
 --- !u!1 &8483854896650852092
 GameObject:
   m_ObjectHideFlags: 0

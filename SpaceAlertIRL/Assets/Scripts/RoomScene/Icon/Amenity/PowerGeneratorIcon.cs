@@ -6,11 +6,6 @@ using TMPro;
 
 public class PowerGeneratorIcon : AmenityIcon<PowerGenerator>
 {
-    public void SpawnActionPanel()
-    {
-        GameObject.Find("ActionPanel").GetComponent<ActionPanelSpawner>().DisplayThis(Amenity);
-    }
-
     override protected void UpdateUI()
     {
         if (Amenity != null)

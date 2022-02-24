@@ -5,11 +5,6 @@ using TMPro;
 
 public class EnergyPoolIcon : AmenityIcon<EnergyPool>
 {
-    public void SpawnActionPanel()
-    {
-        GameObject.Find("ActionPanel").GetComponent<ActionPanelSpawner>().DisplayThis(Amenity);
-    }
-
     override protected void UpdateUI()
     {
         if (Amenity != null)

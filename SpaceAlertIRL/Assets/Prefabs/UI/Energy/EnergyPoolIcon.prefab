@@ -146,7 +146,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 854eff48dd388fa48ac3b84d1a69f2e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  EnergyPool: {fileID: 0}
+  ActionPanelPrefab: {fileID: 1665385353437071244, guid: bda18434aa259cc43bd63a3bb876fba3, type: 3}
 --- !u!1 &3134981520203750724
 GameObject:
   m_ObjectHideFlags: 0

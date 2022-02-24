@@ -10,17 +10,6 @@ public class LaserIcon : AmenityIcon<Laser>
         throw new System.NotImplementedException();
     }
 
-    public void SpawnActionPanel()
-    {
-        // GameObject.Find("ActionPanel").GetComponent<ActionPanel>().DisplayThis(Amenity); //TODO: rm
-
-        var actionPanel = GameObject.Find("ActionPanel").GetComponent<ActionPanelSpawner>();
-        
-        actionPanel.ResetSelf();
-        GameObject _go = Instantiate(ActionPanelPrefab, actionPanel.transform.position, actionPanel.transform.rotation, actionPanel.transform);
-        _go.GetComponent<LaserActionPanel>().Initialise(Amenity);
-    }
-
     protected override void UpdateUI()
     {
         if (Amenity != null)
@@ -29,12 +18,5 @@ public class LaserIcon : AmenityIcon<Laser>
         }
         else
         { Debug.Log("Missing Icon"); } // TODO: smazat else
-    }
-
-    protected void OnDisable()
-    {
-        // removes the update action
-        if (Amenity != null)
-        { Amenity.UIActions.RemoveAction(UpdateUIAction); }
     }
 }
