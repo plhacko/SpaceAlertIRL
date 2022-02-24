@@ -46,11 +46,10 @@ public class Door : NetworkBehaviour
     // }, false));
 
     public NetworkVariable<bool> IsOpen;
-    public UpdateUIActions IsOpenUIActions;
-
     // todo: rename this
     public NetworkVariable<float> OpenningClosingProgress;
-    public UpdateUIActions OpenningClosingProgressUIActions;
+    
+    public UpdateUIActions UIActions = new UpdateUIActions();
 
     // Start is called before the first frame update
     void Start()
@@ -59,12 +58,10 @@ public class Door : NetworkBehaviour
         AddSelfToRoom(RoomB);
 
         IsOpen = new NetworkVariable<bool>(false);
-        IsOpenUIActions = new UpdateUIActions();
-        IsOpenUIActions.AddOnValueChangeDependency(IsOpen);
+        UIActions.AddOnValueChangeDependency(IsOpen);
 
         OpenningClosingProgress = new NetworkVariable<float>(1.0f);
-        OpenningClosingProgressUIActions = new UpdateUIActions();
-        OpenningClosingProgressUIActions.AddOnValueChangeDependency(OpenningClosingProgress);
+        UIActions.AddOnValueChangeDependency(OpenningClosingProgress);
     }
 
 

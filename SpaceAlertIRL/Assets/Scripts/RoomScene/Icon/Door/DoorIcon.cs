@@ -6,8 +6,6 @@ using TMPro;
 using System;
 
 
-
-
 public class DoorIcon : Icon
 {
     private Door Door;
@@ -19,8 +17,7 @@ public class DoorIcon : Icon
     {
         if (Door != null)
         {
-            Door.IsOpenUIActions.RemoveAction(UpdateUIAction);
-            Door.OpenningClosingProgressUIActions.RemoveAction(UpdateUIAction);
+            Door.UIActions.RemoveAction(UpdateUIAction);
         }
     }
 
@@ -33,13 +30,7 @@ public class DoorIcon : Icon
         // UI update actions
         UpdateUIAction = UpdateUI;
         UpdateUIAction();
-        Door.IsOpenUIActions.AddAction(UpdateUIAction);
-        Door.OpenningClosingProgressUIActions.AddAction(UpdateUIAction);
-    }
-
-    public void SpawnActionPanel()
-    {
-        GameObject.Find("ActionPanel").GetComponent<ActionPanelSpawner>().DisplayThis(Door);
+        Door.UIActions.AddAction(UpdateUIAction);
     }
 
     override protected void UpdateUI()
@@ -54,5 +45,14 @@ public class DoorIcon : Icon
         }
         else
         { Debug.Log("Missing Icon"); } // TODO: smazat else
+    }
+
+    public void SpawnActionPanel()
+    {
+        var actionPanel = GameObject.Find("ActionPanel").GetComponent<ActionPanelSpawner>();
+
+        actionPanel.ResetSelf();
+        GameObject _go = Instantiate(ActionPanelPrefab, actionPanel.transform.position, actionPanel.transform.rotation, actionPanel.transform);
+        _go.GetComponent<DoorActionPanel>().Initialise(Door);
     }
 }

@@ -146,8 +146,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0656db2f9c1b4b043bc1306c26b34188, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Door: {fileID: 0}
-  NextRoom: {fileID: 0}
+  ActionPanelPrefab: {fileID: 2479197004235772598, guid: 41c0ad2fa9032a24cb7474c4914ac3a1, type: 3}
 --- !u!1 &8483854896650852092
 GameObject:
   m_ObjectHideFlags: 0

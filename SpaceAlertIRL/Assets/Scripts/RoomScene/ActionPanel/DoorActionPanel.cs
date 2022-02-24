@@ -17,9 +17,18 @@ public class DoorActionPanel : MonoBehaviour
 
         // UI changing actions
         UpdateUIAction = UpdateUI;
-        Door.IsOpenUIActions.AddAction(UpdateUIAction);
+        Door.UIActions.AddAction(UpdateUIAction);
     }
 
+    virtual public void Initialise(Door door)
+    {
+        Door = door;
+
+        // UI changing actions
+        UpdateUIAction = UpdateUI;
+        UpdateUIAction();
+        Door.UIActions.AddAction(UpdateUIAction);
+    }
 
     public void OpenDoor()
     {
@@ -40,7 +49,7 @@ public class DoorActionPanel : MonoBehaviour
     {
         // removes the opdate action
         if (Door != null)
-            Door.IsOpenUIActions.RemoveAction(UpdateUIAction);
+        { Door.UIActions.RemoveAction(UpdateUIAction); }
     }
 
     // TODO: this will be repleaced with NFC
@@ -64,6 +73,5 @@ public class DoorActionPanel : MonoBehaviour
                 { Debug.Log("player is not at the same room as doors and is trying to go through"); }
             }
         }
-
     }
 }
