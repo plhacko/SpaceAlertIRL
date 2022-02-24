@@ -7,7 +7,7 @@ public class EnergyPoolIcon : AmenityIcon<EnergyPool>
 {
     public void SpawnActionPanel()
     {
-        GameObject.Find("ActionPanel").GetComponent<ActionPanel>().DisplayThis(Amenity);
+        GameObject.Find("ActionPanel").GetComponent<ActionPanelSpawner>().DisplayThis(Amenity);
     }
 
     override protected void UpdateUI()

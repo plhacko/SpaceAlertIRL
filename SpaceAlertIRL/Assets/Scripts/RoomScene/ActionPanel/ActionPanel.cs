@@ -1,79 +1,28 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
-public class ActionPanel : MonoBehaviour
+public abstract class ActionPanel<T> : MonoBehaviour where T : Amenity
 {
-    [SerializeField]
-    private GameObject RoomActionPanelPrefab;
-    [SerializeField]
-    private GameObject PowerGeneratorActionPanelPrefab;
-    [SerializeField]
-    private GameObject EnergyPoolActionPanelPrefab;
-    [SerializeField]
-    private GameObject EnergyNodeActionPanelPrefab;
-    [SerializeField]
-    private GameObject EnergyShieldActionPanelPrefab;
-    [SerializeField]
-    private GameObject LaserActionPanelPrefab;
-
-    public void ResetSelf()
+    protected T Amenity;
+    protected Action UpdateUIAction;
+    virtual public void Initialise(T t)
     {
-        foreach (Transform child in transform)
-        {
-            GameObject.Destroy(child.gameObject);
-        }
+        Amenity = t;
+
+        // UI changing actions
+        UpdateUIAction = UpdateUI;
+        UpdateUIAction();
+        Amenity.UIActions.AddAction(UpdateUIAction);
     }
 
-    // this method might be better placed on a differen space (may be it would be better to use extension?)
-    public void DisplayThis(Door door)
+    private void OnDisable()
     {
-        ResetSelf();
-        GameObject _go = Instantiate(RoomActionPanelPrefab, transform.position, transform.rotation, transform);
-        _go.GetComponent<DoorActionPanel>().Door = door;
+        // removes the update action
+        if (Amenity != null)
+        { Amenity.UIActions.RemoveAction(UpdateUIAction); }
     }
 
-    public void DisplayThis(EnergyShield energyShield)
-    {
-        ResetSelf();
-        GameObject _go = Instantiate(EnergyShieldActionPanelPrefab, transform.position, transform.rotation, transform);
-        _go.GetComponent<EnergyShieldActionPanel>().Initialise(energyShield);
-    }
-
-    public void DisplayThis(Laser laser)
-    {
-        ResetSelf();
-        GameObject _go = Instantiate(LaserActionPanelPrefab, transform.position, transform.rotation, transform);
-        _go.GetComponent<LaserActionPanel>().Initialise(laser);
-    }
-
-    public void DisplayThis(EnergyNode energyNode)
-    {
-        ResetSelf();
-        GameObject _go = Instantiate(EnergyNodeActionPanelPrefab, transform.position, transform.rotation, transform);
-        _go.GetComponent<EnergyNodeActionPanel>().Initialise(energyNode);
-    }
-
-    public void DisplayThis(Player player)
-    {
-        // TODO: ...
-        throw new System.NotImplementedException();
-    }
-    public void DisplayThis(EnergyPool energyPool)
-    {
-        ResetSelf();
-        GameObject _go = Instantiate(EnergyPoolActionPanelPrefab, transform.position, transform.rotation, transform);
-        _go.GetComponent<EnergyPoolActionPanel>().Initialise(energyPool);
-    }
-    public void DisplayThis(PowerGenerator powerGenerator)
-    {
-        ResetSelf();
-        GameObject _go = Instantiate(PowerGeneratorActionPanelPrefab, transform.position, transform.rotation, transform);
-        _go.GetComponent<PowerGeneratorActionPanel>().Initialise(powerGenerator);
-    }
-
-    private void Start()
-    {
-        ResetSelf();
-    }
+    protected abstract void UpdateUI();
 }

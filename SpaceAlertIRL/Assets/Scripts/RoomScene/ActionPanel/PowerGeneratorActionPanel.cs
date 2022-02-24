@@ -5,26 +5,13 @@ using System;
 using TMPro;
 using Unity.Netcode;
 
-public class PowerGeneratorActionPanel : MonoBehaviour
+public class PowerGeneratorActionPanel : ActionPanel<PowerGenerator>
 {
-    public PowerGenerator PowerGenerator;
-    private Action UpdateUIAction;
-    // Start is called before the first frame update
-    public void Initialise(PowerGenerator powerGenerator)
+    protected override void UpdateUI()
     {
-        PowerGenerator = powerGenerator;
-        // UI changing actions
-        UpdateUIAction = UpdateUI;
-        UpdateUIAction();
-        PowerGenerator.UIActions.AddAction(UpdateUIAction);
-    }
-
-
-    private void UpdateUI()
-    {
-        var _energyStorage = PowerGenerator.EnergyStorage.Value;
-        var _maxEnergyStorage = PowerGenerator.MaxEnergyStorage.Value;
-        var _energyPowerCellCount = PowerGenerator.EnergyPowerCellCount.Value;
+        var _energyStorage = Amenity.EnergyStorage.Value;
+        var _maxEnergyStorage = Amenity.MaxEnergyStorage.Value;
+        var _energyPowerCellCount = Amenity.EnergyPowerCellCount.Value;
 
         transform.Find("Status").GetComponentInChildren<TextMeshProUGUI>().text = "Status : good"; // TODO: redo this
         transform.Find("Energy").GetComponentInChildren<TextMeshProUGUI>().text = $"Energy : {_energyStorage}/{_maxEnergyStorage}";
@@ -33,13 +20,6 @@ public class PowerGeneratorActionPanel : MonoBehaviour
 
     public void RequestBurningOfPowerCell()
     {
-        PowerGenerator.RequestBurningPowerCellServerRpc();
-    }
-
-    private void OnDisable()
-    {
-        // removes the update action
-        if (PowerGenerator != null)
-        { PowerGenerator.UIActions.RemoveAction(UpdateUIAction); }
+        Amenity.RequestBurningPowerCellServerRpc();
     }
 }

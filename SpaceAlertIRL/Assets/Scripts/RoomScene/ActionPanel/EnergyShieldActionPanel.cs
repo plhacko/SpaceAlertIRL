@@ -5,39 +5,18 @@ using System;
 using TMPro;
 using Unity.Netcode;
 
-public class EnergyShieldActionPanel : MonoBehaviour
+public class EnergyShieldActionPanel : ActionPanel<EnergyShield>
 {
-    EnergyShield EnergyShield;
-    private Action UpdateUIAction;
-
-    public void Initialise(EnergyShield energyShield)
-    {
-        EnergyShield = energyShield;
-
-        // UI changing actions
-        UpdateUIAction = UpdateUI;
-        UpdateUIAction();
-        EnergyShield.UIActions.AddAction(UpdateUIAction);
-    }
-
     public void RequestRechargeEnergyShield()
     {
-        EnergyShield.RequestRechargeEnergyShieldServerRpc();
+        Amenity.RequestRechargeEnergyShieldServerRpc();
     }
-
-    private void UpdateUI()
+    protected override void UpdateUI()
     {
-        var _energyShieldValue = EnergyShield.ShieldValue.Value;
-        var _energyShieldMaxValue = EnergyShield.MaxShieldValue.Value;
+        var _energyShieldValue = Amenity.ShieldValue.Value;
+        var _energyShieldMaxValue = Amenity.MaxShieldValue.Value;
 
         transform.Find("Status").GetComponentInChildren<TextMeshProUGUI>().text = "Status : good"; // TODO: redo this
         transform.Find("EnergyShield").GetComponentInChildren<TextMeshProUGUI>().text = $"E. Shield : {_energyShieldValue}/{_energyShieldMaxValue}";
-    }
-
-    private void OnDisable()
-    {
-        // removes the update action
-        if (EnergyShield != null)
-        { EnergyShield.UIActions.RemoveAction(UpdateUIAction); }
     }
 }

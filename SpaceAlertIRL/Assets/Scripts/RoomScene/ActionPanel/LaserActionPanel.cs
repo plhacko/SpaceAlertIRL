@@ -4,29 +4,20 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-public class LaserActionPanel : MonoBehaviour
+public class LaserActionPanel : ActionPanel<Laser>
 {
-    Laser Laser;
-    private Action UpdateUIAction;
-
-    public void Initialise(Laser laser)
+    
+    public override void Initialise(Laser laser)
     {
-        Laser = laser;
-
-        // UI changing actions
-        UpdateUIAction = UpdateUI;
-        UpdateUIAction();
-        Laser.UIActions.AddAction(UpdateUIAction);
-
-        // 
-        transform.GetComponentInChildren<EnemyIconSpawner>().Initialise(Laser.Zone);
+        base.Initialise(laser);
+        transform.GetComponentInChildren<EnemyIconSpawner>().Initialise(Amenity.Zone);
     }
 
-    private void UpdateUI()
+    protected override void UpdateUI()
     {
-        var _damage = Laser.Damage.Value;
-        var _range = Laser.Range.Value;
-        var _heat = Laser.Heat.Value;
+        var _damage = Amenity.Damage.Value;
+        var _range = Amenity.Range.Value;
+        var _heat = Amenity.Heat.Value;
 
         transform.Find("Status").GetComponentInChildren<TextMeshProUGUI>().text = "Status : good"; // TODO: redo this
         transform.Find("Damage").GetComponentInChildren<TextMeshProUGUI>().text = $"Damage : {_damage}";
@@ -34,15 +25,9 @@ public class LaserActionPanel : MonoBehaviour
         transform.Find("Heat").GetComponentInChildren<TextMeshProUGUI>().text = $"Heat : {_heat}";
     }
 
-    private void OnDisable()
-    {
-        // removes the update action
-        if (Laser != null)
-        { Laser.UIActions.RemoveAction(UpdateUIAction); }
-    }
 
     public void RequestShootingAtClosesEnemy()
     {
-        Laser.RequestShootingAtClosesEnemyServerRpc();
+        Amenity.RequestShootingAtClosesEnemyServerRpc();
     }
 }

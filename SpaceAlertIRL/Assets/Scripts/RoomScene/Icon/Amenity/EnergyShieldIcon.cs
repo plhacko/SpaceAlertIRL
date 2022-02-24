@@ -7,7 +7,7 @@ public class EnergyShieldIcon : AmenityIcon<EnergyShield>
 {
     public void SpawnActionPanel()
     {
-        GameObject.Find("ActionPanel").GetComponent<ActionPanel>().DisplayThis(Amenity);
+        GameObject.Find("ActionPanel").GetComponent<ActionPanelSpawner>().DisplayThis(Amenity);
     }
 
     protected override void UpdateUI()

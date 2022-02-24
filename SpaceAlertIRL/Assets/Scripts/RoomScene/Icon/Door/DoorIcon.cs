@@ -39,7 +39,7 @@ public class DoorIcon : Icon
 
     public void SpawnActionPanel()
     {
-        GameObject.Find("ActionPanel").GetComponent<ActionPanel>().DisplayThis(Door);
+        GameObject.Find("ActionPanel").GetComponent<ActionPanelSpawner>().DisplayThis(Door);
     }
 
     override protected void UpdateUI()
