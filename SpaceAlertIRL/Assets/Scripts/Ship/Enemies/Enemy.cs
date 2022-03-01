@@ -36,6 +36,8 @@ public abstract class Enemy : NetworkBehaviour
     abstract public void TakeDamage(int damage, Weapon w); // the weapon is needed if there is a special exception
     virtual public void Die()
     {
+        _HP.Value = 0;
+        Zone.RemoveEnemy(this);
         GetComponent<NetworkObject>().Despawn(true);
     }
 

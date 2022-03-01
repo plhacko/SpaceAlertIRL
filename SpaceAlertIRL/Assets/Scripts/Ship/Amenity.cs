@@ -7,16 +7,19 @@ using Unity.Netcode;
 //rm using MLAPI.Messaging;
 using System;
 
-public abstract class Amenity : NetworkBehaviour
+public abstract class ShipPart : NetworkBehaviour
 {
     [SerializeField]
     protected GameObject IconPrefab;
 
-    protected Room Room;
     public abstract void SpawnIconAsChild(GameObject parent);
 
     public UpdateUIActions UIActions = new UpdateUIActions();
-
+}
+public abstract class Amenity : ShipPart
+{
+    protected Room Room;
+    
     protected virtual void Start()
     {
         Room = transform.parent.GetComponent<Room>();

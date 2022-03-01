@@ -14,8 +14,9 @@ public class EnemyIconSpawner : MonoBehaviour
 
     private void SpawnAllEnemies()
     {
-        //TODO: add restart -> if new enemy appears
         //TODO: add sorting mechanism, to sort the icons
+
+        ResetSelf();
 
         foreach (Enemy enemy in Zone.GetEnemyList())
         {
@@ -23,9 +24,11 @@ public class EnemyIconSpawner : MonoBehaviour
         }
     }
 
-    void Start()
+    public void ResetSelf()
     {
-
+        foreach (Transform child in transform)
+        {
+            GameObject.Destroy(child.gameObject);
+        }
     }
-
 }

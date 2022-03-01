@@ -43,3 +43,36 @@ abstract public class AmenityIcon<T> : Icon where T : Amenity
         _go.GetComponent<ActionPanel<T>>().Initialise(Amenity);
     }
 }
+
+abstract public class EnemyIcon<T> : Icon where T : Enemy
+{
+    protected T Enemy;
+
+    public void Initialise(T enemy)
+    {
+        Enemy = enemy;
+        UpdateUIAction = UpdateUI;
+        UpdateUIAction += DestroyThisIconWithEnemyDeath;
+        UpdateUIAction();
+        Enemy.UIActions.AddAction(UpdateUIAction);
+    }
+
+    private void DestroyThisIconWithEnemyDeath()
+    {
+        if (Enemy.HP == 0)
+        { Destroy(this.gameObject); }
+    }
+
+    override protected void OnDisable()
+    {
+        if (Enemy != null)
+        {
+            Enemy.UIActions.RemoveAction(UpdateUIAction);
+        }
+    }
+
+    public void SpawnInfoPanel()
+    {
+        throw new System.NotImplementedException();
+    }
+}

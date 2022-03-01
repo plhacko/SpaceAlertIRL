@@ -1244,12 +1244,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 480930434f1aba54595fbe9097daadd0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DoorActionPanelPrefab: {fileID: 2479197004235772598, guid: 41c0ad2fa9032a24cb7474c4914ac3a1, type: 3}
-  PowerGeneratorActionPanelPrefab: {fileID: 1490360538589189551, guid: a7a91cd0d32a4ce4382201be891c86cc, type: 3}
-  EnergyPoolActionPanelPrefab: {fileID: 1665385353437071244, guid: bda18434aa259cc43bd63a3bb876fba3, type: 3}
-  EnergyNodeActionPanelPrefab: {fileID: 9023788376133442840, guid: 7487753f88f01f344ae9c26577c7a394, type: 3}
-  EnergyShieldActionPanelPrefab: {fileID: 1385595102350950111, guid: 400ddce2866e10d4aad02c183a0ea5e8, type: 3}
-  LaserActionPanelPrefab: {fileID: 6827440840436348703, guid: 2d9808c28d5026243af697c61ecf6a96, type: 3}
 --- !u!224 &1180416803 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 5291998020404699404, guid: d7dabec726f40b2469665c9f8ec11ea6, type: 3}
@@ -2619,7 +2613,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 6932641646183021454, guid: 1587913358f226b40a55f5fa9cfde9d9, type: 3}
       propertyPath: m_text
-      value: 'Meteor, HP : 5/5, ES : 0/5
+      value: 'Meteor, HP : 5/5, ES : 0/0
 
         Damage : 5
 

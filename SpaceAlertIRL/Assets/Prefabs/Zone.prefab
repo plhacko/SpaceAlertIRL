@@ -1,5 +1,20 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &7379473920409039496
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 464590984729284812}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d1c7e7857d234146b4c2889fba5ab50, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  LightEnemies:
+  - {fileID: 5866650754423056519, guid: 1b3115a281e071344aab4f1ca2b391db, type: 3}
+  SpawnTimeConst: 10
 --- !u!1 &8201271519758403228
 GameObject:
   m_ObjectHideFlags: 0
@@ -50,8 +65,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1f4e10227b12d945a094156dc768287, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TmpDmgTaken:
-    m_InternalValue: 0
+  _HP:
+    m_InternalValue: 10
   EnemyList: []
 --- !u!114 &8201271519758403230
 MonoBehaviour:
@@ -222,6 +237,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 57989c980e9388b4eac3068f86d4d5d2, type: 3}
+--- !u!1 &464590984729284812 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1090987198303537240, guid: 57989c980e9388b4eac3068f86d4d5d2, type: 3}
+  m_PrefabInstance: {fileID: 671449870837667988}
+  m_PrefabAsset: {fileID: 0}
 --- !u!224 &464590984729284813 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 1090987198303537241, guid: 57989c980e9388b4eac3068f86d4d5d2, type: 3}

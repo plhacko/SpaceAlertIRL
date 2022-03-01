@@ -22,6 +22,7 @@ public class Zone : NetworkBehaviour
     public IList<Enemy> GetEnemyList() => EnemyList.AsReadOnly();
 
     public void AddEnemy(Enemy e) { EnemyList.Add(e); }
+    public void RemoveEnemy(Enemy e) { EnemyList.Remove(e); }
 
     private void Start()
     {
