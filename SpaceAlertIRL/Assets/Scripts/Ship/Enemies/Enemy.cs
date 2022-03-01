@@ -34,7 +34,10 @@ public abstract class Enemy : NetworkBehaviour
     }
 
     abstract public void TakeDamage(int damage, Weapon w); // the weapon is needed if there is a special exception
-    abstract public void Die();
+    virtual public void Die()
+    {
+        GetComponent<NetworkObject>().Despawn(true);
+    }
 
 
 

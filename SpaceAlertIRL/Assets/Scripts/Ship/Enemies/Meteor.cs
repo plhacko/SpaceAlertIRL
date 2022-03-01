@@ -48,12 +48,8 @@ public class Meteor : Enemy
     {
         // does damage equal to it's HP and dies
         Zone.TakeDmage(this.HP, this);
-        Die();
-    }
 
-    public override void Die()
-    {
-        throw new System.NotImplementedException();
+        Die();
     }
 
     public override void SpawnIconAsChild(GameObject parent)

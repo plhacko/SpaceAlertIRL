@@ -9,7 +9,7 @@ public class Zone : NetworkBehaviour
 {
     public UpdateUIActions UIActions = new UpdateUIActions();
 
-    const int MaxHPConst = 5;
+    const int MaxHPConst = 10;
 
     [SerializeField]
     private NetworkVariable<int> _HP = new NetworkVariable<int>(MaxHPConst);
@@ -45,7 +45,7 @@ public class Zone : NetworkBehaviour
 
     private void Die()
     {
-        throw new System.NotImplementedException();
+        Debug.Log("Dying for ship is not implemented."); // TODO: implement
     }
 
     public Enemy GetClosestEnemy()
