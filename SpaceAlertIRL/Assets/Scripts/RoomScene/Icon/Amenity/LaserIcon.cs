@@ -5,11 +5,6 @@ using TMPro;
 
 public class LaserIcon : AmenityIcon<Laser>
 {
-    public void ShootAtClosestEnemy()
-    {
-        throw new System.NotImplementedException();
-    }
-
     protected override void UpdateUI()
     {
         if (Amenity != null)
