@@ -2375,6 +2375,12 @@ PrefabInstance:
       propertyPath: m_Name
       value: RoomName
       objectReference: {fileID: 0}
+    - target: {fileID: 670692975425187667, guid: 52085868fa8ad0b498ab1971a5149dbb, type: 3}
+      propertyPath: m_text
+      value: 'HP
+
+        5/10'
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 52085868fa8ad0b498ab1971a5149dbb, type: 3}
 --- !u!224 &1385595103903785251 stripped
