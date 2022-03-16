@@ -14,10 +14,6 @@ public class DoorActionPanel : MonoBehaviour
     {
         transform.Find("RoomIcon_A").GetComponentInChildren<TextMeshProUGUI>().text = $"RoomA : {Door.RoomA.Name}";
         transform.Find("RoomIcon_B").GetComponentInChildren<TextMeshProUGUI>().text = $"RoomB : {Door.RoomB.Name}";
-
-        // UI changing actions
-        UpdateUIAction = UpdateUI;
-        Door.UIActions.AddAction(UpdateUIAction);
     }
 
     virtual public void Initialise(Door door)
