@@ -40,7 +40,7 @@ abstract public class AmenityIcon<T> : Icon where T : Amenity
 
         actionPanel.ResetSelf();
         GameObject _go = Instantiate(ActionPanelPrefab, parent:actionPanel.transform);
-        _go.GetComponent<ActionPanel<T>>().Initialise(Amenity);
+        _go.GetComponent<AmenityActionPanel<T>>().Initialise(Amenity);
     }
 }
 

@@ -3,10 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-public abstract class ActionPanel<T> : MonoBehaviour where T : Amenity
+public abstract class ActionPanel : MonoBehaviour
+{
+    protected Action UpdateUIAction;
+}
+
+public abstract class AmenityActionPanel<T> : ActionPanel where T : Amenity
 {
     protected T Amenity;
-    protected Action UpdateUIAction;
     virtual public void Initialise(T t)
     {
         Amenity = t;

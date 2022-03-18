@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-public class LaserActionPanel : ActionPanel<Laser>
+public class LaserActionPanel : AmenityActionPanel<Laser>
 {
     
     public override void Initialise(Laser laser)

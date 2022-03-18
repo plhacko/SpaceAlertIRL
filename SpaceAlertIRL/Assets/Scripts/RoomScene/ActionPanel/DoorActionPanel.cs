@@ -5,10 +5,9 @@ using TMPro;
 using System;
 using Unity.Netcode;
 
-public class DoorActionPanel : MonoBehaviour
+public class DoorActionPanel : ActionPanel
 {
     public Door Door;
-    private Action UpdateUIAction;
     // Start is called before the first frame update
     void Start()
     {

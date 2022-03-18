@@ -4,7 +4,7 @@ using UnityEngine;
 using System;
 using TMPro;
 
-public class EnergyNodeActionPanel : ActionPanel<EnergyNode>
+public class EnergyNodeActionPanel : AmenityActionPanel<EnergyNode>
 {
     protected override void UpdateUI()
     {

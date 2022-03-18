@@ -5,7 +5,7 @@ using System;
 using TMPro;
 using Unity.Netcode;
 
-public class EnergyShieldActionPanel : ActionPanel<EnergyShield>
+public class EnergyShieldActionPanel : AmenityActionPanel<EnergyShield>
 {
     public void RequestRechargeEnergyShield()
     {

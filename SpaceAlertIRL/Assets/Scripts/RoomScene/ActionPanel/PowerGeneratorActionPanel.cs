@@ -5,7 +5,7 @@ using System;
 using TMPro;
 using Unity.Netcode;
 
-public class PowerGeneratorActionPanel : ActionPanel<PowerGenerator>
+public class PowerGeneratorActionPanel : AmenityActionPanel<PowerGenerator>
 {
     protected override void UpdateUI()
     {

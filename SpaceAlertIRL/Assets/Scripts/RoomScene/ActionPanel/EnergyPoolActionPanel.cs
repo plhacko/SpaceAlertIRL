@@ -4,7 +4,7 @@ using UnityEngine;
 using System;
 using TMPro;
 
-public class EnergyPoolActionPanel : ActionPanel<EnergyPool>
+public class EnergyPoolActionPanel : AmenityActionPanel<EnergyPool>
 {
     public void RequestEnergyTranfer()
     {
