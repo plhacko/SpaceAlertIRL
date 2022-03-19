@@ -21,7 +21,7 @@ public class Zone : NetworkBehaviour
     protected List<Enemy> EnemyList = new List<Enemy>();
     public IList<Enemy> GetEnemyList() => EnemyList.AsReadOnly();
 
-    public void AddEnemy(Enemy e) { EnemyList.Add(e); }
+    public void AddEnemy(Enemy e) { EnemyList.Add(e); EnemyList.Sort(); }
     public void RemoveEnemy(Enemy e) { EnemyList.Remove(e); }
 
     private void Start()
@@ -54,10 +54,8 @@ public class Zone : NetworkBehaviour
         if (!NetworkManager.Singleton.IsServer)
         { throw new System.Exception("this method should be called only on server"); }
 
-        Enemy[] Enemies = GetComponentsInChildren<Enemy>();
-
         // TODO: sort them by distance
-        var enemy = Enemies.Length != 0 ? Enemies[0] : null;
+        var enemy = EnemyList.Count != 0 ? EnemyList[0] : null;
 
         return enemy;
     }

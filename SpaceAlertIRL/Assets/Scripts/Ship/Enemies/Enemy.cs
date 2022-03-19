@@ -4,8 +4,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Unity.Netcode;
+using System;
 
-public abstract class Enemy : NetworkBehaviour
+public abstract class Enemy : NetworkBehaviour, IComparable<Enemy>
 {
     [SerializeField]
     protected GameObject IconPrefab;
@@ -126,6 +127,12 @@ public abstract class Enemy : NetworkBehaviour
         _HP.Value = 0;
         Zone.RemoveEnemy(this);
         GetComponent<NetworkObject>().Despawn(true);
+    }
+
+    public int CompareTo(Enemy e)
+    {
+        if (e == null) { return 1; }
+        return Distance.CompareTo(e.Distance);
     }
 }
 
