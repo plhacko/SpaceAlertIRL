@@ -97,6 +97,7 @@ public abstract class Enemy : NetworkBehaviour
 
     protected virtual void Impact()
     {
+        _HP.Value = 0;
         Zone.RemoveEnemy(this);
         GetComponent<NetworkObject>().Despawn(true);
     }

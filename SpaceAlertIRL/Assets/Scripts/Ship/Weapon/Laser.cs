@@ -32,7 +32,7 @@ public class Laser : Weapon<Laser>
     {
         if (!NetworkManager.Singleton.IsServer) { throw new System.Exception("Is not a server"); }
 
-        // requestenergy
+        // request energy
         var energySource = Room.GetEnergySource();
 
         Enemy enemy = Zone.GetClosestEnemy();

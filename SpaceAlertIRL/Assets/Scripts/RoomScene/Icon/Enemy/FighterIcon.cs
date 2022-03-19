@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-public class MeteorIcon : EnemyIcon<Meteor>
+public class FighterIcon : EnemyIcon<Fighter>
 {
     protected override void UpdateUI()
     {
         if (Enemy != null)
         {
-            string line1 = $"Meteor, HP : {Enemy.HP}/{Enemy.MaxHP}, ES : {Enemy.EnergyShield}/{Enemy.MaxEnergyShield}";
-            string line2 = $"Attack ({Enemy.HP}) in {Enemy.Distance.ToString("0.00")}";
+            string line1 = $"Fighter, HP : {Enemy.HP}/{Enemy.MaxHP}, ES : {Enemy.EnergyShield}/{Enemy.MaxEnergyShield}";
+            string line2 = $"Attack({5}) in {4.25f}"; // TODO: redo this
             string line3 = $"Distance : {Enemy.Distance.ToString("0.00")}";
             GetComponentInChildren<TextMeshProUGUI>().text = line1 + '\n' + line2 + '\n' + line3;
         }
