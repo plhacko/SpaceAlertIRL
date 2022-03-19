@@ -35,9 +35,10 @@ public class Meteor : Enemy
 
     protected override void Start()
     {
-        base.Start();
         _Impact = new NetworkVariable<int>(StartingImpactConst);
         UIActions.AddOnValueChangeDependency(_Impact);
+
+        base.Start();
 
 #if (SERVER)
         Impact_serverVariable = (float)StartingImpactConst;

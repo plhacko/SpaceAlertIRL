@@ -2,14 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyIconSpawner : MonoBehaviour
+public class EnemyIconSpawner : ActionPanel
 {
     Zone Zone;
 
     public void Initialise(Zone zone)
     {
         Zone = zone;
-        SpawnAllEnemies();
+        UpdateUIAction = SpawnAllEnemies;
+        UpdateUIAction();
+        Zone.UIActions.AddAction(SpawnAllEnemies);
     }
 
     private void SpawnAllEnemies()
