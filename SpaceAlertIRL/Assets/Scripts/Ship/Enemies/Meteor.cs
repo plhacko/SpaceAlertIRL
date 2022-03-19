@@ -23,7 +23,7 @@ public class Meteor : Enemy<Meteor>
         base.Impact();
     }
 
-    public override void TakeDamage(int damage, Weapon w)
+    public override void TakeDamage(int damage)
     {
         if (damage < 0) { Debug.Log("damage can't be negative"); return; }
 

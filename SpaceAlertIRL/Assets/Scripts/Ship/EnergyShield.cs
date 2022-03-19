@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Unity.Netcode;
 
-public class EnergyShield : Amenity
+public class EnergyShield : Amenity<EnergyShield>
 {
     protected const int MaxShieldValueConst = 3;
     protected const int ShieldValueConst = 2;
@@ -13,11 +13,6 @@ public class EnergyShield : Amenity
     public NetworkVariable<int> MaxShieldValue;
     public NetworkVariable<int> ShieldValue;
 
-    public override void SpawnIconAsChild(GameObject parent)
-    {
-        GameObject _go = Instantiate(IconPrefab, parent.transform.position, parent.transform.rotation, parent.transform);
-        _go.GetComponent<EnergyShieldIcon>().Initialise(this);
-    }
 
 #if (SERVER)
     private void RechargeEnergyShield()

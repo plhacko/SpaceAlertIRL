@@ -11,6 +11,8 @@ public class PowerGenerator : EnergyPool
 
     public NetworkVariable<int> EnergyPowerCellCount;
 
+    // this is needed because otherwise it would spawn EnergyPoolIcon, not PowerGeneratorIcon
+    // (EnergyNode doesn't need it because it is derived from Amenity<EnergyNode>)
     public override void SpawnIconAsChild(GameObject parent)
     {
         GameObject _go = Instantiate(IconPrefab, parent.transform.position, parent.transform.rotation, parent.transform);

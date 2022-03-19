@@ -14,6 +14,8 @@ public class EnergyPool : EnergyNode
     public NetworkVariable<int> MaxEnergyStorage;
     public NetworkVariable<int> EnergyStorage;
 
+    // this is needed because otherwise it would spawn EnergyNodeIcon, not EnergyPoollIcon
+    // (EnergyNode doesn't need it because it is derived from Amenity<EnergyNode>)
     public override void SpawnIconAsChild(GameObject parent)
     {
         GameObject _go = Instantiate(IconPrefab, parent.transform.position, parent.transform.rotation, parent.transform);

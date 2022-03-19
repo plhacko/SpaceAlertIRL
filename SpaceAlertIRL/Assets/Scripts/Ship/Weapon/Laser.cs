@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Unity.Netcode;
 
-public class Laser : Weapon
+public class Laser : Weapon<Laser>
 {
     const int DamageConst = 5;
     const int RangeConst = 4;
@@ -13,12 +13,6 @@ public class Laser : Weapon
     public NetworkVariable<int> Damage;
     public NetworkVariable<int> Range;
     public NetworkVariable<float> Heat;
-
-    public override void SpawnIconAsChild(GameObject parent)
-    {
-        GameObject _go = Instantiate(IconPrefab, parent.transform.position, parent.transform.rotation, parent.transform);
-        _go.GetComponent<LaserIcon>().Initialise(this);
-    }
 
 
     protected override void Start()
@@ -57,7 +51,7 @@ public class Laser : Weapon
             return;
         }
 
-        enemy.TakeDamage(Damage.Value, this);
+        enemy.TakeDamage(Damage.Value);
 
     }
 

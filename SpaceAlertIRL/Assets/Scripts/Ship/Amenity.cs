@@ -26,3 +26,12 @@ public abstract class Amenity : ShipPart
         Room.Amenities.Add(this);
     }
 }
+
+abstract public class Amenity<T> : Amenity where T : Amenity<T>
+{
+    public override void SpawnIconAsChild(GameObject parent)
+    {
+        GameObject _go = Instantiate(IconPrefab, parent.transform.position, parent.transform.rotation, parent.transform);
+        _go.GetComponent<AmenityIcon<T>>().Initialise((T)this);
+    }
+}

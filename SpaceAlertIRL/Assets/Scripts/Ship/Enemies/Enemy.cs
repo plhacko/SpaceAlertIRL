@@ -101,7 +101,7 @@ public abstract class Enemy : NetworkBehaviour
         GetComponent<NetworkObject>().Despawn(true);
     }
 
-    virtual public void TakeDamage(int damage, Weapon w) // the weapon is needed if there is a special exception
+    virtual public void TakeDamage(int damage) // the weapon is needed if there is a special exception
     {
         if (damage < 0) { Debug.Log("damage can't be negative"); return; }
 
