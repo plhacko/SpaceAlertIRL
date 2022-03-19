@@ -40,7 +40,7 @@ public class DoorActionPanel : ActionPanel
         transform.Find("DoorStatus").GetComponentInChildren<TextMeshProUGUI>().text = $"Status : {Door.Status}";
     }
 
-    private void OnDisable()
+    protected override void OnDisable()
     {
         // removes the opdate action
         if (Door != null)

@@ -33,4 +33,10 @@ public class EnemyIconSpawner : ActionPanel
             GameObject.Destroy(child.gameObject);
         }
     }
+
+    protected override void OnDisable()
+    {
+        if (Zone != null)
+        { Zone.UIActions.RemoveAction(UpdateUIAction); }
+    }
 }

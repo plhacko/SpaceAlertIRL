@@ -6,57 +6,21 @@ using UnityEngine;
 using System;
 using Unity.Netcode;
 
-public class Meteor : Enemy
+public class Meteor : Enemy<Meteor>
 {
     protected override int StratingHPConst => 5;
-    protected override int StartingEnergyShieldsConst => 0;
-    protected virtual int StartingImpactConst => 10;
+    protected override int MaxEnergyShieldConst => 0;
+    protected override float EnergyShieldRegenerationTimeConst => 10.0f;
+    protected override float StartingSpeedConst => 1.0f;
+    protected override float StartingDistanceConst => 10.0f;
 
-    [SerializeField]
-    protected NetworkVariable<int> _Impact;
-
-    public int Impact { get => _Impact.Value; } // mostly method for UI
-
-#if (SERVER)
-    float Impact_serverVariable; // the actual time is stored on server, so the NetworkVariable doesn't need to synchronize so much
-    void Update()
+    protected override void Impact()
     {
-        // Update should tun only on server
-        if (!NetworkManager.Singleton.IsServer) { return; }
+        if (!NetworkManager.Singleton.IsServer)
+        { throw new System.Exception("this method should be called only on server"); }
 
-        Impact_serverVariable -= Time.deltaTime;
-        if ((int)Impact_serverVariable != _Impact.Value)
-        {
-            _Impact.Value = (int)Impact_serverVariable;
-            if (_Impact.Value == 0) { DoDamageAndDie(); }
-        }
-    }
-#endif
-
-    protected override void Start()
-    {
-        _Impact = new NetworkVariable<int>(StartingImpactConst);
-        UIActions.AddOnValueChangeDependency(_Impact);
-
-        base.Start();
-
-#if (SERVER)
-        Impact_serverVariable = (float)StartingImpactConst;
-#endif
-    }
-
-    protected void DoDamageAndDie()
-    {
-        // does damage equal to it's HP and dies
         Zone.TakeDmage(this.HP, this);
-
-        Die();
-    }
-
-    public override void SpawnIconAsChild(GameObject parent)
-    {
-        GameObject _go = Instantiate(IconPrefab, parent.transform.position, parent.transform.rotation, parent.transform);
-        _go.GetComponent<MeteorIcon>().Initialise(this);
+        base.Impact();
     }
 
     public override void TakeDamage(int damage, Weapon w)

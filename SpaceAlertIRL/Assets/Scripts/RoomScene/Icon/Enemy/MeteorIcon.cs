@@ -9,9 +9,9 @@ public class MeteorIcon : EnemyIcon<Meteor>
     {
         if (Enemy != null)
         {
-            string line1 = $"Meteor, HP : {Enemy.HP}/{Enemy.MaxHP}, ES : {Enemy.EnergyShields}/{Enemy.MaxEnergyShields}";
+            string line1 = $"Meteor, HP : {Enemy.HP}/{Enemy.MaxHP}, ES : {Enemy.EnergyShield}/{Enemy.MaxEnergyShield}";
             string line2 = $"Damage: {Enemy.HP}";
-            string line3 = $"Impact in : {Enemy.Impact}";
+            string line3 = $"Distance : {Enemy.Distance.ToString("0.00")}";
             GetComponentInChildren<TextMeshProUGUI>().text = line1 + '\n' + line2 + '\n' + line3;
         }
         else

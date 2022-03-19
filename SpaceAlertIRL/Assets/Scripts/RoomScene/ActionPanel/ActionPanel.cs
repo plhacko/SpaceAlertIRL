@@ -6,6 +6,8 @@ using System;
 public abstract class ActionPanel : MonoBehaviour
 {
     protected Action UpdateUIAction;
+
+    protected abstract void OnDisable();
 }
 
 public abstract class AmenityActionPanel<T> : ActionPanel where T : Amenity
@@ -21,7 +23,7 @@ public abstract class AmenityActionPanel<T> : ActionPanel where T : Amenity
         Amenity.UIActions.AddAction(UpdateUIAction);
     }
 
-    private void OnDisable()
+    protected override void OnDisable()
     {
         // removes the update action
         if (Amenity != null)
