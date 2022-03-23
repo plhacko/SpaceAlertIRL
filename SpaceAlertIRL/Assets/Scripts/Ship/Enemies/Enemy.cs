@@ -57,12 +57,14 @@ public abstract class Enemy : NetworkBehaviour, IComparable<Enemy>
         Zone.UIActions.UpdateUI();
     }
 #if SERVER
+
     void FixedUpdate()
     {
         // Update should tun only on server
         if (!NetworkManager.Singleton.IsServer) { return; }
 
         DistanceChange();
+        EnergyShieldsRegeneration();
     }
 
     protected virtual void DistanceChange()
@@ -144,3 +146,4 @@ abstract public class Enemy<T> : Enemy where T : Enemy<T>
         _go.GetComponent<EnemyIcon<T>>().Initialise((T)this);
     }
 }
+
