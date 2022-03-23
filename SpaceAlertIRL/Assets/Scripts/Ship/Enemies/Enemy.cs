@@ -15,7 +15,6 @@ public abstract class Enemy : NetworkBehaviour, IComparable<Enemy>
     abstract protected int MaxEnergyShieldConst { get; }
     abstract protected float StartingSpeedConst { get; }
     abstract protected float StartingDistanceConst { get; }
-
     abstract protected float EnergyShieldRegenerationTimeConst { get; }
 
     protected NetworkVariable<int> _HP;
@@ -24,13 +23,14 @@ public abstract class Enemy : NetworkBehaviour, IComparable<Enemy>
     protected NetworkVariable<float> _Speed;
     protected NetworkVariable<float> _Distance;
 
-    // geters for UI
+    // geters for data
     public int HP { get => _HP.Value; }
     public int MaxHP { get => StratingHPConst; }
     public int EnergyShield { get => _EnergyShield.Value; }
     public int MaxEnergyShield { get => MaxEnergyShieldConst; }
     public float Distance { get => _Distance.Value; }
     public float Speed { get => _Speed.Value; }
+    public virtual bool IsTragetabeByRocket() => true;
 
     protected Zone Zone;
 
