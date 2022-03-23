@@ -30,7 +30,7 @@ public class Zone : NetworkBehaviour
     }
 
 #if (SERVER)
-    public void TakeDmage(int damage, Enemy enemy)
+    public void TakeDmage(int damage, Enemy enemy = null)
     {
         if (!NetworkManager.Singleton.IsServer)
         { throw new System.Exception("this method should be called only on server"); }
