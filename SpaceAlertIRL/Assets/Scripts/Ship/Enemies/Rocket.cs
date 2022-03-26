@@ -13,6 +13,9 @@ public class Rocket : Enemy<Rocket>
     protected override float StartingDistanceConst => 1;
     protected override float EnergyShieldRegenerationTimeConst => 0;
 
+    public int Damage { get => DamageConst; }
+    public float Range { get => MaxRangeConst; }
+
     protected override void DistanceChange()
     {
         float newDistance = _Distance.Value + Time.deltaTime * _Speed.Value;
@@ -20,7 +23,7 @@ public class Rocket : Enemy<Rocket>
         foreach (Enemy e in Zone.GetEnemyList())
         {
             if (e == this || !e.IsTragetabeByRocket()) { continue; }
-            if (System.Math.Abs(e.Distance - newDistance) < 1.0f)
+            if (System.Math.Abs(e.Distance - newDistance) < 0.1f)
             {
                 e.TakeDamage(DamageConst);
                 Impact();

@@ -29,10 +29,15 @@ public class EnemySpawner : MonoBehaviour
             if (LightEnemies.Count == 0) { throw new System.Exception("list of enemies is empty"); }
             int i = Random.Range(0, LightEnemies.Count);
 
-            GameObject go = Instantiate(LightEnemies[i], transform.position, transform.localRotation, transform);
-            go.GetComponent<NetworkObject>().Spawn();
-            GetComponentInParent<Zone>().UIActions.UpdateUI();
+            SpawnEnemy(LightEnemies[i]);
         }
+    }
+
+    public void SpawnEnemy(GameObject e)
+    {
+        GameObject go = Instantiate(e, parent : transform);
+        go.GetComponent<NetworkObject>().Spawn();
+        GetComponentInParent<Zone>().UIActions.UpdateUI();
     }
 #endif
 }
