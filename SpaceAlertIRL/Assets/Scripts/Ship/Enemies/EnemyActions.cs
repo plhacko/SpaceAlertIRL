@@ -2,31 +2,29 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Unity.Netcode;
 
 #if SERVER
 
-abstract class EnemyAction
+public abstract class EnemyAction
 {
-    public abstract override string ToString();
+    public float TimeSpan { get; protected set; }
     public abstract void ExecuteAction();
 }
 
 sealed class SimpleAttack : EnemyAction
 {
-    public override string ToString() => $"Attack({Damage})";
-
-    public override void ExecuteAction()
-    {
-        Zone.TakeDmage(Damage);
-    }
+    public override void ExecuteAction() { Zone.TakeDmage(Damage); }
     int Damage;
     Zone Zone;
-    SimpleAttack(int damage, Zone zone)
-    {
-        Damage = damage;
-        Zone = zone;
-    }
+    public SimpleAttack(int damage, Zone zone, float timeSpan)
+    { Damage = damage; Zone = zone; TimeSpan = timeSpan; }
 }
 
+sealed class Wait : EnemyAction
+{
+    public override void ExecuteAction() { }
+    public Wait(float waitTime) { TimeSpan = waitTime; }
+}
 #endif
 

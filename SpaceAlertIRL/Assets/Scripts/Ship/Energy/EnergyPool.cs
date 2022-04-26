@@ -84,7 +84,7 @@ public class EnergyPool : EnergyNode
         EnergyStorage = new NetworkVariable<int>(StartingEnergyStorageConst);
         MaxEnergyStorage = new NetworkVariable<int>(MaxEnergyStorageConst);
 
-        UIActions.AddOnValueChangeDependency(EnergyStorage);
+        UIActions.AddOnValueChangeDependency(EnergyStorage, MaxEnergyStorage);
         
     }
 

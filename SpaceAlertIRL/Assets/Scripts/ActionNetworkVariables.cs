@@ -16,19 +16,8 @@ public class UpdateUIActions
     {
         Body = () => { };
     }
-
-    public void AddOnValueChangeDependency<T>(NetworkVariable<T> nv) where T : unmanaged
-    { nv.OnValueChanged = UpdateUI<T>; }
-    // TODO rm - old
-    // public void AddOnValueChangeDependency(NetworkVariable<int> nv)
-    // { nv.OnValueChanged = UpdateUI<int>; }
-    // public void AddOnValueChangeDependency(NetworkVariable<float> nv)
-    // { nv.OnValueChanged = UpdateUI<float>; }
-    // public void AddOnValueChangeDependency(NetworkVariable<bool> nv)
-    // { nv.OnValueChanged = UpdateUI<bool>; }
-    // public void AddOnValueChangeDependency(NetworkVariable<FixedString32Bytes> nv)
-    // { nv.OnValueChanged = UpdateUI<FixedString32Bytes>; }
-
+    public void AddOnValueChangeDependency<T>(params NetworkVariable<T>[] nv_array) where T : unmanaged
+    { foreach ( var nv in nv_array) { nv.OnValueChanged = UpdateUI<T>; } }
     public void AddAction(Action a) { Body += a; }
     public void RemoveAction(Action a) { Body -= a; }
 

@@ -22,6 +22,8 @@ public abstract class Enemy : NetworkBehaviour, IComparable<Enemy>, IOnServerFix
     protected NetworkVariable<float> _EnergyShieldRegenerationTime;
     protected NetworkVariable<float> _Speed;
     protected NetworkVariable<float> _Distance;
+    [SerializeField]
+    protected NetworkVariable<float> _NextActionTime;
 
     // geters for data
     public int HP { get => _HP.Value; }
@@ -30,12 +32,13 @@ public abstract class Enemy : NetworkBehaviour, IComparable<Enemy>, IOnServerFix
     public int MaxEnergyShield { get => MaxEnergyShieldConst; }
     public float Distance { get => _Distance.Value; }
     public float Speed { get => _Speed.Value; }
+    public float NextActionTime { get => _NextActionTime.Value; }
     public virtual bool IsTragetabeByRocket() => true;
+
 
     protected Zone Zone;
 
     public UpdateUIActions UIActions = new UpdateUIActions();
-
     public abstract void SpawnIconAsChild(GameObject parent);
 
     protected virtual void Start()
@@ -45,12 +48,10 @@ public abstract class Enemy : NetworkBehaviour, IComparable<Enemy>, IOnServerFix
         _EnergyShieldRegenerationTime = new NetworkVariable<float>(0.0f);
         _Distance = new NetworkVariable<float>(StartingDistanceConst);
         _Speed = new NetworkVariable<float>(StartingSpeedConst);
+        _NextActionTime = new NetworkVariable<float>(0.0f);
 
-        UIActions.AddOnValueChangeDependency(_HP);
-        UIActions.AddOnValueChangeDependency(_EnergyShield);
-        UIActions.AddOnValueChangeDependency(_EnergyShieldRegenerationTime);
-        UIActions.AddOnValueChangeDependency(_Distance);
-        UIActions.AddOnValueChangeDependency(_Speed);
+        UIActions.AddOnValueChangeDependency(_HP, _EnergyShield);
+        UIActions.AddOnValueChangeDependency(_Distance, _Speed, _NextActionTime);
 
         Zone = GetComponentInParent<Zone>();
         Zone.AddEnemy(this);
@@ -65,6 +66,7 @@ public abstract class Enemy : NetworkBehaviour, IComparable<Enemy>, IOnServerFix
 
         DistanceChange();
         EnergyShieldsRegeneration();
+        ActionTimer();
     }
 
     protected virtual void DistanceChange()
@@ -75,8 +77,6 @@ public abstract class Enemy : NetworkBehaviour, IComparable<Enemy>, IOnServerFix
         else
         { _Distance.Value = 0; Impact(); }
     }
-
-
     protected virtual void EnergyShieldsRegeneration()
     {
         if (_EnergyShield.Value == MaxEnergyShieldConst)
@@ -94,6 +94,22 @@ public abstract class Enemy : NetworkBehaviour, IComparable<Enemy>, IOnServerFix
                 _EnergyShield.Value = MaxEnergyShieldConst;
             }
         }
+    }
+    EnemyAction NextEnemyAction;
+    protected abstract EnemyAction DecideNextAction();
+    protected virtual void ActionTimer()
+    {
+        if (NextEnemyAction == null) { NextEnemyAction = DecideNextAction(); }
+
+        float newTime = _NextActionTime.Value - Time.deltaTime;
+        if (newTime <= 0)
+        {
+            NextEnemyAction.ExecuteAction();
+            NextEnemyAction = DecideNextAction();
+            _NextActionTime.Value = NextEnemyAction.TimeSpan;
+        }
+        else
+        { _NextActionTime.Value = newTime; }
     }
 
 #endif
@@ -130,7 +146,6 @@ public abstract class Enemy : NetworkBehaviour, IComparable<Enemy>, IOnServerFix
         Zone.RemoveEnemy(this);
         GetComponent<NetworkObject>().Despawn(true);
     }
-
     public int CompareTo(Enemy e)
     {
         if (e == null) { return 1; }

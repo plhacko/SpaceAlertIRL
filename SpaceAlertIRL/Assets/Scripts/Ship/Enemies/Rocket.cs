@@ -35,4 +35,6 @@ public class Rocket : Enemy<Rocket>
 
         _Distance.Value = newDistance;
     }
+
+    protected override EnemyAction DecideNextAction() => new Wait(float.MaxValue);
 }

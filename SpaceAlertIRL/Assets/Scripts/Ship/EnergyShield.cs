@@ -45,7 +45,6 @@ public class EnergyShield : Amenity<EnergyShield>
         ShieldValue = new NetworkVariable<int>(ShieldValueConst);
         MaxShieldValue = new NetworkVariable<int>(MaxShieldValueConst);
 
-        UIActions.AddOnValueChangeDependency(ShieldValue);
-        UIActions.AddOnValueChangeDependency(MaxShieldValue);
+        UIActions.AddOnValueChangeDependency(ShieldValue, MaxShieldValue);
     }
 }

@@ -23,8 +23,7 @@ public class Laser : Weapon<Laser>
         Range = new NetworkVariable<int>(RangeConst);
         Heat = new NetworkVariable<float>(StartHeatConst);
 
-        UIActions.AddOnValueChangeDependency(Damage);
-        UIActions.AddOnValueChangeDependency(Range);
+        UIActions.AddOnValueChangeDependency(Damage, Range);
         UIActions.AddOnValueChangeDependency(Heat);
     }
 
