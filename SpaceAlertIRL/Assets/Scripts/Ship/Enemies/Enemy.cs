@@ -6,7 +6,7 @@ using UnityEngine;
 using Unity.Netcode;
 using System;
 
-public abstract class Enemy : NetworkBehaviour, IComparable<Enemy>
+public abstract class Enemy : NetworkBehaviour, IComparable<Enemy>, IOnServerFixedUpdate
 {
     [SerializeField]
     protected GameObject IconPrefab;
@@ -58,10 +58,10 @@ public abstract class Enemy : NetworkBehaviour, IComparable<Enemy>
     }
 #if SERVER
 
-    void FixedUpdate()
+    void IOnServerFixedUpdate.ServerFixedUpdate()
     {
         // Update should tun only on server
-        if (!NetworkManager.Singleton.IsServer) { return; }
+        if (!NetworkManager.Singleton.IsServer) { return; } // TODO: rm
 
         DistanceChange();
         EnergyShieldsRegeneration();

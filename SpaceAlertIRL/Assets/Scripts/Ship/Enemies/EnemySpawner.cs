@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Unity.Netcode;
 
-public class EnemySpawner : MonoBehaviour
+public class EnemySpawner : MonoBehaviour, IOnServerFixedUpdate
 {
     [SerializeField]
     List<GameObject> LightEnemies;
@@ -17,7 +17,7 @@ public class EnemySpawner : MonoBehaviour
     float Timer;
 
     // for now it will spawn every
-    void FixedUpdate()
+    void IOnServerFixedUpdate.ServerFixedUpdate()
     {
         if (!NetworkManager.Singleton.IsServer) { return; }
 
