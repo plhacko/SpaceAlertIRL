@@ -22,7 +22,14 @@ public class RocketLauncher : Weapon<RocketLauncher>
     }
 
     
-    public void LaunchRocket()
+    public void RequestLaunchingRocket()
+    {
+        ulong clientId = NetworkManager.Singleton.LocalClientId;
+        RequestLaunchingRocketServerRpc(clientId);
+    }
+
+    [ServerRpc(RequireOwnership = false)]
+    void RequestLaunchingRocketServerRpc(ulong clientId)
     {
         if (!NetworkManager.Singleton.IsServer) { throw new System.Exception("Is not a server"); }
 
@@ -32,12 +39,9 @@ public class RocketLauncher : Weapon<RocketLauncher>
             Zone.GetComponentInChildren<EnemySpawner>().SpawnEnemy(RocketPrefab);
         }
         else
-        { Debug.Log("Number of rocket is zero"); } //TODO: add noice notification
-    }
-
-    [ServerRpc(RequireOwnership = false)]
-    public void RequestLaunchingRocketServerRpc()
-    {
-        LaunchRocket();
+        {
+            //TODO: make rpc
+            GameObject.Find("AudioManager").GetComponent<AudioManager>().RequestPlayingSentenceOnClient("notEnoughRockets_r", clientId);
+        }
     }
 }

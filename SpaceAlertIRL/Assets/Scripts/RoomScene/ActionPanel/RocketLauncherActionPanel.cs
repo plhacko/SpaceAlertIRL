@@ -28,6 +28,6 @@ public class RocketLauncherActionPanel : AmenityActionPanel<RocketLauncher>
 
     public void RequestShootingRocket()
     {
-        Amenity.RequestLaunchingRocketServerRpc();
+        Amenity.RequestLaunchingRocket();
     }
 }

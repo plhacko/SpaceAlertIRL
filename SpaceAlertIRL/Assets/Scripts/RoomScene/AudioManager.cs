@@ -4,8 +4,10 @@ using UnityEngine;
 using UnityEngine.Audio;
 using System.IO;
 using System.Text.RegularExpressions;
+using Unity.Netcode;
+using Unity.Collections;
 
-public class AudioManager : MonoBehaviour
+public class AudioManager : NetworkBehaviour
 {
     public List<AudioClip> Sounds;
     Dictionary<string, AudioClip> SoundDict;
@@ -22,23 +24,34 @@ public class AudioManager : MonoBehaviour
         {
             SoundDict.Add(sound.name, sound);
         }
-
-        // TODO: rm, just testing purpouses
-        PlaySentence("");
-        PlaySentence("notEnoughRockets_r");
     }
 
 
-    public void PlaySentence(string sentence)
+    public void RequestPlayingSentenceOnClient(FixedString32Bytes sentence, ulong clientId)
     {
+        ClientRpcParams clientRpcParams = new ClientRpcParams
+        {
+            Send = new ClientRpcSendParams
+            {
+                TargetClientIds = new ulong[] { clientId }
+            }
+        };
+
+        PlaySentenceClientRpc(sentence.ToString(), clientRpcParams);
+    }
+
+    [ClientRpc]
+    void PlaySentenceClientRpc(string sentence, ClientRpcParams clientRpcParams = default)
+    {
+        Debug.Log("I was here");
 
         AudioClip s;
-
+        
         if (SoundDict.ContainsKey(sentence))
         { s = SoundDict[sentence]; }
         else
         { s = SoundDict["voiceTrackNotFound_r"]; }
-
+        
         Announcer_que.Enqueue(s);
     }
 
