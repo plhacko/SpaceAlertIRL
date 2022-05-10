@@ -11,7 +11,7 @@ public class AudioManager : MonoBehaviour
     Dictionary<string, AudioClip> SoundDict;
 
     AudioSource AudioSource_announcer;
-    Queue<AudioClip> announcer_que = new Queue<AudioClip>(); // TODO: rename this
+    Queue<AudioClip> Announcer_que = new Queue<AudioClip>();
 
     private void Awake()
     {
@@ -22,61 +22,41 @@ public class AudioManager : MonoBehaviour
         {
             SoundDict.Add(sound.name, sound);
         }
+
+        // TODO: rm, just testing purpouses
+        PlaySentence("");
+        PlaySentence("notEnoughRockets_r");
     }
 
 
     public void PlaySentence(string sentence)
     {
-        var splitted_sentence = sentence.Split();
 
-        foreach (var w in splitted_sentence)
-        {
-            string word = w;
-            Regex rgx = new Regex("[^a-zA-Z0-9 -]");
-            word = rgx.Replace(word, "");
-            word = word.ToLower();
+        AudioClip s;
 
-            if (word == "") continue;
+        if (SoundDict.ContainsKey(sentence))
+        { s = SoundDict[sentence]; }
+        else
+        { s = SoundDict["voiceTrackNotFound_r"]; }
 
-            AudioClip s;
-            if (SoundDict.ContainsKey(word))
-            { s = SoundDict[word]; }
-            else
-            {
-                s = SoundDict["wordMissing"];
-                Debug.Log($"Word: \"{word}\" doesn't have audio file");
-            }
-            announcer_que.Enqueue(s);
-        }
+        Announcer_que.Enqueue(s);
     }
 
-    void Update()
+    void FixedUpdate()
     {
-        if (AudioSource_announcer.isPlaying || announcer_que.Count == 0) { return; }
-        AudioClip sound = announcer_que.Dequeue();
+        if (AudioSource_announcer.isPlaying || Announcer_que.Count == 0) { return; }
+
+        AudioClip sound = Announcer_que.Dequeue();
 
         AudioSource_announcer.clip = sound;
-        // AudioSource_announcer.volume = sound.Volume;
-
         AudioSource_announcer.Play();
     }
 
-    private void OnGUI()
+    private void OnGUI() // TODO: rm whole
     {
         if (Input.GetKeyDown(KeyCode.Q))
         {
-            announcer_que.Clear();
+            Announcer_que.Clear();
         }
     }
-}
-
-
-[System.Serializable]
-public class Sound
-{
-    public AudioClip AudioClip;
-    public string Name { get => AudioClip.name; }
-
-    [Range(0f, 1f)]
-    public float Volume = 1f;
 }
