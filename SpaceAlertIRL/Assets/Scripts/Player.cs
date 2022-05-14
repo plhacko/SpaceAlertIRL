@@ -67,6 +67,8 @@ public class Player : NetworkBehaviour
     // TODO: delete this
     public void Move()
     {
+        SubmitPositionRequestServerRpc();
+        return;
         if (NetworkManager.Singleton.IsServer)
         {
             var randomPosition = GetRandomPositionOnPlane();
@@ -80,7 +82,7 @@ public class Player : NetworkBehaviour
     }
 
     // TODO: delete this
-    [ServerRpc]
+    [ServerRpc(RequireOwnership = false)]
     void SubmitPositionRequestServerRpc(ServerRpcParams rpcParams = default)
     {
         Position.Value = GetRandomPositionOnPlane();
