@@ -41,8 +41,11 @@ public abstract class Enemy : NetworkBehaviour, IComparable<Enemy>, IOnServerFix
     public UpdateUIActions UIActions = new UpdateUIActions();
     public abstract void SpawnIconAsChild(GameObject parent);
 
-    protected virtual void Start()
+    bool IsInitialised = false;
+    public virtual void Initialise()
     {
+        IsInitialised = true;
+
         _HP = new NetworkVariable<int>(StratingHPConst);
         _EnergyShield = new NetworkVariable<int>(MaxEnergyShieldConst);
         _EnergyShieldRegenerationTime = new NetworkVariable<float>(0.0f);
@@ -62,7 +65,7 @@ public abstract class Enemy : NetworkBehaviour, IComparable<Enemy>, IOnServerFix
     void IOnServerFixedUpdate.ServerFixedUpdate()
     {
         // Update should tun only on server
-        if (!NetworkManager.Singleton.IsServer) { return; } // TODO: rm
+        if (!NetworkManager.Singleton.IsServer || !IsInitialised) { return; } // TODO: rm
 
         DistanceChange();
         EnergyShieldsRegeneration();
@@ -144,7 +147,7 @@ public abstract class Enemy : NetworkBehaviour, IComparable<Enemy>, IOnServerFix
     {
         _HP.Value = 0;
         Zone.RemoveEnemy(this);
-        GetComponent<NetworkObject>().Despawn(true);
+        GetComponent<NetworkObject>().Despawn();
     }
     public int CompareTo(Enemy e)
     {

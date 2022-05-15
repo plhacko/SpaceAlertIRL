@@ -1463,9 +1463,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 756354119}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3dd3043786f9d8a458b160e46d88cbad, type: 3}
+  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  GlobalObjectIdHash: 2076155411
+  AlwaysReplicateAsRoot: 0
+  DontDestroyWithOwner: 0
+  AutoObjectParentSync: 1
 --- !u!1 &786270577
 GameObject:
   m_ObjectHideFlags: 0
@@ -2949,7 +2953,7 @@ MonoBehaviour:
       SourceHashToOverride: 0
       OverridingTargetPrefab: {fileID: 0}
     - Override: 0
-      Prefab: {fileID: 8804520636853698673, guid: e4e63b4585bbc2645bc36de3e58a5cb3, type: 3}
+      Prefab: {fileID: 756354119}
       SourcePrefabToOverride: {fileID: 0}
       SourceHashToOverride: 0
       OverridingTargetPrefab: {fileID: 0}
@@ -5684,17 +5688,9 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 4908574635378253495, guid: e4e63b4585bbc2645bc36de3e58a5cb3, type: 3}
-      propertyPath: GlobalObjectIdHash
-      value: 3931459366
-      objectReference: {fileID: 0}
     - target: {fileID: 8804520636853698673, guid: e4e63b4585bbc2645bc36de3e58a5cb3, type: 3}
       propertyPath: m_Name
       value: AudioManager
-      objectReference: {fileID: 0}
-    - target: {fileID: 8804520636853698673, guid: e4e63b4585bbc2645bc36de3e58a5cb3, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8804520636853698679, guid: e4e63b4585bbc2645bc36de3e58a5cb3, type: 3}
       propertyPath: m_RootOrder
