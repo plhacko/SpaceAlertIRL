@@ -20,7 +20,7 @@ public class EnemyIconSpawner : ActionPanel
 
         ResetSelf();
 
-        foreach (Enemy enemy in Zone.GetEnemyList())
+        foreach (Enemy enemy in GetComponentsInChildren<Enemy>()) //Zone.GetEnemyList())
         {
             enemy.SpawnIconAsChild(gameObject);
         }
