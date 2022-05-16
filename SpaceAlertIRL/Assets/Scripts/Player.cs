@@ -63,12 +63,16 @@ public class Player : NetworkBehaviour
     public NetworkVariable<Vector3> Position = new NetworkVariable<Vector3>();
 
 
+    public override void OnNetworkSpawn()
+    {
+        if (IsOwner)
+        {
+            Move();
+        }
+    }
 
-    // TODO: delete this
     public void Move()
     {
-        SubmitPositionRequestServerRpc();
-        return;
         if (NetworkManager.Singleton.IsServer)
         {
             var randomPosition = GetRandomPositionOnPlane();
@@ -99,6 +103,5 @@ public class Player : NetworkBehaviour
     {
         transform.position = Position.Value;
 
-        // _Counter.Value++;
     }
 }

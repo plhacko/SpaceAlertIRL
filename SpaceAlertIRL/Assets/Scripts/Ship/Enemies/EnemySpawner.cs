@@ -35,10 +35,14 @@ public class EnemySpawner : MonoBehaviour, IOnServerFixedUpdate
 
     public void SpawnEnemy(GameObject e)
     {
-        GameObject go = Instantiate(e);
+        GameObject go = Instantiate(e, Vector3.zero, Quaternion.identity);
+
         go.GetComponent<NetworkObject>().Spawn();
+        Debug.Log("ty to spawn " + go.ToString());
+
         go.transform.parent = transform;
-        go.GetComponent<Enemy>().Initialise();
+        Zone z = GetComponentInParent<Zone>();
+        go.GetComponent<Enemy>().Initialise(z);
         GetComponentInParent<Zone>().UIActions.UpdateUI();
     }
 

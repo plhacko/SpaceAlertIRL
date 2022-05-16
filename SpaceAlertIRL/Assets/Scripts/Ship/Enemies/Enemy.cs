@@ -42,7 +42,7 @@ public abstract class Enemy : NetworkBehaviour, IComparable<Enemy>, IOnServerFix
     public abstract void SpawnIconAsChild(GameObject parent);
 
     bool IsInitialised = false;
-    public virtual void Initialise()
+    public virtual void Initialise(Zone z)
     {
         IsInitialised = true;
 
@@ -56,7 +56,8 @@ public abstract class Enemy : NetworkBehaviour, IComparable<Enemy>, IOnServerFix
         UIActions.AddOnValueChangeDependency(_HP, _EnergyShield);
         UIActions.AddOnValueChangeDependency(_Distance, _Speed, _NextActionTime);
 
-        Zone = GetComponentInParent<Zone>();
+        // Zone = GetComponentInParent<Zone>();
+        Zone = z;
         Zone.AddEnemy(this);
         Zone.UIActions.UpdateUI();
     }

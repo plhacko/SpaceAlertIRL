@@ -11,8 +11,9 @@ GameObject:
   - component: {fileID: 868332823138185190}
   - component: {fileID: 868332823138185194}
   - component: {fileID: 868332823138185193}
-  - component: {fileID: 868332823138185192}
   - component: {fileID: 868332823138185186}
+  - component: {fileID: -4034009665329955404}
+  - component: {fileID: 1392696982141093104}
   m_Layer: 5
   m_Name: Rocket
   m_TagString: Untagged
@@ -77,7 +78,34 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &868332823138185192
+--- !u!114 &868332823138185186
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 868332823138185189}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 628bb2a46af211c44994f9646a8baa66, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  IconPrefab: {fileID: 7192325015487134505, guid: 8c0203c7ab057d04780715246f63e882, type: 3}
+  _NextActionTime:
+    m_InternalValue: 0
+--- !u!114 &-4034009665329955404
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 868332823138185189}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3dd3043786f9d8a458b160e46d88cbad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1392696982141093104
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -93,16 +121,3 @@ MonoBehaviour:
   AlwaysReplicateAsRoot: 0
   DontDestroyWithOwner: 0
   AutoObjectParentSync: 1
---- !u!114 &868332823138185186
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 868332823138185189}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 628bb2a46af211c44994f9646a8baa66, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  IconPrefab: {fileID: 7192325015487134505, guid: 8c0203c7ab057d04780715246f63e882, type: 3}

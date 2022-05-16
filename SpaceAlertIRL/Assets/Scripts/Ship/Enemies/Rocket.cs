@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Unity.Netcode;
 
 // expodes on contact with different enemy (in future enemies might shoot rockets as well)
 public class Rocket : Enemy<Rocket>
@@ -37,4 +38,13 @@ public class Rocket : Enemy<Rocket>
     }
 
     protected override EnemyAction DecideNextAction() => new Wait(float.MaxValue);
+
+    // private void Start()
+    // {
+    //     var no = GetComponent<NetworkObject>();
+    //     if (!no.IsSpawned)
+    //     {
+    //         no.Spawn();
+    //     }
+    // }
 }

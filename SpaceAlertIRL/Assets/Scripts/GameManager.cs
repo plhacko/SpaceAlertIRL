@@ -10,7 +10,7 @@ namespace HelloWorld //TODO: pøejhmenovat nebo smazat namespace
     public class GameManager : MonoBehaviour
     {
         public InputField IPAddressToJoin;
-        
+
         //
         // MLAPI and networking
         //
@@ -20,7 +20,7 @@ namespace HelloWorld //TODO: pøejhmenovat nebo smazat namespace
             GUILayout.BeginArea(new Rect(10, 10, 300, 300));
             if (!NetworkManager.Singleton.IsClient && !NetworkManager.Singleton.IsServer)
             {
-                //StartButtons();
+                // StartButtons();
             }
             else
             {
@@ -64,20 +64,22 @@ namespace HelloWorld //TODO: pøejhmenovat nebo smazat namespace
         // actual game mechanics
         //
 
+        
         static void SubmitNewPosition()
         {
             if (GUILayout.Button(NetworkManager.Singleton.IsServer ? "Move" : "Request Position Change"))
             {
-                if (NetworkManager.Singleton.ConnectedClients.TryGetValue(NetworkManager.Singleton.LocalClientId,
-                    out var networkedClient))
+                if (NetworkManager.Singleton.IsServer && !NetworkManager.Singleton.IsClient)
                 {
-                    var player = networkedClient.PlayerObject.GetComponent<Player>();
-                    if (player)
-                    {
-                        player.Move();
-                    }
+                    foreach (ulong uid in NetworkManager.Singleton.ConnectedClientsIds)
+                        NetworkManager.Singleton.SpawnManager.GetPlayerNetworkObject(uid).GetComponent<Player>().Move();
                 }
-
+                else
+                {
+                    var playerObject = NetworkManager.Singleton.SpawnManager.GetLocalPlayerObject();
+                    var player = playerObject.GetComponent<Player>();
+                    player.Move();
+                }
             }
         }
     }

@@ -11,8 +11,9 @@ GameObject:
   - component: {fileID: 5461871599676218045}
   - component: {fileID: 5461871599676218033}
   - component: {fileID: 5461871599676218034}
-  - component: {fileID: 5461871599676218035}
   - component: {fileID: 3728546536325498487}
+  - component: {fileID: 7734139637043276789}
+  - component: {fileID: -4188788872992448390}
   m_Layer: 5
   m_Name: Fighter
   m_TagString: Untagged
@@ -77,7 +78,34 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &5461871599676218035
+--- !u!114 &3728546536325498487
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5461871599676218046}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f2fec290db90be444af7a6ed79a6c996, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  IconPrefab: {fileID: 8288998677379912555, guid: 6a52fe46672d3b64abf49f37ef5e4be6, type: 3}
+  _NextActionTime:
+    m_InternalValue: 0
+--- !u!114 &7734139637043276789
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5461871599676218046}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3dd3043786f9d8a458b160e46d88cbad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &-4188788872992448390
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -93,16 +121,3 @@ MonoBehaviour:
   AlwaysReplicateAsRoot: 0
   DontDestroyWithOwner: 0
   AutoObjectParentSync: 1
---- !u!114 &3728546536325498487
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5461871599676218046}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f2fec290db90be444af7a6ed79a6c996, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  IconPrefab: {fileID: 8288998677379912555, guid: 6a52fe46672d3b64abf49f37ef5e4be6, type: 3}
