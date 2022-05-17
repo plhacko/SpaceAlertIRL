@@ -49,6 +49,9 @@ MonoBehaviour:
   Sounds:
   - {fileID: 8300000, guid: ca8af92f2073ee64c866992723d873b6, type: 3}
   - {fileID: 8300000, guid: e36e40b04c4bd8d4aa158084d62ec42a, type: 3}
+  - {fileID: 8300000, guid: ba490b012ff065d43bde77e485dd889a, type: 3}
+  - {fileID: 8300000, guid: ed24274912f9e8944adbcca5141209bc, type: 3}
+  - {fileID: 8300000, guid: d8a0de7c8c9b6304fae8fa0ad66e5599, type: 3}
   - {fileID: 8300000, guid: c837bba508a1fd340a840e7ae067ed22, type: 3}
 --- !u!82 &8804520636853698676
 AudioSource:

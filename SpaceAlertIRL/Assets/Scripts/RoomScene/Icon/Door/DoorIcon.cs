@@ -52,7 +52,8 @@ public class DoorIcon : Icon
         var actionPanel = GameObject.Find("ActionPanel");
         if (actionPanel == null)
         {
-            // TODO: add message for a player
+            // audio message
+            GameObject.Find("AudioManager").GetComponent<AudioManager>().PlaySentenceLoclaly("accessDenied_r actionPanelIsDisabled_r");
             return;
         }
         var actionPanelSpawner = actionPanel.GetComponent<ActionPanelSpawner>();

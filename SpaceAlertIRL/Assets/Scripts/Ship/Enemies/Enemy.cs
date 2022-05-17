@@ -31,9 +31,7 @@ public abstract class Enemy : NetworkBehaviour, IComparable<Enemy>, IOnServerFix
     protected NetworkVariable<int> _EnergyShield = new NetworkVariable<int>();
     protected NetworkVariable<float> _EnergyShieldRegenerationTime = new NetworkVariable<float>();
     protected NetworkVariable<float> _Speed = new NetworkVariable<float>();
-    [SerializeField] // TODO: rm
     protected NetworkVariable<float> _Distance = new NetworkVariable<float>();
-    [SerializeField] // TODO: rm
     protected NetworkVariable<float> _NextActionTime = new NetworkVariable<float>();
 
     protected Zone Zone;
@@ -150,6 +148,9 @@ public abstract class Enemy : NetworkBehaviour, IComparable<Enemy>, IOnServerFix
     }
     virtual public void Die()
     {
+        string _zoneName = GetComponentInParent<Zone>().gameObject.name + "_r";
+        GameObject.Find("AudioManager").GetComponent<AudioManager>().RequestPlayingSentenceOnClient($"{_zoneName} enemyTerminated_r");
+
         _HP.Value = 0;
         Zone.RemoveEnemy(this);
         GetComponent<NetworkObject>().Despawn();

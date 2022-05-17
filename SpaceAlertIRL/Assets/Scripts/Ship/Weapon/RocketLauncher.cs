@@ -21,7 +21,7 @@ public class RocketLauncher : Weapon<RocketLauncher>
         UIActions.AddOnValueChangeDependency(NumberOfRockets);
     }
 
-    
+
     public void RequestLaunchingRocket()
     {
         ulong clientId = NetworkManager.Singleton.LocalClientId;
@@ -40,7 +40,6 @@ public class RocketLauncher : Weapon<RocketLauncher>
         }
         else
         {
-            //TODO: make rpc
             GameObject.Find("AudioManager").GetComponent<AudioManager>().RequestPlayingSentenceOnClient("notEnoughRockets_r", clientId);
         }
     }

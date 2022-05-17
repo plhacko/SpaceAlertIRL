@@ -28,6 +28,6 @@ public class LaserActionPanel : AmenityActionPanel<Laser>
 
     public void RequestShootingAtClosesEnemy()
     {
-        Amenity.RequestShootingAtClosesEnemyServerRpc();
+        Amenity.RequestShootingAtClosesEnemy();
     }
 }

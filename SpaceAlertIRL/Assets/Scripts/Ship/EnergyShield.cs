@@ -28,6 +28,7 @@ public class EnergyShield : Amenity<EnergyShield>
         if (receivedEnergy == 0)
         {
             //TODO: make message to the Player, that the transaction eneded with 0 energy added
+            // energy source depleated, no energy transphered
         }
     }
 #endif

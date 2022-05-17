@@ -38,7 +38,7 @@ public class Zone : NetworkBehaviour
         // reduce damage by shiealds
         // TODO:
 
-        // do mamage to ship
+        // do damage to the ship
         int _hp = _HP.Value - damage;
         if (_hp > 0) { _HP.Value = _hp; }
         else { _HP.Value = 0; Die(); }

@@ -26,32 +26,46 @@ public class AudioManager : NetworkBehaviour
         }
     }
 
-
-    public void RequestPlayingSentenceOnClient(FixedString32Bytes sentence, ulong clientId)
+    public void PlaySentenceLoclaly(string sentence)
     {
-        ClientRpcParams clientRpcParams = new ClientRpcParams
+        AudioClip audioClip;
+        // sentence might contain multiple sentences
+        foreach (string s in sentence.Split())
         {
-            Send = new ClientRpcSendParams
+            if (SoundDict.ContainsKey(s))
+            { audioClip = SoundDict[s]; }
+            else if (s == "") { continue; }
+            else
             {
-                TargetClientIds = new ulong[] { clientId }
+                audioClip = SoundDict["voiceTrackNotFound_r"];
+                Debug.Log($"voicetrack: \"{s}\" is missing");
             }
-        };
+
+            if (!Announcer_que.Contains(audioClip))
+            { Announcer_que.Enqueue(audioClip); }
+        }
+    }
+
+    public void RequestPlayingSentenceOnClient(FixedString64Bytes sentence, ulong? clientId = null)
+    {
+        ClientRpcParams clientRpcParams;
+        if (clientId != null) // broadcast to specific client
+        {
+            clientRpcParams = new ClientRpcParams
+            {
+                Send = new ClientRpcSendParams { TargetClientIds = new ulong[] { clientId.Value } }
+            };
+        }
+        else // broadcast to all clients
+        { clientRpcParams = default; }
 
         PlaySentenceClientRpc(sentence.ToString(), clientRpcParams);
     }
 
     [ClientRpc]
-    void PlaySentenceClientRpc(string sentence, ClientRpcParams clientRpcParams = default)
+    void PlaySentenceClientRpc(string sentences, ClientRpcParams clientRpcParams = default)
     {
-        AudioClip s;
-
-        if (SoundDict.ContainsKey(sentence))
-        { s = SoundDict[sentence]; }
-        else
-        { s = SoundDict["voiceTrackNotFound_r"]; }
-
-        if (!Announcer_que.Contains(s))
-        { Announcer_que.Enqueue(s); }
+        PlaySentenceLoclaly(sentences);
     }
 
     void FixedUpdate()

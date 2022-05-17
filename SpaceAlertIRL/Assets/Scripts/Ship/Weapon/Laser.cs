@@ -27,7 +27,8 @@ public class Laser : Weapon<Laser>
         UIActions.AddOnValueChangeDependency(Heat);
     }
 
-    public void ShootAtClosesEnemy()
+    [ServerRpc(RequireOwnership = false)]
+    public void ShootAtClosesEnemyServerRpc(ulong clientId)
     {
         if (!NetworkManager.Singleton.IsServer) { throw new System.Exception("Is not a server"); }
 
@@ -45,8 +46,8 @@ public class Laser : Weapon<Laser>
 
         if (!energySource.PullEnergy(EnergyCostToShootConst))
         {
-            //TODO: notify the player
-            Debug.Log("there is not enough energy");
+            // notify the player
+            GameObject.Find("AudioManager").GetComponent<AudioManager>().RequestPlayingSentenceOnClient("notEnoughEnergy_r", clientId);
             return;
         }
 
@@ -54,10 +55,11 @@ public class Laser : Weapon<Laser>
 
     }
 
-    [ServerRpc(RequireOwnership = false)]
-    public void RequestShootingAtClosesEnemyServerRpc()
+    
+    public void RequestShootingAtClosesEnemy()
     {
-        ShootAtClosesEnemy();
+        ulong clientId = NetworkManager.Singleton.LocalClientId;
+        ShootAtClosesEnemyServerRpc(clientId);
     }
 }
 
