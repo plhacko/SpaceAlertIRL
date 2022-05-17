@@ -16,4 +16,9 @@ public class ActionPanelSpawner : MonoBehaviour
     {
         ResetSelf();
     }
+
+    private void OnDisable()
+    {
+        ResetSelf();
+    }
 }

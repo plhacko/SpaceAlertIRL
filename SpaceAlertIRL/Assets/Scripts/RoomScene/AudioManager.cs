@@ -43,16 +43,15 @@ public class AudioManager : NetworkBehaviour
     [ClientRpc]
     void PlaySentenceClientRpc(string sentence, ClientRpcParams clientRpcParams = default)
     {
-        Debug.Log("I was here");
-
         AudioClip s;
-        
+
         if (SoundDict.ContainsKey(sentence))
         { s = SoundDict[sentence]; }
         else
         { s = SoundDict["voiceTrackNotFound_r"]; }
-        
-        Announcer_que.Enqueue(s);
+
+        if (!Announcer_que.Contains(s))
+        { Announcer_que.Enqueue(s); }
     }
 
     void FixedUpdate()

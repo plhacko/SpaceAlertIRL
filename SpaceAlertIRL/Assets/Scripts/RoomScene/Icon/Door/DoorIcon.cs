@@ -49,10 +49,16 @@ public class DoorIcon : Icon
 
     public void SpawnActionPanel()
     {
-        var actionPanel = GameObject.Find("ActionPanel").GetComponent<ActionPanelSpawner>();
+        var actionPanel = GameObject.Find("ActionPanel");
+        if (actionPanel == null)
+        {
+            // TODO: add message for a player
+            return;
+        }
+        var actionPanelSpawner = actionPanel.GetComponent<ActionPanelSpawner>();
 
-        actionPanel.ResetSelf();
-        GameObject _go = Instantiate(ActionPanelPrefab, actionPanel.transform.position, actionPanel.transform.rotation, actionPanel.transform);
+        actionPanelSpawner.ResetSelf();
+        GameObject _go = Instantiate(ActionPanelPrefab, parent: actionPanel.transform);
         _go.GetComponent<DoorActionPanel>().Initialise(Door);
     }
 }

@@ -1,9 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
+using System.Linq;
 
 public class EnemyIconSpawner : ActionPanel
 {
+    [SerializeField]
     Zone Zone;
 
     public void Initialise(Zone zone)
@@ -14,14 +17,24 @@ public class EnemyIconSpawner : ActionPanel
         Zone.UIActions.AddAction(SpawnAllEnemies);
     }
 
+
+
+    private void FixedUpdate()
+    {
+        SpawnAllEnemies();
+    }
+
+    private Enemy[] EnemiesInZone = new Enemy[] { };
     private void SpawnAllEnemies()
     {
-        //TODO: add sorting mechanism, to sort the icons
+        Enemy[] _enemiesInZone = Zone.GetComponentsInChildren<Enemy>(); //TODO: rethink or remove
+        Array.Sort(_enemiesInZone);
+        if (EnemiesInZone.SequenceEqual(_enemiesInZone)) { return; }
+        EnemiesInZone = _enemiesInZone;
 
+        // spawn them
         ResetSelf();
-
-        // var enemiesInZone = Zone.GetComponentsInChildren<Enemy>(); //TODO: rethink or remove
-        foreach (Enemy enemy in Zone.GetEnemyList()) //enemiesInZone) //Zone.GetEnemyList())
+        foreach (Enemy enemy in _enemiesInZone) //enemiesInZone) //Zone.GetEnemyList())
         {
             enemy.SpawnIconAsChild(gameObject);
         }

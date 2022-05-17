@@ -17,14 +17,6 @@ public abstract class Enemy : NetworkBehaviour, IComparable<Enemy>, IOnServerFix
     abstract protected float StartingDistanceConst { get; }
     abstract protected float EnergyShieldRegenerationTimeConst { get; }
 
-    protected NetworkVariable<int> _HP;
-    protected NetworkVariable<int> _EnergyShield;
-    protected NetworkVariable<float> _EnergyShieldRegenerationTime;
-    protected NetworkVariable<float> _Speed;
-    protected NetworkVariable<float> _Distance;
-    [SerializeField]
-    protected NetworkVariable<float> _NextActionTime;
-
     // geters for data
     public int HP { get => _HP.Value; }
     public int MaxHP { get => StratingHPConst; }
@@ -35,26 +27,38 @@ public abstract class Enemy : NetworkBehaviour, IComparable<Enemy>, IOnServerFix
     public float NextActionTime { get => _NextActionTime.Value; }
     public virtual bool IsTragetabeByRocket() => true;
 
+    protected NetworkVariable<int> _HP = new NetworkVariable<int>();
+    protected NetworkVariable<int> _EnergyShield = new NetworkVariable<int>();
+    protected NetworkVariable<float> _EnergyShieldRegenerationTime = new NetworkVariable<float>();
+    protected NetworkVariable<float> _Speed = new NetworkVariable<float>();
+    [SerializeField] // TODO: rm
+    protected NetworkVariable<float> _Distance = new NetworkVariable<float>();
+    [SerializeField] // TODO: rm
+    protected NetworkVariable<float> _NextActionTime = new NetworkVariable<float>();
 
     protected Zone Zone;
 
     public UpdateUIActions UIActions = new UpdateUIActions();
     public abstract void SpawnIconAsChild(GameObject parent);
 
-    bool IsInitialised = false;
+    public bool IsInitialised { get; private set; } = false;
+
+    public virtual void Start()
+    {
+        UIActions.AddOnValueChangeDependency(_HP, _EnergyShield);
+        UIActions.AddOnValueChangeDependency(_Distance, _Speed, _NextActionTime);
+    }
+
     public virtual void Initialise(Zone z)
     {
         IsInitialised = true;
 
-        _HP = new NetworkVariable<int>(StratingHPConst);
-        _EnergyShield = new NetworkVariable<int>(MaxEnergyShieldConst);
-        _EnergyShieldRegenerationTime = new NetworkVariable<float>(0.0f);
-        _Distance = new NetworkVariable<float>(StartingDistanceConst);
-        _Speed = new NetworkVariable<float>(StartingSpeedConst);
-        _NextActionTime = new NetworkVariable<float>(0.0f);
-
-        UIActions.AddOnValueChangeDependency(_HP, _EnergyShield);
-        UIActions.AddOnValueChangeDependency(_Distance, _Speed, _NextActionTime);
+        _HP.Value = StratingHPConst;
+        _EnergyShield.Value = MaxEnergyShieldConst;
+        _EnergyShieldRegenerationTime.Value = 0.0f;
+        _Distance.Value = StartingDistanceConst;
+        _Speed.Value = StartingSpeedConst;
+        _NextActionTime.Value = 0.0f;
 
         // Zone = GetComponentInParent<Zone>();
         Zone = z;

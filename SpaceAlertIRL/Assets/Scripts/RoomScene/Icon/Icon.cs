@@ -36,9 +36,15 @@ abstract public class AmenityIcon<T> : Icon where T : Amenity
 
     public void SpawnActionPanel()
     {
-        var actionPanel = GameObject.Find("ActionPanel").GetComponent<ActionPanelSpawner>();
+        var actionPanel = GameObject.Find("ActionPanel");
+        if (actionPanel == null)
+        {
+            // TODO: add message for a player
+            return;
+        }
+        var actionPanelSpawner = actionPanel.GetComponent<ActionPanelSpawner>();
 
-        actionPanel.ResetSelf();
+        actionPanelSpawner.ResetSelf();
         GameObject _go = Instantiate(ActionPanelPrefab, parent:actionPanel.transform);
         _go.GetComponent<AmenityActionPanel<T>>().Initialise(Amenity);
     }
@@ -51,15 +57,15 @@ abstract public class EnemyIcon<T> : Icon where T : Enemy
     public void Initialise(T enemy)
     {
         Enemy = enemy;
-        UpdateUIAction = UpdateUI;
-        UpdateUIAction += DestroyThisIconWithEnemyDeath;
+        UpdateUIAction = DestroyThisIconWithEnemyDeath;
+        UpdateUIAction += UpdateUI;
         UpdateUIAction();
         Enemy.UIActions.AddAction(UpdateUIAction);
     }
 
     private void DestroyThisIconWithEnemyDeath()
     {
-        if (Enemy.HP == 0)
+        if (Enemy == null)
         { Destroy(this.gameObject); }
     }
 
