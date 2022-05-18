@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using TMPro;
-using Unity.Netcode;
+
 
 public class EnergyShieldActionPanel : AmenityActionPanel<EnergyShield>
 {
     public void RequestRechargeEnergyShield()
     {
-        Amenity.RequestRechargeEnergyShieldServerRpc();
+        ulong clientId = Unity.Netcode.NetworkManager.Singleton.LocalClientId;
+        Amenity.RequestRechargeEnergyShieldServerRpc(clientId);
     }
     protected override void UpdateUI()
     {
