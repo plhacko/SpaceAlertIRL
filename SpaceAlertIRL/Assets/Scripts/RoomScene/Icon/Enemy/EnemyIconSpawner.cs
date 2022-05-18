@@ -17,8 +17,6 @@ public class EnemyIconSpawner : ActionPanel
         Zone.UIActions.AddAction(SpawnAllEnemies);
     }
 
-
-
     private void FixedUpdate()
     {
         SpawnAllEnemies();

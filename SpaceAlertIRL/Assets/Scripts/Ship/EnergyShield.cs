@@ -15,7 +15,7 @@ public class EnergyShield : Amenity<EnergyShield>
 
 
 #if (SERVER)
-    private void RechargeEnergyShield()
+    private void RechargeEnergyShield(ulong clientId)
     {
         if (!NetworkManager.Singleton.IsServer) { throw new System.Exception("Is not a server"); }
 
@@ -27,16 +27,24 @@ public class EnergyShield : Amenity<EnergyShield>
 
         if (receivedEnergy == 0)
         {
-            //TODO: make message to the Player, that the transaction eneded with 0 energy added
-            // energy source depleated, no energy transphered
+            // message for the player, tahat there was not enough energy
+            GameObject.Find("AudioManager").GetComponent<AudioManager>().RequestPlayingSentenceOnClient("netEnoughEnergy_r", clientId);
         }
+    }
+
+    public void AbsorbDamage(ref int dmg)
+    {
+        int damageReduction = Mathf.Min(dmg, ShieldValue.Value);
+
+        ShieldValue.Value = ShieldValue.Value - damageReduction;
+        dmg = dmg - damageReduction;
     }
 #endif
 
     [ServerRpc(RequireOwnership = false)]
-    public void RequestRechargeEnergyShieldServerRpc()
+    public void RequestRechargeEnergyShieldServerRpc(ulong clientId)
     {
-        RechargeEnergyShield();
+        RechargeEnergyShield(clientId);
     }
 
     protected override void Start()

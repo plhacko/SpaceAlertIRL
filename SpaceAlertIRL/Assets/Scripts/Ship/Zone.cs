@@ -36,7 +36,11 @@ public class Zone : NetworkBehaviour
         { throw new System.Exception("this method should be called only on server"); }
 
         // reduce damage by shiealds
-        // TODO:
+        EnergyShield[] energyShieldArray = GetComponentsInChildren<EnergyShield>(); // TODO: ? array sort this based on smothing ?
+        foreach (EnergyShield es in energyShieldArray)
+        {
+            es.AbsorbDamage(ref damage);
+        }
 
         // do damage to the ship
         int _hp = _HP.Value - damage;
