@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Unity.Netcode;
+using System;
 
 public class Zone : NetworkBehaviour
 {
@@ -17,12 +18,27 @@ public class Zone : NetworkBehaviour
     public int HP { get => _HP.Value; }
     public int MaxHP { get => MaxHPConst; }
 
-    [SerializeField]
-    protected List<Enemy> EnemyList = new List<Enemy>();
-    public IList<Enemy> GetEnemyList() => EnemyList.AsReadOnly();
+    public Enemy[] GenrateSortedEnemyArray()
+    {
+        Enemy[] enemiesInZone = GetComponentsInChildren<Enemy>();
+        Array.Sort(enemiesInZone);
 
-    public void AddEnemy(Enemy e) { EnemyList.Add(e); EnemyList.Sort(); }
-    public void RemoveEnemy(Enemy e) { EnemyList.Remove(e); }
+        return enemiesInZone;
+    }
+
+    public Enemy ComputeClosestEnemy()
+    {
+        Enemy[] enemiesInZone = GetComponentsInChildren<Enemy>();
+        if (enemiesInZone.Length == 0) { return null; }
+        
+        Enemy closestEnemy = enemiesInZone[0];
+        foreach (var e in enemiesInZone)
+        {
+            if(closestEnemy.Distance > e.Distance)
+            { closestEnemy = e; }
+        }
+        return closestEnemy;
+    }
 
     private void Start()
     {
@@ -51,17 +67,6 @@ public class Zone : NetworkBehaviour
     private void Die()
     {
         Debug.Log("Dying for ship is not implemented."); // TODO: implement
-    }
-
-    public Enemy GetClosestEnemy()
-    {
-        if (!NetworkManager.Singleton.IsServer)
-        { throw new System.Exception("this method should be called only on server"); }
-
-        // TODO: sort them by distance
-        var enemy = EnemyList.Count != 0 ? EnemyList[0] : null;
-
-        return enemy;
     }
 #endif
 

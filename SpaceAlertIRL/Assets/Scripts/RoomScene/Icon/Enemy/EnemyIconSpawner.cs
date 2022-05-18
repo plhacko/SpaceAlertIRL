@@ -14,7 +14,7 @@ public class EnemyIconSpawner : ActionPanel
         Zone = zone;
         UpdateUIAction = SpawnAllEnemies;
         UpdateUIAction();
-        Zone.UIActions.AddAction(SpawnAllEnemies);
+        // Zone.UIActions.AddAction(SpawnAllEnemies); // TODO: currently not needed TODO: rm?
     }
 
     private void FixedUpdate()
@@ -25,8 +25,8 @@ public class EnemyIconSpawner : ActionPanel
     private Enemy[] EnemiesInZone = new Enemy[] { };
     private void SpawnAllEnemies()
     {
-        Enemy[] _enemiesInZone = Zone.GetComponentsInChildren<Enemy>(); //TODO: rethink or remove
-        Array.Sort(_enemiesInZone);
+        Enemy[] _enemiesInZone = Zone.GenrateSortedEnemyArray(); //GetComponentsInChildren<Enemy>(); //TODO: rethink or remove // TODO: rm
+        // Array.Sort(_enemiesInZone); // TODO rm
         if (EnemiesInZone.SequenceEqual(_enemiesInZone)) { return; }
         EnemiesInZone = _enemiesInZone;
 
@@ -48,7 +48,8 @@ public class EnemyIconSpawner : ActionPanel
 
     protected override void OnDisable()
     {
-        if (Zone != null)
-        { Zone.UIActions.RemoveAction(UpdateUIAction); }
+        // TODO: ?rm? - currently not needed
+        // if (Zone != null)
+        // { Zone.UIActions.RemoveAction(UpdateUIAction); }
     }
 }

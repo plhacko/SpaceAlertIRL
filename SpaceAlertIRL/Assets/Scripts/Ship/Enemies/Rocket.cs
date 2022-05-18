@@ -21,7 +21,7 @@ public class Rocket : Enemy<Rocket>
     {
         float newDistance = _Distance.Value + Time.deltaTime * _Speed.Value;
 
-        foreach (Enemy e in Zone.GetEnemyList())
+        foreach (Enemy e in Zone.GenrateSortedEnemyArray()) // TODO: doesn't needto be sorted
         {
             if (e == this || !e.IsTragetabeByRocket()) { continue; }
             if (System.Math.Abs(e.Distance - newDistance) < 0.1f)

@@ -35,12 +35,12 @@ public class Laser : Weapon<Laser>
         // request energy
         var energySource = Room.GetEnergySource();
 
-        Enemy enemy = Zone.GetClosestEnemy();
+        Enemy enemy = Zone.ComputeClosestEnemy();
 
         if (enemy == null)
         {
-            //TODO: notify the player
-            Debug.Log("there is no enemy to shoot at");
+            // notify the player
+            GameObject.Find("AudioManager").GetComponent<AudioManager>().RequestPlayingSentenceOnClient("noValidTargets_r", clientId); // TODO: voice track is missing
             return;
         }
 

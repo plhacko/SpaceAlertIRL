@@ -58,10 +58,10 @@ public abstract class Enemy : NetworkBehaviour, IComparable<Enemy>, IOnServerFix
         _Speed.Value = StartingSpeedConst;
         _NextActionTime.Value = 0.0f;
 
-        // Zone = GetComponentInParent<Zone>();
+        // Zone = GetComponentInParent<Zone>(); // TODO: rm
         Zone = z;
-        Zone.AddEnemy(this);
-        Zone.UIActions.UpdateUI();
+        // Zone.AddEnemy(this); // TODO: rm
+        // Zone.UIActions.UpdateUI();
     }
 #if SERVER
 
@@ -123,7 +123,7 @@ public abstract class Enemy : NetworkBehaviour, IComparable<Enemy>, IOnServerFix
     protected virtual void Impact()
     {
         _HP.Value = 0;
-        Zone.RemoveEnemy(this);
+        // Zone.RemoveEnemy(this); TODO: rm
         GetComponent<NetworkObject>().Despawn(true);
     }
 
@@ -152,7 +152,7 @@ public abstract class Enemy : NetworkBehaviour, IComparable<Enemy>, IOnServerFix
         GameObject.Find("AudioManager").GetComponent<AudioManager>().RequestPlayingSentenceOnClient($"{_zoneName} enemyTerminated_r");
 
         _HP.Value = 0;
-        Zone.RemoveEnemy(this);
+        // Zone.RemoveEnemy(this); TODO: rm
         GetComponent<NetworkObject>().Despawn();
     }
     public int CompareTo(Enemy e)
