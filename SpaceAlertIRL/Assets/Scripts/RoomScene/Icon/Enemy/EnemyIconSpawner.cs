@@ -42,6 +42,8 @@ public class EnemyIconSpawner : ActionPanel
     {
         foreach (Transform child in transform)
         {
+            if (child.name == "NameText") { continue; }
+
             GameObject.Destroy(child.gameObject);
         }
     }

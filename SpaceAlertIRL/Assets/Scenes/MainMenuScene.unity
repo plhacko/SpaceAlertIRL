@@ -5435,9 +5435,13 @@ PrefabInstance:
       propertyPath: m_Name
       value: AudioManager
       objectReference: {fileID: 0}
+    - target: {fileID: 8804520636853698676, guid: e4e63b4585bbc2645bc36de3e58a5cb3, type: 3}
+      propertyPath: BypassListenerEffects
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8804520636853698678, guid: e4e63b4585bbc2645bc36de3e58a5cb3, type: 3}
       propertyPath: Sounds.Array.size
-      value: 13
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 8804520636853698678, guid: e4e63b4585bbc2645bc36de3e58a5cb3, type: 3}
       propertyPath: Sounds.Array.data[5]
@@ -5470,6 +5474,14 @@ PrefabInstance:
     - target: {fileID: 8804520636853698678, guid: e4e63b4585bbc2645bc36de3e58a5cb3, type: 3}
       propertyPath: Sounds.Array.data[12]
       value: 
+      objectReference: {fileID: 8300000, guid: f142e5a6683f02b43be43bdc8b78d111, type: 3}
+    - target: {fileID: 8804520636853698678, guid: e4e63b4585bbc2645bc36de3e58a5cb3, type: 3}
+      propertyPath: Sounds.Array.data[13]
+      value: 
+      objectReference: {fileID: 8300000, guid: 9410916e88842f2429b881ec4b9a9629, type: 3}
+    - target: {fileID: 8804520636853698678, guid: e4e63b4585bbc2645bc36de3e58a5cb3, type: 3}
+      propertyPath: Sounds.Array.data[14]
+      value: 
       objectReference: {fileID: 8300000, guid: c837bba508a1fd340a840e7ae067ed22, type: 3}
     - target: {fileID: 8804520636853698679, guid: e4e63b4585bbc2645bc36de3e58a5cb3, type: 3}
       propertyPath: m_RootOrder
@@ -5477,15 +5489,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8804520636853698679, guid: e4e63b4585bbc2645bc36de3e58a5cb3, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 256.81363
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8804520636853698679, guid: e4e63b4585bbc2645bc36de3e58a5cb3, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 112.68367
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8804520636853698679, guid: e4e63b4585bbc2645bc36de3e58a5cb3, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -2244.4685
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8804520636853698679, guid: e4e63b4585bbc2645bc36de3e58a5cb3, type: 3}
       propertyPath: m_LocalRotation.w
