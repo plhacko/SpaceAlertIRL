@@ -17,35 +17,35 @@ public class NFCEditor : Editor
 
         if (GUILayout.Button("Scene: CountDownRoom"))
         {
-            (target as NFC).TagOutputSceneName = "CountDownRoom";
+            (target as NFC).TagOutput = "CountDownRoom";
             (target as NFC).ChangeScene();
         }
 
         if (GUILayout.Button("Scene: ChangingColorRoom"))
         {
-            (target as NFC).TagOutputSceneName = "ChangingColorRoom";
+            (target as NFC).TagOutput = "ChangingColorRoom";
             (target as NFC).ChangeScene();
         }
 
         if (GUILayout.Button("Scene: MainRoom"))
         {
-            (target as NFC).TagOutputSceneName = "MainRoom";
+            (target as NFC).TagOutput = "MainRoom";
             (target as NFC).ChangeScene();
         }
 
         if (GUILayout.Button("Scene: SoundRoom"))
         {
-            (target as NFC).TagOutputSceneName = "SoundRoom";
+            (target as NFC).TagOutput = "SoundRoom";
             (target as NFC).ChangeScene();
         }
         if (GUILayout.Button("Scene: RoomScene"))
         {
-            (target as NFC).TagOutputSceneName = "RoomScene";
+            (target as NFC).TagOutput = "RoomScene";
             (target as NFC).ChangeScene();
         }
         if (GUILayout.Button("Scene: Ship_A"))
         {
-            (target as NFC).TagOutputSceneName = "Ship_A";
+            (target as NFC).TagOutput = "Ship_A";
             (target as NFC).ChangeScene();
         }
     }

@@ -26,7 +26,7 @@ public class AudioManager : NetworkBehaviour
         }
     }
 
-    public void PlaySentenceLoclaly(string sentence)
+    public void PlaySentenceLoclaly(string sentence, bool removeDuplicates = true)
     {
         AudioClip audioClip;
         // sentence might contain multiple sentences
@@ -41,12 +41,12 @@ public class AudioManager : NetworkBehaviour
                 Debug.Log($"voicetrack: \"{s}\" is missing");
             }
 
-            if (!Announcer_que.Contains(audioClip))
+            if (!removeDuplicates || !Announcer_que.Contains(audioClip))
             { Announcer_que.Enqueue(audioClip); }
         }
     }
 
-    public void RequestPlayingSentenceOnClient(FixedString64Bytes sentence, ulong? clientId = null)
+    public void RequestPlayingSentenceOnClient(FixedString64Bytes sentence, bool removeDuplicates = true, ulong? clientId = null)
     {
         ClientRpcParams clientRpcParams;
         if (clientId != null) // broadcast to specific client
@@ -59,13 +59,13 @@ public class AudioManager : NetworkBehaviour
         else // broadcast to all clients
         { clientRpcParams = default; }
 
-        PlaySentenceClientRpc(sentence.ToString(), clientRpcParams);
+        PlaySentenceClientRpc(sentence.ToString(), removeDuplicates, clientRpcParams);
     }
 
     [ClientRpc]
-    void PlaySentenceClientRpc(string sentences, ClientRpcParams clientRpcParams = default)
+    void PlaySentenceClientRpc(string sentences, bool removeDuplicates, ClientRpcParams clientRpcParams = default)
     {
-        PlaySentenceLoclaly(sentences);
+        PlaySentenceLoclaly(sentences, removeDuplicates);
     }
 
     void FixedUpdate()

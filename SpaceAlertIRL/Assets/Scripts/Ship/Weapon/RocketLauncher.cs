@@ -40,7 +40,7 @@ public class RocketLauncher : Weapon<RocketLauncher>
         }
         else
         {
-            GameObject.Find("AudioManager").GetComponent<AudioManager>().RequestPlayingSentenceOnClient("notEnoughRockets_r", clientId);
+            GameObject.Find("AudioManager").GetComponent<AudioManager>().RequestPlayingSentenceOnClient("notEnoughRockets_r", clientId : clientId);
         }
     }
 }

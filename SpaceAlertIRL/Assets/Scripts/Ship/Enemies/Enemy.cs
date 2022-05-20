@@ -149,7 +149,7 @@ public abstract class Enemy : NetworkBehaviour, IComparable<Enemy>, IOnServerFix
     virtual public void Die()
     {
         string _zoneName = GetComponentInParent<Zone>().gameObject.name + "_r";
-        GameObject.Find("AudioManager").GetComponent<AudioManager>().RequestPlayingSentenceOnClient($"{_zoneName} enemyTerminated_r");
+        GameObject.Find("AudioManager").GetComponent<AudioManager>().RequestPlayingSentenceOnClient($"{_zoneName} enemyTerminated_r", removeDuplicates: false);
 
         _HP.Value = 0;
         // Zone.RemoveEnemy(this); TODO: rm

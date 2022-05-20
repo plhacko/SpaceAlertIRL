@@ -45,7 +45,7 @@ public class EnemySpawner : MonoBehaviour, IOnServerFixedUpdate
 
         // broadcast message for all clients
         string _zoneName = GetComponentInParent<Zone>().gameObject.name + "_r";
-        GameObject.Find("AudioManager").GetComponent<AudioManager>().RequestPlayingSentenceOnClient($"{_zoneName} enemyDetected_r");
+        GameObject.Find("AudioManager").GetComponent<AudioManager>().RequestPlayingSentenceOnClient($"{_zoneName} enemyDetected_r", removeDuplicates: false);
     }
 
 #endif

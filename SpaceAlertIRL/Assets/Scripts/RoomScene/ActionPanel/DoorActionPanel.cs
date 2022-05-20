@@ -58,11 +58,11 @@ public class DoorActionPanel : ActionPanel
             {
                 if (player.CurrentRoomName.Value != Door.RoomA.Name)
                 {
-                    player.ChangeRoomServerRpc(Door.RoomA.Name);
+                    player.RequestChangingRoom(Door.RoomA.Name);
                 }
                 else if (player.CurrentRoomName.Value != Door.RoomB.Name)
                 {
-                    player.ChangeRoomServerRpc(Door.RoomB.Name);
+                    player.RequestChangingRoom(Door.RoomB.Name);
                 }
                 else
                 { Debug.Log("player is not at the same room as doors and is trying to go through"); }

@@ -28,7 +28,7 @@ public class EnergyShield : Amenity<EnergyShield>
         if (receivedEnergy == 0)
         {
             // message for the player, tahat there was not enough energy
-            GameObject.Find("AudioManager").GetComponent<AudioManager>().RequestPlayingSentenceOnClient("netEnoughEnergy_r", clientId);
+            GameObject.Find("AudioManager").GetComponent<AudioManager>().RequestPlayingSentenceOnClient("netEnoughEnergy_r", clientId: clientId);
         }
     }
 

@@ -2815,8 +2815,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9155bb7aee4f4914fb6b62d6dea8e1f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TagOutputSceneName: 
+  TagOutput: 
   TagFound: 0
+  LocalPlayer: {fileID: 0}
 --- !u!4 &1223564558
 Transform:
   m_ObjectHideFlags: 0
@@ -5435,54 +5436,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: AudioManager
       objectReference: {fileID: 0}
-    - target: {fileID: 8804520636853698676, guid: e4e63b4585bbc2645bc36de3e58a5cb3, type: 3}
-      propertyPath: BypassListenerEffects
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8804520636853698678, guid: e4e63b4585bbc2645bc36de3e58a5cb3, type: 3}
-      propertyPath: Sounds.Array.size
-      value: 15
-      objectReference: {fileID: 0}
-    - target: {fileID: 8804520636853698678, guid: e4e63b4585bbc2645bc36de3e58a5cb3, type: 3}
-      propertyPath: Sounds.Array.data[5]
-      value: 
-      objectReference: {fileID: 8300000, guid: 536a64abb476e394e9135bb240268393, type: 3}
-    - target: {fileID: 8804520636853698678, guid: e4e63b4585bbc2645bc36de3e58a5cb3, type: 3}
-      propertyPath: Sounds.Array.data[6]
-      value: 
-      objectReference: {fileID: 8300000, guid: ae47c696d817cf447a83340b48270745, type: 3}
-    - target: {fileID: 8804520636853698678, guid: e4e63b4585bbc2645bc36de3e58a5cb3, type: 3}
-      propertyPath: Sounds.Array.data[7]
-      value: 
-      objectReference: {fileID: 8300000, guid: aea069aee1227964f8c32978c55edb00, type: 3}
-    - target: {fileID: 8804520636853698678, guid: e4e63b4585bbc2645bc36de3e58a5cb3, type: 3}
-      propertyPath: Sounds.Array.data[8]
-      value: 
-      objectReference: {fileID: 8300000, guid: f2c2ce11454d9434da9b1da1d5fa5ac4, type: 3}
-    - target: {fileID: 8804520636853698678, guid: e4e63b4585bbc2645bc36de3e58a5cb3, type: 3}
-      propertyPath: Sounds.Array.data[9]
-      value: 
-      objectReference: {fileID: 8300000, guid: b7aaebc6baea5314586844b04b83886c, type: 3}
-    - target: {fileID: 8804520636853698678, guid: e4e63b4585bbc2645bc36de3e58a5cb3, type: 3}
-      propertyPath: Sounds.Array.data[10]
-      value: 
-      objectReference: {fileID: 8300000, guid: ef51b6b960b94fd459e7bc75afc883d2, type: 3}
-    - target: {fileID: 8804520636853698678, guid: e4e63b4585bbc2645bc36de3e58a5cb3, type: 3}
-      propertyPath: Sounds.Array.data[11]
-      value: 
-      objectReference: {fileID: 8300000, guid: b5251173df92eab4991b816ed5bbb2e8, type: 3}
-    - target: {fileID: 8804520636853698678, guid: e4e63b4585bbc2645bc36de3e58a5cb3, type: 3}
-      propertyPath: Sounds.Array.data[12]
-      value: 
-      objectReference: {fileID: 8300000, guid: f142e5a6683f02b43be43bdc8b78d111, type: 3}
-    - target: {fileID: 8804520636853698678, guid: e4e63b4585bbc2645bc36de3e58a5cb3, type: 3}
-      propertyPath: Sounds.Array.data[13]
-      value: 
-      objectReference: {fileID: 8300000, guid: 9410916e88842f2429b881ec4b9a9629, type: 3}
-    - target: {fileID: 8804520636853698678, guid: e4e63b4585bbc2645bc36de3e58a5cb3, type: 3}
-      propertyPath: Sounds.Array.data[14]
-      value: 
-      objectReference: {fileID: 8300000, guid: c837bba508a1fd340a840e7ae067ed22, type: 3}
     - target: {fileID: 8804520636853698679, guid: e4e63b4585bbc2645bc36de3e58a5cb3, type: 3}
       propertyPath: m_RootOrder
       value: 8
