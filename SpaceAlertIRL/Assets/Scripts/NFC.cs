@@ -4,15 +4,19 @@ using System;
 using System.Reflection;
 using UnityEngine;
 using UnityEngine.UI;
+using Unity.Netcode;
 
 public class NFC : MonoBehaviour
 {
-	public string TagOutputSceneName = "";
+	public string TagOutput = "";
 	public bool TagFound = false;
 
 	private AndroidJavaObject _mActivity;
 	private AndroidJavaObject _mIntent;
 	private string _sAction;
+
+    [SerializeField]
+    Player LocalPlayer;
 
     private SceneChanger _sceneChanger;
 
@@ -21,13 +25,25 @@ public class NFC : MonoBehaviour
         _sceneChanger = GetComponent<SceneChanger>();
     }
 
-    public void ChangeScene()
+    public void ChangeScene() //TODO: rm
     {
-        _sceneChanger.ChangeScene(TagOutputSceneName);
+        _sceneChanger.ChangeScene(TagOutput);
     }
 
+    public void RequestRoomChangeForCurrentPlayer(string roomName)
+    {
+        Player player;
+        foreach (GameObject playerObject in GameObject.FindGameObjectsWithTag("Player"))
+        {
+            player = playerObject.GetComponent<Player>();
+            if (player.OwnerClientId == NetworkManager.Singleton.LocalClientId)
+            {
+                player.RequestChangingRoom(roomName);
+            }
+        }
+    }
 
-    void Update()
+    void FixedUpdate()
 	{
 		if (Application.platform == RuntimePlatform.Android)
 		{
@@ -41,19 +57,19 @@ public class NFC : MonoBehaviour
 					_sAction = _mIntent.Call<String>("getAction"); // results are returned in the Intent object
 					if (_sAction == "android.nfc.action.NDEF_DISCOVERED")
 					{
-						Debug.Log("Tag of type NDEF"); // TODO: delete this line
+						// Debug.Log("Tag of type NDEF"); // TODO: delete this line
 						AndroidJavaObject[] rawMsg = _mIntent.Call<AndroidJavaObject[]>("getParcelableArrayExtra", "android.nfc.extra.NDEF_MESSAGES");
 						AndroidJavaObject[] records = rawMsg[0].Call<AndroidJavaObject[]>("getRecords");
 						byte[] payLoad = records[0].Call<byte[]>("getPayload");
 						string result = System.Text.Encoding.Default.GetString(payLoad);
 
-
                         result = result.Remove(0, 3); // removes information abouth language "en..."
 
-                        ChangeScene();
-                        TagOutputSceneName = result;
-					}
-					/*
+                        // ChangeScene(); //TODO: rm
+                        TagOutput = result;
+                        RequestRoomChangeForCurrentPlayer(result);
+                    }
+					/* // TODO: rm
 					else if (sAction == "android.nfc.action.TECH_DISCOVERED")
 					{
 						Debug.Log("TAG DISCOVERED");
@@ -89,7 +105,7 @@ public class NFC : MonoBehaviour
 				catch (Exception ex)
 				{
 					string text = ex.Message;
-                    print(text);
+                    Debug.LogError(text);
 					// tag_output_text = text; //TODO: if an exception would happen, it would be good to somehow tell the user
 				}
 			}
@@ -97,7 +113,7 @@ public class NFC : MonoBehaviour
 	}
 }
 
-// TODO: delete this
+// TODO: rm
 // it was a solution that did'n work for me, but I based my solution on it
 /** /
 

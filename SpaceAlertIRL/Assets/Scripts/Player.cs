@@ -26,8 +26,16 @@ public class Player : NetworkBehaviour
     // TODO: remove this placeholder
     public string Status { get => "alive"; }
 
+    public void RequestChangingRoom(string roomName)
+    {
+        if (roomName == CurrentRoomName.Value) { return; }
+
+        ulong clientId = NetworkManager.Singleton.LocalClientId;
+        ChangeRoomServerRpc(roomName, clientId);
+    }
+
     [ServerRpc]
-    public void ChangeRoomServerRpc(string roomName, ServerRpcParams rpcParams = default)
+    void ChangeRoomServerRpc(FixedString32Bytes roomName, ulong clientId, ServerRpcParams rpcParams = default)
     {
         Room r = GameObject.Find(CurrentRoomName.Value.ToString()).GetComponent<Room>();
         foreach (var d in r.Doors)
@@ -38,7 +46,8 @@ public class Player : NetworkBehaviour
                 return;
             }
         }
-        // TODO: add: if player canot go, give the player feed back
+        // if there are no doors to go through, , give the player audio feed back
+        GameObject.Find("AudioManager").GetComponent<AudioManager>().RequestPlayingSentenceOnClient("youShellNotPass_r doorsAreClosed_r", clientId : clientId);
     }
 
     void RestartScene()
