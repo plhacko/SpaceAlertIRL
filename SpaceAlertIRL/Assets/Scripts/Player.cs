@@ -8,7 +8,7 @@ using UnityEngine.SceneManagement;
 using System.Text;
 using TMPro;
 using Unity.Collections;
-
+using UnityEngine.UI;
 
 public class Player : NetworkBehaviour
 {
@@ -47,7 +47,7 @@ public class Player : NetworkBehaviour
             }
         }
         // if there are no doors to go through, , give the player audio feed back
-        GameObject.Find("AudioManager").GetComponent<AudioManager>().RequestPlayingSentenceOnClient("youShellNotPass_r doorsAreClosed_r", clientId : clientId);
+        GameObject.Find("AudioManager").GetComponent<AudioManager>().RequestPlayingSentenceOnClient("youShellNotPass_r doorsAreClosed_r", clientId: clientId);
     }
 
     void RestartScene()
@@ -55,8 +55,22 @@ public class Player : NetworkBehaviour
         SceneManager.LoadScene("RoomScene");
     }
 
-    private void Start()
+    public void RequetsSettingLocalPlayerName(string playerName)
     {
+        RequestChngeingPlayerNameServerRpc(playerName);
+    }
+
+    [ServerRpc]
+    void RequestChngeingPlayerNameServerRpc(string playerName)
+    {
+        Name.Value = playerName;
+    }
+
+    void Start()
+    {
+        // todo: rm
+        // Name.Value = GameObject.Find("PlayerName").GetComponent<InputField>().text; // get the players name from a textbox
+
         CurrentRoomNameUIActions = new UpdateUIActions();
         CurrentRoomNameUIActions.AddOnValueChangeDependency(CurrentRoomName);
         if (IsLocalPlayer)
@@ -71,7 +85,7 @@ public class Player : NetworkBehaviour
     // TODO: dselete this
     public NetworkVariable<Vector3> Position = new NetworkVariable<Vector3>();
 
-
+    // TODO: rm
     public override void OnNetworkSpawn()
     {
         if (IsOwner)
