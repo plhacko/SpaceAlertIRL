@@ -6,28 +6,27 @@ using Unity.Netcode;
 
 public class SceneChanger : MonoBehaviour
 {
-    public string CurrentScene = "";
+    public string CurrentSceneName { get => SceneManager.GetActiveScene().name; }
 
     public void ChangeScene(string sceneName)
     {
         try
         {
-            if (CurrentScene != sceneName)
+            if (CurrentSceneName != sceneName)
             {
-                NetworkManager.Singleton.SceneManager.LoadScene(sceneName, LoadSceneMode.Single);
+                NetworkManager.Singleton.SceneManager.LoadScene(sceneName, LoadSceneMode.Additive);
             }
-            CurrentScene = sceneName;
         }
         catch (System.Exception)
         {
             // TODO: give the player some information abouth invalidity of scene name (tag name)
             print("debug: invalid Scene");
         }
-    }
 
+    }
     public void Exit()
     {
         Application.Quit();
-    }
 
+    }
 }
