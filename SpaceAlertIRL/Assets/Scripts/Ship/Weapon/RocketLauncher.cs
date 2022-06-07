@@ -6,7 +6,7 @@ using Unity.Netcode;
 public class RocketLauncher : Weapon<RocketLauncher>
 {
     [SerializeField]
-    public GameObject RocketPrefab;
+    public GameObject RocketPrefab; // must contain class Rocket
 
     const int NumberOfRocketsConst = 4;
 
@@ -20,7 +20,6 @@ public class RocketLauncher : Weapon<RocketLauncher>
 
         UIActions.AddOnValueChangeDependency(NumberOfRockets);
     }
-
 
     public void RequestLaunchingRocket()
     {
@@ -36,11 +35,13 @@ public class RocketLauncher : Weapon<RocketLauncher>
         if (NumberOfRockets.Value > 0)
         {
             NumberOfRockets.Value = NumberOfRockets.Value - 1;
-            Zone.GetComponentInChildren<EnemySpawner>().SpawnEnemy(RocketPrefab);
+            Enemy enemy = Zone.GetComponentInChildren<EnemySpawner>().SpawnEnemy(RocketPrefab);
+            if (enemy.GetType() == typeof(Rocket))
+            { ((Rocket)enemy)?.ChangeDirection(); }
         }
         else
         {
-            GameObject.Find("AudioManager").GetComponent<AudioManager>().RequestPlayingSentenceOnClient("notEnoughRockets_r", clientId : clientId);
+            GameObject.Find("AudioManager").GetComponent<AudioManager>().RequestPlayingSentenceOnClient("notEnoughRockets_r", clientId: clientId);
         }
     }
 }

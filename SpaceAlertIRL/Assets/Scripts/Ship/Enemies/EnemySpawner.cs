@@ -9,6 +9,8 @@ public class EnemySpawner : MonoBehaviour, IOnServerFixedUpdate
 {
     [SerializeField]
     List<GameObject> LightEnemies;
+    [SerializeField]
+    List<GameObject> Rockets;
 
     [SerializeField]
     float SpawnTimeConst = 10.0f;
@@ -28,12 +30,11 @@ public class EnemySpawner : MonoBehaviour, IOnServerFixedUpdate
 
             if (LightEnemies.Count == 0) { throw new System.Exception("list of enemies is empty"); }
             int i = Random.Range(0, LightEnemies.Count);
-
             SpawnEnemy(LightEnemies[i]);
         }
     }
 
-    public void SpawnEnemy(GameObject e)
+    public Enemy SpawnEnemy(GameObject e)
     {
         GameObject go = Instantiate(e, Vector3.zero, Quaternion.identity);
 
@@ -46,6 +47,23 @@ public class EnemySpawner : MonoBehaviour, IOnServerFixedUpdate
         // broadcast message for all clients
         string _zoneName = GetComponentInParent<Zone>().gameObject.name + "_r";
         GameObject.Find("AudioManager").GetComponent<AudioManager>().RequestPlayingSentenceOnClient($"{_zoneName} enemyDetected_r", removeDuplicates: false);
+
+        return go.GetComponent<Enemy>();
+    }
+
+    public Enemy SpawnEnemy(string enemyName)
+    {
+        foreach (var e in LightEnemies)
+        {
+            if (e.name == enemyName) { return SpawnEnemy(e); }
+        }
+        foreach (var e in Rockets)
+        {
+            if (e.name == enemyName) { return SpawnEnemy(e); }
+        }
+
+        Debug.Log($"Trying to spawn \"{enemyName}\", but it doesn't exist");
+        return null;
     }
 
 #endif

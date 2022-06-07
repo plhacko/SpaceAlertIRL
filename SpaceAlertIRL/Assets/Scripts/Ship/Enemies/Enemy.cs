@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Unity.Netcode;
 using System;
+using Unity.Collections;
 
 public abstract class Enemy : NetworkBehaviour, IComparable<Enemy>, IOnServerFixedUpdate
 {
@@ -26,13 +27,19 @@ public abstract class Enemy : NetworkBehaviour, IComparable<Enemy>, IOnServerFix
     public float Speed { get => _Speed.Value; }
     public float NextActionTime { get => _NextActionTime.Value; }
     public virtual bool IsTragetabeByRocket() => true;
+    public string NextActionDescription { get => _NextActionDescription.Value.ToString(); }
 
+    // setters for data
+    public void SetDistance(float newDistance) { _Distance.Value = newDistance; }
+
+    // NetworkVariables
     protected NetworkVariable<int> _HP = new NetworkVariable<int>();
     protected NetworkVariable<int> _EnergyShield = new NetworkVariable<int>();
     protected NetworkVariable<float> _EnergyShieldRegenerationTime = new NetworkVariable<float>();
     protected NetworkVariable<float> _Speed = new NetworkVariable<float>();
     protected NetworkVariable<float> _Distance = new NetworkVariable<float>();
     protected NetworkVariable<float> _NextActionTime = new NetworkVariable<float>();
+    protected NetworkVariable<FixedString32Bytes> _NextActionDescription = new NetworkVariable<FixedString32Bytes>();
 
     protected Zone Zone;
 
@@ -45,6 +52,7 @@ public abstract class Enemy : NetworkBehaviour, IComparable<Enemy>, IOnServerFix
     {
         UIActions.AddOnValueChangeDependency(_HP, _EnergyShield);
         UIActions.AddOnValueChangeDependency(_Distance, _Speed, _NextActionTime);
+        UIActions.AddOnValueChangeDependency(_NextActionDescription);
     }
 
     public virtual void Initialise(Zone z)
@@ -57,6 +65,7 @@ public abstract class Enemy : NetworkBehaviour, IComparable<Enemy>, IOnServerFix
         _Distance.Value = StartingDistanceConst;
         _Speed.Value = StartingSpeedConst;
         _NextActionTime.Value = 0.0f;
+        _NextActionDescription.Value = "";
 
         // Zone = GetComponentInParent<Zone>(); // TODO: rm
         Zone = z;
@@ -105,13 +114,18 @@ public abstract class Enemy : NetworkBehaviour, IComparable<Enemy>, IOnServerFix
     protected abstract EnemyAction DecideNextAction();
     protected virtual void ActionTimer()
     {
-        if (NextEnemyAction == null) { NextEnemyAction = DecideNextAction(); }
+        if (NextEnemyAction == null)
+        {
+            NextEnemyAction = DecideNextAction();
+            _NextActionDescription.Value = NextEnemyAction.GetDescription() ?? "no action";
+        }
 
         float newTime = _NextActionTime.Value - Time.deltaTime;
         if (newTime <= 0)
         {
             NextEnemyAction.ExecuteAction();
             NextEnemyAction = DecideNextAction();
+            _NextActionDescription.Value = NextEnemyAction.GetDescription() ?? "no action";
             _NextActionTime.Value = NextEnemyAction.TimeSpan;
         }
         else
