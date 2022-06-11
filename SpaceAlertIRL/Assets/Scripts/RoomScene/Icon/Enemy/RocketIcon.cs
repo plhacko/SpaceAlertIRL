@@ -9,9 +9,9 @@ public class RocketIcon : EnemyIcon<Rocket>
     {
         if (Enemy != null)
         {
-            string line1 = $"Rocket, HP : {Enemy.HP}/{Enemy.MaxHP}, ES : {Enemy.EnergyShield}/{Enemy.MaxEnergyShield}";
+            string line1 = GetEnemyNemeHpEsLine();
             string line2 = $"Attack({Enemy.Damage}) on colision";
-            string line3 = $"Distance : {Enemy.Distance.ToString("0.00")}";
+            string line3 = GetEnemyDistanceLine();
             GetComponentInChildren<TextMeshProUGUI>().text = line1 + '\n' + line2 + '\n' + line3;
         }
         else

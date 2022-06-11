@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using TMPro;
 
 abstract public class Icon : MonoBehaviour
 {
@@ -17,7 +18,7 @@ abstract public class Icon : MonoBehaviour
 abstract public class AmenityIcon<T> : Icon where T : Amenity
 {
     protected T Amenity;
-    
+
     public void Initialise(T amenity)
     {
         Amenity = amenity;
@@ -46,7 +47,7 @@ abstract public class AmenityIcon<T> : Icon where T : Amenity
         var actionPanelSpawner = actionPanel.GetComponent<ActionPanelSpawner>();
 
         actionPanelSpawner.ResetSelf();
-        GameObject _go = Instantiate(ActionPanelPrefab, parent:actionPanel.transform);
+        GameObject _go = Instantiate(ActionPanelPrefab, parent: actionPanel.transform);
         _go.GetComponent<AmenityActionPanel<T>>().Initialise(Amenity);
     }
 }
@@ -81,5 +82,22 @@ abstract public class EnemyIcon<T> : Icon where T : Enemy
     public void SpawnInfoPanel()
     {
         throw new System.NotImplementedException();
+    }
+
+
+    protected string GetEnemyNemeHpEsLine() => $"{Enemy.GetName()}, HP : {Enemy.HP}/{Enemy.MaxHP}, ES : {Enemy.EnergyShield}/{Enemy.MaxEnergyShield}";
+    protected string GetEnemyActionDescriptionLine() => $"{Enemy.NextActionDescription} in {Enemy.NextActionTime.ToString("0.00")}";
+    protected string GetEnemyDistanceLine() => $"Distance : {Enemy.Distance.ToString("0.00")}";
+    protected override void UpdateUI()
+    {
+        if (Enemy != null)
+        {
+            string line1 = GetEnemyNemeHpEsLine();
+            string line2 = GetEnemyActionDescriptionLine();
+            string line3 = GetEnemyDistanceLine();
+            GetComponentInChildren<TextMeshProUGUI>().text = line1 + '\n' + line2 + '\n' + line3;
+        }
+        else
+        { Debug.Log("Missing Icon"); } // TODO: smazat else
     }
 }

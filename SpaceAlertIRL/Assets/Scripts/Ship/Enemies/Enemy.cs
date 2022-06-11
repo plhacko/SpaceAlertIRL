@@ -12,6 +12,8 @@ public abstract class Enemy : NetworkBehaviour, IComparable<Enemy>, IOnServerFix
     [SerializeField]
     protected GameObject IconPrefab;
 
+    abstract public string GetName();
+
     abstract protected int StratingHPConst { get; }
     abstract protected int MaxEnergyShieldConst { get; }
     abstract protected float StartingSpeedConst { get; }
@@ -178,6 +180,8 @@ public abstract class Enemy : NetworkBehaviour, IComparable<Enemy>, IOnServerFix
 
 abstract public class Enemy<T> : Enemy where T : Enemy<T>
 {
+    public override string GetName() => typeof(T).Name;
+
     public override void SpawnIconAsChild(GameObject parent)
     {
         GameObject _go = Instantiate(IconPrefab, parent.transform.position, parent.transform.rotation, parent.transform);

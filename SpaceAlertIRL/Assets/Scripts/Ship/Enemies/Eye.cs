@@ -4,7 +4,7 @@ using UnityEngine;
 
 public sealed class Eye : Enemy<Eye>
 {
-    protected override int StratingHPConst => 15;
+    protected override int StratingHPConst => 12;
     protected override int MaxEnergyShieldConst => 0;
     protected override float StartingSpeedConst => 0.1f;
     protected override float StartingDistanceConst => 42;
