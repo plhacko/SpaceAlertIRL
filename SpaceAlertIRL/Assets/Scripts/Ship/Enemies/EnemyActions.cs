@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Unity.Netcode;
 
+
 #if SERVER
 
 public abstract class EnemyAction
@@ -47,6 +48,25 @@ sealed class LaunchRocket : EnemyAction
     Enemy LaunchFrom;
     public LaunchRocket(EnemySpawner enemySpawner, Enemy launchFrom, float timeSpan) //TODO: add changing rocket damage, speed, ...
     { EnemySpawner = enemySpawner; LaunchFrom = launchFrom; TimeSpan = timeSpan; }
+}
+
+sealed class TeleportAllPlayers : EnemyAction
+{
+    public override string GetDescription() => "teleport all players";
+    public override void ExecuteAction()
+    {
+        GameObject[] Rooms = GameObject.FindGameObjectsWithTag("Room");
+        foreach (GameObject playerObject in GameObject.FindGameObjectsWithTag("Player"))
+        {
+            Player player = playerObject.GetComponent<Player>();
+            int rndI = Random.Range(0, Rooms.Length);
+            player.CurrentRoomName.Value = Rooms[rndI].name;
+
+            GameObject.Find("AudioManager").GetComponent<AudioManager>().RequestPlayingSentenceOnClient("youHaveBeenTeleported_r");
+        }
+    }
+    public TeleportAllPlayers(float timeSpan)
+    { TimeSpan = timeSpan; }
 }
 
 #endif
