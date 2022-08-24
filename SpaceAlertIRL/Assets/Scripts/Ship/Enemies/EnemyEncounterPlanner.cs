@@ -40,10 +40,7 @@ public class EnemyEncounterPlanner : MonoBehaviour, IOnServerFixedUpdate
             SpawnEnemyAtThisTimeIndex++;
         }
     }
-
-
 }
-
 
 public enum EnumOfEnemies { rndLightEnemy, Meteor, Fighter, Eye, Rocket }
 [System.Serializable]
