@@ -12,11 +12,19 @@ public class EnemySpawner : MonoBehaviour, IOnServerFixedUpdate
     [SerializeField]
     List<GameObject> Rockets;
 
+
     [SerializeField]
-    float SpawnTimeConst = 10.0f;
+    public EnemyTimeStruct[] SpawnEnemyAtThisTime;
+    private int SpawnEnemyAtThisTimeIndex = 0; // ?custom Enumerator?
 
 #if SERVER
     float Timer;
+
+    private void Start()
+    {
+        // sorts array by time   
+        System.Array.Sort(SpawnEnemyAtThisTime, (x, y) => x.Time.CompareTo(y.Time));
+    }
 
     // for now it will spawn every
     void IOnServerFixedUpdate.ServerFixedUpdate()
@@ -24,13 +32,19 @@ public class EnemySpawner : MonoBehaviour, IOnServerFixedUpdate
         if (!NetworkManager.Singleton.IsServer) { return; }
 
         Timer += Time.deltaTime;
-        while (Timer > SpawnTimeConst)
-        {
-            Timer -= SpawnTimeConst;
 
-            if (LightEnemies.Count == 0) { throw new System.Exception("list of enemies is empty"); }
-            int i = Random.Range(0, LightEnemies.Count);
-            SpawnEnemy(LightEnemies[i]);
+        // works with array SpawnEnemyAtThisTime
+        // manages that all enemies are spawned at the right time
+        while (SpawnEnemyAtThisTimeIndex < SpawnEnemyAtThisTime.Length && Timer > SpawnEnemyAtThisTime[SpawnEnemyAtThisTimeIndex].Time)
+        {
+            var enemyToSpawn = SpawnEnemyAtThisTime[SpawnEnemyAtThisTimeIndex];
+
+            if (enemyToSpawn.Enemy == EnumOfEnemies.rndLightEnemy)
+            { Debug.Log("not implemented rndLightEnemy"); }
+            else
+            { SpawnEnemy(enemyToSpawn.Enemy.ToString()); }
+
+            SpawnEnemyAtThisTimeIndex++;
         }
     }
 
@@ -51,6 +65,7 @@ public class EnemySpawner : MonoBehaviour, IOnServerFixedUpdate
         return go.GetComponent<Enemy>();
     }
 
+    // TODO: could this be romoved?
     public Enemy SpawnEnemy(string enemyName)
     {
         foreach (var e in LightEnemies)
@@ -66,5 +81,16 @@ public class EnemySpawner : MonoBehaviour, IOnServerFixedUpdate
         return null;
     }
 
+    public enum EnumOfEnemies { rndLightEnemy, Meteor, Fighter, Eye, Rocket }
+
+    [System.Serializable]
+    public struct EnemyTimeStruct
+    {
+        public EnumOfEnemies Enemy; // gameobject prefab
+        public float Time;
+    }
+
 #endif
 }
+
+

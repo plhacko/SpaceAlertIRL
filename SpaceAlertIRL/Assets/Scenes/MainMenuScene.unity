@@ -3833,6 +3833,10 @@ PrefabInstance:
       propertyPath: LightEnemies.Array.data[2]
       value: 
       objectReference: {fileID: 5461871599676218046, guid: 8f7d08a4704efaf4c9ffc5492dc24645, type: 3}
+    - target: {fileID: 7379473920409039496, guid: d0660b14aabf3424abec7b6e1153d1ac, type: 3}
+      propertyPath: SpawnEnemyAtThisTime.Array.size
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8201271519758403228, guid: d0660b14aabf3424abec7b6e1153d1ac, type: 3}
       propertyPath: m_Name
       value: ZoneBravo
@@ -5218,6 +5222,18 @@ PrefabInstance:
       propertyPath: LightEnemies.Array.data[2]
       value: 
       objectReference: {fileID: 4756629266733184130, guid: b03765175ae5c294a9d26c37c0477a2e, type: 3}
+    - target: {fileID: 7379473920409039496, guid: d0660b14aabf3424abec7b6e1153d1ac, type: 3}
+      propertyPath: SpawnEnemyAtThisTime.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7379473920409039496, guid: d0660b14aabf3424abec7b6e1153d1ac, type: 3}
+      propertyPath: SpawnEnemyAtThisTime.Array.data[0].Time
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7379473920409039496, guid: d0660b14aabf3424abec7b6e1153d1ac, type: 3}
+      propertyPath: SpawnEnemyAtThisTime.Array.data[0].Enemy
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8201271519758403228, guid: d0660b14aabf3424abec7b6e1153d1ac, type: 3}
       propertyPath: m_Name
       value: ZoneAlpha
