@@ -7,6 +7,7 @@ using System;
 public class GameCountDownToText : MonoBehaviour
 {
     protected Action UpdateUIAction;
+    [SerializeField]
     MissionTimer MissionTimer;
 
     private void Start()
