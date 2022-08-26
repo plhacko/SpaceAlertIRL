@@ -1653,6 +1653,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e2a2ccc9e08d82f45beb4f4752d11d1b, type: 3}
+--- !u!1 &620381759 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 487819878700682177, guid: e2a2ccc9e08d82f45beb4f4752d11d1b, type: 3}
+  m_PrefabInstance: {fileID: 620381758}
+  m_PrefabAsset: {fileID: 0}
 --- !u!224 &744705535 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 6679778563134041747, guid: 19077885d8e223a4d93de7f7ad083471, type: 3}
@@ -4302,6 +4307,11 @@ MonoBehaviour:
       OverridingTargetPrefab: {fileID: 0}
     - Override: 0
       Prefab: {fileID: 4756629266733184130, guid: b03765175ae5c294a9d26c37c0477a2e, type: 3}
+      SourcePrefabToOverride: {fileID: 0}
+      SourceHashToOverride: 0
+      OverridingTargetPrefab: {fileID: 0}
+    - Override: 0
+      Prefab: {fileID: 620381759}
       SourcePrefabToOverride: {fileID: 0}
       SourceHashToOverride: 0
       OverridingTargetPrefab: {fileID: 0}

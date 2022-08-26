@@ -12,6 +12,9 @@ public class Computer : Amenity<Computer>, IOnServerFixedUpdate
     NetworkVariable<float> Timer = new NetworkVariable<float>(RestartTimerConst);
     public float GetTimeToScreensaver() => Timer.Value;
 
+    [SerializeField]
+    GameObject Screeensaver;
+
 
 #if SERVER
     public void ServerFixedUpdate()
@@ -20,9 +23,15 @@ public class Computer : Amenity<Computer>, IOnServerFixedUpdate
         if (newTime > 0.0f) { Timer.Value = newTime; }
         else
         {
-            //TODO: play screensaver and reset timer
             RestartTimer();
+            InstantiateScreensaverClientRpc();
         }
+    }
+
+    [ClientRpc]
+    void InstantiateScreensaverClientRpc(ClientRpcParams clientRpcParams = default)
+    {
+        Instantiate(Screeensaver, parent: GameObject.Find("Canvas").transform);
     }
 
     public void RestartTimer(float newTimerTime = RestartTimerConst) // ulong clientId // TODO rm

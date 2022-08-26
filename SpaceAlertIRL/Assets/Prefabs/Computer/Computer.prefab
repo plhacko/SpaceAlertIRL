@@ -106,3 +106,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   IconPrefab: {fileID: 5519645531974405814, guid: 8f74c81e30128d14392c5f64500ee87b, type: 3}
+  Screeensaver: {fileID: 3001488032752547956, guid: e0e3ebf6f34983441baae9123392be4b, type: 3}
