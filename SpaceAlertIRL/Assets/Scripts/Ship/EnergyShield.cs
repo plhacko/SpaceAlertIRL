@@ -10,8 +10,8 @@ public class EnergyShield : Amenity<EnergyShield>
     protected const int MaxShieldValueConst = 3;
     protected const int ShieldValueConst = 2;
 
-    public NetworkVariable<int> MaxShieldValue;
-    public NetworkVariable<int> ShieldValue;
+    public NetworkVariable<int> MaxShieldValue = new NetworkVariable<int>(ShieldValueConst);
+    public NetworkVariable<int> ShieldValue = new NetworkVariable<int>(MaxShieldValueConst);
 
 
 #if (SERVER)
@@ -50,9 +50,6 @@ public class EnergyShield : Amenity<EnergyShield>
     protected override void Start()
     {
         base.Start();
-
-        ShieldValue = new NetworkVariable<int>(ShieldValueConst);
-        MaxShieldValue = new NetworkVariable<int>(MaxShieldValueConst);
 
         UIActions.AddOnValueChangeDependency(ShieldValue, MaxShieldValue);
     }
