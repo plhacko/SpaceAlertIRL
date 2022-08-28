@@ -54,7 +54,9 @@ public class RoomNameToText : MonoBehaviour
             transform.Find("RoomHP").GetComponent<TextMeshProUGUI>().text = $"HP\n{Zone.HP}/{Zone.MaxHP}";
         }
         else
-        { Debug.Log("Missing Icon"); } // TODO: smazat else
+        {
+            transform.Find("RoomHP").GetComponent<TextMeshProUGUI>().text = $"___"; // this happens when the player is using teleport
+        } // TODO: smazat else
     }
 
     protected void OnDisable()

@@ -26,17 +26,25 @@ public class Player : NetworkBehaviour
     // TODO: remove this placeholder
     public string Status { get => "alive"; }
 
-    public void RequestChangingRoom(string roomName)
+    public void RequestChangingRoom(string roomName, bool checkForDoors = true)
     {
         if (roomName == CurrentRoomName.Value) { return; }
 
         ulong clientId = NetworkManager.Singleton.LocalClientId;
-        ChangeRoomServerRpc(roomName, clientId);
+        ChangeRoomServerRpc(roomName, clientId, checkForDoors);
     }
 
     [ServerRpc]
-    void ChangeRoomServerRpc(FixedString32Bytes roomName, ulong clientId, ServerRpcParams rpcParams = default)
+    void ChangeRoomServerRpc(FixedString32Bytes roomName, ulong clientId, bool checkForDoors = true, ServerRpcParams rpcParams = default)
     {
+        // going through the teleport
+        if (!checkForDoors || CurrentRoomName.Value == "Teleport")
+        {
+            CurrentRoomName.Value = roomName;
+            return;
+        }
+
+        // going through the doors
         Room r = GameObject.Find(CurrentRoomName.Value.ToString()).GetComponent<Room>();
         foreach (var d in r.Doors)
         {

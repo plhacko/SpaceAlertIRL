@@ -23,11 +23,14 @@ public class GameCountDownToText : MonoBehaviour
     {
         int timeToEnd = (int)MissionTimer.GetTimeToEnd();
 
-        GetComponentInChildren<TextMeshProUGUI>().text = $"{timeToEnd/60}m {timeToEnd%60}s";
+        GetComponentInChildren<TextMeshProUGUI>().text = $"{timeToEnd / 60}m {timeToEnd % 60}s";
     }
 
     private void OnDisable()
     {
-        MissionTimer.UIActions.RemoveAction(UpdateUIAction);
+        if (MissionTimer != null && UpdateUIAction != null)
+        {
+            MissionTimer.UIActions.RemoveAction(UpdateUIAction);
+        }
     }
 }

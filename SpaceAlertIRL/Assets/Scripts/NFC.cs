@@ -25,7 +25,7 @@ public class NFC : MonoBehaviour
         _sceneChanger = GetComponent<SceneChanger>();
     }
 
-    public void ChangeScene() //TODO: rm
+    public void ChangeScene() //TODO: rm?
     {
         _sceneChanger.ChangeScene(TagOutput);
     }

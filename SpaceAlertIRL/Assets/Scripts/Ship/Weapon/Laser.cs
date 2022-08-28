@@ -10,18 +10,14 @@ public class Laser : Weapon<Laser>
     const float StartHeatConst = 0.0f;
     const int EnergyCostToShootConst = 1;
 
-    public NetworkVariable<int> Damage;
-    public NetworkVariable<int> Range;
-    public NetworkVariable<float> Heat;
+    public NetworkVariable<int> Damage = new NetworkVariable<int>(DamageConst);
+    public NetworkVariable<int> Range = new NetworkVariable<int>(RangeConst);
+    public NetworkVariable<float> Heat = new NetworkVariable<float>(StartHeatConst);
 
 
     protected override void Start()
     {
         base.Start();
-
-        Damage = new NetworkVariable<int>(DamageConst);
-        Range = new NetworkVariable<int>(RangeConst);
-        Heat = new NetworkVariable<float>(StartHeatConst);
 
         UIActions.AddOnValueChangeDependency(Damage, Range);
         UIActions.AddOnValueChangeDependency(Heat);
@@ -47,15 +43,14 @@ public class Laser : Weapon<Laser>
         if (!energySource.PullEnergy(EnergyCostToShootConst))
         {
             // notify the player
-            GameObject.Find("AudioManager").GetComponent<AudioManager>().RequestPlayingSentenceOnClient("notEnoughEnergy_r", clientId : clientId);
+            GameObject.Find("AudioManager").GetComponent<AudioManager>().RequestPlayingSentenceOnClient("notEnoughEnergy_r", clientId: clientId);
             return;
         }
 
         enemy.TakeDamage(Damage.Value);
-
     }
 
-    
+
     public void RequestShootingAtClosesEnemy()
     {
         ulong clientId = NetworkManager.Singleton.LocalClientId;
