@@ -12,7 +12,8 @@ public class Laser : Weapon<Laser>
 
     public NetworkVariable<int> Damage = new NetworkVariable<int>(DamageConst);
     public NetworkVariable<int> Range = new NetworkVariable<int>(RangeConst);
-    public NetworkVariable<float> Heat = new NetworkVariable<float>(StartHeatConst);
+    public NetworkVariable<float> Heat = new NetworkVariable<float>(StartHeatConst); // TODO: rm?
+    // TODO: make NetworkVariables private
 
 
     protected override void Start()
@@ -20,11 +21,11 @@ public class Laser : Weapon<Laser>
         base.Start();
 
         UIActions.AddOnValueChangeDependency(Damage, Range);
-        UIActions.AddOnValueChangeDependency(Heat);
+        UIActions.AddOnValueChangeDependency(Heat); // TODO: rm?
     }
 
     [ServerRpc(RequireOwnership = false)]
-    public void ShootAtClosesEnemyServerRpc(ulong clientId)
+    public void ShootAtClosesEnemyServerRpc(ulong clientId) //TODO: make private?
     {
         if (!NetworkManager.Singleton.IsServer) { throw new System.Exception("Is not a server"); }
 

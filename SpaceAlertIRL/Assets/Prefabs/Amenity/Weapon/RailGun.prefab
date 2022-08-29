@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &111438814289287761
+--- !u!1 &4014484583799673095
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,25 +8,25 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 111438814289287758}
-  - component: {fileID: 111438814289287754}
-  - component: {fileID: 111438814289287757}
-  - component: {fileID: 111438814289287756}
-  - component: {fileID: 2428886982412763007}
+  - component: {fileID: 4014484583799673112}
+  - component: {fileID: 4014484583799673116}
+  - component: {fileID: 4014484583799673115}
+  - component: {fileID: 4014484583799673114}
+  - component: {fileID: 4014484583799673092}
   m_Layer: 5
-  m_Name: Laser
+  m_Name: RailGun
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!224 &111438814289287758
+--- !u!224 &4014484583799673112
 RectTransform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 111438814289287761}
+  m_GameObject: {fileID: 4014484583799673095}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -39,21 +39,21 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!222 &111438814289287754
+--- !u!222 &4014484583799673116
 CanvasRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 111438814289287761}
+  m_GameObject: {fileID: 4014484583799673095}
   m_CullTransparentMesh: 1
---- !u!114 &111438814289287757
+--- !u!114 &4014484583799673115
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 111438814289287761}
+  m_GameObject: {fileID: 4014484583799673095}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
@@ -67,7 +67,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 38a05ea10a37b32429f1dc7764670fa8, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 23081144bef5ed54fa181a4167c4434c, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -77,13 +77,13 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &111438814289287756
+--- !u!114 &4014484583799673114
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 111438814289287761}
+  m_GameObject: {fileID: 4014484583799673095}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
@@ -93,20 +93,17 @@ MonoBehaviour:
   AlwaysReplicateAsRoot: 0
   DontDestroyWithOwner: 0
   AutoObjectParentSync: 1
---- !u!114 &2428886982412763007
+--- !u!114 &4014484583799673092
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 111438814289287761}
+  m_GameObject: {fileID: 4014484583799673095}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f47434498cc3a134e8f0bff11832d9ee, type: 3}
+  m_Script: {fileID: 11500000, guid: 1145d113542c52242941ef1807835cb1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IconPrefab: {fileID: 5888922340692091892, guid: f46fce9b02c7fbf44a8ca65e75d44dbf, type: 3}
-  Damage:
-    m_InternalValue: 0
-  Range:
-    m_InternalValue: 0
+  IconPrefab: {fileID: 4990866221213705882, guid: a0554fc5ea760b24f85ce0c5fc978cd9, type: 3}
+  Zone: {fileID: 0}
