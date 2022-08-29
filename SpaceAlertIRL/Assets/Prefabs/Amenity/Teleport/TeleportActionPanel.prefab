@@ -378,7 +378,7 @@ GameObject:
   - component: {fileID: 1521780403468062159}
   - component: {fileID: 1521780403468062158}
   m_Layer: 5
-  m_Name: Status
+  m_Name: EnergyCost
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

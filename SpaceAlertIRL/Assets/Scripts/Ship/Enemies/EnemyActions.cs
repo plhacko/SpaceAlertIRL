@@ -60,7 +60,6 @@ sealed class TeleportAllPlayers : EnemyAction
         {
             Player player = playerObject.GetComponent<Player>();
             int rndId = Random.Range(0, Rooms.Length);
-            // player.CurrentRoomName.Value = Rooms[rndId].name; //TODO: rm
             player.RequestChangingRoom(Rooms[rndId].name, false);
 
             GameObject.Find("AudioManager").GetComponent<AudioManager>().RequestPlayingSentenceOnClient("youHaveBeenTeleported_r");

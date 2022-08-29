@@ -38,7 +38,7 @@ public class RoomNameToText : MonoBehaviour
         // updating UI using aciton onValueChangedependency
         UpdateUIAction = UpdateUI;
         UpdateUIAction();
-        Zone.UIActions.AddAction(UpdateUIAction);
+        Zone?.UIActions.AddAction(UpdateUIAction);
 
         Zone GetZoneFromRoomName(string roomName)
         {
