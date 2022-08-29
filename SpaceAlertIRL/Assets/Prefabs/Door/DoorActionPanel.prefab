@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 78641254500567756}
   - component: {fileID: 78641254500567757}
   m_Layer: 5
-  m_Name: doorStatusText
+  m_Name: Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -399,7 +399,7 @@ GameObject:
   - component: {fileID: 2479197004208183903}
   - component: {fileID: 8754260019686510881}
   m_Layer: 5
-  m_Name: OpenDoor
+  m_Name: Open
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -607,7 +607,7 @@ GameObject:
   - component: {fileID: 2479197004237471568}
   - component: {fileID: 2479197004237471569}
   m_Layer: 5
-  m_Name: doorStatusText
+  m_Name: Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -743,7 +743,7 @@ GameObject:
   - component: {fileID: 2479197004441988303}
   - component: {fileID: 2479197004441988300}
   m_Layer: 5
-  m_Name: doorStatusText
+  m_Name: Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -879,7 +879,7 @@ GameObject:
   - component: {fileID: 2479197004483446666}
   - component: {fileID: 3708407925147059549}
   m_Layer: 5
-  m_Name: DoorActionHeader (4)
+  m_Name: Go
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1031,7 +1031,7 @@ GameObject:
   - component: {fileID: 2479197004565385057}
   - component: {fileID: 2479197004565385062}
   m_Layer: 5
-  m_Name: doorStatusText
+  m_Name: Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1167,7 +1167,7 @@ GameObject:
   - component: {fileID: 2479197004712227724}
   - component: {fileID: 2479197004712227725}
   m_Layer: 5
-  m_Name: doorStatusText
+  m_Name: Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1303,7 +1303,7 @@ GameObject:
   - component: {fileID: 2479197004729609745}
   - component: {fileID: 2479197004729609750}
   m_Layer: 5
-  m_Name: doorStatusText
+  m_Name: Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1439,7 +1439,7 @@ GameObject:
   - component: {fileID: 2479197004744306791}
   - component: {fileID: 2479197004744306788}
   m_Layer: 5
-  m_Name: doorStatusText
+  m_Name: Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1577,7 +1577,7 @@ GameObject:
   - component: {fileID: 2479197005251510719}
   - component: {fileID: 9108490389370140574}
   m_Layer: 5
-  m_Name: DoorActionHeader (2)
+  m_Name: Close
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

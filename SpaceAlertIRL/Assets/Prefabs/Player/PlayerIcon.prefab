@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1795339574143480499}
   - component: {fileID: 1795339574143480498}
   m_Layer: 5
-  m_Name: doorStatusText
+  m_Name: Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -268,4 +268,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f663253245a2e9e44944141a65b8d6af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Player: {fileID: 0}
+  ActionPanelPrefab: {fileID: 0}

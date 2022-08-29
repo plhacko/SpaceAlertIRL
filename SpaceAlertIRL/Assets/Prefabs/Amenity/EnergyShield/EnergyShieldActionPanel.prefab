@@ -258,7 +258,7 @@ GameObject:
   - component: {fileID: 1385595103868306040}
   - component: {fileID: 1385595103868306047}
   m_Layer: 5
-  m_Name: doorStatusText
+  m_Name: Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -548,7 +548,7 @@ GameObject:
   - component: {fileID: 6520737950090382493}
   - component: {fileID: 7417266899812990023}
   m_Layer: 5
-  m_Name: doorStatusText
+  m_Name: Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -682,7 +682,7 @@ GameObject:
   - component: {fileID: 3479624587417429669}
   - component: {fileID: 3479624587417429668}
   m_Layer: 5
-  m_Name: HeaderText
+  m_Name: Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -820,7 +820,7 @@ GameObject:
   - component: {fileID: 4909483454235653028}
   - component: {fileID: 4909483454235653031}
   m_Layer: 5
-  m_Name: doorStatusText
+  m_Name: Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

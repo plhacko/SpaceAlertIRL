@@ -167,7 +167,7 @@ GameObject:
   - component: {fileID: 621603800935016510}
   - component: {fileID: 621603800935016463}
   m_Layer: 5
-  m_Name: ActionHeader
+  m_Name: Header
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -221,7 +221,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 2d230bda7e034024883bb6df6607f4f6, type: 3}
+  m_Sprite: {fileID: 21300000, guid: c0a3f02a5afc0d14dbc0f99e402e9e11, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -263,7 +263,7 @@ GameObject:
   - component: {fileID: 1665385352861334315}
   - component: {fileID: 1665385352861334316}
   m_Layer: 5
-  m_Name: doorStatusText
+  m_Name: Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -439,7 +439,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a833f20b0f015c43b862a63ba6ea32f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  EnergyPool: {fileID: 0}
 --- !u!1 &1665385354042727597
 GameObject:
   m_ObjectHideFlags: 0
@@ -549,7 +548,7 @@ GameObject:
   - component: {fileID: 5250702829851786400}
   - component: {fileID: 5879923555634580834}
   m_Layer: 5
-  m_Name: doorStatusText
+  m_Name: Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -683,7 +682,7 @@ GameObject:
   - component: {fileID: 3777429784672100342}
   - component: {fileID: 3777429784672100343}
   m_Layer: 5
-  m_Name: doorStatusText
+  m_Name: Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -736,9 +735,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Power Generator
-
-'
+  m_text: Energy Pool
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -765,7 +762,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 39.65
+  m_fontSize: 51.55
   m_fontSizeBase: 72
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -916,7 +913,7 @@ GameObject:
   - component: {fileID: 4613869033999616759}
   - component: {fileID: 4613869033999616756}
   m_Layer: 5
-  m_Name: doorStatusText
+  m_Name: Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
