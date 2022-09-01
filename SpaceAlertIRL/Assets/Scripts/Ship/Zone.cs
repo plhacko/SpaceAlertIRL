@@ -66,7 +66,8 @@ public class Zone : NetworkBehaviour
 
     private void Die()
     {
-        Debug.Log("Dying for ship is not implemented."); // TODO: implement
+        GetComponentInParent<ServerUpdater>().StopUpdating();
+        GameObject.Find("SceneChanger").GetComponent<SceneChanger>().ChangeScene("EndScreen");
     }
 #endif
 

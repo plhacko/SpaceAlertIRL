@@ -11,9 +11,16 @@ interface IOnServerFixedUpdate
 
 public class ServerUpdater : NetworkBehaviour
 {
+    [SerializeField]
+    bool Stop = false;
+
+    public void StopUpdating() { Stop = false; }
+    public void ResumeUpdating() { Stop = true; }
+
     void FixedUpdate()
     {
         if (!NetworkManager.Singleton.IsServer) { return; } //TODO: rm
+        if (Stop) { return; }
 
         if (SceneManager.GetActiveScene().name != "RoomScene") { return; } // TODO: rethink and make it a optimal solution
 
