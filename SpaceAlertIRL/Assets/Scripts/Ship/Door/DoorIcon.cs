@@ -8,6 +8,9 @@ using System;
 
 public class DoorIcon : Icon
 {
+    [SerializeField]
+    protected GameObject ActionPanelPrefab;
+
     private Door Door;
     private Room NextRoom; //this is the room, that the player is NOT in
     //rm private Action UpdateUIAction;

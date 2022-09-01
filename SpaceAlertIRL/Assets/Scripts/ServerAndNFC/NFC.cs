@@ -32,13 +32,14 @@ public class NFC : MonoBehaviour
             GameObject.Find("DebugTextLog").GetComponent<TextMeshProUGUI>().text = "tag found"; // TODO: rm
         }
 
-        DisconectTimer -= Time.deltaTime;
-        if (DisconectTimer <= 0.0f)
-        {
-            GameObject.Find("ActionPanel")?.SetActive(false);
-
-            GameObject.Find("DebugTextLog").GetComponent<TextMeshProUGUI>().text = "tag not found"; // TODO: rm
-        }
+        // doesn't work - maybe help from stack overflow? // TODO: rm?
+        // DisconectTimer -= Time.deltaTime;
+        // if (DisconectTimer <= 0.0f)
+        // {
+        //     GameObject.Find("ActionPanel")?.SetActive(false);
+        // 
+        //     GameObject.Find("DebugTextLog").GetComponent<TextMeshProUGUI>().text = "tag not found"; // TODO: rm
+        // }
     }
 
     public void RequestRoomChangeForCurrentPlayer(string roomName)

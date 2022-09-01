@@ -3366,7 +3366,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TagOutput: 
-  DisconectTimer: 3
 --- !u!4 &1223564558
 Transform:
   m_ObjectHideFlags: 0
@@ -5069,10 +5068,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   EnemiesToSpawn:
-  - Enemy: 1
+  - Enemy: 3
     SpawnTime: 0
     Zone: {fileID: 1389297153}
-  - Enemy: 2
+  - Enemy: 1
     SpawnTime: 0
     Zone: {fileID: 1389297153}
   - Enemy: 1

@@ -8,9 +8,6 @@ abstract public class Icon : MonoBehaviour
 {
     protected Action UpdateUIAction;
 
-    [SerializeField]
-    protected GameObject ActionPanelPrefab;
-
     protected abstract void UpdateUI();
     abstract protected void OnDisable();
 }
@@ -18,6 +15,9 @@ abstract public class Icon : MonoBehaviour
 abstract public class AmenityIcon<T> : Icon where T : Amenity
 {
     protected T Amenity;
+
+    [SerializeField]
+    protected GameObject ActionPanelPrefab;
 
     public void Initialise(T amenity)
     {
@@ -56,6 +56,9 @@ abstract public class EnemyIcon<T> : Icon where T : Enemy
 {
     protected T Enemy;
 
+    [SerializeField]
+    protected GameObject EnemyInfoPanelPrefab;
+
     public void Initialise(T enemy)
     {
         Enemy = enemy;
@@ -81,7 +84,15 @@ abstract public class EnemyIcon<T> : Icon where T : Enemy
 
     public void SpawnInfoPanel()
     {
-        throw new System.NotImplementedException();
+        var actionPanel = GameObject.Find("ActionPanel");
+        if (actionPanel == null)
+        {
+            // audio message
+            GameObject.Find("AudioManager").GetComponent<AudioManager>().PlaySentenceLoclaly("accessDenied_r actionPanelIsDisabled_r");
+            return;
+        }
+
+        GameObject _go = Instantiate(EnemyInfoPanelPrefab, parent: actionPanel.transform);
     }
 
 

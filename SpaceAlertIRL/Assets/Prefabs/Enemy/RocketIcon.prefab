@@ -122,9 +122,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 7192325015487134505}
-        m_TargetAssemblyTypeName: EnergyShieldActionPanel, Assembly-CSharp
-        m_MethodName: 
+      - m_Target: {fileID: 7192325015487134504}
+        m_TargetAssemblyTypeName: EnemyIcon`1[[Rocket, Assembly-CSharp
+        m_MethodName: SpawnInfoPanel
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -146,7 +146,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 908f8ec5cc6f07a4fbdae052bbece2af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ActionPanelPrefab: {fileID: 0}
+  EnemyInfoPanelPrefab: {fileID: 8177189919644147943, guid: f00bba4c0b0188e4e876cfbff21a7369, type: 3}
 --- !u!1 &7192325016366064911
 GameObject:
   m_ObjectHideFlags: 0
