@@ -6,6 +6,8 @@ using UnityEditor;
 [CustomEditor(typeof(NFC))]
 public class NFCEditor : Editor
 {
+    // old code that was usefull for debuging one day
+    /*
     public override void OnInspectorGUI()
     {
         base.OnInspectorGUI();
@@ -49,5 +51,5 @@ public class NFCEditor : Editor
             (target as NFC).ChangeScene();
         }
     }
-
+    */
 }

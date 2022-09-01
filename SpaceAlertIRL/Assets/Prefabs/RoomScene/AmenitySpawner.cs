@@ -25,10 +25,10 @@ public class AmenitySpawner : MonoBehaviour
             }
         }
 
-        SpawnAllDoorIcons();
+        SpawnAllAmenityIcons();
     }
 
-    void SpawnAllDoorIcons()
+    void SpawnAllAmenityIcons()
     {
         // remove old ones
         foreach (Transform child in transform)
