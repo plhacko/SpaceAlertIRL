@@ -2,22 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Unity.Netcode;
-//rm using MLAPI;
-//rm using MLAPI.NetworkVariable;
-//rm using MLAPI.Messaging;
 
 public class Room : NetworkBehaviour
 {
     public string Name { get => gameObject.name; }
 
-    public List<Door> Doors; // TODO: make {get; private set}
+    public List<Door> Doors;
     public List<Amenity> Amenities;
 
     // the EnergySource will also be in the List of Amenities
     // note: there are derived classes form EnergyNode
-    [SerializeField] //TODO: remove SerializeField
-    private EnergyNode EnergySource;
-    public EnergyNode GetEnergySource() => EnergySource;
+    public EnergyNode EnergySource { get; private set; }
+    
     public void AddEnergySource(EnergyNode energySource)
     {
         if (EnergySource != null) { throw new System.Exception($"The EnergySource for this room \"{Name}\" can be added only once."); }

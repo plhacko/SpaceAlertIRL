@@ -2,9 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Unity.Netcode;
-//rm using MLAPI;
-//rm using MLAPI.NetworkVariable;
-//rm using MLAPI.Messaging;
 using Unity.Collections;
 
 public class ServerDataContainer : NetworkBehaviour
@@ -82,9 +79,6 @@ public class ServerDataContainer : NetworkBehaviour
         print("DEBUG-playsoundEND: time:" + Time.time);
     }
 
-
-
-    // Start is called before the first frame update
     void Start()
     {
         AudioSource = GameObject.Find("AudioSource").GetComponent<AudioSource>();
@@ -94,12 +88,6 @@ public class ServerDataContainer : NetworkBehaviour
             string fileName = "dwarf_onClick_" + i.ToString();
             ListOfAudioClips.Add(Resources.Load<AudioClip>(fileName));
         }
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
 
     }
 }

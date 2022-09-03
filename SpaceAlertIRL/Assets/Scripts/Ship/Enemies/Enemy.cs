@@ -57,7 +57,7 @@ public abstract class Enemy : NetworkBehaviour, IComparable<Enemy>, IOnServerFix
         UIActions.AddOnValueChangeDependency(_NextActionDescription);
     }
 
-    public virtual void Initialise(Zone z)
+    public virtual void Initialise()
     {
         IsInitialised = true;
 
@@ -69,10 +69,7 @@ public abstract class Enemy : NetworkBehaviour, IComparable<Enemy>, IOnServerFix
         _NextActionTime.Value = 0.0f;
         _NextActionDescription.Value = "";
 
-        // Zone = GetComponentInParent<Zone>(); // TODO: rm
-        Zone = z;
-        // Zone.AddEnemy(this); // TODO: rm
-        // Zone.UIActions.UpdateUI();
+        Zone = GetComponentInParent<Zone>();
     }
 #if SERVER
 

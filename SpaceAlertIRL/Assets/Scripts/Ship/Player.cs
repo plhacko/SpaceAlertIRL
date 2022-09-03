@@ -1,10 +1,6 @@
 using Unity.Netcode;
-//rm using MLAPI;
-//rm using MLAPI.Messaging;
-//rm using MLAPI.NetworkVariable;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-//rm using UnityEngine.CoreModule;
 using System.Text;
 using TMPro;
 using Unity.Collections;
@@ -76,9 +72,6 @@ public class Player : NetworkBehaviour
 
     void Start()
     {
-        // todo: rm
-        // Name.Value = GameObject.Find("PlayerName").GetComponent<InputField>().text; // get the players name from a textbox
-
         CurrentRoomNameUIActions = new UpdateUIActions();
         CurrentRoomNameUIActions.AddOnValueChangeDependency(CurrentRoomName);
         if (IsLocalPlayer)

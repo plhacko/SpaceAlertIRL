@@ -29,9 +29,6 @@ public class Laser : Weapon<Laser>
     {
         if (!NetworkManager.Singleton.IsServer) { throw new System.Exception("Is not a server"); }
 
-        // request energy
-        var energySource = Room.GetEnergySource();
-
         Enemy enemy = Zone.ComputeClosestEnemy();
 
         if (enemy == null)
@@ -41,7 +38,7 @@ public class Laser : Weapon<Laser>
             return;
         }
 
-        if (!energySource.PullEnergy(EnergyCostToShootConst))
+        if (!Room.EnergySource.PullEnergy(EnergyCostToShootConst))
         {
             // notify the player
             GameObject.Find("AudioManager").GetComponent<AudioManager>().RequestPlayingSentenceOnClient("notEnoughEnergy_r", clientId: clientId);

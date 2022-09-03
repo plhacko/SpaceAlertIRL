@@ -4,27 +4,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Unity.Netcode;
-//rm using MLAPI;
-//rm using MLAPI.Messaging;
 
 public class EnergyNode : Amenity<EnergyNode>
 {
     [SerializeField]
     protected Room SourceRoom;
-    [SerializeField] // TODO: delete SerializeField
     protected EnergyNode Source;
 
     public string GetSourceName()
     {
         return Source.Room.name;
     }
-
-    // public override void SpawnIconAsChild(GameObject parent)
-    // {
-    //     GameObject _go = Instantiate(IconPrefab, parent.transform.position, parent.transform.rotation, parent.transform);
-    //     _go.GetComponent<EnergyNodeIcon>().Initialise(this);
-    // }
-
+    
 #if (SERVER)
     // is used to detect circles
     protected bool IsOnEnergyPath = false;

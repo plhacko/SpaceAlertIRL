@@ -68,8 +68,7 @@ public class Railgun : Weapon<Railgun>
             return;
         }
 
-        // get energy source
-        var energySource = Room.GetEnergySource();
+
         Enemy enemy = Zone.ComputeClosestEnemy();
 
         if (enemy == null)
@@ -79,7 +78,7 @@ public class Railgun : Weapon<Railgun>
             return;
         }
 
-        if (!energySource.PullEnergy(EnergyCostToShootConst))
+        if (!Room.EnergySource.PullEnergy(EnergyCostToShootConst))
         {
             // notify the player
             GameObject.Find("AudioManager").GetComponent<AudioManager>().RequestPlayingSentenceOnClient("notEnoughEnergy_r", clientId: clientId);

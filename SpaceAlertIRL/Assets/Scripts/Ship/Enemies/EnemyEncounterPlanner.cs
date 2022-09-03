@@ -30,7 +30,7 @@ public class EnemyEncounterPlanner : MonoBehaviour, IOnServerFixedUpdate
             var ets = EnemiesToSpawn[SpawnEnemyAtThisTimeIndex];
 
             if (ets.Enemy == EnumOfEnemies.rndLightEnemy)
-            { Debug.Log("not implemented rndLightEnemy"); }
+            { ets.Zone.GetComponentInChildren<EnemySpawner>().SpawnRnadomLightEmemy(); }
             else
             {
                 EnemySpawner enemySpawner = ets.Zone.GetComponentInChildren<EnemySpawner>();

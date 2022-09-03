@@ -1,5 +1,3 @@
-//rm using MLAPI;
-//rm using MLAPI.Transports.UNET;
 using Unity.Netcode;
 using Unity.Netcode.Transports.UNET;
 using UnityEngine;

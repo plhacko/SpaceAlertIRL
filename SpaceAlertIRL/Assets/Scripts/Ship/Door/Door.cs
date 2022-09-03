@@ -4,14 +4,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Unity.Netcode;
-//rm using MLAPI;
-//rm using MLAPI.NetworkVariable;
-//rm using MLAPI.Messaging;
 using System;
 
 
 
-public class Door : NetworkBehaviour
+public class Door : NetworkBehaviour, IOnServerFixedUpdate
 {
     [SerializeField]
     float OpenningSpeedConst = 0.5f;
@@ -38,20 +35,12 @@ public class Door : NetworkBehaviour
         }
     }
 
-    // old
-    // public ActionNetworkVariable<bool> IsOpen = new ActionNetworkVariable<bool>(new NetworkVariableBool(new NetworkVariableSettings
-    // {
-    //     WritePermission = NetworkVariablePermission.ServerOnly,
-    //     ReadPermission = NetworkVariablePermission.Everyone
-    // }, false));
-
     public NetworkVariable<bool> IsOpen;
-    // todo: rename this
-    public NetworkVariable<float> OpenningClosingProgress;
     
+    public NetworkVariable<float> OpenningClosingProgress;
+
     public UpdateUIActions UIActions = new UpdateUIActions();
 
-    // Start is called before the first frame update
     void Start()
     {
         AddSelfToRoom(RoomA);
@@ -66,35 +55,29 @@ public class Door : NetworkBehaviour
 
 
 #if (SERVER)
-    // Update is called once per frame
-    void Update()
+    public void ServerFixedUpdate()
     {
-        if (NetworkManager.Singleton.IsServer)
+        if (!NetworkManager.Singleton.IsServer)
+        { return; }
+
+        if (OpenningClosingProgress.Value < 1)
         {
-            if (OpenningClosingProgress.Value < 1)
+            float _currentOpenning = OpenningClosingProgress.Value + OpenningSpeedConst * Time.deltaTime;
+            if (_currentOpenning > 1)
             {
-                float _currentOpenning = OpenningClosingProgress.Value + OpenningSpeedConst * Time.deltaTime;
-                if (_currentOpenning > 1)
-                {
-                    IsOpen.Value = !IsOpen.Value;
-                    OpenningClosingProgress.Value = 1;
-                }
-                else { OpenningClosingProgress.Value = _currentOpenning; }
+                IsOpen.Value = !IsOpen.Value;
+                OpenningClosingProgress.Value = 1;
             }
-            // Debug.Log(OpenningClosingProgress.Value); // TODO: delete
+            else { OpenningClosingProgress.Value = _currentOpenning; }
         }
     }
 #endif
 
-    // TODO: make openning and closing its own process
-    // TODO: check if the player is in the right room
     [ServerRpc(RequireOwnership = false)]
     public void OpenDoorServerRpc(ServerRpcParams rpcParams = default)
     {
         if (!IsOpen.Value)
             OpenningClosingProgress.Value = 0.0f;
-        // old
-        // IsOpen.Value = true;
     }
 
     [ServerRpc(RequireOwnership = false)]
@@ -102,8 +85,6 @@ public class Door : NetworkBehaviour
     {
         if (IsOpen.Value)
             OpenningClosingProgress.Value = 0.0f;
-        // old
-        // IsOpen.Value = false;
     }
 
     void AddSelfToRoom(Room r)
@@ -111,7 +92,7 @@ public class Door : NetworkBehaviour
         r.AddDoor(this);
     }
 
-    public bool IsConnectedToRoom(Room r) // TODO: think about if this should be server RPC? -> ir would be dificult to make it so and it is most likely not needed // todo: more thinking
+    public bool IsConnectedToRoom(Room r)
     {
         return r == RoomA || r == RoomB;
     }

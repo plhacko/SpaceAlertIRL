@@ -13,8 +13,6 @@ public class DoorIcon : Icon
 
     private Door Door;
     private Room NextRoom; //this is the room, that the player is NOT in
-    //rm private Action UpdateUIAction;
-
 
     override protected void OnDisable()
     {

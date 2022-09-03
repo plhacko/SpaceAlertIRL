@@ -4,9 +4,6 @@ using System;
 using UnityEngine;
 using Unity.Netcode;
 using Unity.Collections;
-//rm using MLAPI;
-//rm using MLAPI.NetworkVariable;
-
 
 public class UpdateUIActions
 {

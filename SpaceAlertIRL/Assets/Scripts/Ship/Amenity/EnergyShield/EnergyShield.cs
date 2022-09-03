@@ -19,10 +19,9 @@ public class EnergyShield : Amenity<EnergyShield>
     {
         if (!NetworkManager.Singleton.IsServer) { throw new System.Exception("Is not a server"); }
 
-        EnergyNode energySource = Room.GetEnergySource(); // might me a child of EnergyNode
         int requestedEnergy = Mathf.Max(MaxShieldValue.Value - ShieldValue.Value, 0); // requestedEnergy must be more than 0
 
-        int receivedEnergy = energySource.PullEnergyUpTo(requestedEnergy);
+        int receivedEnergy = Room.EnergySource.PullEnergyUpTo(requestedEnergy);
         ShieldValue.Value = ShieldValue.Value + receivedEnergy;
 
         if (receivedEnergy == 0)

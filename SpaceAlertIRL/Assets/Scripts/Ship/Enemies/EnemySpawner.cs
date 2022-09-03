@@ -21,8 +21,7 @@ public class EnemySpawner : MonoBehaviour
 
         go.GetComponent<NetworkObject>().Spawn();
         go.transform.SetParent(transform);
-        Zone z = GetComponentInParent<Zone>();
-        go.GetComponent<Enemy>().Initialise(z);
+        go.GetComponent<Enemy>().Initialise();
         GetComponentInParent<Zone>().UIActions.UpdateUI();
 
         // broadcast message for all clients
@@ -46,6 +45,12 @@ public class EnemySpawner : MonoBehaviour
 
         Debug.Log($"Trying to spawn \"{enemyName}\", but it doesn't exist");
         return null;
+    }
+
+    public Enemy SpawnRnadomLightEmemy()
+    {
+        int i = Random.Range(0, LightEnemies.Count);
+        return SpawnEnemy(LightEnemies[i]);
     }
 
 #endif

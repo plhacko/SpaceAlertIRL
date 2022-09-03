@@ -19,8 +19,7 @@ public class Teleport : Amenity<Teleport>
     void TeleportPlayerServerRpc(ulong clientId)
     {
         // request energy
-        var energySource = Room.GetEnergySource();
-        if (!energySource.PullEnergy(EnergyCostConst))
+        if (!Room.EnergySource.PullEnergy(EnergyCostConst))
         {
             // notify the player
             GameObject.Find("AudioManager").GetComponent<AudioManager>().RequestPlayingSentenceOnClient("notEnoughEnergy_r", clientId: clientId);
