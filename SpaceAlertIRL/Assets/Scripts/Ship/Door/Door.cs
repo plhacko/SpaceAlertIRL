@@ -51,6 +51,8 @@ public class Door : NetworkBehaviour, IOnServerFixedUpdate
 
         OpenningClosingProgress = new NetworkVariable<float>(1.0f);
         UIActions.AddOnValueChangeDependency(OpenningClosingProgress);
+
+        ServerUpdater.Add(this);
     }
 
 

@@ -55,6 +55,8 @@ public abstract class Enemy : NetworkBehaviour, IComparable<Enemy>, IOnServerFix
         UIActions.AddOnValueChangeDependency(_HP, _EnergyShield);
         UIActions.AddOnValueChangeDependency(_Distance, _Speed, _NextActionTime);
         UIActions.AddOnValueChangeDependency(_NextActionDescription);
+
+        ServerUpdater.Add(this);
     }
 
     public virtual void Initialise()

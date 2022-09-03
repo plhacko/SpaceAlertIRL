@@ -52,5 +52,7 @@ public class Computer : Amenity<Computer>, IOnServerFixedUpdate
         base.Start();
 
         UIActions.AddOnValueChangeDependency(Timer);
+
+        ServerUpdater.Add(this);
     }
 }

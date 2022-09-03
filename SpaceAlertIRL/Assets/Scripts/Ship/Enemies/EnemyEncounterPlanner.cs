@@ -13,6 +13,8 @@ public class EnemyEncounterPlanner : MonoBehaviour, IOnServerFixedUpdate
     {
         // sorts array by time   
         System.Array.Sort(EnemiesToSpawn, (x, y) => x.SpawnTime.CompareTo(y.SpawnTime));
+
+        ServerUpdater.Add(this);
     }
 
     // for now it will spawn every
