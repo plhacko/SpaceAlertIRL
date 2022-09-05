@@ -30,7 +30,7 @@ public class Laser : Weapon<Laser>, IOnServerFixedUpdate
         UIActions.AddOnValueChangeDependency(Damage, Range);
         UIActions.AddOnValueChangeDependency(Heat);
 
-        ServerUpdater.Add(this);
+        ServerUpdater.Add(this.gameObject);
     }
 
     [ServerRpc(RequireOwnership = false)]

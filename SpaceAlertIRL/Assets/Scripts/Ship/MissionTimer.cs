@@ -19,7 +19,7 @@ public class MissionTimer : NetworkBehaviour, IOnServerFixedUpdate
     {
         UIActions.AddOnValueChangeDependency(TimeToEnd);
 
-        ServerUpdater.Add(this);
+        ServerUpdater.Add(this.gameObject);
     }
 
     public void ServerFixedUpdate()

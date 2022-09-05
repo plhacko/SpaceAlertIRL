@@ -21,8 +21,12 @@ public class ServerUpdater : NetworkBehaviour
     public void StopUpdating() { Stop = false; }
     public void ResumeUpdating() { Stop = true; }
 
-    static List<IOnServerFixedUpdate> ListToUpdate = new List<IOnServerFixedUpdate>();
-    public static void Add(IOnServerFixedUpdate i) { ListToUpdate.Add(i); }
+    static List<GameObject> ListToUpdate = new List<GameObject>();
+    public static void Add(GameObject i)
+    {
+        if (i.GetComponent<IOnServerFixedUpdate>() == null) { throw new System.Exception("GameObject must contain script with IOnServerFixedUpdate interface"); }
+        ListToUpdate.Add(i);
+    }
 
     void FixedUpdate()
     {
@@ -34,7 +38,7 @@ public class ServerUpdater : NetworkBehaviour
         ListToUpdate.RemoveAll(item => item == null);
         foreach (var i in ListToUpdate)
         {
-            i.ServerFixedUpdate();
+            i.GetComponent<IOnServerFixedUpdate>().ServerFixedUpdate();
         }
     }
 }
