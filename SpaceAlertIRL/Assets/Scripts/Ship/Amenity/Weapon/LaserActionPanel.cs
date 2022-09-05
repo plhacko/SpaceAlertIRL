@@ -14,14 +14,16 @@ public class LaserActionPanel : AmenityActionPanel<Laser>
 
     protected override void UpdateUI()
     {
-        var _damage = Amenity.Damage.Value;
-        var _range = Amenity.Range.Value;
-        var _heat = Amenity.Heat.Value;
+        var _damage = Amenity.GetWeaponDamage();
+        var _range = Amenity.GetWeaponRange();
+        var _heat = Amenity.GetWeaponHeat();
+        bool _tooHot = Amenity.IsTooHotToShoot();
+        string _statusTest = _tooHot ? "high heat" : "ok";
 
-        transform.Find("Status").GetComponentInChildren<TextMeshProUGUI>().text = "Status : good"; // TODO: redo this
+        transform.Find("Status").GetComponentInChildren<TextMeshProUGUI>().text = $"Status : {_statusTest}"; 
         transform.Find("Damage").GetComponentInChildren<TextMeshProUGUI>().text = $"Damage : {_damage}";
         transform.Find("Range").GetComponentInChildren<TextMeshProUGUI>().text = $"Range : {_range}";
-        transform.Find("Heat").GetComponentInChildren<TextMeshProUGUI>().text = $"Heat : {_heat}";
+        transform.Find("Heat").GetComponentInChildren<TextMeshProUGUI>().text = $"Heat : {_heat.ToString("0.00\\%")}";
     }
 
     public void RequestShootingAtClosesEnemy()
