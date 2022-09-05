@@ -8,36 +8,21 @@ using System;
 
 
 
-public class Door : NetworkBehaviour, IOnServerFixedUpdate
+public class Door : NetworkBehaviour
 {
-    [SerializeField]
-    float OpenningSpeedConst = 0.5f;
+    // [SerializeField]
+    // float OpenningSpeedConst = 0.5f;
+
+    public const float TimeToOpenDoorsConst = 3.0f;
 
     public string Name { get => gameObject.name; }
 
     public Room RoomA;
     public Room RoomB;
 
-    public string Status
-    { //TODO: need to be finished up -> open/closed/...
-        get
-        {
-            if (IsOpen.Value)
-            {
-                if (OpenningClosingProgress.Value >= 1) return "open";
-                else return "closing";
-            }
-            else
-            {
-                if (OpenningClosingProgress.Value >= 1) return "closed";
-                else return "opening";
-            }
-        }
-    }
 
-    public NetworkVariable<bool> IsOpen;
-    
-    public NetworkVariable<float> OpenningClosingProgress;
+    public NetworkVariable<bool> IsOpen = new NetworkVariable<bool>(false);
+    public NetworkVariable<float> OpenningClosingProgress = new NetworkVariable<float>(1.0f);
 
     public UpdateUIActions UIActions = new UpdateUIActions();
 
@@ -46,47 +31,45 @@ public class Door : NetworkBehaviour, IOnServerFixedUpdate
         AddSelfToRoom(RoomA);
         AddSelfToRoom(RoomB);
 
-        IsOpen = new NetworkVariable<bool>(false);
         UIActions.AddOnValueChangeDependency(IsOpen);
-
-        OpenningClosingProgress = new NetworkVariable<float>(1.0f);
         UIActions.AddOnValueChangeDependency(OpenningClosingProgress);
 
-        ServerUpdater.Add(this.gameObject);
+        // ServerUpdater.Add(this.gameObject); TODO: rm
     }
 
 
 #if (SERVER)
-    public void ServerFixedUpdate()
-    {
-        if (!NetworkManager.Singleton.IsServer)
-        { return; }
 
-        if (OpenningClosingProgress.Value < 1)
+    [ServerRpc(RequireOwnership = false)]
+    void OpenCloseServerRpc(float deltaTime, ulong clientId) //must be ServerRpc
+    {
+        float _newOpenning = OpenningClosingProgress.Value + deltaTime;
+        if (_newOpenning <= 0)
         {
-            float _currentOpenning = OpenningClosingProgress.Value + OpenningSpeedConst * Time.deltaTime;
-            if (_currentOpenning > 1)
-            {
-                IsOpen.Value = !IsOpen.Value;
-                OpenningClosingProgress.Value = 1;
-            }
-            else { OpenningClosingProgress.Value = _currentOpenning; }
+            IsOpen.Value = false;
+            OpenningClosingProgress.Value = 0.0f;
         }
+        else if (_newOpenning >= TimeToOpenDoorsConst)
+        {
+            IsOpen.Value = true;
+            OpenningClosingProgress.Value = TimeToOpenDoorsConst;
+        }
+        else
+        { OpenningClosingProgress.Value = _newOpenning; }
+
     }
 #endif
 
-    [ServerRpc(RequireOwnership = false)]
-    public void OpenDoorServerRpc(ServerRpcParams rpcParams = default)
+    public void RequestOpenning()
     {
-        if (!IsOpen.Value)
-            OpenningClosingProgress.Value = 0.0f;
+        ulong clientId = NetworkManager.Singleton.LocalClientId;
+        OpenCloseServerRpc(Time.deltaTime, clientId);
     }
 
-    [ServerRpc(RequireOwnership = false)]
-    public void CloseDoorServerRpc(ServerRpcParams rpcParams = default)
+    public void RequestClosing()
     {
-        if (IsOpen.Value)
-            OpenningClosingProgress.Value = 0.0f;
+        ulong clientId = NetworkManager.Singleton.LocalClientId;
+        OpenCloseServerRpc(-Time.deltaTime, clientId);
     }
 
     void AddSelfToRoom(Room r)

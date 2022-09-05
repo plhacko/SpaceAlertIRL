@@ -27,17 +27,21 @@ public class DoorActionPanel : ActionPanel
 
     public void OpenDoor()
     {
-        Door.OpenDoorServerRpc();
+        Door.RequestOpenning();
     }
 
     public void CloseDoor()
     {
-        Door.CloseDoorServerRpc();
+        Door.RequestClosing();
     }
 
     private void UpdateUI()
     {
-        transform.Find("DoorStatus").GetComponentInChildren<TextMeshProUGUI>().text = $"Status : {Door.Status}";
+        var _percentege = 100 * Door.OpenningClosingProgress.Value / Door.TimeToOpenDoorsConst;
+        string _status = Door.IsOpen.Value ? "open" : "closed";
+
+        transform.Find("DoorStatus").GetComponentInChildren<TextMeshProUGUI>().text = $"status : {_status}";
+        transform.Find("DoorActivity").GetComponentInChildren<TextMeshProUGUI>().text = $"activity : {_percentege.ToString("0.##\\%")}";
     }
 
     protected override void OnDisable()
