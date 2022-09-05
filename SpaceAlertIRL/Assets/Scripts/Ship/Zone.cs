@@ -66,7 +66,7 @@ public class Zone : NetworkBehaviour
 
     private void Die()
     {
-        GetComponentInParent<ServerUpdater>().StopUpdating();
+        ServerUpdater.StopUpdating();
         GameObject.Find("SceneChanger").GetComponent<SceneChanger>().ChangeScene("EndScreen");
     }
 #endif

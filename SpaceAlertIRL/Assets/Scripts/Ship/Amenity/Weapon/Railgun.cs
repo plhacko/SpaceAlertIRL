@@ -42,13 +42,9 @@ public class Railgun : Weapon<Railgun>
         float newValue = ChargingTime.Value + deltaTime;
 
         if (newValue >= TimeToChargeConst)
-        {
-            ChargingTime.Value = TimeToChargeConst;
-        }
+        { ChargingTime.Value = TimeToChargeConst; }
         else
-        {
-            ChargingTime.Value = newValue;
-        }
+        { ChargingTime.Value = newValue; }
     }
 
     public void RequestCharging()

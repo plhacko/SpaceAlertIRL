@@ -48,7 +48,7 @@ public class RoomStatusToText : MonoBehaviour
         sb.AppendLine("Doors:");
         foreach (Door d in Room.Doors)
         {
-            sb.AppendLine($"    * {d.Name} : {d.Status}");
+            sb.AppendLine($"    * {d.Name} : {"d.Status"}");
         }
 
         return sb.ToString();

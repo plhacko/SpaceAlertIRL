@@ -32,4 +32,7 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/TestScenes/Ship_A.unity
     guid: 4bcba218b5115d34b85c080465c937ce
+  - enabled: 1
+    path: Assets/Scenes/EndScreen.unity
+    guid: 0cac4ee896546cf4b8a856f39737c277
   m_configObjects: {}

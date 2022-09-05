@@ -16,10 +16,10 @@ public interface IOnServerFixedUpdate
 public class ServerUpdater : NetworkBehaviour
 {
     [SerializeField]
-    bool Stop = false;
+    static bool Stop = false;
 
-    public void StopUpdating() { Stop = false; }
-    public void ResumeUpdating() { Stop = true; }
+    static public void StopUpdating() { Stop = false; }
+    static public void ResumeUpdating() { Stop = true; }
 
     static List<GameObject> ListToUpdate = new List<GameObject>();
     public static void Add(GameObject i)
