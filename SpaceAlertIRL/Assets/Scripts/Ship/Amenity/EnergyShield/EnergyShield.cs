@@ -10,9 +10,11 @@ public class EnergyShield : Amenity<EnergyShield>
     protected const int MaxShieldValueConst = 3;
     protected const int ShieldValueConst = 2;
 
-    public NetworkVariable<int> MaxShieldValue = new NetworkVariable<int>(ShieldValueConst);
-    public NetworkVariable<int> ShieldValue = new NetworkVariable<int>(MaxShieldValueConst);
+    NetworkVariable<int> MaxShieldValue = new NetworkVariable<int>(ShieldValueConst);
+    NetworkVariable<int> ShieldValue = new NetworkVariable<int>(MaxShieldValueConst);
 
+    public int GetMaxShieldValue() => MaxShieldValue.Value;
+    public int GetShieldValue() => ShieldValue.Value;
 
 #if (SERVER)
     private void RechargeEnergyShield(ulong clientId)

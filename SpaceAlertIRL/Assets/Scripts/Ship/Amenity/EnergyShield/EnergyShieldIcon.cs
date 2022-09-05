@@ -9,8 +9,8 @@ public class EnergyShieldIcon : AmenityIcon<EnergyShield>
     {
         if (Amenity != null)
         {
-            var _energyShieldValue = Amenity.ShieldValue.Value;
-            var _energyShieldMaxValue = Amenity.MaxShieldValue.Value;
+            var _energyShieldValue = Amenity.GetShieldValue();
+            var _energyShieldMaxValue = Amenity.GetMaxShieldValue();
 
             GetComponentInChildren<TextMeshProUGUI>().text = $"E. Shield : {_energyShieldValue}/{_energyShieldMaxValue}";
         }

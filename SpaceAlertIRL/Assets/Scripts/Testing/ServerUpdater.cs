@@ -22,11 +22,7 @@ public class ServerUpdater : NetworkBehaviour
     public void ResumeUpdating() { Stop = true; }
 
     static List<IOnServerFixedUpdate> ListToUpdate = new List<IOnServerFixedUpdate>();
-    public static void Add(IOnServerFixedUpdate i)
-    {
-        if (NetworkManager.Singleton.IsServer)
-        { ListToUpdate.Add(i); }
-    }
+    public static void Add(IOnServerFixedUpdate i) { ListToUpdate.Add(i); }
 
     void FixedUpdate()
     {

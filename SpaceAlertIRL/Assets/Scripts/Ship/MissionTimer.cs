@@ -18,6 +18,8 @@ public class MissionTimer : NetworkBehaviour, IOnServerFixedUpdate
     private void Start()
     {
         UIActions.AddOnValueChangeDependency(TimeToEnd);
+
+        ServerUpdater.Add(this);
     }
 
     public void ServerFixedUpdate()
@@ -25,9 +27,7 @@ public class MissionTimer : NetworkBehaviour, IOnServerFixedUpdate
         float newTime = TimeToEnd.Value - Time.deltaTime;
 
         if (newTime > 0.0f)
-        {
-            TimeToEnd.Value = newTime;
-        }
+        { TimeToEnd.Value = newTime; }
         else
         {
             Debug.Log("You won. Congrats."); //TODO: add end screen

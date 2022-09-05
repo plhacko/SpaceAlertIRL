@@ -62,16 +62,16 @@ abstract public class EnemyIcon<T> : Icon where T : Enemy
     public void Initialise(T enemy)
     {
         Enemy = enemy;
-        UpdateUIAction = DestroyThisIconWithEnemyDeath;
+        // UpdateUIAction = DestroyThisIconWithEnemyDeath; // TODO:??
         UpdateUIAction += UpdateUI;
         UpdateUIAction();
         Enemy.UIActions.AddAction(UpdateUIAction);
     }
 
-    private void DestroyThisIconWithEnemyDeath()
+    private void DestroyThisIconWithEnemyDeath() // TODO: rm?
     {
         if (Enemy == null)
-        { Destroy(this.gameObject); }
+        { Destroy(gameObject); }
     }
 
     override protected void OnDisable()
