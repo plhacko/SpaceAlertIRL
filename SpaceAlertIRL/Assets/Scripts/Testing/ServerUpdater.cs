@@ -22,16 +22,20 @@ public class ServerUpdater : NetworkBehaviour
     static public void ResumeUpdating() { Stop = true; }
 
     static List<GameObject> ListToUpdate = new List<GameObject>();
+    static List<GameObject> NewlyAddedListToUpdate = new List<GameObject>();
     public static void Add(GameObject i)
     {
         if (i.GetComponent<IOnServerFixedUpdate>() == null) { throw new System.Exception("GameObject must contain script with IOnServerFixedUpdate interface"); }
-        ListToUpdate.Add(i);
+        NewlyAddedListToUpdate.Add(i);
     }
 
     void FixedUpdate()
     {
         if (!NetworkManager.Singleton.IsServer) { return; }
         if (Stop) { return; }
+
+        ListToUpdate.AddRange(NewlyAddedListToUpdate);
+        NewlyAddedListToUpdate = new List<GameObject>();
 
         if (SceneManager.GetActiveScene().name != "RoomScene") { return; } // TODO: rethink and make it a optimal solution
 
