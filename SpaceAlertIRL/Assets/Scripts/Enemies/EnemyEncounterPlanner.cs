@@ -44,7 +44,7 @@ public class EnemyEncounterPlanner : MonoBehaviour, IOnServerFixedUpdate
     }
 }
 
-public enum EnumOfEnemies { rndLightEnemy, Meteor, Fighter, Eye, Rocket }
+public enum EnumOfEnemies { rndLightEnemy, Meteor, Fighter, Eye, EnergyCloud, Rocket }
 [System.Serializable]
 public struct EnemyTimeStruct
 {

@@ -85,7 +85,7 @@ sealed class CloseAllDoors : EnemyAction
     { TimeSpan = timeSpan; }
 }
 
-sealed class DepleteShiealds : EnemyAction
+sealed class DepleteShields : EnemyAction
 {
     public override string GetDescription() => $"{EnergyToDeplete} damage to all shields";
     public override void ExecuteAction()
@@ -99,7 +99,7 @@ sealed class DepleteShiealds : EnemyAction
     }
 
     int EnergyToDeplete;
-    public DepleteShiealds(int eneryToDeplete, float timeSpan)
+    public DepleteShields(int eneryToDeplete, float timeSpan)
     {
         TimeSpan = timeSpan;
         EnergyToDeplete = eneryToDeplete;
