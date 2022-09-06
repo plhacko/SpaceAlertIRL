@@ -47,22 +47,16 @@ public abstract class Enemy : NetworkBehaviour, IComparable<Enemy>, IOnServerFix
 
     public UpdateUIActions UIActions = new UpdateUIActions();
     public abstract void SpawnIconAsChild(GameObject parent);
-
-    public bool IsInitialised { get; private set; } = false;
-
+    
     public virtual void Start()
     {
         UIActions.AddOnValueChangeDependency(_HP, _EnergyShield);
         UIActions.AddOnValueChangeDependency(_Distance, _Speed, _NextActionTime);
         UIActions.AddOnValueChangeDependency(_NextActionDescription);
-
-        ServerUpdater.Add(this.gameObject);
     }
 
     public virtual void Initialise()
     {
-        IsInitialised = true;
-
         _HP.Value = StratingHPConst;
         _EnergyShield.Value = MaxEnergyShieldConst;
         _EnergyShieldRegenerationTime.Value = 0.0f;
@@ -72,14 +66,13 @@ public abstract class Enemy : NetworkBehaviour, IComparable<Enemy>, IOnServerFix
         _NextActionDescription.Value = "";
 
         Zone = GetComponentInParent<Zone>();
+
+        ServerUpdater.Add(this.gameObject);
     }
 #if SERVER
 
     void IOnServerFixedUpdate.ServerFixedUpdate()
     {
-        // Update should tun only on server
-        if (!NetworkManager.Singleton.IsServer || !IsInitialised) { return; } // TODO: rm
-
         DistanceChange();
         EnergyShieldsRegeneration();
         ActionTimer();
@@ -138,7 +131,6 @@ public abstract class Enemy : NetworkBehaviour, IComparable<Enemy>, IOnServerFix
     protected virtual void Impact()
     {
         _HP.Value = 0;
-        // Zone.RemoveEnemy(this); TODO: rm
         GetComponent<NetworkObject>().Despawn(true);
     }
 
@@ -160,6 +152,9 @@ public abstract class Enemy : NetworkBehaviour, IComparable<Enemy>, IOnServerFix
             _HP.Value = 0;
             Die();
         }
+        
+        // shield regeneratin will start all over
+        _EnergyShieldRegenerationTime.Value = 0;
     }
     virtual public void Die()
     {
@@ -167,7 +162,6 @@ public abstract class Enemy : NetworkBehaviour, IComparable<Enemy>, IOnServerFix
         GameObject.Find("AudioManager").GetComponent<AudioManager>().RequestPlayingSentenceOnClient($"{_zoneName} enemyTerminated_r", removeDuplicates: false);
 
         _HP.Value = 0;
-        // Zone.RemoveEnemy(this); TODO: rm
         GetComponent<NetworkObject>().Despawn();
     }
     public int CompareTo(Enemy e)

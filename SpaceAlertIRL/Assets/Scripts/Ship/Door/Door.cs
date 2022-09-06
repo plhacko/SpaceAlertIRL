@@ -5,14 +5,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using Unity.Netcode;
 using System;
-
-
+using UnityEngine.UI;
 
 public class Door : NetworkBehaviour
 {
-    // [SerializeField]
-    // float OpenningSpeedConst = 0.5f;
-
     public const float TimeToOpenDoorsConst = 3.0f;
 
     public string Name { get => gameObject.name; }
@@ -20,9 +16,8 @@ public class Door : NetworkBehaviour
     public Room RoomA;
     public Room RoomB;
 
-
     public NetworkVariable<bool> IsOpen = new NetworkVariable<bool>(false);
-    public NetworkVariable<float> OpenningClosingProgress = new NetworkVariable<float>(1.0f);
+    public NetworkVariable<float> OpenningClosingProgress = new NetworkVariable<float>(0.0f);
 
     public UpdateUIActions UIActions = new UpdateUIActions();
 
@@ -34,14 +29,21 @@ public class Door : NetworkBehaviour
         UIActions.AddOnValueChangeDependency(IsOpen);
         UIActions.AddOnValueChangeDependency(OpenningClosingProgress);
 
-        // ServerUpdater.Add(this.gameObject); TODO: rm
+        UpdateUI();
+        UIActions.AddAction(UpdateUI);
     }
 
+    void UpdateUI()
+    {
+        if (IsOpen.Value)
+        { GetComponent<Image>().color = Color.green; }
+        else { GetComponent<Image>().color = Color.white; }
+    }
 
 #if (SERVER)
 
     [ServerRpc(RequireOwnership = false)]
-    void OpenCloseServerRpc(float deltaTime, ulong clientId) //must be ServerRpc
+    void OpenCloseServerRpc(float deltaTime, ulong clientId)
     {
         float _newOpenning = OpenningClosingProgress.Value + deltaTime;
         if (_newOpenning <= 0)
@@ -56,9 +58,17 @@ public class Door : NetworkBehaviour
         }
         else
         { OpenningClosingProgress.Value = _newOpenning; }
-
+    }
+    [ServerRpc(RequireOwnership = false)]
+    void SetIsOpenServerRpc(bool isOpen)
+    {
+        IsOpen.Value = isOpen;
+        OpenningClosingProgress.Value = isOpen ? TimeToOpenDoorsConst : 0.0f;
     }
 #endif
+
+    public void RequesOpennigFully() { SetIsOpenServerRpc(true); }
+    public void RequestClosingFully() { SetIsOpenServerRpc(false); }
 
     public void RequestOpenning()
     {

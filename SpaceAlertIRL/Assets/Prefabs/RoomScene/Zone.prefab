@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LightEnemies:
   - {fileID: 5866650754423056519, guid: 1b3115a281e071344aab4f1ca2b391db, type: 3}
-  SpawnTimeConst: 10
+  Rockets: []
 --- !u!1 &8201271519758403228
 GameObject:
   m_ObjectHideFlags: 0
@@ -28,7 +28,7 @@ GameObject:
   - component: {fileID: 8201271519758403230}
   m_Layer: 5
   m_Name: Zone
-  m_TagString: Untagged
+  m_TagString: Zone
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -67,7 +67,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _HP:
     m_InternalValue: 10
-  EnemyList: []
 --- !u!114 &8201271519758403230
 MonoBehaviour:
   m_ObjectHideFlags: 0

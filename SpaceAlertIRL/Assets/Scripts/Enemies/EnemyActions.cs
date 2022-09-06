@@ -11,8 +11,8 @@ public abstract class EnemyAction
 {
     public float TimeSpan { get; protected set; }
 
-    public abstract string GetDescription();
     public abstract void ExecuteAction();
+    public abstract string GetDescription();
 }
 
 sealed class SimpleAttack : EnemyAction
@@ -67,6 +67,64 @@ sealed class TeleportAllPlayers : EnemyAction
     }
     public TeleportAllPlayers(float timeSpan)
     { TimeSpan = timeSpan; }
+}
+
+sealed class CloseAllDoors : EnemyAction
+{
+    public override string GetDescription() => "closes sll doors";
+    public override void ExecuteAction()
+    {
+        GameObject[] doors = GameObject.FindGameObjectsWithTag("Door");
+
+        foreach (var d in doors)
+        {
+            d.GetComponent<Door>().RequestClosingFully();
+        }
+    }
+    public CloseAllDoors(float timeSpan)
+    { TimeSpan = timeSpan; }
+}
+
+sealed class DepleteShiealds : EnemyAction
+{
+    public override string GetDescription() => $"{EnergyToDeplete} damage to all shields";
+    public override void ExecuteAction()
+    {
+        GameObject[] Zones = GameObject.FindGameObjectsWithTag("Zone");
+
+        foreach (var z in Zones)
+        {
+            z.GetComponent<Zone>().DepleteEnergyShiealds(EnergyToDeplete);
+        }
+    }
+
+    int EnergyToDeplete;
+    public DepleteShiealds(int eneryToDeplete, float timeSpan)
+    {
+        TimeSpan = timeSpan;
+        EnergyToDeplete = eneryToDeplete;
+    }
+}
+
+sealed class DepleteEnergy : EnemyAction
+{
+    public override void ExecuteAction()
+    {
+        EnergyPool[] energyPools= GameObject.Find("ShipCanvas").GetComponentsInChildren<EnergyPool>();
+
+        foreach (var e in energyPools)
+        {
+            e.PullEnergyUpTo(EnergyToDeplete);
+        }
+    }
+    public override string GetDescription() => "";
+    
+    int EnergyToDeplete;
+    public DepleteEnergy(int eneryToDeplete, float timeSpan)
+    {
+        TimeSpan = timeSpan;
+        EnergyToDeplete = eneryToDeplete;
+    }
 }
 
 #endif

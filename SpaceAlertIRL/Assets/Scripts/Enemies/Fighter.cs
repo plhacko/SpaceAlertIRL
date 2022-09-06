@@ -14,6 +14,7 @@ public class Fighter : Enemy<Fighter>
     const float RocketRange = 40.0f;
     const float RocketActionTime = 3.0f;
     const float SimpleAttackActionTime = 10.0f;
+    const int SimpleAttackDamage = 4;
     int RocketCount = 1;
     protected override EnemyAction DecideNextAction()
     {
@@ -23,6 +24,6 @@ public class Fighter : Enemy<Fighter>
             return new LaunchRocket(GetComponentInParent<EnemySpawner>(), this, RocketActionTime);
         }
         else
-        { return new SimpleAttack(4, Zone, SimpleAttackActionTime); }
+        { return new SimpleAttack(SimpleAttackDamage, Zone, SimpleAttackActionTime); }
     }
 }

@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Room
   - Teleport
+  - Door
+  - Zone
   layers:
   - Default
   - TransparentFX

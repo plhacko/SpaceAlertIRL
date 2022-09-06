@@ -64,6 +64,15 @@ public class Zone : NetworkBehaviour
         else { _HP.Value = 0; Die(); }
     }
 
+    public void DepleteEnergyShiealds(int damage)
+    {
+        EnergyShield[] energyShieldArray = GetComponentsInChildren<EnergyShield>(); // TODO: ? array sort this based on smothing ?
+        foreach (EnergyShield es in energyShieldArray)
+        {
+            es.AbsorbDamage(ref damage);
+        }
+    }
+
     private void Die()
     {
         ServerUpdater.StopUpdating();
