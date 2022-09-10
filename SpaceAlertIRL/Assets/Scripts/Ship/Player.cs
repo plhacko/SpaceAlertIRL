@@ -17,9 +17,8 @@ public class Player : NetworkBehaviour
     public UpdateUIActions CurrentRoomNameUIActions;
 
     public NetworkVariable<FixedString32Bytes> Name = new NetworkVariable<FixedString32Bytes>(BasePlayerName);
-    public UpdateUIActions NameUIActions;
+    public UpdateUIActions NameUIActions;   
 
-    // TODO: remove this placeholder
     public string Status { get => "alive"; }
 
     public void RequestChangingRoom(string roomName, bool checkForDoors = true)

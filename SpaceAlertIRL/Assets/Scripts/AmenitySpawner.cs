@@ -21,7 +21,6 @@ public class AmenitySpawner : MonoBehaviour
                 string _roomName = player.CurrentRoomName.Value.ToString();
                 Room = GameObject.Find(_roomName).GetComponent<Room>();
                 break;
-                // TODO: if player object or the room doesn't exist, there is a problem (make it a ?method?)
             }
         }
 

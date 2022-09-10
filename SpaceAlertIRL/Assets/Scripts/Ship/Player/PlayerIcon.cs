@@ -16,7 +16,6 @@ public class PlayerIcon : Icon
         UpdateUIAction();
 
         Player.CurrentRoomNameUIActions.AddAction(UpdateUIAction);
-        //TODO: add one for player status
     }
 
     override protected void OnDisable()

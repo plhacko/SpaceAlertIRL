@@ -24,17 +24,10 @@ public class DoorIconSpawner : MonoBehaviour
                 string _RoomName = player.CurrentRoomName.Value.ToString();
                 Room = GameObject.Find(_RoomName).GetComponent<Room>();
                 break;
-                // TODO: if player object or the room doesn't exist, there is a problem (make it a ?method?)
             }
         }
 
         SpawnAllDoorIcons();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
     void SpawnAllDoorIcons()

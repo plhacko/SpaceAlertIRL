@@ -14,13 +14,6 @@ public class PlayerIconSpawner : MonoBehaviour
         SpawnAllPlayerIcons();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        // TODO: delete
-        // SpawnAllPlayerIcons();
-    }
-
     void SpawnAllPlayerIcons()
     {
         // remove old ones
