@@ -33,7 +33,7 @@ public class Teleport : Amenity<Teleport>
             player = playerObject.GetComponent<Player>();
             if (player.OwnerClientId == clientId)
             {
-                player.RequestChangingRoom("Teleport", false);
+                player.RequestChangingRoom("Teleport", conectToPanel : false, ignoreRestrictions : true);
                 return;
             }
         }

@@ -41,7 +41,7 @@ public class oldNFC : MonoBehaviour
             player = playerObject.GetComponent<Player>();
             if (player.OwnerClientId == NetworkManager.Singleton.LocalClientId)
             {
-                player.RequestChangingRoom(roomName);
+                // player.RequestChangingRoom(roomName); // old 
             }
         }
     }

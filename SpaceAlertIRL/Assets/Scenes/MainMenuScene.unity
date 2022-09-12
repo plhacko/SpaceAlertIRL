@@ -4952,10 +4952,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   EnemiesToSpawn:
-  - Enemy: 4
+  - Enemy: 3
     SpawnTime: 0
     Zone: {fileID: 1389297153}
-  - Enemy: 4
+  - Enemy: 3
     SpawnTime: 10
     Zone: {fileID: 1389297153}
   - Enemy: 1

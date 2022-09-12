@@ -11,38 +11,21 @@ public class NFC : MonoBehaviour
 {
     public string TagOutput = "";
 
-    const float TimetoDisconectConst = 3.0f;
-    float DisconectTimer = TimetoDisconectConst;
-
     void FixedUpdate()
     {
         // this script works nony on Android
-        // if (Application.platform != RuntimePlatform.Android) { return; }
+        if (Application.platform != RuntimePlatform.Android) { return; }
 
         string newTagOutput = DetectNFCTag();
 
-        if (newTagOutput != null)
+        if (newTagOutput != null && TagOutput != newTagOutput)
         {
             TagOutput = newTagOutput;
             RequestRoomChangeForCurrentPlayer(TagOutput);
-
-            DisconectTimer = TimetoDisconectConst;
-            GameObject.Find("ActionPanel")?.SetActive(true);
-
-            GameObject.Find("DebugTextLog").GetComponent<TextMeshProUGUI>().text = "tag found"; // TODO: rm
         }
-
-        // doesn't work - maybe help from stack overflow? // TODO: rm?
-        // DisconectTimer -= Time.deltaTime;
-        // if (DisconectTimer <= 0.0f)
-        // {
-        //     GameObject.Find("ActionPanel")?.SetActive(false);
-        // 
-        //     GameObject.Find("DebugTextLog").GetComponent<TextMeshProUGUI>().text = "tag not found"; // TODO: rm
-        // }
     }
 
-    public void RequestRoomChangeForCurrentPlayer(string roomName)
+    public void RequestRoomChangeForCurrentPlayer(string tagInfo)
     {
         Player player;
         foreach (GameObject playerObject in GameObject.FindGameObjectsWithTag("Player"))
@@ -50,22 +33,26 @@ public class NFC : MonoBehaviour
             player = playerObject.GetComponent<Player>();
             if (player.OwnerClientId == NetworkManager.Singleton.LocalClientId)
             {
-                player.RequestChangingRoom(roomName);
+                string[] splited = tagInfo.Split();
+                bool conectToPanel;
+                if (splited[0] == "open") { conectToPanel = true; }
+                else if (splited[0] == "close") { conectToPanel = false; }
+                else { throw new Exception($"invalid command on the tag: \"{splited[0]}\""); }
+
+                player.RequestChangingRoom(roomName: splited[1], conectToPanel : conectToPanel);
             }
         }
     }
 
     string DetectNFCTag()
     {
-        if (Application.platform != RuntimePlatform.Android) { return null; } // TODO: rm
+        if (Application.platform != RuntimePlatform.Android) { return null; }
         try
         {
             // Create new NFC Android object
             AndroidJavaObject _mActivity = new AndroidJavaClass("com.unity3d.player.UnityPlayer").GetStatic<AndroidJavaObject>("currentActivity"); // Activities open apps
             AndroidJavaObject _mIntent = _mActivity.Call<AndroidJavaObject>("getIntent");
             string _sAction = _mIntent.Call<String>("getAction"); // results are returned in the Intent object
-
-            // _mActivity.Call("finish");
 
             if (_sAction == "android.nfc.action.NDEF_DISCOVERED")
             {
@@ -75,11 +62,6 @@ public class NFC : MonoBehaviour
                 string result = System.Text.Encoding.Default.GetString(payLoad);
 
                 result = result.Remove(0, 3); // removes information abouth language "en..."
-
-
-                // TODO: rm
-                // TagOutput = result;
-                // RequestRoomChangeForCurrentPlayer(result);
 
                 return result;
             }

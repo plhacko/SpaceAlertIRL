@@ -60,7 +60,7 @@ sealed class TeleportAllPlayers : EnemyAction
         {
             Player player = playerObject.GetComponent<Player>();
             int rndId = Random.Range(0, Rooms.Length);
-            player.RequestChangingRoom(Rooms[rndId].name, false);
+            player.RequestChangingRoom(roomName: Rooms[rndId].name, conectToPanel: false, ignoreRestrictions: true);
 
             GameObject.Find("AudioManager").GetComponent<AudioManager>().RequestPlayingSentenceOnClient("youHaveBeenTeleported_r");
         }
@@ -110,7 +110,7 @@ sealed class DepleteEnergy : EnemyAction
 {
     public override void ExecuteAction()
     {
-        EnergyPool[] energyPools= GameObject.Find("ShipCanvas").GetComponentsInChildren<EnergyPool>();
+        EnergyPool[] energyPools = GameObject.Find("ShipCanvas").GetComponentsInChildren<EnergyPool>();
 
         foreach (var e in energyPools)
         {
@@ -118,7 +118,7 @@ sealed class DepleteEnergy : EnemyAction
         }
     }
     public override string GetDescription() => "";
-    
+
     int EnergyToDeplete;
     public DepleteEnergy(int eneryToDeplete, float timeSpan)
     {

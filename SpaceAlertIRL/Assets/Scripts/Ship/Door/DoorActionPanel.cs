@@ -51,7 +51,7 @@ public class DoorActionPanel : ActionPanel
         { Door.UIActions.RemoveAction(UpdateUIAction); }
     }
 
-    // TODO: this will be repleaced with NFC
+    // TODO: this will be repleaced with NFC and for now is used for developement purpose
     public void RequestRoomChangeForCurrentPlayer()
     {
         Player player;
@@ -62,11 +62,11 @@ public class DoorActionPanel : ActionPanel
             {
                 if (player.CurrentRoomName.Value != Door.RoomA.Name)
                 {
-                    player.RequestChangingRoom(Door.RoomA.Name);
+                    player.RequestChangingRoom(roomName: Door.RoomA.Name, conectToPanel: true, ignoreRestrictions: true);
                 }
                 else if (player.CurrentRoomName.Value != Door.RoomB.Name)
                 {
-                    player.RequestChangingRoom(Door.RoomB.Name);
+                    player.RequestChangingRoom(Door.RoomB.Name, conectToPanel: true, ignoreRestrictions: true);
                 }
                 else
                 { Debug.Log("player is not at the same room as doors and is trying to go through"); }
