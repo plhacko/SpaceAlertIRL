@@ -27,16 +27,8 @@ public class Teleport : Amenity<Teleport>
         }
 
 
-        Player player;
-        foreach (GameObject playerObject in GameObject.FindGameObjectsWithTag("Player"))
-        {
-            player = playerObject.GetComponent<Player>();
-            if (player.OwnerClientId == clientId)
-            {
-                player.RequestChangingRoom("Teleport", conectToPanel : false, ignoreRestrictions : true);
-                return;
-            }
-        }
+        Player.GetLocalPlayer()?.RequestChangingRoom("Teleport", conectToPanel: false, ignoreRestrictions: true);
+
     }
 
 }

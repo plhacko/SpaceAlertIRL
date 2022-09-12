@@ -1214,7 +1214,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 2479197004235772592}
         m_TargetAssemblyTypeName: DoorActionPanel, Assembly-CSharp
-        m_MethodName: RequestRoomChangeForCurrentPlayer
+        m_MethodName: RequestRoomChangeForLocalPlayer
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

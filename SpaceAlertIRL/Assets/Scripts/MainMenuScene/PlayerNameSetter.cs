@@ -8,17 +8,7 @@ public class PlayerNameSetter : MonoBehaviour
 {
     public void RequetsSettingLocalPlayerName()
     {
-        Player player;
-        foreach (GameObject playerObject in GameObject.FindGameObjectsWithTag("Player"))
-        {
-            player = playerObject.GetComponent<Player>();
-            if (player.OwnerClientId == NetworkManager.Singleton.LocalClientId)
-            {
-                string playerName = GetComponent<InputField>().text;
-                player.RequetsSettingLocalPlayerName(playerName);
-                return;
-            }
-        }
-        Debug.Log("local player not found");
+        string playerName = GetComponent<InputField>().text;
+        Player.GetLocalPlayer()?.RequetsSettingLocalPlayerName(playerName);
     }
 }

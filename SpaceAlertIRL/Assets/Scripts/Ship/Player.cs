@@ -24,6 +24,20 @@ public class Player : NetworkBehaviour
 
     public string Status { get => "alive"; }
 
+    public static Player GetLocalPlayer()
+    {
+        Player player;
+        foreach (GameObject playerObject in GameObject.FindGameObjectsWithTag("Player"))
+        {
+            player = playerObject.GetComponent<Player>();
+            if (player.OwnerClientId == NetworkManager.Singleton.LocalClientId)
+            {
+                return player;
+            }
+        }
+        return null;
+    }
+
     public void RequestChangingRoom(string roomName, bool conectToPanel, bool ignoreRestrictions = false)
     {
         if (roomName == CurrentRoomName.Value) { return; }

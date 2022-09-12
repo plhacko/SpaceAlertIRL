@@ -52,25 +52,20 @@ public class DoorActionPanel : ActionPanel
     }
 
     // TODO: this will be repleaced with NFC and for now is used for developement purpose
-    public void RequestRoomChangeForCurrentPlayer()
+    public void RequestRoomChangeForLocalPlayer()
     {
-        Player player;
-        foreach (GameObject playerObject in GameObject.FindGameObjectsWithTag("Player"))
+        Player player = Player.GetLocalPlayer();
+
+        if (player.CurrentRoomName.Value != Door.RoomA.Name)
         {
-            player = playerObject.GetComponent<Player>();
-            if (player.OwnerClientId == NetworkManager.Singleton.LocalClientId)
-            {
-                if (player.CurrentRoomName.Value != Door.RoomA.Name)
-                {
-                    player.RequestChangingRoom(roomName: Door.RoomA.Name, conectToPanel: true, ignoreRestrictions: true);
-                }
-                else if (player.CurrentRoomName.Value != Door.RoomB.Name)
-                {
-                    player.RequestChangingRoom(Door.RoomB.Name, conectToPanel: true, ignoreRestrictions: true);
-                }
-                else
-                { Debug.Log("player is not at the same room as doors and is trying to go through"); }
-            }
+            player.RequestChangingRoom(roomName: Door.RoomA.Name, conectToPanel: true, ignoreRestrictions: true);
         }
+        else if (player.CurrentRoomName.Value != Door.RoomB.Name)
+        {
+            player.RequestChangingRoom(Door.RoomB.Name, conectToPanel: true, ignoreRestrictions: true);
+        }
+        else
+        { Debug.Log("player is not at the same room as doors and is trying to go through"); }
+
     }
 }

@@ -11,18 +11,8 @@ public class AmenitySpawner : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Player player;
-
-        foreach (GameObject playerObject in GameObject.FindGameObjectsWithTag("Player"))
-        {
-            player = playerObject.GetComponent<Player>();
-            if (player.OwnerClientId == NetworkManager.Singleton.LocalClientId)
-            {
-                string _roomName = player.CurrentRoomName.Value.ToString();
-                Room = GameObject.Find(_roomName).GetComponent<Room>();
-                break;
-            }
-        }
+        string _roomName = Player.GetLocalPlayer().CurrentRoomName.Value.ToString();
+        Room = GameObject.Find(_roomName).GetComponent<Room>();
 
         SpawnAllAmenityIcons();
     }

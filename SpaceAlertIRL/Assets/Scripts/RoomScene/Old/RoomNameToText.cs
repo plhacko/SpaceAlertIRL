@@ -21,19 +21,10 @@ public class RoomNameToText : MonoBehaviour
         RoomNameText = this.GetComponent<TextMeshProUGUI>();
 
         // writes the name of the current room to the GUI (of the local player)
-        foreach (GameObject playerObject in GameObject.FindGameObjectsWithTag("Player"))
-        {
-            Player player = playerObject.GetComponent<Player>();
-            if (player.OwnerClientId == NetworkManager.Singleton.LocalClientId)
-            {
-                string _roomName = player.CurrentRoomName.Value.ToString();
+        string _roomName = Player.GetLocalPlayer()?.CurrentRoomName.Value.ToString();
 
-                RoomNameText.text = $"{_roomName}";
-                Zone = GetZoneFromRoomName(_roomName); // getsZonme
-                break;
-                // TODO: if player object doesn't exist, there is a problem (make it a method)
-            }
-        }
+        RoomNameText.text = $"{_roomName}";
+        Zone = GetZoneFromRoomName(_roomName); // getsZonme
 
         // updating UI using aciton onValueChangedependency
         UpdateUIAction = UpdateUI;
