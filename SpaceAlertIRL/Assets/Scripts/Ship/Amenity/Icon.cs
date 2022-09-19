@@ -96,9 +96,9 @@ abstract public class EnemyIcon<T> : Icon where T : Enemy
     }
 
 
-    protected string GetEnemyNemeHpEsLine() => $"{Enemy.GetName()}, HP : {Enemy.HP}/{Enemy.MaxHP}, ES : {Enemy.EnergyShield}/{Enemy.MaxEnergyShield}";
-    protected string GetEnemyActionDescriptionLine() => $"{Enemy.NextActionDescription} in {Enemy.NextActionTime.ToString("0.00")}";
-    protected string GetEnemyDistanceLine() => $"Distance : {Enemy.Distance.ToString("0.00")}";
+    protected virtual string GetEnemyNemeHpEsLine() => $"{Enemy.GetName()}, HP : {Enemy.HP}/{Enemy.MaxHP}, ES : {Enemy.EnergyShield}/{Enemy.MaxEnergyShield}";
+    protected virtual string GetEnemyActionDescriptionLine() => $"{Enemy.NextActionDescription} in {Enemy.NextActionTime.ToString("0.00")}";
+    protected virtual string GetEnemyDistanceLine() => $"Distance : {Enemy.Distance.ToString("0.00")}";
     protected override void UpdateUI()
     {
         if (Enemy != null)

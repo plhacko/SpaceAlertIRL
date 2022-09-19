@@ -5,16 +5,8 @@ using TMPro;
 
 public class RocketIcon : EnemyIcon<Rocket>
 {
-    protected override void UpdateUI()
+    protected override string GetEnemyActionDescriptionLine()
     {
-        if (Enemy != null)
-        {
-            string line1 = GetEnemyNemeHpEsLine();
-            string line2 = $"Attack({Enemy.Damage}) on colision";
-            string line3 = GetEnemyDistanceLine();
-            GetComponentInChildren<TextMeshProUGUI>().text = line1 + '\n' + line2 + '\n' + line3;
-        }
-        else
-        { Debug.Log("Missing Icon"); } // TODO: smazat else
+        return $"Attack({Enemy.Damage}) on colision";
     }
 }

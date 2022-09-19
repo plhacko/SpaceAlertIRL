@@ -14,9 +14,9 @@ public class EnemyIconSpawner : ActionPanel
         Zone = zone;
         UpdateUIAction = SpawnAllEnemies;
         UpdateUIAction();
-        // Zone.UIActions.AddAction(SpawnAllEnemies); // TODO: currently not needed TODO: rm?
     }
 
+    // TODO: substutude this FixedUpdate for a action that happens when the number of enemis in the zone is changed
     private void FixedUpdate()
     {
         SpawnAllEnemies();
@@ -25,14 +25,13 @@ public class EnemyIconSpawner : ActionPanel
     private Enemy[] EnemiesInZone = new Enemy[] { };
     private void SpawnAllEnemies()
     {
-        Enemy[] _enemiesInZone = Zone.GenrateSortedEnemyArray(); //GetComponentsInChildren<Enemy>(); //TODO: rethink or remove // TODO: rm
-        // Array.Sort(_enemiesInZone); // TODO rm
+        Enemy[] _enemiesInZone = Zone.GenrateSortedEnemyArray();
         if (EnemiesInZone.SequenceEqual(_enemiesInZone)) { return; }
         EnemiesInZone = _enemiesInZone;
 
-        // spawn them
+        // spawn enemy Icons
         ResetSelf();
-        foreach (Enemy enemy in _enemiesInZone) //enemiesInZone) //Zone.GetEnemyList())
+        foreach (Enemy enemy in _enemiesInZone)
         {
             enemy.SpawnIconAsChild(gameObject);
         }
@@ -42,16 +41,12 @@ public class EnemyIconSpawner : ActionPanel
     {
         foreach (Transform child in transform)
         {
-            if (child.name == "NameText") { continue; }
+            if (child.name == "Text") { continue; }
 
             GameObject.Destroy(child.gameObject);
         }
     }
 
     protected override void OnDisable()
-    {
-        // TODO: ?rm? - currently not needed
-        // if (Zone != null)
-        // { Zone.UIActions.RemoveAction(UpdateUIAction); }
-    }
+    { }
 }
