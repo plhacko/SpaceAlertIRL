@@ -34,7 +34,7 @@ public class Computer : Amenity<Computer>, IOnServerFixedUpdate
         Instantiate(Screeensaver, parent: GameObject.Find("Canvas").transform);
     }
 
-    public void RestartTimer(float newTimerTime = RestartTimerConst) // ulong clientId // TODO rm
+    public void RestartTimer(float newTimerTime = RestartTimerConst)
     {
         Timer.Value = newTimerTime;
     }
@@ -42,7 +42,7 @@ public class Computer : Amenity<Computer>, IOnServerFixedUpdate
 #endif
 
     [ServerRpc(RequireOwnership = false)]
-    public void RequestRestartTimerServerRpc() // ulong clientId // TODO rm
+    public void RequestRestartTimerServerRpc()
     {
         RestartTimer();
     }

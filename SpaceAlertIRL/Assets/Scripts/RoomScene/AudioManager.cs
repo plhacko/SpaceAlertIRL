@@ -77,12 +77,4 @@ public class AudioManager : NetworkBehaviour
         AudioSource_announcer.clip = sound;
         AudioSource_announcer.Play();
     }
-
-    private void OnGUI() // TODO: rm whole
-    {
-        if (Input.GetKeyDown(KeyCode.Q))
-        {
-            Announcer_que.Clear();
-        }
-    }
 }
