@@ -35,10 +35,8 @@ public class oldNFC : MonoBehaviour
 
     public void RequestRoomChangeForCurrentPlayer(string roomName)
     {
-        Player player;
-        foreach (GameObject playerObject in GameObject.FindGameObjectsWithTag("Player"))
+        foreach (Player player in Player.GetAllPlayers())
         {
-            player = playerObject.GetComponent<Player>();
             if (player.OwnerClientId == NetworkManager.Singleton.LocalClientId)
             {
                 // player.RequestChangingRoom(roomName); // old 

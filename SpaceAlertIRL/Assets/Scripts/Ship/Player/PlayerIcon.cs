@@ -28,6 +28,6 @@ public class PlayerIcon : Icon
 
     override protected void UpdateUI()
     {
-        GetComponentInChildren<TextMeshProUGUI>().text = $"{Player.Name.Value} : {Player.CurrentRoomName.Value} : {Player.Status}";
+        GetComponentInChildren<TextMeshProUGUI>().text = $"{Player.Name} : {Player.CurrentRoomName.Value} : {Player.Status}";
     }
 }

@@ -56,9 +56,8 @@ sealed class TeleportAllPlayers : EnemyAction
     public override void ExecuteAction()
     {
         GameObject[] Rooms = GameObject.FindGameObjectsWithTag("Room");
-        foreach (GameObject playerObject in GameObject.FindGameObjectsWithTag("Player"))
+        foreach (Player player in Player.GetAllPlayers())
         {
-            Player player = playerObject.GetComponent<Player>();
             int rndId = Random.Range(0, Rooms.Length);
             player.RequestChangingRoom(roomName: Rooms[rndId].name, conectToPanel: false, ignoreRestrictions: true);
 

@@ -14,9 +14,9 @@ public class PlayerListToText : MonoBehaviour
     {
         Text = this.GetComponent<TextMeshProUGUI>();
 
-        foreach (GameObject playerObject in GameObject.FindGameObjectsWithTag("Player"))
+        foreach (Player player in Player.GetAllPlayers())
         {
-            Players.Add(playerObject.GetComponent<Player>());
+            Players.Add(player);
         }
     }
 
@@ -26,7 +26,7 @@ public class PlayerListToText : MonoBehaviour
         StringBuilder sb = new StringBuilder();
         foreach (Player player in Players)
         {
-            sb.AppendLine($"{player.Name.Value} : {player.CurrentRoomName.Value}");
+            sb.AppendLine($"{player.Name} : {player.CurrentRoomName.Value}");
         }
         Text.text = sb.ToString();
     }

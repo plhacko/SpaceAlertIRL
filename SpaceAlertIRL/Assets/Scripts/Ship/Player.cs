@@ -19,21 +19,26 @@ public class Player : NetworkBehaviour
     // if is connected to the panel the player canot change rooms until he/she disconnects
     public NetworkVariable<bool> IsConnectedToPanel = new NetworkVariable<bool>(true);
 
-    public NetworkVariable<FixedString32Bytes> Name = new NetworkVariable<FixedString32Bytes>(BasePlayerName);
+    private NetworkVariable<FixedString32Bytes> _Name = new NetworkVariable<FixedString32Bytes>(BasePlayerName);
     public UpdateUIActions NameUIActions;
 
     public string Status { get => "alive"; }
+    public string Name { get => _Name.Value.ToString(); }
 
+    public static Player[] GetAllPlayers()
+    {
+        GameObject[] playerObjects = GameObject.FindGameObjectsWithTag("Player");
+        Player[] players = new Player[playerObjects.Length];
+        for (int i = 0; i < playerObjects.Length; i++)
+        { players[i] = playerObjects[i].GetComponent<Player>(); }
+        return players;
+    }
     public static Player GetLocalPlayer()
     {
-        Player player;
-        foreach (GameObject playerObject in GameObject.FindGameObjectsWithTag("Player"))
+        foreach (Player player in Player.GetAllPlayers())
         {
-            player = playerObject.GetComponent<Player>();
             if (player.OwnerClientId == NetworkManager.Singleton.LocalClientId)
-            {
-                return player;
-            }
+            { return player; }
         }
         return null;
     }
@@ -55,7 +60,7 @@ public class Player : NetworkBehaviour
         { CurrentRoomNameUIActions.AddAction(RestartScene); }
 
         NameUIActions = new UpdateUIActions();
-        NameUIActions.AddOnValueChangeDependency(Name);
+        NameUIActions.AddOnValueChangeDependency(_Name);
     }
 
     [ServerRpc]
@@ -108,7 +113,7 @@ public class Player : NetworkBehaviour
     [ServerRpc]
     void RequestChngeingPlayerNameServerRpc(string playerName)
     {
-        Name.Value = playerName;
+        _Name.Value = playerName;
     }
 
 }

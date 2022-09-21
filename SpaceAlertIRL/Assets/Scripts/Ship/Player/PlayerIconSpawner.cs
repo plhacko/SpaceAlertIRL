@@ -23,11 +23,10 @@ public class PlayerIconSpawner : MonoBehaviour
         }
 
         // spawns new playerIcon Objects
-        foreach (GameObject playerObject in GameObject.FindGameObjectsWithTag("Player"))
+        foreach (Player player in Player.GetAllPlayers())
         {
             GameObject _go = Instantiate(PlayerIconPrefab, transform.position, transform.rotation, transform);
-            Player _player = playerObject.GetComponent<Player>();
-            _go.GetComponent<PlayerIcon>().Initialise(_player);
+            _go.GetComponent<PlayerIcon>().Initialise(player);
         }
     }
 }
