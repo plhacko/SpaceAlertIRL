@@ -5,7 +5,7 @@ using Unity.Netcode;
 
 public class Teleport : Amenity<Teleport>
 {
-    const int EnergyCostConst = 3;
+    const int EnergyCostConst = 2;
     public int GetEnergyCost() => EnergyCostConst;
 
 
@@ -26,9 +26,7 @@ public class Teleport : Amenity<Teleport>
             return;
         }
 
-
         Player.GetLocalPlayer()?.RequestChangingRoom("Teleport", conectToPanel: false, ignoreRestrictions: true);
-
+        GameObject.Find("AudioManager").GetComponent<AudioManager>().RequestPlayingSentenceOnClient("youHaveBeenTeleported_r", clientId: clientId);
     }
-
 }

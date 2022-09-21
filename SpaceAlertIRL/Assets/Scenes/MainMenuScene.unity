@@ -4959,8 +4959,8 @@ MonoBehaviour:
   - Enemy: 3
     SpawnTime: 0
     Zone: {fileID: 1389297153}
-  - Enemy: 3
-    SpawnTime: 10
+  - Enemy: 1
+    SpawnTime: 2
     Zone: {fileID: 1389297153}
   - Enemy: 1
     SpawnTime: 20
@@ -6673,7 +6673,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8804520636853698676, guid: e4e63b4585bbc2645bc36de3e58a5cb3, type: 3}
       propertyPath: Mute
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8804520636853698678, guid: e4e63b4585bbc2645bc36de3e58a5cb3, type: 3}
       propertyPath: Sounds.Array.size

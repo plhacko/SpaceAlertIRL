@@ -69,7 +69,10 @@ public class Player : NetworkBehaviour
 
         // going through the teleport
         if (CurrentRoomName.Value == "Teleport")
-        { ignoreRestrictions = true; }
+        {
+            ignoreRestrictions = true;
+            GameObject.Find("AudioManager").GetComponent<AudioManager>().RequestPlayingSentenceOnClient("youHaveBeenTeleported_r", clientId: clientId);
+        }
 
         // set new room name
         if (ignoreRestrictions)

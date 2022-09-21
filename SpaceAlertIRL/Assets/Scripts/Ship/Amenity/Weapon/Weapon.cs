@@ -4,13 +4,11 @@ using UnityEngine;
 
 public abstract class Weapon<T> : Amenity where T : Weapon<T>
 {
-    public Zone Zone; //TODO make private and make for it public getter
+    public Zone Zone { get; private set; }
 
     protected override void Start()
     {
         base.Start();
-
-        // TODO: might fail
         Zone = GetComponentInParent<Zone>();
     }
 
