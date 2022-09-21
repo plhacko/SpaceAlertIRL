@@ -30,8 +30,8 @@ public class MissionTimer : NetworkBehaviour, IOnServerFixedUpdate
         { TimeToEnd.Value = newTime; }
         else
         {
-            Debug.Log("You won. Congrats."); //TODO: add end screen
+            ServerUpdater.StopUpdating();
+            GameObject.Find("SceneChanger").GetComponent<SceneChanger>().ChangeScene("EndScreen");
         }
-
     }
 }
