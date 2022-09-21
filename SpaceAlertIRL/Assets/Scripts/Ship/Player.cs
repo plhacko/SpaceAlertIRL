@@ -69,13 +69,16 @@ public class Player : NetworkBehaviour
         // set new room name
         if (ignoreRestrictions)
         { CurrentRoomName.Value = newRoomName; }
-        else if (!IsConnectedToPanel.Value)
-        { GoThroughDoors(); }
+        else if (!IsConnectedToPanel.Value && CanGoThroughDoors())
+        {
+            CurrentRoomName.Value = newRoomName;
+        }
 
-        // sets if the player is connected to panel
-        IsConnectedToPanel.Value = conectToPanel;
+        // sets if the player is connected to panel (only if the tag is the same as the room the player is right now in)
+        if (CurrentRoomName.Value == newRoomName)
+        { IsConnectedToPanel.Value = conectToPanel; }
 
-        void GoThroughDoors()
+        bool CanGoThroughDoors()
         {
             // going through the doors
             Room r = GameObject.Find(CurrentRoomName.Value.ToString()).GetComponent<Room>();
@@ -83,12 +86,12 @@ public class Player : NetworkBehaviour
             {
                 if (d.IsOpen.Value && (d.RoomA.Name == newRoomName || d.RoomB.Name == newRoomName))
                 {
-                    CurrentRoomName.Value = newRoomName;
-                    return;
+                    return true;
                 }
             }
             // if there are no doors to go through, give the player audio feed back
             GameObject.Find("AudioManager").GetComponent<AudioManager>().RequestPlayingSentenceOnClient("youShellNotPass_r doorsAreClosed_r", clientId: clientId);
+            return false;
         }
     }
 
