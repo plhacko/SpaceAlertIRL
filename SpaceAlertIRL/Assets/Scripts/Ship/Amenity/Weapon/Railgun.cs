@@ -60,7 +60,7 @@ public class Railgun : Weapon<Railgun>
 
         if (!IsCharged())
         {
-            GameObject.Find("AudioManager").GetComponent<AudioManager>().RequestPlayingSentenceOnClient("weaponIsNotLoaded_r", clientId: clientId); // TODO: voice track is missing        
+            GameObject.Find("AudioManager").GetComponent<AudioManager>().RequestPlayingSentenceOnClient("weaponIsNotLoaded_r", clientId: clientId);        
             return;
         }
 
@@ -70,7 +70,7 @@ public class Railgun : Weapon<Railgun>
         if (enemy == null)
         {
             // notify the player
-            GameObject.Find("AudioManager").GetComponent<AudioManager>().RequestPlayingSentenceOnClient("noValidTargets_r", clientId: clientId); // TODO: voice track is missing
+            GameObject.Find("AudioManager").GetComponent<AudioManager>().RequestPlayingSentenceOnClient("noValidTargets_r", clientId: clientId);
             return;
         }
 

@@ -42,7 +42,7 @@ public class Laser : Weapon<Laser>, IOnServerFixedUpdate
         if (IsTooHotToShoot())
         {
             // notify the player
-            GameObject.Find("AudioManager").GetComponent<AudioManager>().RequestPlayingSentenceOnClient("highHeatAlert_r", clientId: clientId); // TODO: voice track is missing
+            GameObject.Find("AudioManager").GetComponent<AudioManager>().RequestPlayingSentenceOnClient("highHeatAlert_r", clientId: clientId); 
             return;
         }
 
@@ -51,7 +51,7 @@ public class Laser : Weapon<Laser>, IOnServerFixedUpdate
         if (enemy == null)
         {
             // notify the player
-            GameObject.Find("AudioManager").GetComponent<AudioManager>().RequestPlayingSentenceOnClient("noValidTargets_r", clientId: clientId); // TODO: voice track is missing
+            GameObject.Find("AudioManager").GetComponent<AudioManager>().RequestPlayingSentenceOnClient("noValidTargets_r", clientId: clientId); 
             return;
         }
 
