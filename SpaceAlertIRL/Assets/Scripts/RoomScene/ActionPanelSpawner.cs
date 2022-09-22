@@ -15,6 +15,9 @@ public class ActionPanelSpawner : MonoBehaviour
     private void Start()
     {
         ResetSelf();
+
+        if (!Player.GetLocalPlayer().IsConnectedToPanel.Value)
+        { Destroy(gameObject); }
     }
 
     private void OnDisable()

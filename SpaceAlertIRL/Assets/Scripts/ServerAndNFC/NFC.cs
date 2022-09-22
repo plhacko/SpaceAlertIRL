@@ -27,15 +27,14 @@ public class NFC : MonoBehaviour
 
     public void RequestRoomChangeForCurrentPlayer(string tagInfo)
     {
-        Player player = Player.GetLocalPlayer();
         string[] splited = tagInfo.Split();
         bool conectToPanel;
+
         if (splited[0] == "open") { conectToPanel = true; }
         else if (splited[0] == "close") { conectToPanel = false; }
         else { throw new Exception($"invalid command on the tag: \"{splited[0]}\""); }
 
-        player.RequestChangingRoom(roomName: splited[1], conectToPanel: conectToPanel);
-
+        Player.GetLocalPlayer()?.RequestChangingRoom(roomName: splited[1], conectToPanel: conectToPanel);
     }
 
     string DetectNFCTag()

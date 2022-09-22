@@ -45,7 +45,7 @@ public class Player : NetworkBehaviour
 
     public void RequestChangingRoom(string roomName, bool conectToPanel, bool ignoreRestrictions = false)
     {
-        if (roomName == CurrentRoomName.Value) { return; }
+        if (roomName == CurrentRoomName.Value && conectToPanel == IsConnectedToPanel.Value) { return; }
 
         ulong clientId = NetworkManager.Singleton.LocalClientId;
         ChangeRoomServerRpc(roomName, conectToPanel, clientId, ignoreRestrictions);
@@ -66,7 +66,6 @@ public class Player : NetworkBehaviour
     [ServerRpc]
     void ChangeRoomServerRpc(FixedString32Bytes newRoomName, bool conectToPanel, ulong clientId, bool ignoreRestrictions = false, ServerRpcParams rpcParams = default)
     {
-
         // going through the teleport
         if (CurrentRoomName.Value == "Teleport")
         {
