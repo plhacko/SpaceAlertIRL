@@ -67,7 +67,6 @@ public class EnergyPool : EnergyNode
         }
     }
 
-    // TODO: think -> if user uses this it should not matter
     public override int AvailableEnergy()
     {
         if (!NetworkManager.Singleton.IsServer) { throw new System.Exception("Is not a server"); }

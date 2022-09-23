@@ -6,10 +6,10 @@ using Unity.Netcode;
 public class Laser : Weapon<Laser>, IOnServerFixedUpdate
 {
     const int DamageConst = 5;
-    const float RangeConst = 4;
+    const float RangeConst = 80.0f;
     const int EnergyCostToShootConst = 1;
     const float StartHeatConst = 0.0f; // 0%
-    const float MaxHeatConst = 100.0f; // 0%
+    const float MaxHeatConst = 100.0f; // 100%
     const float HeatReductionConst = 5.0f; // 5% per second
     const float HeatCostPerShotConst = 50.0f;
 
@@ -46,9 +46,9 @@ public class Laser : Weapon<Laser>, IOnServerFixedUpdate
             return;
         }
 
-        // enemy in range check
+        // no enemy in range check
         Enemy enemy = Zone.ComputeClosestEnemy();
-        if (enemy == null)
+        if (enemy == null || enemy.Distance > GetWeaponRange())
         {
             // notify the player
             GameObject.Find("AudioManager").GetComponent<AudioManager>().RequestPlayingSentenceOnClient("noValidTargets_r", clientId: clientId); 

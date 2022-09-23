@@ -14,7 +14,5 @@ public class EnergyPoolIcon : AmenityIcon<EnergyPool>
 
             GetComponentInChildren<TextMeshProUGUI>().text = $"power : {_energyStorage}/{_maxEnergyStorage}";
         }
-        else
-        { Debug.Log("Door or NextRoom were not given to DoorIcon"); } // TODO: smazat else
     }
 }

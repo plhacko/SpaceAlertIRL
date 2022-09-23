@@ -15,7 +15,5 @@ public class PowerGeneratorIcon : AmenityIcon<PowerGenerator>
             var _energyPowerCellCount = Amenity.EnergyPowerCellCount.Value;
             GetComponentInChildren<TextMeshProUGUI>().text = $"power : {_energyStorage}/{_maxEnergyStorage}({_energyPowerCellCount})";
         }
-        else
-        { Debug.Log("Door or NextRoom were not given to DoorIcon"); } // TODO: smazat else
     }
 }

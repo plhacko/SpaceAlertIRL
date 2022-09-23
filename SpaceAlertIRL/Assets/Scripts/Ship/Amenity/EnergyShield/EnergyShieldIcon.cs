@@ -14,7 +14,5 @@ public class EnergyShieldIcon : AmenityIcon<EnergyShield>
 
             GetComponentInChildren<TextMeshProUGUI>().text = $"E. Shield : {_energyShieldValue}/{_energyShieldMaxValue}";
         }
-        else
-        { Debug.Log("Missing Icon"); } // TODO: smazat else
     }
 }

@@ -31,7 +31,6 @@ public class EnemySpawner : MonoBehaviour
         return go.GetComponent<Enemy>();
     }
 
-    // TODO: could this be romoved?
     public Enemy SpawnEnemy(string enemyName)
     {
         foreach (var e in LightEnemies)

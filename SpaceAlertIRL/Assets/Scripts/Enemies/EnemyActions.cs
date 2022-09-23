@@ -46,7 +46,7 @@ sealed class LaunchRocket : EnemyAction
     }
     EnemySpawner EnemySpawner;
     Enemy LaunchFrom;
-    public LaunchRocket(EnemySpawner enemySpawner, Enemy launchFrom, float timeSpan) //TODO: add changing rocket damage, speed, ...
+    public LaunchRocket(EnemySpawner enemySpawner, Enemy launchFrom, float timeSpan)
     { EnemySpawner = enemySpawner; LaunchFrom = launchFrom; TimeSpan = timeSpan; }
 }
 

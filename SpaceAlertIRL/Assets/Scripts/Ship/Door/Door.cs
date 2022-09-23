@@ -9,7 +9,7 @@ using UnityEngine.UI;
 
 public class Door : NetworkBehaviour
 {
-    public const float TimeToOpenDoorsConst = 3.0f;
+    public const float TimeToOpenDoorsConst = 2.0f;
 
     public string Name { get => gameObject.name; }
 

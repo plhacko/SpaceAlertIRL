@@ -12,7 +12,5 @@ public class EnergyNodeIcon : AmenityIcon<EnergyNode>
         {
             GetComponentInChildren<TextMeshProUGUI>().text = $"Source : {Amenity.GetSourceName()}";
         }
-        else
-        { Debug.Log("Missing Icon"); } // TODO: smazat else
     }
 }

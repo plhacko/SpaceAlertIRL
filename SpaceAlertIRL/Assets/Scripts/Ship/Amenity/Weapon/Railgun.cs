@@ -3,25 +3,26 @@ using System.Collections.Generic;
 using UnityEngine;
 using Unity.Netcode;
 
-// RailGun is weapon that costs no energy to fire (or at least much less energy - to be decided (TODO:))
+// RailGun is weapon that costs no energy to fire (or at least much less energy)
 // but it needs to be charged manualy
 public class Railgun : Weapon<Railgun>
 {
     const int DamageConst = 5;
-    const int RangeConst = 4;
+    const float RangeConst = 75.0f;
     const int EnergyCostToShootConst = 0;
 
     const float TimeToChargeConst = 5.0f;
     const float TimeToDischargeConst = 5.0f;
 
     NetworkVariable<int> Damage = new NetworkVariable<int>(DamageConst);
-    NetworkVariable<int> Range = new NetworkVariable<int>(RangeConst);
+    NetworkVariable<float> Range = new NetworkVariable<float>(RangeConst);
     NetworkVariable<float> ChargingTime = new NetworkVariable<float>(0.0f);
 
     public int GetDamageValue() => Damage.Value;
-    public int GetRangeValue() => Range.Value;
+    public float GetWeaponRange() => Range.Value;
     public float GetChargingTimeValue() => ChargingTime.Value;
     public float GetTimeToChargeConst() => TimeToChargeConst;
+
 
     bool IsCharged() => ChargingTime.Value >= TimeToChargeConst;
     void Discharge() { ChargingTime.Value = 0.0f; }
@@ -32,8 +33,8 @@ public class Railgun : Weapon<Railgun>
     {
         base.Start();
 
-        UIActions.AddOnValueChangeDependency(Damage, Range);
-        UIActions.AddOnValueChangeDependency(ChargingTime);
+        UIActions.AddOnValueChangeDependency(Damage);
+        UIActions.AddOnValueChangeDependency(ChargingTime, Range);
     }
 
     [ServerRpc(RequireOwnership = false)]
@@ -60,14 +61,13 @@ public class Railgun : Weapon<Railgun>
 
         if (!IsCharged())
         {
-            GameObject.Find("AudioManager").GetComponent<AudioManager>().RequestPlayingSentenceOnClient("weaponIsNotLoaded_r", clientId: clientId);        
+            GameObject.Find("AudioManager").GetComponent<AudioManager>().RequestPlayingSentenceOnClient("weaponIsNotLoaded_r", clientId: clientId);
             return;
         }
 
-
         Enemy enemy = Zone.ComputeClosestEnemy();
 
-        if (enemy == null)
+        if (enemy == null || enemy.Distance > GetWeaponRange())
         {
             // notify the player
             GameObject.Find("AudioManager").GetComponent<AudioManager>().RequestPlayingSentenceOnClient("noValidTargets_r", clientId: clientId);

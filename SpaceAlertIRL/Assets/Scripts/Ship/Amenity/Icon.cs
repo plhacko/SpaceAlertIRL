@@ -108,7 +108,5 @@ abstract public class EnemyIcon<T> : Icon where T : Enemy
             string line3 = GetEnemyDistanceLine();
             GetComponentInChildren<TextMeshProUGUI>().text = line1 + '\n' + line2 + '\n' + line3;
         }
-        else
-        { Debug.Log("Missing Icon"); } // TODO: smazat else
     }
 }

@@ -19,7 +19,7 @@ public class RocketLauncherActionPanel : AmenityActionPanel<RocketLauncher>
         var _range = rocket.Range;
         var _rocketCount = Amenity.NumberOfRockets.Value;
 
-        transform.Find("Status").GetComponentInChildren<TextMeshProUGUI>().text = "Status : good"; // TODO: redo this
+        transform.Find("Status").GetComponentInChildren<TextMeshProUGUI>().text = "Status : good";
         transform.Find("Damage").GetComponentInChildren<TextMeshProUGUI>().text = $"Damage : {_damage}";
         transform.Find("Range").GetComponentInChildren<TextMeshProUGUI>().text = $"Range : {_range.ToString("0.00")}";
         transform.Find("RocketCount").GetComponentInChildren<TextMeshProUGUI>().text = $"Rocket Count : {_rocketCount}";

@@ -47,7 +47,7 @@ public class RoomNameToText : MonoBehaviour
         else
         {
             transform.Find("RoomHP").GetComponent<TextMeshProUGUI>().text = $"___"; // this happens when the player is using teleport
-        } // TODO: smazat else
+        }
     }
 
     protected void OnDisable()

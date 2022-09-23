@@ -9,9 +9,7 @@ public class LaserIcon : AmenityIcon<Laser>
     {
         if (Amenity != null)
         {
-            GetComponentInChildren<TextMeshProUGUI>().text = $"Laser {3}r {5}d"; //TODO: r = range, d = damage
+            GetComponentInChildren<TextMeshProUGUI>().text = $"Laser {Amenity.GetWeaponRange()}r {Amenity.GetWeaponDamage()}d";
         }
-        else
-        { Debug.Log("Missing Icon"); } // TODO: smazat else
     }
 }

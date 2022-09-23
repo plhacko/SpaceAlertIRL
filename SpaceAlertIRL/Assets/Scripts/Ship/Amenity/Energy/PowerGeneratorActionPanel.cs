@@ -13,7 +13,7 @@ public class PowerGeneratorActionPanel : AmenityActionPanel<PowerGenerator>
         var _maxEnergyStorage = Amenity.MaxEnergyStorage.Value;
         var _energyPowerCellCount = Amenity.EnergyPowerCellCount.Value;
 
-        transform.Find("Status").GetComponentInChildren<TextMeshProUGUI>().text = "Status : good"; // TODO: redo this
+        transform.Find("Status").GetComponentInChildren<TextMeshProUGUI>().text = "Status : good";
         transform.Find("Energy").GetComponentInChildren<TextMeshProUGUI>().text = $"Energy : {_energyStorage}/{_maxEnergyStorage}";
         transform.Find("PowerCell").GetComponentInChildren<TextMeshProUGUI>().text = $"Power Cell : {_energyPowerCellCount}";
     }

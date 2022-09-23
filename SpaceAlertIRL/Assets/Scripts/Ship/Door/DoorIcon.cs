@@ -45,8 +45,6 @@ public class DoorIcon : Icon
             { GetComponent<Image>().color = Color.green; }
             else { GetComponent<Image>().color = Color.white; }
         }
-        else
-        { Debug.Log("Missing Icon"); } // TODO: smazat else
     }
 
     public void SpawnActionPanel()

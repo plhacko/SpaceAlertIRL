@@ -10,7 +10,7 @@ public class Rocket : Enemy<Rocket>
     public const int DamageConst = 4;
     protected override int StratingHPConst => 1;
     protected override int MaxEnergyShieldConst => 0;
-    protected override float StartingSpeedConst => 5.0f;
+    protected override float StartingSpeedConst => 2.0f;
     protected override float StartingDistanceConst => 1.0f;
     protected override float EnergyShieldRegenerationTimeConst => 0.0f;
 
@@ -22,7 +22,7 @@ public class Rocket : Enemy<Rocket>
         float newDistance = _Distance.Value - Time.deltaTime * _Speed.Value;
 
         // checks for collisions
-        foreach (Enemy e in Zone.GenrateSortedEnemyArray()) // TODO: doesn't needto be sorted
+        foreach (Enemy e in Zone.GenrateSortedEnemyArray())
         {
             if (e == this || !e.IsTragetabeByRocket()) { continue; }
             else if (System.Math.Abs(e.Distance - newDistance) < 0.1f)

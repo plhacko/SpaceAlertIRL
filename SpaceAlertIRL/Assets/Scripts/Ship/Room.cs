@@ -24,7 +24,7 @@ public class Room : NetworkBehaviour
 
     public void AddDoor(Door d)
     {
-        // DEBUG // TODO: ??delete in final versin??
+        // DEBUG
         if (Doors.Contains(d))
         { Debug.Log($"Trying to add doors twice - door: {d.Name}; room: {this.Name}"); return; }
         if (!d.IsConnectedToRoom(this))
