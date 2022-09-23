@@ -17,6 +17,8 @@ public class NFC : MonoBehaviour
         if (Application.platform != RuntimePlatform.Android) { return; }
 
         string newTagOutput = DetectNFCTag();
+        if (newTagOutput == "debug")
+        { TagOutput = newTagOutput; return; }
 
         if (newTagOutput != null && TagOutput != newTagOutput)
         {

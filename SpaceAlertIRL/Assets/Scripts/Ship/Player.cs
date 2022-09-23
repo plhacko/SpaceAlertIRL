@@ -76,7 +76,19 @@ public class Player : NetworkBehaviour
         // set new room name
         if (ignoreRestrictions)
         { CurrentRoomName.Value = newRoomName; }
-        else if (!IsConnectedToPanel.Value && CanGoThroughDoors())
+        else if (CurrentRoomName.Value == newRoomName)
+        { }
+        else if (IsConnectedToPanel.Value)
+        {
+            // if the player is still connected to the panel and is trying to change rooms, give the player audio feed back
+            GameObject.Find("AudioManager").GetComponent<AudioManager>().RequestPlayingSentenceOnClient("youShellNotPass_r disconnectThePanel_r", clientId: clientId);
+        }
+        else if (!CanGoThroughDoors())
+        {
+            // if there are no doors to go through, give the player audio feed back
+            GameObject.Find("AudioManager").GetComponent<AudioManager>().RequestPlayingSentenceOnClient("youShellNotPass_r doorsAreClosed_r", clientId: clientId);
+        }
+        else
         {
             CurrentRoomName.Value = newRoomName;
         }
@@ -96,8 +108,6 @@ public class Player : NetworkBehaviour
                     return true;
                 }
             }
-            // if there are no doors to go through, give the player audio feed back
-            GameObject.Find("AudioManager").GetComponent<AudioManager>().RequestPlayingSentenceOnClient("youShellNotPass_r doorsAreClosed_r", clientId: clientId);
             return false;
         }
     }
