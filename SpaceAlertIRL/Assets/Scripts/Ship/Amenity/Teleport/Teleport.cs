@@ -15,6 +15,8 @@ public class Teleport : Amenity<Teleport>
         TeleportPlayerServerRpc(clientId);
     }
 
+    public override void Restart() { }
+
     [ServerRpc(RequireOwnership = false)]
     void TeleportPlayerServerRpc(ulong clientId)
     {

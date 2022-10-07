@@ -4,7 +4,7 @@ using UnityEngine;
 using Unity.Netcode;
 using System;
 
-public abstract class Amenity : NetworkBehaviour
+public abstract class Amenity : NetworkBehaviour, IRestart
 {
     [SerializeField]
     protected GameObject IconPrefab;
@@ -18,6 +18,8 @@ public abstract class Amenity : NetworkBehaviour
         Room = transform.parent.GetComponent<Room>();
         Room.Amenities.Add(this);
     }
+
+    public abstract void Restart();
 }
 
 abstract public class Amenity<T> : Amenity where T : Amenity<T>

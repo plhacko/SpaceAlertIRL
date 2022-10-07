@@ -6,12 +6,20 @@ using UnityEngine;
 using UnityEditor;
 using Unity.Netcode;
 
-public class EnemySpawner : MonoBehaviour
+public class EnemySpawner : MonoBehaviour, IRestart
 {
     [SerializeField]
     List<GameObject> LightEnemies;
     [SerializeField]
     List<GameObject> Rockets;
+
+    public void Restart()
+    {
+        foreach (var e in GetComponents<Enemy>())
+        {
+            Destroy(e.transform);
+        }
+    }
 
 #if SERVER
 

@@ -55,4 +55,9 @@ public class Computer : Amenity<Computer>, IOnServerFixedUpdate
 
         ServerUpdater.Add(this.gameObject);
     }
+
+    public override void Restart()
+    {
+        Timer.Value = RestartTimerConst;
+    }
 }

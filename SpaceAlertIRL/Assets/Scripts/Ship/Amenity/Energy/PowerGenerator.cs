@@ -43,5 +43,12 @@ public class PowerGenerator : EnergyPool
     {
         base.Start();
         EnergyPowerCellCount = new NetworkVariable<int>(EnergyPowerCellStartCountConst);
+
+        UIActions.AddOnValueChangeDependency(EnergyPowerCellCount);
+    }
+    public override void Restart()
+    {
+        base.Restart();
+        EnergyPowerCellCount.Value = EnergyPowerCellStartCountConst;
     }
 }

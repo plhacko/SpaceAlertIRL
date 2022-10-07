@@ -7,7 +7,7 @@ using Unity.Netcode;
 using System;
 using UnityEngine.UI;
 
-public class Door : NetworkBehaviour
+public class Door : NetworkBehaviour, IRestart
 {
     public const float TimeToOpenDoorsConst = 2.0f;
 
@@ -90,5 +90,11 @@ public class Door : NetworkBehaviour
     public bool IsConnectedToRoom(Room r)
     {
         return r == RoomA || r == RoomB;
+    }
+
+    public void Restart()
+    {
+        IsOpen.Value = false;
+        OpenningClosingProgress.Value = 0.0f;
     }
 }

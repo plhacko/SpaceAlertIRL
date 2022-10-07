@@ -90,4 +90,12 @@ public class Railgun : Weapon<Railgun>
         ulong clientId = NetworkManager.Singleton.LocalClientId;
         ShootAtClosesEnemyServerRpc(clientId);
     }
+
+    public override void Restart()
+    {
+        Damage.Value = DamageConst;
+        Range.Value =RangeConst;
+        ChargingTime.Value = 0.0f;
+
+    }
 }

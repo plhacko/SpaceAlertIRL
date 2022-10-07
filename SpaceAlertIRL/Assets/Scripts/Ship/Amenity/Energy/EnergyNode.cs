@@ -15,7 +15,7 @@ public class EnergyNode : Amenity<EnergyNode>
     {
         return Source.Room.name;
     }
-    
+
 #if (SERVER)
     // is used to detect circles
     protected bool IsOnEnergyPath = false;
@@ -76,4 +76,6 @@ public class EnergyNode : Amenity<EnergyNode>
             Source = energyNodeArray[0];
         }
     }
+
+    public override void Restart() { }
 }

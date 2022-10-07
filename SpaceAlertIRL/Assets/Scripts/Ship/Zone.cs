@@ -6,7 +6,7 @@ using UnityEngine;
 using Unity.Netcode;
 using System;
 
-public class Zone : NetworkBehaviour
+public class Zone : NetworkBehaviour, IRestart
 {
     public UpdateUIActions UIActions = new UpdateUIActions();
 
@@ -30,11 +30,11 @@ public class Zone : NetworkBehaviour
     {
         Enemy[] enemiesInZone = GetComponentsInChildren<Enemy>();
         if (enemiesInZone.Length == 0) { return null; }
-        
+
         Enemy closestEnemy = enemiesInZone[0];
         foreach (var e in enemiesInZone)
         {
-            if(closestEnemy.Distance > e.Distance)
+            if (closestEnemy.Distance > e.Distance)
             { closestEnemy = e; }
         }
         return closestEnemy;
@@ -77,6 +77,11 @@ public class Zone : NetworkBehaviour
     {
         ServerUpdater.StopUpdating();
         GameObject.Find("SceneChanger").GetComponent<SceneChanger>().ChangeScene("EndScreen");
+    }
+
+    public void Restart()
+    {
+        _HP.Value = MaxHPConst;
     }
 #endif
 

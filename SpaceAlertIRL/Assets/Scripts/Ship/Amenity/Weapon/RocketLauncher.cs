@@ -44,4 +44,9 @@ public class RocketLauncher : Weapon<RocketLauncher>
             GameObject.Find("AudioManager").GetComponent<AudioManager>().RequestPlayingSentenceOnClient("notEnoughRockets_r", clientId: clientId);
         }
     }
+
+    public override void Restart()
+    {
+        NumberOfRockets.Value = NumberOfRocketsConst;
+    }
 }

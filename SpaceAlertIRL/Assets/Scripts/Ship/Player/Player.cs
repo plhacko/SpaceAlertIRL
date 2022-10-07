@@ -6,7 +6,7 @@ using TMPro;
 using Unity.Collections;
 using UnityEngine.UI;
 
-public class Player : NetworkBehaviour
+public class Player : NetworkBehaviour, IRestart
 {
     const string BasePlayerName = "pName";
     const string StartingRoom = "B0";
@@ -128,4 +128,10 @@ public class Player : NetworkBehaviour
         _Name.Value = playerName;
     }
 
+    public void Restart()
+    {
+        CurrentRoomName.Value = StartingRoom;
+        IsConnectedToPanel.Value = true;
+        _Name.Value = BasePlayerName;
+    }
 }

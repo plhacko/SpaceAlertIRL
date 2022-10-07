@@ -54,4 +54,10 @@ public class EnergyShield : Amenity<EnergyShield>
 
         UIActions.AddOnValueChangeDependency(ShieldValue, MaxShieldValue);
     }
+
+    public override void Restart()
+    {
+        MaxShieldValue.Value = ShieldValueConst;
+        ShieldValue.Value = MaxShieldValueConst;
+    }
 }

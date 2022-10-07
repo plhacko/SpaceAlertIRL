@@ -83,5 +83,12 @@ public class Laser : Weapon<Laser>, IOnServerFixedUpdate
         else
         { Heat.Value = newHeat; }
     }
+
+    public override void Restart()
+    {
+        Damage.Value = DamageConst;
+        Range.Value = RangeConst;
+        Heat.Value = StartHeatConst;
+    }
 }
 

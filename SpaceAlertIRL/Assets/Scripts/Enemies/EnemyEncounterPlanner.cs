@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using Unity.Netcode;
 
-public class EnemyEncounterPlanner : MonoBehaviour, IOnServerFixedUpdate
+public class EnemyEncounterPlanner : MonoBehaviour, IOnServerFixedUpdate, IRestart
 {
     public EnemyTimeStruct[] EnemiesToSpawn;
     private int SpawnEnemyAtThisTimeIndex = 0; // ?custom Enumerator?
-    float Timer;
+    float Timer = 0;
 
     private void Start()
     {
@@ -41,6 +41,11 @@ public class EnemyEncounterPlanner : MonoBehaviour, IOnServerFixedUpdate
 
             SpawnEnemyAtThisTimeIndex++;
         }
+    }
+
+    public void Restart()
+    {
+        Timer = 0;
     }
 }
 
