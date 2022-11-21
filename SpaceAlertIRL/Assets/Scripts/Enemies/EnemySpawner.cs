@@ -17,7 +17,7 @@ public class EnemySpawner : MonoBehaviour, IRestart
     {
         foreach (var e in GetComponents<Enemy>())
         {
-            Destroy(e.transform);
+            e.transform.GetComponent<NetworkObject>().Despawn();
         }
     }
 

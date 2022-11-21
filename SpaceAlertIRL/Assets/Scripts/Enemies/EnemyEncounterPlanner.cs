@@ -43,7 +43,7 @@ public class EnemyEncounterPlanner : MonoBehaviour, IOnServerFixedUpdate, IResta
         }
     }
 
-    public void Restart()
+    void IRestart.Restart()
     {
         Timer = 0;
     }
