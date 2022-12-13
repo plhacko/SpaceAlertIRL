@@ -16,7 +16,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &6088940835940834321
 RectTransform:
   m_ObjectHideFlags: 0
@@ -51,28 +51,28 @@ MonoBehaviour:
   EnemiesToSpawn:
   - Enemy: 1
     SpawnTime: 20
-    Zone: {fileID: 0}
+    ZoneName: 1
   - Enemy: 1
     SpawnTime: 25
-    Zone: {fileID: 0}
+    ZoneName: 0
   - Enemy: 2
     SpawnTime: 100
-    Zone: {fileID: 0}
+    ZoneName: 2
   - Enemy: 2
     SpawnTime: 110
-    Zone: {fileID: 0}
+    ZoneName: 1
   - Enemy: 3
     SpawnTime: 120
-    Zone: {fileID: 0}
+    ZoneName: 0
   - Enemy: 1
     SpawnTime: 150
-    Zone: {fileID: 0}
+    ZoneName: 0
   - Enemy: 1
     SpawnTime: 155
-    Zone: {fileID: 0}
+    ZoneName: 0
   - Enemy: 4
     SpawnTime: 160
-    Zone: {fileID: 0}
+    ZoneName: 0
   - Enemy: 3
     SpawnTime: 200
-    Zone: {fileID: 0}
+    ZoneName: 0

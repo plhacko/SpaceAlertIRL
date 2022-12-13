@@ -15,10 +15,12 @@ public class MenuCanvas : MonoBehaviour
         if (NetworkManager.Singleton.IsHost)
         {
             HostMenu.SetActive(true);
+            ClientMenu.SetActive(false);
         }
         else if (NetworkManager.Singleton.IsClient)
         {
             ClientMenu.SetActive(true);
+            HostMenu.SetActive(false);
         }
     }
 }

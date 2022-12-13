@@ -18,6 +18,6 @@ public class Restarter : MonoBehaviour
             r.Restart();
         }
 
-        GameObject.Find("SceneChanger").GetComponent<SceneChanger>().ChangeScene("MainMenuScene");
+        GameObject.Find("SceneChanger").GetComponent<SceneChanger>().ChangeScene("MenuScene");
     }
 }

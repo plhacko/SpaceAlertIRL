@@ -23,10 +23,16 @@ public class ServerUpdater : NetworkBehaviour
 
     static List<GameObject> ListToUpdate = new List<GameObject>();
     static List<GameObject> NewlyAddedListToUpdate = new List<GameObject>();
+    static List<GameObject> NewlyRemovedListToUpdate = new List<GameObject>();
     public static void Add(GameObject i)
     {
         if (i.GetComponent<IOnServerFixedUpdate>() == null) { throw new System.Exception("GameObject must contain script with IOnServerFixedUpdate interface"); }
         NewlyAddedListToUpdate.Add(i);
+    }
+    public static void Remove(GameObject i)
+    {
+        if (!ListToUpdate.Contains(i)) { throw new System.Exception("ListToUpdate must contain the object"); }
+        NewlyRemovedListToUpdate.Add(i);
     }
 
     void FixedUpdate()
@@ -34,6 +40,7 @@ public class ServerUpdater : NetworkBehaviour
         if (!NetworkManager.Singleton.IsServer) { return; }
         if (Stop) { return; }
 
+        // add things to update
         ListToUpdate.AddRange(NewlyAddedListToUpdate);
         NewlyAddedListToUpdate = new List<GameObject>();
 

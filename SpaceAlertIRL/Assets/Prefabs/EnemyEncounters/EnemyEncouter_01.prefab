@@ -16,7 +16,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &4820903055694281867
 RectTransform:
   m_ObjectHideFlags: 0
@@ -51,4 +51,4 @@ MonoBehaviour:
   EnemiesToSpawn:
   - Enemy: 1
     SpawnTime: 0
-    Zone: {fileID: 0}
+    ZoneName: 1

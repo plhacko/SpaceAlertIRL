@@ -11,12 +11,12 @@ public class EnemyEncouterSpawner : MonoBehaviour
     {
         GameObject _parent = GameObject.Find("ShipCanvas");
 
-        var oldPlans = _parent.GetComponentsInParent<EnemyEncounterPlanner>();
+        var oldPlans = _parent.GetComponentsInChildren<EnemyEncounterPlanner>();
 
         // destroy old plans
         foreach (var plan in oldPlans)
         {
-            GameObject.Destroy(plan);
+            GameObject.Destroy(plan.gameObject);
         }
 
         Instantiate(EnemyEncouterPrefab, parent: _parent.transform);

@@ -27,6 +27,9 @@ EditorBuildSettings:
     path: Assets/Scenes/TestScenes/SoundRoom.unity
     guid: 39e633b29c4a5aa42884b28bddb63d91
   - enabled: 1
+    path: Assets/Scenes/MenuScene.unity
+    guid: 22dbc187322dda542b3dc4c1157d3dc0
+  - enabled: 1
     path: Assets/Scenes/RoomScene.unity
     guid: 50092f6f806d2f045965277305ee0ca2
   - enabled: 0
@@ -35,7 +38,4 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/EndScreen.unity
     guid: 0cac4ee896546cf4b8a856f39737c277
-  - enabled: 1
-    path: Assets/Scenes/MenuScene.unity
-    guid: 22dbc187322dda542b3dc4c1157d3dc0
   m_configObjects: {}
