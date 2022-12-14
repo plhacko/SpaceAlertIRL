@@ -2,11 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Unity.Netcode;
+using UnityEngine.UI;
 
 public class RocketLauncher : Weapon<RocketLauncher>
 {
     [SerializeField]
     public GameObject RocketPrefab; // must contain class Rocket
+
+    [SerializeField]
+    public ZoneNames[] TagrgetableZoneNames;
 
     const int NumberOfRocketsConst = 4;
 
@@ -21,21 +25,23 @@ public class RocketLauncher : Weapon<RocketLauncher>
         UIActions.AddOnValueChangeDependency(NumberOfRockets);
     }
 
-    public void RequestLaunchingRocket()
+    public void RequestLaunchingRocket(ZoneNames targetedzoneName)
     {
         ulong clientId = NetworkManager.Singleton.LocalClientId;
-        RequestLaunchingRocketServerRpc(clientId);
+        RequestLaunchingRocketServerRpc(targetedzoneName, clientId);
     }
 
     [ServerRpc(RequireOwnership = false)]
-    void RequestLaunchingRocketServerRpc(ulong clientId)
+    void RequestLaunchingRocketServerRpc(ZoneNames targetedzoneName, ulong clientId)
     {
         if (!NetworkManager.Singleton.IsServer) { throw new System.Exception("Is not a server"); }
 
         if (NumberOfRockets.Value > 0)
         {
+            GameObject TargetedZone = GameObject.Find(targetedzoneName.ToString());
+
             NumberOfRockets.Value = NumberOfRockets.Value - 1;
-            Enemy enemy = Zone.GetComponentInChildren<EnemySpawner>().SpawnEnemy(RocketPrefab);
+            Enemy enemy = TargetedZone.GetComponentInChildren<EnemySpawner>().SpawnEnemy(RocketPrefab);
             if (enemy.GetType() == typeof(Rocket))
             { ((Rocket)enemy)?.ChangeDirection(); }
         }

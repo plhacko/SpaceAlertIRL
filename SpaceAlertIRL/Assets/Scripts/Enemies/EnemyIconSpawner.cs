@@ -16,6 +16,8 @@ public class EnemyIconSpawner : ActionPanel
         UpdateUIAction();
     }
 
+    public void ChangeZone(Zone zone) => Zone = zone;
+
     // TODO: substutude this FixedUpdate for a action that happens when the number of enemis in the zone is changed
     private void FixedUpdate()
     {

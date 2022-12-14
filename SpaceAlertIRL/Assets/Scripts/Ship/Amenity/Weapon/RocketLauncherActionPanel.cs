@@ -5,10 +5,17 @@ using TMPro;
 
 public class RocketLauncherActionPanel : AmenityActionPanel<RocketLauncher>
 {
+    [SerializeField] // TODO: rm
+    private int TargetableZoneNamesIndex = 0;
+
     public override void Initialise(RocketLauncher rl)
     {
         base.Initialise(rl);
-        transform.GetComponentInChildren<EnemyIconSpawner>().Initialise(Amenity.Zone);
+
+        // target zone is chozen based on the "TargetableZoneNamesIndex"
+        ZoneNames _zoneName = Amenity.TagrgetableZoneNames[TargetableZoneNamesIndex];
+        Zone _zone = GameObject.Find(_zoneName.ToString()).GetComponent<Zone>();
+        transform.GetComponentInChildren<EnemyIconSpawner>().Initialise(_zone);
     }
 
     protected override void UpdateUI()
@@ -23,11 +30,39 @@ public class RocketLauncherActionPanel : AmenityActionPanel<RocketLauncher>
         transform.Find("Damage").GetComponentInChildren<TextMeshProUGUI>().text = $"Damage : {_damage}";
         transform.Find("Range").GetComponentInChildren<TextMeshProUGUI>().text = $"Range : {_range.ToString("0.00")}";
         transform.Find("RocketCount").GetComponentInChildren<TextMeshProUGUI>().text = $"Rocket Count : {_rocketCount}";
+
+        transform.Find("TargetedZoneName").GetComponentInChildren<TextMeshProUGUI>().text = Amenity.TagrgetableZoneNames[TargetableZoneNamesIndex].ToString();
     }
 
+    public void ChangeTargetedZone_moveLeft()
+    {
+        if (TargetableZoneNamesIndex > 0)
+        {
+            TargetableZoneNamesIndex--;
 
+            ZoneNames _zoneName = Amenity.TagrgetableZoneNames[TargetableZoneNamesIndex];
+            Zone _zone = GameObject.Find(_zoneName.ToString()).GetComponent<Zone>();
+            GetComponentInChildren<EnemyIconSpawner>().ChangeZone(_zone);
+
+            UpdateUI();
+        }
+    }
+
+    public void ChangeTargetedZone_moveRight()
+    {
+        if (Amenity.TagrgetableZoneNames.Length - 1 > TargetableZoneNamesIndex)
+        {
+            TargetableZoneNamesIndex++;
+
+            ZoneNames _zoneName = Amenity.TagrgetableZoneNames[TargetableZoneNamesIndex];
+            Zone _zone = GameObject.Find(_zoneName.ToString()).GetComponent<Zone>();
+            GetComponentInChildren<EnemyIconSpawner>().ChangeZone(_zone);
+
+            UpdateUI();
+        }
+    }
     public void RequestShootingRocket()
     {
-        Amenity.RequestLaunchingRocket();
+        Amenity.RequestLaunchingRocket(Amenity.TagrgetableZoneNames[TargetableZoneNamesIndex]); // TODO: remove constant
     }
 }
