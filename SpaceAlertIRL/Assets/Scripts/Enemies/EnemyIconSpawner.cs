@@ -3,20 +3,31 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using System.Linq;
+using TMPro;
 
 public class EnemyIconSpawner : ActionPanel
 {
-    [SerializeField]
     Zone Zone;
+
+    [SerializeField]
+    TextMeshProUGUI ZoneNameText;
 
     public void Initialise(Zone zone)
     {
         Zone = zone;
         UpdateUIAction = SpawnAllEnemies;
+        UpdateUIAction += UpdateZoneNameText;
         UpdateUIAction();
     }
-
-    public void ChangeZone(Zone zone) => Zone = zone;
+    public void UpdateZoneNameText()
+    {
+        ZoneNameText.text = Zone.name;
+    }
+    public void ChangeZone(Zone zone)
+    {
+        Zone = zone;
+        UpdateUIAction();
+    }
 
     // TODO: substutude this FixedUpdate for a action that happens when the number of enemis in the zone is changed
     private void FixedUpdate()
@@ -43,7 +54,7 @@ public class EnemyIconSpawner : ActionPanel
     {
         foreach (Transform child in transform)
         {
-            if (child.name == "Text") { continue; }
+            if (child.name == "HeaderTextPanel") { continue; }
 
             GameObject.Destroy(child.gameObject);
         }
