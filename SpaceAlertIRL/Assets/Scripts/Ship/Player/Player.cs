@@ -18,6 +18,7 @@ public class Player : NetworkBehaviour, IRestart
 
     // if is connected to the panel the player canot change rooms until he/she disconnects
     public NetworkVariable<bool> IsConnectedToPanel = new NetworkVariable<bool>(true);
+    public UpdateUIActions IsConnectedToPanelUIActions;
 
     private NetworkVariable<FixedString32Bytes> _Name = new NetworkVariable<FixedString32Bytes>(BasePlayerName);
     public UpdateUIActions NameUIActions;
@@ -61,6 +62,10 @@ public class Player : NetworkBehaviour, IRestart
 
         NameUIActions = new UpdateUIActions();
         NameUIActions.AddOnValueChangeDependency(_Name);
+
+        IsConnectedToPanelUIActions = new UpdateUIActions();
+        IsConnectedToPanelUIActions.AddOnValueChangeDependency(IsConnectedToPanel);
+
     }
 
     [ServerRpc]
