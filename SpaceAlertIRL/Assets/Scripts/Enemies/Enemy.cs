@@ -26,7 +26,7 @@ public abstract class Enemy : NetworkBehaviour, IComparable<Enemy>, IOnServerFix
     public int EnergyShield { get => _EnergyShield.Value; }
     public int MaxEnergyShield { get => MaxEnergyShieldConst; }
     public float Distance { get => _Distance.Value; }
-    public float Speed { get => _Speed.Value; }
+    public float Speed { get => _Speed.Value; set => _Speed.Value = value; }
     public float NextActionTime { get => _NextActionTime.Value; }
     public virtual bool IsTragetabeByRocket() => true;
     public string NextActionDescription { get => _NextActionDescription.Value.ToString(); }

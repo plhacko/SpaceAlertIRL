@@ -109,20 +109,37 @@ sealed class DepleteEnergy : EnemyAction
 {
     public override void ExecuteAction()
     {
-        EnergyPool[] energyPools = GameObject.Find("ShipCanvas").GetComponentsInChildren<EnergyPool>();
+        EnergyPool[] energyPools = Zone.transform.Find("ShipCanvas").GetComponentsInChildren<EnergyPool>();
 
+        int _energyToDeplete = EnergyToDeplete;
         foreach (var e in energyPools)
         {
-            e.PullEnergyUpTo(EnergyToDeplete);
+            _energyToDeplete -= e.PullEnergyUpTo(_energyToDeplete);
         }
     }
-    public override string GetDescription() => "";
+    public override string GetDescription() => $"deplete {EnergyToDeplete} energy";
 
     int EnergyToDeplete;
-    public DepleteEnergy(int eneryToDeplete, float timeSpan)
+    Zone Zone;
+    public DepleteEnergy(int eneryToDeplete, float timeSpan, Zone zone)
     {
         TimeSpan = timeSpan;
         EnergyToDeplete = eneryToDeplete;
+        Zone = zone;
+    }
+}
+
+sealed class SpeedUp : EnemyAction
+{
+    public override void ExecuteAction() => Enemy.Speed += SpeedUpValue;
+    public override string GetDescription() => $"Speeds up by {SpeedUpValue}";
+
+    float SpeedUpValue;
+    Enemy Enemy;
+    public SpeedUp(Enemy enemy, float speedUpValue)
+    {
+        SpeedUpValue = speedUpValue;
+        Enemy = enemy;
     }
 }
 
