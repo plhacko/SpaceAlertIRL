@@ -6,6 +6,9 @@ using TMPro;
 
 public class LaserActionPanel : AmenityActionPanel<Laser>
 {
+    [SerializeField]
+    GameObject ActiveCoolingButton;
+
     public override void Initialise(Laser laser)
     {
         base.Initialise(laser);
@@ -20,14 +23,24 @@ public class LaserActionPanel : AmenityActionPanel<Laser>
         bool _tooHot = Amenity.IsTooHotToShoot();
         string _statusTest = _tooHot ? "high heat" : "ok";
 
-        transform.Find("Status").GetComponentInChildren<TextMeshProUGUI>().text = $"Status : {_statusTest}"; 
+        transform.Find("Status").GetComponentInChildren<TextMeshProUGUI>().text = $"Status : {_statusTest}";
         transform.Find("Damage").GetComponentInChildren<TextMeshProUGUI>().text = $"Damage : {_damage}";
         transform.Find("Range").GetComponentInChildren<TextMeshProUGUI>().text = $"Range : {_range}";
         transform.Find("Heat").GetComponentInChildren<TextMeshProUGUI>().text = $"Heat : {_heat.ToString("0.00\\%")}";
+
+        if (_tooHot && !Amenity.IsActivelyCooled())
+        { ActiveCoolingButton.SetActive(true); }
+        else
+        { ActiveCoolingButton.SetActive(false); }
     }
 
     public void RequestShootingAtClosesEnemy()
     {
-        Amenity.RequestShootingAtClosesEnemy();
+        Amenity.RequestShootingAtClosestEnemy();
+    }
+
+    public void RequestActivateActiveCooling()
+    {
+        Amenity.RequestActivateActiveCooling();
     }
 }

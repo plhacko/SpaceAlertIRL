@@ -8,33 +8,37 @@ public class Laser : Weapon<Laser>, IOnServerFixedUpdate
     const int DamageConst = 5;
     const float RangeConst = 80.0f;
     const int EnergyCostToShootConst = 1;
+    const int EnergyCostToActiveCoolingConst = 1;
     const float StartHeatConst = 0.0f; // 0%
     const float MaxHeatConst = 100.0f; // 100%
-    const float HeatReductionConst = 5.0f; // 5% per second
-    const float HeatCostPerShotConst = 50.0f;
+    const float HeatCostPerShotConst = MaxHeatConst;
+    const float NormalCoolingModifierConst = 3.0f;
+    const float ActiveCoolingModifierConst = 2.0f * NormalCoolingModifierConst;
 
     NetworkVariable<int> Damage = new NetworkVariable<int>(DamageConst);
     NetworkVariable<float> Range = new NetworkVariable<float>(RangeConst);
     NetworkVariable<float> Heat = new NetworkVariable<float>(StartHeatConst);
+    NetworkVariable<float> CoolingModifier = new NetworkVariable<float>(NormalCoolingModifierConst);
 
     public int GetWeaponDamage() => Damage.Value;
     public float GetWeaponRange() => Range.Value;
     public float GetWeaponHeat() => Heat.Value;
 
-    public bool IsTooHotToShoot() => Heat.Value + HeatCostPerShotConst > MaxHeatConst;
+    public bool IsTooHotToShoot() => Heat.Value > 0;
+    public bool IsActivelyCooled() => CoolingModifier.Value == ActiveCoolingModifierConst;
 
     protected override void Start()
     {
         base.Start();
 
         UIActions.AddOnValueChangeDependency(Damage);
-        UIActions.AddOnValueChangeDependency(Heat, Range);
+        UIActions.AddOnValueChangeDependency(Heat, Range, CoolingModifier);
 
         ServerUpdater.Add(this.gameObject);
     }
 
     [ServerRpc(RequireOwnership = false)]
-    void ShootAtClosesEnemyServerRpc(ulong clientId)
+    void ShootAtClosestEnemyServerRpc(ulong clientId)
     {
         if (!NetworkManager.Singleton.IsServer) { throw new System.Exception("Is not a server"); }
 
@@ -42,7 +46,7 @@ public class Laser : Weapon<Laser>, IOnServerFixedUpdate
         if (IsTooHotToShoot())
         {
             // notify the player
-            GameObject.Find("AudioManager").GetComponent<AudioManager>().RequestPlayingSentenceOnClient("highHeatAlert_r", clientId: clientId); 
+            GameObject.Find("AudioManager").GetComponent<AudioManager>().RequestPlayingSentenceOnClient("highHeatAlert_r", clientId: clientId);
             return;
         }
 
@@ -51,7 +55,7 @@ public class Laser : Weapon<Laser>, IOnServerFixedUpdate
         if (enemy == null || enemy.Distance > GetWeaponRange())
         {
             // notify the player
-            GameObject.Find("AudioManager").GetComponent<AudioManager>().RequestPlayingSentenceOnClient("noValidTargets_r", clientId: clientId); 
+            GameObject.Find("AudioManager").GetComponent<AudioManager>().RequestPlayingSentenceOnClient("noValidTargets_r", clientId: clientId);
             return;
         }
 
@@ -68,18 +72,59 @@ public class Laser : Weapon<Laser>, IOnServerFixedUpdate
     }
 
 
-    public void RequestShootingAtClosesEnemy()
+    public void RequestShootingAtClosestEnemy()
     {
         ulong clientId = NetworkManager.Singleton.LocalClientId;
-        ShootAtClosesEnemyServerRpc(clientId);
+        ShootAtClosestEnemyServerRpc(clientId);
     }
+
+    [ServerRpc(RequireOwnership = false)]
+    void ActivateActiveCoolingServerRpc(ulong clientId)
+    {
+        // cooling already active check
+        if (IsActivelyCooled())
+        {
+            // notify the player
+            GameObject.Find("AudioManager").GetComponent<AudioManager>().RequestPlayingSentenceOnClient("CoolingAlreadyActive_r", clientId: clientId); // TODO: add voice track
+            return;
+        }
+
+        // already cool check
+        if (!IsTooHotToShoot())
+        {
+            // notify the player
+            GameObject.Find("AudioManager").GetComponent<AudioManager>().RequestPlayingSentenceOnClient("NoAditionalCoolingNeeded_r", clientId: clientId); // TODO: add voice track
+            return;
+        }
+
+        // energy check
+        if (!Room.EnergySource.PullEnergy(EnergyCostToActiveCoolingConst))
+        {
+            // notify the player
+            GameObject.Find("AudioManager").GetComponent<AudioManager>().RequestPlayingSentenceOnClient("notEnoughEnergy_r", clientId: clientId);
+            return;
+        }
+
+        CoolingModifier.Value = ActiveCoolingModifierConst;
+    }
+
+
+    public void RequestActivateActiveCooling()
+    {
+        ulong clientId = NetworkManager.Singleton.LocalClientId;
+        ActivateActiveCoolingServerRpc(clientId);
+    }
+
 
     public void ServerFixedUpdate()
     {
-        float newHeat = Heat.Value -= HeatReductionConst * Time.deltaTime;
+        float newHeat = Heat.Value - Time.deltaTime * CoolingModifier.Value;
 
         if (newHeat <= 0.0f)
-        { Heat.Value = 0.0f; }
+        {
+            Heat.Value = 0.0f;
+            CoolingModifier.Value = NormalCoolingModifierConst;
+        }
         else
         { Heat.Value = newHeat; }
     }
