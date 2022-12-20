@@ -10,10 +10,9 @@ public class Zone : NetworkBehaviour, IRestart
 {
     public UpdateUIActions UIActions = new UpdateUIActions();
 
-    const int MaxHPConst = 10;
+    const int MaxHPConst = 5;
 
-    [SerializeField]
-    private NetworkVariable<int> _HP = new NetworkVariable<int>(MaxHPConst);
+    NetworkVariable<int> _HP = new NetworkVariable<int>(MaxHPConst);
 
     public int HP { get => _HP.Value; }
     public int MaxHP { get => MaxHPConst; }

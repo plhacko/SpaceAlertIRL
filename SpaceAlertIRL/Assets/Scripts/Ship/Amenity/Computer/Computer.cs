@@ -7,7 +7,7 @@ using Unity.Netcode;
 
 public class Computer : Amenity<Computer>, IOnServerFixedUpdate
 {
-    const float RestartTimerConst = 120.0f; // 2min
+    const float RestartTimerConst = 160.0f; // 2m40s
 
     NetworkVariable<float> Timer = new NetworkVariable<float>(RestartTimerConst);
     public float GetTimeToScreensaver() => Timer.Value;

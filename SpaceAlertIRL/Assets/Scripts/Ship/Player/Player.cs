@@ -5,6 +5,7 @@ using System.Text;
 using TMPro;
 using Unity.Collections;
 using UnityEngine.UI;
+using System.Net;
 
 public class Player : NetworkBehaviour, IRestart
 {
@@ -14,14 +15,13 @@ public class Player : NetworkBehaviour, IRestart
     // this singals, where the player is currently loccated
     // the important part is, that the players can't change this variable themself, they must request the server
     public NetworkVariable<FixedString32Bytes> CurrentRoomName = new NetworkVariable<FixedString32Bytes>(StartingRoom);
-    public UpdateUIActions CurrentRoomNameUIActions;
 
     // if is connected to the panel the player canot change rooms until he/she disconnects
     public NetworkVariable<bool> IsConnectedToPanel = new NetworkVariable<bool>(true);
-    public UpdateUIActions IsConnectedToPanelUIActions;
-
+    
     private NetworkVariable<FixedString32Bytes> _Name = new NetworkVariable<FixedString32Bytes>(BasePlayerName);
-    public UpdateUIActions NameUIActions;
+
+    public UpdateUIActions UIActions;
 
     public string Status { get => "alive"; }
     public string Name { get => _Name.Value.ToString(); }
@@ -54,18 +54,14 @@ public class Player : NetworkBehaviour, IRestart
 
     void Start()
     {
-        CurrentRoomNameUIActions = new UpdateUIActions();
-        CurrentRoomNameUIActions.AddOnValueChangeDependency(CurrentRoomName);
-        CurrentRoomNameUIActions.AddOnValueChangeDependency(IsConnectedToPanel);
+        UIActions = new UpdateUIActions();
+        UIActions.AddOnValueChangeDependency(CurrentRoomName);
+        UIActions.AddOnValueChangeDependency(IsConnectedToPanel);
         if (IsLocalPlayer)
-        { CurrentRoomNameUIActions.AddAction(RestartScene); }
+        { UIActions.AddAction(RestartScene);}
 
-        NameUIActions = new UpdateUIActions();
-        NameUIActions.AddOnValueChangeDependency(_Name);
-
-        IsConnectedToPanelUIActions = new UpdateUIActions();
-        IsConnectedToPanelUIActions.AddOnValueChangeDependency(IsConnectedToPanel);
-
+        UIActions = new UpdateUIActions();
+        UIActions.AddOnValueChangeDependency(_Name);
     }
 
     [ServerRpc]
@@ -124,11 +120,11 @@ public class Player : NetworkBehaviour, IRestart
 
     public void RequetsSettingLocalPlayerName(string playerName)
     {
-        RequestChngeingPlayerNameServerRpc(playerName);
+        RequestSettingPlayerNameServerRpc(playerName);
     }
 
     [ServerRpc]
-    void RequestChngeingPlayerNameServerRpc(string playerName)
+    void RequestSettingPlayerNameServerRpc(string playerName)
     {
         _Name.Value = playerName;
     }

@@ -91,8 +91,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   IconPrefab: {fileID: 6932641647045043630, guid: 1587913358f226b40a55f5fa9cfde9d9, type: 3}
-  _NextActionTime:
-    m_InternalValue: 0
 --- !u!114 &1352768408266493839
 MonoBehaviour:
   m_ObjectHideFlags: 0

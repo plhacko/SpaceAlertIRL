@@ -7,7 +7,7 @@ using Unity.Netcode;
 // but it needs to be charged manualy
 public class Railgun : Weapon<Railgun>
 {
-    const int DamageConst = 5;
+    const int DamageConst = 3;
     const RangeEnum RangeConst = RangeEnum.Mid;
     const int EnergyCostToShootConst = 0;
 

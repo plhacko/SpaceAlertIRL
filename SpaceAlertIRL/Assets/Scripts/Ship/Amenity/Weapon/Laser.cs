@@ -5,7 +5,7 @@ using Unity.Netcode;
 
 public class Laser : Weapon<Laser>, IOnServerFixedUpdate
 {
-    const int DamageConst = 5;
+    const int DamageConst = 4;
     const RangeEnum RangeConst = RangeEnum.Far;
     const int EnergyCostToShootConst = 1;
     const int EnergyCostToActiveCoolingConst = 1;

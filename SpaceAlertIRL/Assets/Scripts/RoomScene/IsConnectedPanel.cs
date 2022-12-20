@@ -16,7 +16,7 @@ public class IsConnectedPanel : MonoBehaviour
 
         UpdateUIAction = UpdateUI;
         UpdateUIAction();
-        Player.IsConnectedToPanelUIActions.AddAction(UpdateUIAction);
+        Player.UIActions.AddAction(UpdateUIAction);
     }
 
     protected void UpdateUI()
@@ -28,7 +28,7 @@ public class IsConnectedPanel : MonoBehaviour
     {
         if (Player != null && UpdateUIAction != null)
         {
-            Player.IsConnectedToPanelUIActions.RemoveAction(UpdateUIAction);
+            Player.UIActions.RemoveAction(UpdateUIAction);
         }
     }
 }

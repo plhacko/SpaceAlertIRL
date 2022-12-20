@@ -15,14 +15,14 @@ public class PlayerIcon : Icon
         UpdateUIAction = UpdateUI;
         UpdateUIAction();
 
-        Player.CurrentRoomNameUIActions.AddAction(UpdateUIAction);
+        Player.UIActions.AddAction(UpdateUIAction);
     }
 
     override protected void OnDisable()
     {
         if (Player != null)
         {
-            Player.CurrentRoomNameUIActions.RemoveAction(UpdateUIAction);
+            Player.UIActions.RemoveAction(UpdateUIAction);
         }
     }
 

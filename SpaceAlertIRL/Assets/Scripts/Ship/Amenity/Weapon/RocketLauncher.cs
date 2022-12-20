@@ -12,7 +12,7 @@ public class RocketLauncher : Weapon<RocketLauncher>
     [SerializeField]
     public ZoneNames[] TagrgetableZoneNames;
 
-    const int NumberOfRocketsConst = 4;
+    const int NumberOfRocketsConst = 3;
 
     public NetworkVariable<int> NumberOfRockets;
 

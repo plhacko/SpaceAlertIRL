@@ -11,15 +11,15 @@ public class Fighter : Enemy<Fighter>
 
 
     const RangeEnum RocketRange = RangeEnum.Mid;
-    const float RocketActionTime = 3.0f;
-    const float SimpleAttackActionTime = 15.0f;
+    const float RocketActionTime = 25.0f;
+    const float SimpleAttackActionTime = 30.0f;
     const int SimpleAttackDamage = 3;
 
     int RocketCount = 1;
 
     protected override EnemyAction DecideNextAction()
     {
-        if (RocketCount > 0 && (float)RocketRange + RocketActionTime > this.Distance)
+        if (RocketCount > 0 && (float)RocketRange + RocketActionTime*Speed > Distance)
         {
             RocketCount--;
             return new LaunchRocket(GetComponentInParent<EnemySpawner>(), this, RocketActionTime);
