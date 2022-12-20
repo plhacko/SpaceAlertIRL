@@ -6,7 +6,7 @@ using Unity.Netcode;
 public class Laser : Weapon<Laser>, IOnServerFixedUpdate
 {
     const int DamageConst = 5;
-    const float RangeConst = 80.0f;
+    const RangeEnum RangeConst = RangeEnum.Far;
     const int EnergyCostToShootConst = 1;
     const int EnergyCostToActiveCoolingConst = 1;
     const float StartHeatConst = 0.0f; // 0%
@@ -16,7 +16,7 @@ public class Laser : Weapon<Laser>, IOnServerFixedUpdate
     const float ActiveCoolingModifierConst = 2.0f * NormalCoolingModifierConst;
 
     NetworkVariable<int> Damage = new NetworkVariable<int>(DamageConst);
-    NetworkVariable<float> Range = new NetworkVariable<float>(RangeConst);
+    NetworkVariable<float> Range = new NetworkVariable<float>((float)RangeConst);
     NetworkVariable<float> Heat = new NetworkVariable<float>(StartHeatConst);
     NetworkVariable<float> CoolingModifier = new NetworkVariable<float>(NormalCoolingModifierConst);
 
@@ -132,7 +132,7 @@ public class Laser : Weapon<Laser>, IOnServerFixedUpdate
     public override void Restart()
     {
         Damage.Value = DamageConst;
-        Range.Value = RangeConst;
+        Range.Value = (float)RangeConst;
         Heat.Value = StartHeatConst;
     }
 }

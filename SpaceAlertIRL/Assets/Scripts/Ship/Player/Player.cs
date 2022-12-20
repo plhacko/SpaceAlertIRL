@@ -75,7 +75,7 @@ public class Player : NetworkBehaviour, IRestart
         if (CurrentRoomName.Value == "Teleport")
         {
             ignoreRestrictions = true;
-            GameObject.Find("AudioManager").GetComponent<AudioManager>().RequestPlayingSentenceOnClient("youHaveBeenTeleported_r", clientId: clientId);
+            AudioManager.GetAudioManager().RequestPlayingSentenceOnClient("youHaveBeenTeleported_r", clientId: clientId);
         }
 
         // set new room name
@@ -86,12 +86,12 @@ public class Player : NetworkBehaviour, IRestart
         else if (IsConnectedToPanel.Value)
         {
             // if the player is still connected to the panel and is trying to change rooms, give the player audio feed back
-            GameObject.Find("AudioManager").GetComponent<AudioManager>().RequestPlayingSentenceOnClient("youShellNotPass_r disconnectThePanel_r", clientId: clientId);
+            AudioManager.GetAudioManager().RequestPlayingSentenceOnClient("youShellNotPass_r disconnectThePanel_r", clientId: clientId);
         }
         else if (!CanGoThroughDoors())
         {
             // if there are no doors to go through, give the player audio feed back
-            GameObject.Find("AudioManager").GetComponent<AudioManager>().RequestPlayingSentenceOnClient("youShellNotPass_r doorsAreClosed_r", clientId: clientId);
+            AudioManager.GetAudioManager().RequestPlayingSentenceOnClient("youShellNotPass_r doorsAreClosed_r", clientId: clientId);
         }
         else
         {

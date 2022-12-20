@@ -6,16 +6,16 @@ using Unity.Netcode;
 // expodes on contact with different enemy (in future enemies might shoot rockets as well)
 public class Rocket : Enemy<Rocket>
 {
-    public const float MaxRangeConst = 50.0f;
+    public const RangeEnum MaxRangeConst = RangeEnum.Mid;
     public const int DamageConst = 4;
     protected override int StratingHPConst => 1;
     protected override int MaxEnergyShieldConst => 0;
-    protected override float StartingSpeedConst => 2.0f;
-    protected override float StartingDistanceConst => 1.0f;
+    protected override float StartingSpeedConst => 7.0f;
+    protected override RangeEnum StartingDistanceConst => RangeEnum.Zero;
     protected override float EnergyShieldRegenerationTimeConst => 0.0f;
 
     public int Damage { get => DamageConst; }
-    public float Range { get => MaxRangeConst; }
+    public float Range { get => (float)MaxRangeConst; }
     public void ChangeDirection() { _Speed.Value = -_Speed.Value; }
     protected override void DistanceChange()
     {
@@ -32,14 +32,17 @@ public class Rocket : Enemy<Rocket>
                 return;
             }
         }
-        if (newDistance > MaxRangeConst)
+        if (newDistance > (float)MaxRangeConst)
         { Impact(); }
         if (newDistance < 0) // the rocket has dmaged the players ship 
         { Zone.TakeDmage(DamageConst); Impact(); }
 
         _Distance.Value = newDistance;
     }
-
+    public override void Die(bool silent = true)
+    {
+        base.Die(silent);
+    }
     protected override EnemyAction DecideNextAction() => new Wait(float.MaxValue);
 
 }

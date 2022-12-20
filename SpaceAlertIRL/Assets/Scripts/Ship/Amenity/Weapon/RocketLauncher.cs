@@ -41,9 +41,10 @@ public class RocketLauncher : Weapon<RocketLauncher>
             GameObject TargetedZone = GameObject.Find(targetedzoneName.ToString());
 
             NumberOfRockets.Value = NumberOfRockets.Value - 1;
-            Enemy enemy = TargetedZone.GetComponentInChildren<EnemySpawner>().SpawnEnemy(RocketPrefab);
+            Enemy enemy = TargetedZone.GetComponentInChildren<EnemySpawner>().SpawnEnemy(RocketPrefab, silent: true);
             if (enemy.GetType() == typeof(Rocket))
             { ((Rocket)enemy)?.ChangeDirection(); }
+            AudioManager.GetAudioManager().RequestPlayingSentenceOnClient("rocketLaunched_r", removeDuplicates: false); // TODO: missing voicetrack
         }
         else
         {

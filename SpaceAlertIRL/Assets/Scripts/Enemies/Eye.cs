@@ -7,7 +7,6 @@ public sealed class Eye : Enemy<Eye>
     protected override int StratingHPConst => 12;
     protected override int MaxEnergyShieldConst => 0;
     protected override float StartingSpeedConst => 0.25f;
-    protected override float StartingDistanceConst => 100;
     protected override float EnergyShieldRegenerationTimeConst => float.PositiveInfinity;
 
     int parity = 0;

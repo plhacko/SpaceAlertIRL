@@ -8,11 +8,10 @@ using Unity.Netcode;
 
 public class Meteor : Enemy<Meteor>
 {
-    protected override int StratingHPConst => 5;
+    protected override int StratingHPConst => 7;
     protected override int MaxEnergyShieldConst => 0;
     protected override float EnergyShieldRegenerationTimeConst => 10.0f;
-    protected override float StartingSpeedConst => 0.5f;
-    protected override float StartingDistanceConst => 40;
+    protected override float StartingSpeedConst => 3.0f;
 
     protected override void Impact()
     {

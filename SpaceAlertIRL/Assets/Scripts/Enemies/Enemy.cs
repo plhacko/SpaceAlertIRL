@@ -17,7 +17,7 @@ public abstract class Enemy : NetworkBehaviour, IComparable<Enemy>, IOnServerFix
     abstract protected int StratingHPConst { get; }
     abstract protected int MaxEnergyShieldConst { get; }
     abstract protected float StartingSpeedConst { get; }
-    abstract protected float StartingDistanceConst { get; }
+    virtual protected RangeEnum StartingDistanceConst { get => RangeEnum.Far; }
     abstract protected float EnergyShieldRegenerationTimeConst { get; }
 
     // geters for data
@@ -47,7 +47,7 @@ public abstract class Enemy : NetworkBehaviour, IComparable<Enemy>, IOnServerFix
 
     public UpdateUIActions UIActions = new UpdateUIActions();
     public abstract void SpawnIconAsChild(GameObject parent);
-    
+
     public virtual void Start()
     {
         UIActions.AddOnValueChangeDependency(_HP, _EnergyShield);
@@ -60,7 +60,7 @@ public abstract class Enemy : NetworkBehaviour, IComparable<Enemy>, IOnServerFix
         _HP.Value = StratingHPConst;
         _EnergyShield.Value = MaxEnergyShieldConst;
         _EnergyShieldRegenerationTime.Value = 0.0f;
-        _Distance.Value = StartingDistanceConst;
+        _Distance.Value = (float)StartingDistanceConst;
         _Speed.Value = StartingSpeedConst;
         _NextActionTime.Value = 0.0f;
         _NextActionDescription.Value = "";
@@ -152,14 +152,17 @@ public abstract class Enemy : NetworkBehaviour, IComparable<Enemy>, IOnServerFix
             _HP.Value = 0;
             Die();
         }
-        
+
         // shield regeneratin will start all over
         _EnergyShieldRegenerationTime.Value = 0;
     }
-    virtual public void Die()
+    virtual public void Die(bool silent = false)
     {
-        string _zoneName = GetComponentInParent<Zone>().gameObject.name + "_r";
-        AudioManager.GetAudioManager().RequestPlayingSentenceOnClient($"{_zoneName} enemyTerminated_r", removeDuplicates: false);
+        if (!silent)
+        {
+            string _zoneName = GetComponentInParent<Zone>().gameObject.name + "_r";
+            AudioManager.GetAudioManager().RequestPlayingSentenceOnClient($"{_zoneName} enemyTerminated_r", removeDuplicates: false);
+        }
 
         _HP.Value = 0;
         GetComponent<NetworkObject>().Despawn();

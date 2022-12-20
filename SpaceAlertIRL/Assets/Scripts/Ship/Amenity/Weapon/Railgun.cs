@@ -8,14 +8,14 @@ using Unity.Netcode;
 public class Railgun : Weapon<Railgun>
 {
     const int DamageConst = 5;
-    const float RangeConst = 75.0f;
+    const RangeEnum RangeConst = RangeEnum.Mid;
     const int EnergyCostToShootConst = 0;
 
     const float TimeToChargeConst = 5.0f;
     const float TimeToDischargeConst = 5.0f;
 
     NetworkVariable<int> Damage = new NetworkVariable<int>(DamageConst);
-    NetworkVariable<float> Range = new NetworkVariable<float>(RangeConst);
+    NetworkVariable<float> Range = new NetworkVariable<float>((float)RangeConst);
     NetworkVariable<float> ChargingTime = new NetworkVariable<float>(0.0f);
 
     public int GetDamageValue() => Damage.Value;
@@ -94,7 +94,7 @@ public class Railgun : Weapon<Railgun>
     public override void Restart()
     {
         Damage.Value = DamageConst;
-        Range.Value =RangeConst;
+        Range.Value = (float)RangeConst;
         ChargingTime.Value = 0.0f;
 
     }

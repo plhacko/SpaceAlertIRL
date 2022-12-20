@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 using Unity.Netcode;
+using UnityEngine.UIElements;
 
 public class EnemySpawner : MonoBehaviour, IRestart
 {
@@ -23,9 +24,9 @@ public class EnemySpawner : MonoBehaviour, IRestart
 
 #if SERVER
 
-    public Enemy SpawnEnemy(GameObject e)
+    public Enemy SpawnEnemy(GameObject enemy, bool silent = false)
     {
-        GameObject go = Instantiate(e, Vector3.zero, Quaternion.identity);
+        GameObject go = Instantiate(enemy, Vector3.zero, Quaternion.identity);
 
         go.GetComponent<NetworkObject>().Spawn();
         go.transform.SetParent(transform);
@@ -33,9 +34,11 @@ public class EnemySpawner : MonoBehaviour, IRestart
         GetComponentInParent<Zone>().UIActions.UpdateUI();
 
         // broadcast message for all clients
-        string _zoneName = GetComponentInParent<Zone>().gameObject.name + "_r";
-        AudioManager.GetAudioManager().RequestPlayingSentenceOnClient($"{_zoneName} enemyDetected_r", removeDuplicates: false);
-
+        if (!silent)
+        {
+            string _zoneName = GetComponentInParent<Zone>().gameObject.name + "_r";
+            AudioManager.GetAudioManager().RequestPlayingSentenceOnClient($"{_zoneName} enemyDetected_r", removeDuplicates: false);
+        }
         return go.GetComponent<Enemy>();
     }
 
