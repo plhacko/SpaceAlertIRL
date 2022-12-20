@@ -26,6 +26,11 @@ public class AudioManager : NetworkBehaviour
         }
     }
 
+    static public AudioManager GetAudioManager()
+    {
+        return GameObject.Find("AudioManager").GetComponent<AudioManager>();
+    }
+
     public void PlaySentenceLoclaly(string sentence, bool removeDuplicates = true)
     {
         AudioClip audioClip;

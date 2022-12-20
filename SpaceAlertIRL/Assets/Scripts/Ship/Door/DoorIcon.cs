@@ -53,7 +53,7 @@ public class DoorIcon : Icon
         if (actionPanel == null)
         {
             // audio message
-            GameObject.Find("AudioManager").GetComponent<AudioManager>().PlaySentenceLoclaly("accessDenied_r actionPanelIsDisabled_r");
+            AudioManager.GetAudioManager().PlaySentenceLoclaly("accessDenied_r actionPanelIsDisabled_r");
             return;
         }
         var actionPanelSpawner = actionPanel.GetComponent<ActionPanelSpawner>();

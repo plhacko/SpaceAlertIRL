@@ -34,7 +34,7 @@ public class EnemySpawner : MonoBehaviour, IRestart
 
         // broadcast message for all clients
         string _zoneName = GetComponentInParent<Zone>().gameObject.name + "_r";
-        GameObject.Find("AudioManager").GetComponent<AudioManager>().RequestPlayingSentenceOnClient($"{_zoneName} enemyDetected_r", removeDuplicates: false);
+        AudioManager.GetAudioManager().RequestPlayingSentenceOnClient($"{_zoneName} enemyDetected_r", removeDuplicates: false);
 
         return go.GetComponent<Enemy>();
     }

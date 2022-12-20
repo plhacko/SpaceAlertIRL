@@ -41,7 +41,7 @@ abstract public class AmenityIcon<T> : Icon where T : Amenity
         if (actionPanel == null)
         {
             // audio message
-            GameObject.Find("AudioManager").GetComponent<AudioManager>().PlaySentenceLoclaly("accessDenied_r actionPanelIsDisabled_r");
+            AudioManager.GetAudioManager().PlaySentenceLoclaly("accessDenied_r actionPanelIsDisabled_r");
             return;
         }
         var actionPanelSpawner = actionPanel.GetComponent<ActionPanelSpawner>();
@@ -88,7 +88,7 @@ abstract public class EnemyIcon<T> : Icon where T : Enemy
         if (actionPanel == null)
         {
             // audio message
-            GameObject.Find("AudioManager").GetComponent<AudioManager>().PlaySentenceLoclaly("accessDenied_r actionPanelIsDisabled_r");
+            AudioManager.GetAudioManager().PlaySentenceLoclaly("accessDenied_r actionPanelIsDisabled_r");
             return;
         }
 
