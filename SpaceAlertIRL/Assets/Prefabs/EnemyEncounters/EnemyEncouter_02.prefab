@@ -53,7 +53,7 @@ MonoBehaviour:
     SpawnTime: 30
     ZoneName: 0
   - Enemy: 2
-    SpawnTime: 150
+    SpawnTime: 100
     ZoneName: 2
   - Enemy: 1
     SpawnTime: 180

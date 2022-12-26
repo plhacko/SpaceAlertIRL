@@ -24,7 +24,7 @@ sealed class SimpleAttack : EnemyAction
     public SimpleAttack(int damage, Zone zone, float timeSpan)
     { Damage = damage; Zone = zone; TimeSpan = timeSpan; }
 
-    public override string GetDescription() => $"Simple attack ({Damage})";
+    public override string GetDescription() => $"Attack ({Damage})";
 }
 
 sealed class Wait : EnemyAction
