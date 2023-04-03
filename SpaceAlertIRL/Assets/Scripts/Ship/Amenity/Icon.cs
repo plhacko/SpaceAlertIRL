@@ -96,17 +96,33 @@ abstract public class EnemyIcon<T> : Icon where T : Enemy
     }
 
 
-    protected virtual string GetEnemyNemeHpEsLine() => $"{Enemy.GetName()}, HP : {Enemy.HP}/{Enemy.MaxHP}, ES : {Enemy.EnergyShield}/{Enemy.MaxEnergyShield}";
+    protected virtual string GetEnemyNemeLine() => $"{Enemy.GetName()}";
     protected virtual string GetEnemyActionDescriptionLine() => $"{Enemy.NextActionDescription} in {Enemy.NextActionTime.ToString("0.00")}";
     protected virtual string GetEnemyDistanceLine() => $"Distance : {Enemy.Distance.ToString("0.00")}";
     protected override void UpdateUI()
     {
         if (Enemy != null)
         {
-            string line1 = GetEnemyNemeHpEsLine();
+            try
+            {
+                // set HP and Shield
+                var HP = transform.Find("HP").GetComponentInChildren<TextMeshProUGUI>();
+                HP.text = Enemy.HP.ToString();
+                var Shield = transform.Find("Shield").GetComponentInChildren<TextMeshProUGUI>();
+                Shield.text = Enemy.EnergyShield.ToString();
+            }
+            catch (Exception)
+            {
+                Debug.Log($"No HP or Shield in icon of enemy \"{Enemy.GetName()}\"");
+            }
+            
+
+            // set description
+            string line1 = GetEnemyNemeLine();
             string line2 = GetEnemyActionDescriptionLine();
             string line3 = GetEnemyDistanceLine();
-            GetComponentInChildren<TextMeshProUGUI>().text = line1 + '\n' + line2 + '\n' + line3;
+            var description = transform.Find("Description").GetComponent<TextMeshProUGUI>();
+            description.text = line1 + '\n' + line2 + '\n' + line3;
         }
     }
 }
