@@ -3,15 +3,23 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.PlayerLoop;
 using UnityEngine.UI.Extensions;
+using UnityEngine.UIElements;
 
 public class Line : MonoBehaviour
 {
-    [SerializeField] RectTransform rt1;
-    [SerializeField] RectTransform rt2;
+    [SerializeField] Transform StartPoint;
+    [SerializeField] Transform EndPoint;
+
+    // auxiliary points
+    Transform p1 ,p2;
+
     UILineRenderer LR;
 
     void Start()
     {
+        p1 = transform.Find("p1");
+        p2 = transform.Find("p2");
+
         LR = GetComponent<UILineRenderer>();
         UpdateUI();
     }
@@ -22,12 +30,10 @@ public class Line : MonoBehaviour
 
     void UpdateUI()
     {
-        LR.Points = new Vector2[] { rt1.localPosition, rt2.localPosition };
-        foreach (var p in LR.Points)
-        {
-            Debug.Log(p.ToString());
-        }
-        
+        p1.position = StartPoint.position;
+        p2.position = EndPoint.position;
+        LR.Points = new Vector2[] { p1.localPosition, p2.localPosition };
+
         LR.SetAllDirty();
     }
 }
