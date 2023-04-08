@@ -12,6 +12,9 @@ public class EnemyIconSpawner : ActionPanel
     [SerializeField]
     TextMeshProUGUI ZoneNameText;
 
+    [SerializeField]
+    GameObject DistanceMeter;
+    public GameObject GetDistanceMeter() => DistanceMeter;
     public void Initialise(Zone zone)
     {
         Zone = zone;

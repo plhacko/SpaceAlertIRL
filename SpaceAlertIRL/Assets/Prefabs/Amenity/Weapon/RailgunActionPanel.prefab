@@ -1820,6 +1820,38 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 7301945500173606481}
     m_Modifications:
+    - target: {fileID: 2871202563498642530, guid: a81c4bb69a0e9e744a9a68e003eb75f3, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2871202563498642530, guid: a81c4bb69a0e9e744a9a68e003eb75f3, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2871202563498642530, guid: a81c4bb69a0e9e744a9a68e003eb75f3, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2871202563498642530, guid: a81c4bb69a0e9e744a9a68e003eb75f3, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2871202563498642530, guid: a81c4bb69a0e9e744a9a68e003eb75f3, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 27.480011
+      objectReference: {fileID: 0}
+    - target: {fileID: 2871202563498642530, guid: a81c4bb69a0e9e744a9a68e003eb75f3, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 560.5106
+      objectReference: {fileID: 0}
+    - target: {fileID: 2871202563498642530, guid: a81c4bb69a0e9e744a9a68e003eb75f3, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -225.26001
+      objectReference: {fileID: 0}
+    - target: {fileID: 2871202563498642530, guid: a81c4bb69a0e9e744a9a68e003eb75f3, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -325.25497
+      objectReference: {fileID: 0}
     - target: {fileID: 4364274114593191668, guid: a81c4bb69a0e9e744a9a68e003eb75f3, type: 3}
       propertyPath: m_Name
       value: PanelOfEnemies

@@ -56,8 +56,8 @@ abstract public class EnemyIcon<T> : Icon where T : Enemy
 {
     protected T Enemy;
 
-    [SerializeField]
-    protected GameObject EnemyInfoPanelPrefab;
+    [SerializeField] protected GameObject EnemyInfoPanelPrefab;
+    [SerializeField] GameObject DistanceMeterIcon;
 
     public void Initialise(T enemy)
     {
@@ -77,9 +77,10 @@ abstract public class EnemyIcon<T> : Icon where T : Enemy
     override protected void OnDisable()
     {
         if (Enemy != null)
-        {
             Enemy.UIActions.RemoveAction(UpdateUIAction);
-        }
+
+        if (DistanceMeterIcon != null)
+            Destroy(DistanceMeterIcon);
     }
 
     public void SpawnInfoPanel()
@@ -115,7 +116,7 @@ abstract public class EnemyIcon<T> : Icon where T : Enemy
             {
                 Debug.Log($"No HP or Shield in icon of enemy \"{Enemy.GetName()}\"");
             }
-            
+
 
             // set description
             string line1 = GetEnemyNemeLine();
@@ -123,6 +124,23 @@ abstract public class EnemyIcon<T> : Icon where T : Enemy
             string line3 = GetEnemyDistanceLine();
             var description = transform.Find("Description").GetComponent<TextMeshProUGUI>();
             description.text = line1 + '\n' + line2 + '\n' + line3;
+
+            try
+            {
+                // set DistanceMeterIcon
+                RectTransform DistanceMeter = transform.parent.GetComponent<EnemyIconSpawner>().GetDistanceMeter().GetComponent<RectTransform>();
+                DistanceMeterIcon.transform.SetParent(DistanceMeter);
+
+                float offset = DistanceMeter.sizeDelta.y / 2;
+                var distance = Enemy.Distance / (int)RangeEnum.Far;
+
+                DistanceMeterIcon.transform.localPosition = new Vector3(0, offset, 0) + new Vector3(0, -2*offset*distance, 0);
+
+            }
+            catch (Exception)
+            {
+                Debug.Log($"No DistanceMeterIcon setup in icon of enemy \"{Enemy.GetName()}\"");
+            }
         }
     }
 }
