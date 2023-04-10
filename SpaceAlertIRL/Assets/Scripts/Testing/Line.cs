@@ -23,12 +23,8 @@ public class Line : MonoBehaviour
         LR = GetComponent<UILineRenderer>();
         UpdateUI();
     }
-    private void Update()
-    {
-        UpdateUI();
-    }
 
-    void UpdateUI()
+    public void UpdateUI()
     {
         p1.position = StartPoint.position;
         p2.position = EndPoint.position;

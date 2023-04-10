@@ -13,7 +13,9 @@ public class EnemySpawner : MonoBehaviour, IRestart
     List<GameObject> LightEnemies;
     [SerializeField]
     List<GameObject> Rockets;
-
+    [SerializeField]
+    GameObject DistanceMeter;
+    public GameObject GetDistanceMeter() => DistanceMeter;
     public void Restart()
     {
         foreach (var e in GetComponents<Enemy>())

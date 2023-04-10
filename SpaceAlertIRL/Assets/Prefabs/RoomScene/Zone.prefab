@@ -1,20 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &7379473920409039496
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 464590984729284812}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7d1c7e7857d234146b4c2889fba5ab50, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  LightEnemies:
-  - {fileID: 5866650754423056519, guid: 1b3115a281e071344aab4f1ca2b391db, type: 3}
-  Rockets: []
 --- !u!1 &8201271519758403228
 GameObject:
   m_ObjectHideFlags: 0
@@ -65,8 +50,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1f4e10227b12d945a094156dc768287, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _HP:
-    m_InternalValue: 10
 --- !u!114 &8201271519758403230
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -124,11 +107,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1090987198303537241, guid: 57989c980e9388b4eac3068f86d4d5d2, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 60
+      value: 150
       objectReference: {fileID: 0}
     - target: {fileID: 1090987198303537241, guid: 57989c980e9388b4eac3068f86d4d5d2, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 60
+      value: 200
       objectReference: {fileID: 0}
     - target: {fileID: 1090987198303537241, guid: 57989c980e9388b4eac3068f86d4d5d2, type: 3}
       propertyPath: m_LocalPosition.x
@@ -160,11 +143,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1090987198303537241, guid: 57989c980e9388b4eac3068f86d4d5d2, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -105.4
+      value: -250
       objectReference: {fileID: 0}
     - target: {fileID: 1090987198303537241, guid: 57989c980e9388b4eac3068f86d4d5d2, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -178.1
+      value: -200
       objectReference: {fileID: 0}
     - target: {fileID: 1090987198303537241, guid: 57989c980e9388b4eac3068f86d4d5d2, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -185,14 +168,6 @@ PrefabInstance:
     - target: {fileID: 4049947660930456849, guid: 57989c980e9388b4eac3068f86d4d5d2, type: 3}
       propertyPath: m_Name
       value: ZoneNameText
-      objectReference: {fileID: 0}
-    - target: {fileID: 5084934172411931421, guid: 57989c980e9388b4eac3068f86d4d5d2, type: 3}
-      propertyPath: m_text
-      value: Enemy
-      objectReference: {fileID: 0}
-    - target: {fileID: 5084934172411931421, guid: 57989c980e9388b4eac3068f86d4d5d2, type: 3}
-      propertyPath: m_fontSize
-      value: 10.95
       objectReference: {fileID: 0}
     - target: {fileID: 5084934172411931421, guid: 57989c980e9388b4eac3068f86d4d5d2, type: 3}
       propertyPath: m_margin.w
@@ -218,29 +193,8 @@ PrefabInstance:
       propertyPath: m_AnchorMin.x
       value: 0.5
       objectReference: {fileID: 0}
-    - target: {fileID: 7845737365759654962, guid: 57989c980e9388b4eac3068f86d4d5d2, type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 60
-      objectReference: {fileID: 0}
-    - target: {fileID: 7845737365759654962, guid: 57989c980e9388b4eac3068f86d4d5d2, type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 15
-      objectReference: {fileID: 0}
-    - target: {fileID: 7845737365759654962, guid: 57989c980e9388b4eac3068f86d4d5d2, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7845737365759654962, guid: 57989c980e9388b4eac3068f86d4d5d2, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: -7
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 57989c980e9388b4eac3068f86d4d5d2, type: 3}
---- !u!1 &464590984729284812 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1090987198303537240, guid: 57989c980e9388b4eac3068f86d4d5d2, type: 3}
-  m_PrefabInstance: {fileID: 671449870837667988}
-  m_PrefabAsset: {fileID: 0}
 --- !u!224 &464590984729284813 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 1090987198303537241, guid: 57989c980e9388b4eac3068f86d4d5d2, type: 3}

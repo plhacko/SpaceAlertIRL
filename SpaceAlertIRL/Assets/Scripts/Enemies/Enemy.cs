@@ -46,13 +46,25 @@ public abstract class Enemy : NetworkBehaviour, IComparable<Enemy>, IOnServerFix
     protected Zone Zone;
 
     public UpdateUIActions UIActions = new UpdateUIActions();
+    RectTransform DistanceMeter;
+    GameObject DistanceMeterIcon;
+    Line UILine;
+
     public abstract void SpawnIconAsChild(GameObject parent);
+
 
     public virtual void Start()
     {
+        DistanceMeter = transform.parent.GetComponent<EnemySpawner>().GetDistanceMeter().GetComponent<RectTransform>();
+        DistanceMeterIcon = transform.Find("DistanceMeterIcon").gameObject;
+        UILine = GetComponentInChildren<Line>();
+
         UIActions.AddOnValueChangeDependency(_HP, _EnergyShield);
         UIActions.AddOnValueChangeDependency(_Distance, _Speed, _NextActionTime);
         UIActions.AddOnValueChangeDependency(_NextActionDescription);
+
+        UIActions.AddAction(UpdateUI);
+        UIActions.UpdateUI();
     }
 
     public virtual void Initialise()
@@ -171,6 +183,29 @@ public abstract class Enemy : NetworkBehaviour, IComparable<Enemy>, IOnServerFix
     {
         if (e == null) { return 1; }
         return Distance.CompareTo(e.Distance);
+    }
+
+    void UpdateUI()
+    {
+        try
+        {
+            // set DistanceMeterIcon
+            DistanceMeterIcon.transform.SetParent(DistanceMeter);
+
+            float offset = DistanceMeter.sizeDelta.y / 2;
+            var distance = Distance / (int)RangeEnum.Far;
+
+            DistanceMeterIcon.transform.localPosition = new Vector3(0, offset, 0) + new Vector3(0, -2 * offset * distance, 0);
+
+            // set line
+            UILine.UpdateUI();
+
+        }
+        catch (Exception)
+        {
+            Debug.Log($"No DistanceMeterIcon setup in icon of enemy \"{this.GetName()}\"");
+            Debug.Log($"DistanceMeterIcon {DistanceMeterIcon}\n DistanceMeter {DistanceMeter}\nUILine {UILine}");
+        }
     }
 }
 

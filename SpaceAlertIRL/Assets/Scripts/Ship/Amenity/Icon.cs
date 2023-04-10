@@ -58,10 +58,15 @@ abstract public class EnemyIcon<T> : Icon where T : Enemy
 
     [SerializeField] protected GameObject EnemyInfoPanelPrefab;
     [SerializeField] GameObject DistanceMeterIcon;
+    RectTransform DistanceMeter;
+    private Line UILine;
 
     public void Initialise(T enemy)
     {
         Enemy = enemy;
+        UILine = GetComponentInChildren<Line>();
+        DistanceMeter = transform.parent.GetComponent<EnemyIconSpawner>().GetDistanceMeter().GetComponent<RectTransform>();
+
         UpdateUIAction = DestroyThisIconWithEnemyDeath;
         UpdateUIAction += UpdateUI;
         UpdateUIAction();
@@ -128,13 +133,15 @@ abstract public class EnemyIcon<T> : Icon where T : Enemy
             try
             {
                 // set DistanceMeterIcon
-                RectTransform DistanceMeter = transform.parent.GetComponent<EnemyIconSpawner>().GetDistanceMeter().GetComponent<RectTransform>();
                 DistanceMeterIcon.transform.SetParent(DistanceMeter);
 
                 float offset = DistanceMeter.sizeDelta.y / 2;
                 var distance = Enemy.Distance / (int)RangeEnum.Far;
 
                 DistanceMeterIcon.transform.localPosition = new Vector3(0, offset, 0) + new Vector3(0, -2*offset*distance, 0);
+
+                // set line
+                UILine.UpdateUI();
 
             }
             catch (Exception)
