@@ -138,7 +138,7 @@ abstract public class EnemyIcon<T> : Icon where T : Enemy
                 float offset = DistanceMeter.sizeDelta.y / 2;
                 var distance = Enemy.Distance / (int)RangeEnum.Far;
 
-                DistanceMeterIcon.transform.localPosition = new Vector3(0, offset, 0) + new Vector3(0, -2*offset*distance, 0);
+                DistanceMeterIcon.transform.localPosition = new Vector3(0, offset - 2 * offset * distance, 0);
 
                 // set line
                 UILine.UpdateUI();

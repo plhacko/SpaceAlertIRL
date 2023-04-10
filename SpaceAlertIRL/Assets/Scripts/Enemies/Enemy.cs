@@ -187,15 +187,19 @@ public abstract class Enemy : NetworkBehaviour, IComparable<Enemy>, IOnServerFix
 
     void UpdateUI()
     {
+        // set DistanceMeterIcon
         try
         {
-            // set DistanceMeterIcon
-            DistanceMeterIcon.transform.SetParent(DistanceMeter);
-
+            if (DistanceMeterIcon.transform.parent != DistanceMeter.transform)
+            {
+                DistanceMeterIcon.transform.SetParent(DistanceMeter);
+                DistanceMeterIcon.transform.localScale = Vector3.one;
+                transform.localScale = Vector3.one;
+            }
             float offset = DistanceMeter.sizeDelta.y / 2;
             var distance = Distance / (int)RangeEnum.Far;
 
-            DistanceMeterIcon.transform.localPosition = new Vector3(0, offset, 0) + new Vector3(0, -2 * offset * distance, 0);
+            DistanceMeterIcon.transform.localPosition = new Vector3(0, offset - 2 * offset * distance, 0);
 
             // set line
             UILine.UpdateUI();
@@ -205,6 +209,12 @@ public abstract class Enemy : NetworkBehaviour, IComparable<Enemy>, IOnServerFix
         {
             Debug.Log($"No DistanceMeterIcon setup in icon of enemy \"{this.GetName()}\"");
             Debug.Log($"DistanceMeterIcon {DistanceMeterIcon}\n DistanceMeter {DistanceMeter}\nUILine {UILine}");
+        }
+
+        // destroy DistanceMeterIcon if this enemy dies
+        if (HP == 0)
+        {
+            Destroy(DistanceMeterIcon);
         }
     }
 }

@@ -15,13 +15,12 @@ public class Line : MonoBehaviour
 
     UILineRenderer LR;
 
-    void Start()
+    void Awake()
     {
         p1 = transform.Find("p1");
         p2 = transform.Find("p2");
 
         LR = GetComponent<UILineRenderer>();
-        UpdateUI();
     }
 
     public void UpdateUI()

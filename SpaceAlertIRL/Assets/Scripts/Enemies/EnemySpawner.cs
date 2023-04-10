@@ -32,6 +32,7 @@ public class EnemySpawner : MonoBehaviour, IRestart
 
         go.GetComponent<NetworkObject>().Spawn();
         go.transform.SetParent(transform);
+        go.transform.localScale = Vector3.one; // reseting scale // during reparantig the scale sometimes changes
         go.GetComponent<Enemy>().Initialise();
         GetComponentInParent<Zone>().UIActions.UpdateUI();
 
