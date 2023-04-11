@@ -25,11 +25,12 @@ public class RocketLauncherActionPanel : AmenityActionPanel<RocketLauncher>
         var _damage = rocket.Damage;
         var _range = rocket.Range;
         var _rocketCount = Amenity.NumberOfRockets.Value;
+        var _status = _rocketCount > 0 ? "Status : iddle" : "Out of rockets";
 
-        transform.Find("Status").GetComponentInChildren<TextMeshProUGUI>().text = "Status : good";
+        transform.Find("Status").GetComponentInChildren<TextMeshProUGUI>().text = $"{_status}";
         transform.Find("Damage").GetComponentInChildren<TextMeshProUGUI>().text = $"Damage : {_damage}";
-        transform.Find("Range").GetComponentInChildren<TextMeshProUGUI>().text = $"Range : {_range.ToString("0.00")}";
-        transform.Find("RocketCount").GetComponentInChildren<TextMeshProUGUI>().text = $"Rocket Count : {_rocketCount}";
+        // TODO: ?rm? // transform.Find("Range").GetComponentInChildren<TextMeshProUGUI>().text = $"Range : {_range.ToString("0.00")}";
+        transform.Find("RocketCount").GetComponentInChildren<TextMeshProUGUI>().text = $"Rockets : {_rocketCount}";
 
         transform.Find("TargetedZoneName").GetComponentInChildren<TextMeshProUGUI>().text = Amenity.TagrgetableZoneNames[TargetableZoneNamesIndex].ToString();
     }
