@@ -12,17 +12,21 @@ public class RocketLauncher : Weapon<RocketLauncher>
     [SerializeField]
     public ZoneNames[] TagrgetableZoneNames;
 
+    [SerializeField]
+    public ZoneNames TargetedZone;
+
     const int NumberOfRocketsConst = 3;
 
-    public NetworkVariable<int> NumberOfRockets;
+    public int NumberOfRockets { get => _NumberOfRockets.Value; }
+    NetworkVariable<int> _NumberOfRockets;
 
     protected override void Start()
     {
         base.Start();
 
-        NumberOfRockets = new NetworkVariable<int>(NumberOfRocketsConst);
+        _NumberOfRockets = new NetworkVariable<int>(NumberOfRocketsConst);
 
-        UIActions.AddOnValueChangeDependency(NumberOfRockets);
+        UIActions.AddOnValueChangeDependency(_NumberOfRockets);
     }
 
     public void RequestLaunchingRocket(ZoneNames targetedzoneName)
@@ -36,11 +40,11 @@ public class RocketLauncher : Weapon<RocketLauncher>
     {
         if (!NetworkManager.Singleton.IsServer) { throw new System.Exception("Is not a server"); }
 
-        if (NumberOfRockets.Value > 0)
+        if (_NumberOfRockets.Value > 0)
         {
             GameObject TargetedZone = GameObject.Find(targetedzoneName.ToString());
 
-            NumberOfRockets.Value = NumberOfRockets.Value - 1;
+            _NumberOfRockets.Value = _NumberOfRockets.Value - 1;
             Enemy enemy = TargetedZone.GetComponentInChildren<EnemySpawner>().SpawnEnemy(RocketPrefab, silent: true);
             if (enemy.GetType() == typeof(Rocket))
             { ((Rocket)enemy)?.ChangeDirection(); }
@@ -54,6 +58,6 @@ public class RocketLauncher : Weapon<RocketLauncher>
 
     public override void Restart()
     {
-        NumberOfRockets.Value = NumberOfRocketsConst;
+        _NumberOfRockets.Value = NumberOfRocketsConst;
     }
 }

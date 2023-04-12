@@ -5213,6 +5213,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: 'RocketLauncher '
       objectReference: {fileID: 0}
+    - target: {fileID: 8180259713261768721, guid: 7c6076cd878442c41ba1f74c00fc4fd7, type: 3}
+      propertyPath: TargetedZone
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7c6076cd878442c41ba1f74c00fc4fd7, type: 3}
 --- !u!1001 &1615212260
@@ -6410,6 +6414,10 @@ PrefabInstance:
     - target: {fileID: 2206438937468458335, guid: 7c6076cd878442c41ba1f74c00fc4fd7, type: 3}
       propertyPath: m_Name
       value: 'RocketLauncher '
+      objectReference: {fileID: 0}
+    - target: {fileID: 8180259713261768721, guid: 7c6076cd878442c41ba1f74c00fc4fd7, type: 3}
+      propertyPath: TargetedZone
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7c6076cd878442c41ba1f74c00fc4fd7, type: 3}
