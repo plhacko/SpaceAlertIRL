@@ -6,6 +6,7 @@ using UnityEngine;
 using Unity.Netcode;
 using System;
 using Unity.Collections;
+using UnityEngine.UI;
 
 public abstract class Enemy : NetworkBehaviour, IComparable<Enemy>, IOnServerFixedUpdate
 {
@@ -187,6 +188,13 @@ public abstract class Enemy : NetworkBehaviour, IComparable<Enemy>, IOnServerFix
 
     void UpdateUI()
     {
+        // set layoutPriority
+        var otherEnemies = transform.parent.GetComponentsInChildren<Enemy>();
+        int i = otherEnemies.Length - 1;
+        foreach (Enemy e in otherEnemies)
+        { if (e.Distance > Distance) { i--; } }
+        transform.SetSiblingIndex(i);
+
         // set DistanceMeterIcon
         try
         {
