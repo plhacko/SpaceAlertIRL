@@ -24,7 +24,7 @@ public class PowerGenerator : EnergyPool
     {
         if (!NetworkManager.Singleton.IsServer) { throw new System.Exception("Is not a server"); }
 
-        if (EnergyPowerCellCount.Value > 0)
+        if (EnergyPowerCellCount.Value > 0 && EnergyStorage.Value < MaxEnergyStorageConst)
         {
             EnergyPowerCellCount.Value--;
             EnergyStorage.Value = MaxEnergyStorageConst;

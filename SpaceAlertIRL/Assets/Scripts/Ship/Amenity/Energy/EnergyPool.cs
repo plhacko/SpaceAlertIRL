@@ -8,11 +8,15 @@ using System;
 
 public class EnergyPool : EnergyNode
 {
-    protected const int MaxEnergyStorageConst = 5;
+    public const int MaxEnergyStorageConst = 5;
     protected const int StartingEnergyStorageConst = 4;
 
     public NetworkVariable<int> MaxEnergyStorage;
     public NetworkVariable<int> EnergyStorage;
+
+    // UI
+    [SerializeField] GameObject EnergyCircle_full_prefab;
+    [SerializeField] GameObject EnergyCircle_empty_prefab;
 
     // this is needed because otherwise it would spawn EnergyNodeIcon, not EnergyPoollIcon
     // (EnergyNode doesn't need it because it is derived from Amenity<EnergyNode>)
@@ -34,7 +38,10 @@ public class EnergyPool : EnergyNode
     {
         if (!NetworkManager.Singleton.IsServer) { throw new System.Exception("Is not a server"); }
 
-        EnergyStorage.Value += Source.PullEnergyUpTo(MaxEnergyStorageConst - AvailableEnergy());
+        var energyRequest = MaxEnergyStorageConst - AvailableEnergy();
+        var pulledEnergy = Source.PullEnergyUpTo(energyRequest);
+
+        EnergyStorage.Value += pulledEnergy;
     }
 
     public override bool PullEnergy(int amount)
@@ -84,6 +91,9 @@ public class EnergyPool : EnergyNode
         MaxEnergyStorage = new NetworkVariable<int>(MaxEnergyStorageConst);
 
         UIActions.AddOnValueChangeDependency(EnergyStorage, MaxEnergyStorage);
+
+        UIActions.AddAction(UpdateUI);
+        UIActions.UpdateUI();
     }
 
     public override void Restart()
@@ -94,4 +104,22 @@ public class EnergyPool : EnergyNode
         MaxEnergyStorage.Value = MaxEnergyStorageConst;
     }
 
+    void UpdateUI()
+    {
+        // reset self
+        foreach (Transform child in transform)
+        {
+            GameObject.Destroy(child.gameObject);
+        }
+
+        // spawn energy circles
+        for (int i = 0; i < EnergyStorage.Value; i++)
+        {
+            Instantiate(EnergyCircle_full_prefab, parent: transform);
+        }
+        for (int j = EnergyStorage.Value; j < MaxEnergyStorageConst; j++)
+        {
+            Instantiate(EnergyCircle_empty_prefab, parent: transform);
+        }
+    }
 }

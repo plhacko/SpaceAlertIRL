@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 8388612519989677007}
   - component: {fileID: 8388612519989677006}
   - component: {fileID: 3496196143527552428}
+  - component: {fileID: 5731978885833638000}
   m_Layer: 5
   m_Name: PowerGenerator
   m_TagString: Untagged
@@ -107,10 +108,35 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   IconPrefab: {fileID: 5291998020404699405, guid: 5a6cc97b7bb01f444b330f0914b9fe6d, type: 3}
   SourceRoom: {fileID: 0}
-  Source: {fileID: 0}
   MaxEnergyStorage:
     m_InternalValue: 0
   EnergyStorage:
     m_InternalValue: 0
+  EnergyCircle_full_prefab: {fileID: 8067456770623628279, guid: e20cfd5350b0b6b43be3c69dbfcecaf4, type: 3}
+  EnergyCircle_empty_prefab: {fileID: 7345016042261358013, guid: 42aabeb9837c05343a6f9f303bf09536, type: 3}
   EnergyPowerCellCount:
     m_InternalValue: 0
+--- !u!114 &5731978885833638000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8388612519989676995}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a8695521f0d02e499659fee002a26c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Padding:
+    m_Left: 0
+    m_Right: 0
+    m_Top: 0
+    m_Bottom: 0
+  m_ChildAlignment: 0
+  m_StartCorner: 0
+  m_StartAxis: 0
+  m_CellSize: {x: 8, y: 8}
+  m_Spacing: {x: 0, y: 0}
+  m_Constraint: 0
+  m_ConstraintCount: 2

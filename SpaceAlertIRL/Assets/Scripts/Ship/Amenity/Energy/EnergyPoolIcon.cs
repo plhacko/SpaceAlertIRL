@@ -5,14 +5,34 @@ using TMPro;
 
 public class EnergyPoolIcon : AmenityIcon<EnergyPool>
 {
+    [SerializeField] GameObject EnergyCircle_full_prefab;
+    [SerializeField] GameObject EnergyCircle_empty_prefab;
+
     override protected void UpdateUI()
     {
-        if (Amenity != null)
-        {
-            var _energyStorage = Amenity.EnergyStorage.Value;
-            var _maxEnergyStorage = Amenity.MaxEnergyStorage.Value;
+        if (Amenity == null) return;
 
-            GetComponentInChildren<TextMeshProUGUI>().text = $"power : {_energyStorage}/{_maxEnergyStorage}";
+        var _energyStorage = Amenity.EnergyStorage.Value;
+        var _maxEnergyStorage = Amenity.MaxEnergyStorage.Value;
+
+        GetComponentInChildren<TextMeshProUGUI>().text = $"power : {_energyStorage}/{_maxEnergyStorage}";
+
+
+
+        // spawn energy circles
+        // reset self
+        foreach (Transform child in transform)
+        {
+            GameObject.Destroy(child.gameObject);
+        }
+        // spawn energy circles
+        for (int i = 0; i < Amenity.EnergyStorage.Value; i++)
+        {
+            Instantiate(EnergyCircle_full_prefab, parent: transform);
+        }
+        for (int j = Amenity.EnergyStorage.Value; j < Amenity.MaxEnergyStorage.Value; j++)
+        {
+            Instantiate(EnergyCircle_empty_prefab, parent: transform);
         }
     }
 }
