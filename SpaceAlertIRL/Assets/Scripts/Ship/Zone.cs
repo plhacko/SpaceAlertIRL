@@ -5,10 +5,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using Unity.Netcode;
 using System;
+using TMPro;
 
 public class Zone : NetworkBehaviour, IRestart
 {
     public UpdateUIActions UIActions = new UpdateUIActions();
+
+    TextMeshProUGUI HPUI;
+    TextMeshProUGUI ShieldUI;
 
     const int MaxHPConst = 5;
 
@@ -42,6 +46,12 @@ public class Zone : NetworkBehaviour, IRestart
     private void Start()
     {
         UIActions.AddOnValueChangeDependency(_HP);
+
+        HPUI = transform.Find("HP").GetComponentInChildren<TextMeshProUGUI>();
+        ShieldUI = transform.Find("Shield").GetComponentInChildren<TextMeshProUGUI>();
+        UIActions.AddAction(UpdateUI);
+
+        UIActions.UpdateUI();
     }
 
 #if (SERVER)
@@ -56,6 +66,7 @@ public class Zone : NetworkBehaviour, IRestart
         {
             es.AbsorbDamage(ref damage);
         }
+        if (damage == 0) { UIActions.UpdateUI(); } // updates UI if the shields dealed with all the damage
 
         // do damage to the ship
         int _hp = _HP.Value - damage;
@@ -65,11 +76,12 @@ public class Zone : NetworkBehaviour, IRestart
 
     public void DepleteEnergyShiealds(int damage)
     {
-        EnergyShield[] energyShieldArray = GetComponentsInChildren<EnergyShield>(); // TODO: ? array sort this based on smothing ?
+        EnergyShield[] energyShieldArray = GetComponentsInChildren<EnergyShield>(); // in current version is just one ES, so ordering is not needed
         foreach (EnergyShield es in energyShieldArray)
         {
             es.AbsorbDamage(ref damage);
         }
+        UIActions.UpdateUI();
     }
 
     private void Die()
@@ -84,4 +96,16 @@ public class Zone : NetworkBehaviour, IRestart
     }
 #endif
 
+    void UpdateUI()
+    {
+        HPUI.text = HP.ToString();
+
+        var shield = 0;
+        foreach (EnergyShield es in GetComponentsInChildren<EnergyShield>())
+        {
+            shield += es.ShieldValue;
+        }
+
+        ShieldUI.text = shield.ToString();
+    }
 }

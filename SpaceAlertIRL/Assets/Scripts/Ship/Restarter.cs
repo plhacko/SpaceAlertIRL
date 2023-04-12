@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Netcode;
 using UnityEngine;
 
 public interface IRestart
@@ -11,8 +12,15 @@ public class Restarter : MonoBehaviour
 {
     public void RestartGame()
     {
+        RestartGameServerRpc();
+    }
+
+    [ServerRpc]
+    private void RestartGameServerRpc()
+    {
         IRestart[] objectsToRestart = GameObject.Find("ShipCanvas").GetComponentsInChildren<IRestart>();
 
+        int i = 0;
         foreach (var r in objectsToRestart)
         {
             r.Restart();

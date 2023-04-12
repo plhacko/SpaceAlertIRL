@@ -49,18 +49,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   EnemiesToSpawn:
-  - Enemy: 1
+  - Enemy: 2
     SpawnTime: 0
-    ZoneName: 0
-  - Enemy: 1
-    SpawnTime: 0
-    ZoneName: 0
-  - Enemy: 1
-    SpawnTime: 0
-    ZoneName: 0
-  - Enemy: 1
-    SpawnTime: 0
-    ZoneName: 0
-  - Enemy: 1
-    SpawnTime: 0
-    ZoneName: 0
+    ZoneName: 1
+  - Enemy: 2
+    SpawnTime: 10
+    ZoneName: 1
+  - Enemy: 2
+    SpawnTime: 20
+    ZoneName: 1

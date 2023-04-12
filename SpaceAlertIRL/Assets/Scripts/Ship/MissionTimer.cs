@@ -5,9 +5,8 @@ using Unity.Netcode;
 
 public class MissionTimer : NetworkBehaviour, IOnServerFixedUpdate, IRestart
 {
-    const float LengthOfTheMission = 300.0f;
+    const float LengthOfTheMission = 480.0f;
 
-    [SerializeField]
     NetworkVariable<float> TimeToEnd = new NetworkVariable<float>(LengthOfTheMission);
     public UpdateUIActions UIActions = new UpdateUIActions();
 

@@ -22,7 +22,7 @@ public class EndScreen : MonoBehaviour
             Defeat.SetActive(false);
         }
 
-        GameObject.Find("ShipCanvas")?.SetActive(false);
+        //GameObject.Find("ShipCanvas")?.SetActive(false);
     }
 
     private bool IsDead()

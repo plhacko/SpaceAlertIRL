@@ -14,8 +14,8 @@ public class EnergyShieldActionPanel : AmenityActionPanel<EnergyShield>
     }
     protected override void UpdateUI()
     {
-        var _energyShieldValue = Amenity.GetShieldValue();
-        var _energyShieldMaxValue = Amenity.GetMaxShieldValue();
+        var _energyShieldValue = Amenity.ShieldValue;
+        var _energyShieldMaxValue = Amenity.MaxShieldValue;
 
         transform.Find("Status").GetComponentInChildren<TextMeshProUGUI>().text = "Status : good";
         transform.Find("EnergyShield").GetComponentInChildren<TextMeshProUGUI>().text = $"E. Shield : {_energyShieldValue}/{_energyShieldMaxValue}";

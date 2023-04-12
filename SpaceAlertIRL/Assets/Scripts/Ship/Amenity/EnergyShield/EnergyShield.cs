@@ -10,34 +10,35 @@ public class EnergyShield : Amenity<EnergyShield>
     protected const int MaxShieldValueConst = 3;
     protected const int ShieldValueConst = 2;
 
-    NetworkVariable<int> MaxShieldValue = new NetworkVariable<int>(MaxShieldValueConst);
-    NetworkVariable<int> ShieldValue = new NetworkVariable<int>(ShieldValueConst);
+    NetworkVariable<int> _MaxShieldValue = new NetworkVariable<int>(MaxShieldValueConst);
+    NetworkVariable<int> _ShieldValue = new NetworkVariable<int>(ShieldValueConst);
 
-    public int GetMaxShieldValue() => MaxShieldValue.Value;
-    public int GetShieldValue() => ShieldValue.Value;
+    public int MaxShieldValue { get => _MaxShieldValue.Value; }
+    public int ShieldValue { get => _ShieldValue.Value; }
 
 #if (SERVER)
     private void RechargeEnergyShield(ulong clientId)
     {
         if (!NetworkManager.Singleton.IsServer) { throw new System.Exception("Is not a server"); }
 
-        int requestedEnergy = Mathf.Max(MaxShieldValue.Value - ShieldValue.Value, 0); // requestedEnergy must be more than 0
+        int requestedEnergy = Mathf.Max(_MaxShieldValue.Value - _ShieldValue.Value, 0); // requestedEnergy must be more than 0
 
         int receivedEnergy = Room.EnergySource.PullEnergyUpTo(requestedEnergy);
-        ShieldValue.Value = ShieldValue.Value + receivedEnergy;
+        _ShieldValue.Value = _ShieldValue.Value + receivedEnergy;
 
         if (receivedEnergy == 0)
         {
             // message for the player, tahat there was not enough energy
             AudioManager.GetAudioManager().RequestPlayingSentenceOnClient("netEnoughEnergy_r", clientId: clientId);
         }
+        else { GetComponentInParent<Zone>().UIActions.UpdateUI(); }
     }
 
     public void AbsorbDamage(ref int dmg)
     {
-        int damageReduction = Mathf.Min(dmg, ShieldValue.Value);
+        int damageReduction = Mathf.Min(dmg, _ShieldValue.Value);
 
-        ShieldValue.Value = ShieldValue.Value - damageReduction;
+        _ShieldValue.Value = _ShieldValue.Value - damageReduction;
         dmg = dmg - damageReduction;
     }
 #endif
@@ -52,12 +53,12 @@ public class EnergyShield : Amenity<EnergyShield>
     {
         base.Start();
 
-        UIActions.AddOnValueChangeDependency(ShieldValue, MaxShieldValue);
+        UIActions.AddOnValueChangeDependency(_ShieldValue, _MaxShieldValue);
     }
 
     public override void Restart()
     {
-        MaxShieldValue.Value = ShieldValueConst;
-        ShieldValue.Value = MaxShieldValueConst;
+        _MaxShieldValue.Value = MaxShieldValueConst;
+        _ShieldValue.Value = ShieldValueConst;
     }
 }

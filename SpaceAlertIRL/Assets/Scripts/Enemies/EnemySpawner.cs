@@ -18,7 +18,7 @@ public class EnemySpawner : MonoBehaviour, IRestart
     public GameObject GetDistanceMeter() => DistanceMeter;
     public void Restart()
     {
-        foreach (var e in GetComponents<Enemy>())
+        foreach (var e in GetComponentsInChildren<Enemy>())
         {
             e.transform.GetComponent<NetworkObject>().Despawn();
         }
