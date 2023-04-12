@@ -16,7 +16,7 @@ public class Door : NetworkBehaviour, IRestart
     public Room RoomA;
     public Room RoomB;
 
-    public NetworkVariable<bool> IsOpen = new NetworkVariable<bool>(false);
+    public NetworkVariable<bool> IsOpen = new NetworkVariable<bool>(true);
     public NetworkVariable<float> OpenningClosingProgress = new NetworkVariable<float>(0.0f);
 
     public UpdateUIActions UIActions = new UpdateUIActions();
