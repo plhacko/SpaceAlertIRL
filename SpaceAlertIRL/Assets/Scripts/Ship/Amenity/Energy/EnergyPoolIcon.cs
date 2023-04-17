@@ -18,19 +18,19 @@ public class EnergyPoolIcon : AmenityIcon<EnergyPool>
         GetComponentInChildren<TextMeshProUGUI>().text = $"power : {_energyStorage}/{_maxEnergyStorage}";
 
 
-
         // spawn energy circles
         // reset self
         foreach (Transform child in transform)
         {
-            GameObject.Destroy(child.gameObject);
+            if (child.name != "Text")
+                GameObject.Destroy(child.gameObject);
         }
         // spawn energy circles
-        for (int i = 0; i < Amenity.EnergyStorage.Value; i++)
+        for (int i = 0; i < _energyStorage; i++)
         {
             Instantiate(EnergyCircle_full_prefab, parent: transform);
         }
-        for (int j = Amenity.EnergyStorage.Value; j < Amenity.MaxEnergyStorage.Value; j++)
+        for (int j = _energyStorage; j < _maxEnergyStorage; j++)
         {
             Instantiate(EnergyCircle_empty_prefab, parent: transform);
         }
