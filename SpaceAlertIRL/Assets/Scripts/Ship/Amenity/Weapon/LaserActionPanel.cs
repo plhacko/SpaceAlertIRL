@@ -58,7 +58,6 @@ public class LaserActionPanel : AmenityActionPanel<Laser>
         Color c = ShootButton.color;
         c.a = _isTooHot ? 0.6f : 1f;
         ShootButton.color = c;
-
     }
 
     public void RequestShootingAtClosesEnemy()
