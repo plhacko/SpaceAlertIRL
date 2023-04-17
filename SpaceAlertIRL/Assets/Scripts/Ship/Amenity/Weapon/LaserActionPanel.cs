@@ -3,11 +3,29 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 
 public class LaserActionPanel : AmenityActionPanel<Laser>
 {
     [SerializeField]
     GameObject ActiveCoolingButton;
+
+    TextMeshProUGUI Status_text;
+    TextMeshProUGUI Damage_text;
+    TextMeshProUGUI Range_text;
+    TextMeshProUGUI Heat_text;
+
+    Image Range_image;
+
+    private void Awake()
+    {
+        Status_text = transform.Find("Status").GetComponentInChildren<TextMeshProUGUI>();
+        Damage_text = transform.Find("Damage").GetComponentInChildren<TextMeshProUGUI>();
+        Range_text = transform.Find("Range").GetComponentInChildren<TextMeshProUGUI>();
+        Heat_text = transform.Find("Heat").GetComponentInChildren<TextMeshProUGUI>();
+
+        Range_image = transform.Find("Range").Find("Image").GetComponentInChildren<Image>();
+    }
 
     public override void Initialise(Laser laser)
     {
@@ -23,10 +41,12 @@ public class LaserActionPanel : AmenityActionPanel<Laser>
         bool _tooHot = Amenity.IsTooHotToShoot();
         string _statusTest = _tooHot ? "high heat" : "ok";
 
-        transform.Find("Status").GetComponentInChildren<TextMeshProUGUI>().text = $"Status : {_statusTest}";
-        transform.Find("Damage").GetComponentInChildren<TextMeshProUGUI>().text = $"Damage : {_damage}";
-        transform.Find("Range").GetComponentInChildren<TextMeshProUGUI>().text = $"Range : {_range}";
-        transform.Find("Heat").GetComponentInChildren<TextMeshProUGUI>().text = $"Heat : {_heat.ToString("0.00\\%")}";
+        Status_text.text = $"Status : {_statusTest}";
+        Damage_text.text = $"Damage : {_damage}";
+        Range_text.text = $"Range : {_range}";
+        Heat_text.text = $"Heat : {_heat.ToString("0.00\\%")}";
+
+        Range_image.color = RangeColors.GetColorForDistance(_range);
 
         if (_tooHot && !Amenity.IsActivelyCooled())
         { ActiveCoolingButton.SetActive(true); }

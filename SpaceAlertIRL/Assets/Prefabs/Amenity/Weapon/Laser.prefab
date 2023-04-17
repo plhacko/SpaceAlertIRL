@@ -37,7 +37,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_SizeDelta: {x: 40, y: 40}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &111438814289287754
 CanvasRenderer:
@@ -106,10 +106,3 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   IconPrefab: {fileID: 5888922340692091892, guid: f46fce9b02c7fbf44a8ca65e75d44dbf, type: 3}
-  Zone: {fileID: 0}
-  Damage:
-    m_InternalValue: 5
-  Range:
-    m_InternalValue: 3
-  Heat:
-    m_InternalValue: 0

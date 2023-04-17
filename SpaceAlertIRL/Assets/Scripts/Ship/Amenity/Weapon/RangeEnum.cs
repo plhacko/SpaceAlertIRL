@@ -13,15 +13,16 @@ public static class RangeColors
 
     public static Color GetColorForDistance(float distance)
     {
-        if (distance < (int)RangeEnum.Close)
+        if (distance <= (int)RangeEnum.Close)
         { return NeonGreen(); }
-        else if (distance < (int)RangeEnum.Mid)
+        else if (distance <= (int)RangeEnum.Mid)
         { return NeonYellow(); }
-        else if (distance < (int)RangeEnum.Far)
+        else if (distance <= (int)RangeEnum.Far)
         { return NeonRed(); }
         else
         { return Color.white; }
-
     }
+
+    
 };
 
