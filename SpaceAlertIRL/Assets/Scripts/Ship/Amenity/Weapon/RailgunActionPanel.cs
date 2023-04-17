@@ -2,9 +2,23 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 
 public class RailgunActionPanel : AmenityActionPanel<Railgun>
 {
+    TextMeshProUGUI Status_text, Damage_text, Range_text, Charge_text;
+    Image Range_image;
+
+    private void Awake()
+    {
+        Status_text = transform.Find("Status").GetComponentInChildren<TextMeshProUGUI>();
+        Damage_text = transform.Find("Damage").GetComponentInChildren<TextMeshProUGUI>();
+        Range_text = transform.Find("Range").GetComponentInChildren<TextMeshProUGUI>();
+        Charge_text = transform.Find("Charge").GetComponentInChildren<TextMeshProUGUI>();
+
+        Range_image = transform.Find("Range").Find("Image").GetComponentInChildren<Image>();
+    }
+
     public override void Initialise(Railgun railgun)
     {
         base.Initialise(railgun);
@@ -18,12 +32,14 @@ public class RailgunActionPanel : AmenityActionPanel<Railgun>
         var _chargingTime = Amenity.GetChargingTimeValue();
         var _timeToChargeConst = Amenity.GetTimeToChargeConst();
 
-        var _chargePercentage = 100.0f *_chargingTime / _timeToChargeConst;
+        var _chargePercentage = 100.0f * _chargingTime / _timeToChargeConst;
 
-        transform.Find("Status").GetComponentInChildren<TextMeshProUGUI>().text = "Status : good";
-        transform.Find("Damage").GetComponentInChildren<TextMeshProUGUI>().text = $"Damage : {_damage}";
-        transform.Find("Range").GetComponentInChildren<TextMeshProUGUI>().text = $"Range : {_range}";
-        transform.Find("Charge").GetComponentInChildren<TextMeshProUGUI>().text = $"Charge : {_chargePercentage.ToString("0.##\\%")}";
+        Status_text.text = "Status : good";
+        Damage_text.text = $"Damage : {_damage}";
+        Range_text.text = $"Range : {_range}";
+        Charge_text.text = $"Charge : {_chargePercentage.ToString("0.##\\%")}";
+
+        Range_image.color = RangeColors.GetColorForDistance(_range);
     }
 
     public void RequestShootingAtClosesEnemy()

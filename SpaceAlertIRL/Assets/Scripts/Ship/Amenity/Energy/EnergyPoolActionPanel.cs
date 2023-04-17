@@ -15,8 +15,15 @@ public class EnergyPoolActionPanel : AmenityActionPanel<EnergyPool>
         var _energyStorage = Amenity.EnergyStorage.Value;
         var _maxEnergyStorage = Amenity.MaxEnergyStorage.Value;
         var _sourceName = Amenity.GetSourceName();
+        string _status;
+        if (_energyStorage > _maxEnergyStorage / 2)
+            _status = "iddle";
+        else if (_energyStorage > 0)
+            _status = "\nless than half energy";
+        else
+            _status = "\nout of energy";
 
-        transform.Find("Status").GetComponentInChildren<TextMeshProUGUI>().text = "Status : good";
+        transform.Find("Status").GetComponentInChildren<TextMeshProUGUI>().text = $"Status : {_status}";
         transform.Find("Source").GetComponentInChildren<TextMeshProUGUI>().text = $"Source : {_sourceName}";
         transform.Find("Energy").GetComponentInChildren<TextMeshProUGUI>().text = $"Energy : {_energyStorage}/{_maxEnergyStorage}";
     }

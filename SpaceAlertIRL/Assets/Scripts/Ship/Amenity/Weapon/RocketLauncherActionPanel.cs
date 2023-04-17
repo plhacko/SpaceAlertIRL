@@ -7,17 +7,16 @@ using UnityEngine.UI;
 
 public class RocketLauncherActionPanel : AmenityActionPanel<RocketLauncher>
 {
-    TextMeshProUGUI Status_text;
-    TextMeshProUGUI Damage_text;
-    TextMeshProUGUI Range_text;
-
+    TextMeshProUGUI Status_text, Damage_text, Range_text, RocketCount_text, TargetedZoneName_text;
     Image Range_image;
 
-    private void Start()
+    private void Awake()
     {
         Status_text = transform.Find("Status").GetComponentInChildren<TextMeshProUGUI>();
         Damage_text = transform.Find("Damage").GetComponentInChildren<TextMeshProUGUI>();
         Range_text = transform.Find("Range").GetComponentInChildren<TextMeshProUGUI>();
+        RocketCount_text = transform.Find("RocketCount").GetComponentInChildren<TextMeshProUGUI>();
+        TargetedZoneName_text = transform.Find("TargetedZoneName").GetComponentInChildren<TextMeshProUGUI>();
 
         Range_image = transform.Find("Range").Find("Image").GetComponentInChildren<Image>();
     }
@@ -42,12 +41,13 @@ public class RocketLauncherActionPanel : AmenityActionPanel<RocketLauncher>
         var _rocketCount = Amenity.NumberOfRockets;
         var _status = _rocketCount > 0 ? "Status : iddle" : "Out of rockets";
 
-        transform.Find("Status").GetComponentInChildren<TextMeshProUGUI>().text = $"{_status}";
-        transform.Find("Damage").GetComponentInChildren<TextMeshProUGUI>().text = $"Damage : {_damage}";
-        transform.Find("Range").GetComponentInChildren<TextMeshProUGUI>().text = $"Range : {_range.ToString()}";
-        transform.Find("RocketCount").GetComponentInChildren<TextMeshProUGUI>().text = $"Rockets : {_rocketCount}";
+        Status_text.text = $"{_status}";
+        Damage_text.text = $"Damage : {_damage}";
+        Range_text.text = $"Range : {_range.ToString()}";
+        RocketCount_text.text = $"Rockets : {_rocketCount}";
+        TargetedZoneName_text.text = Amenity.TagrgetableZoneNames[(int)Amenity.TargetedZone].ToString();
 
-        transform.Find("TargetedZoneName").GetComponentInChildren<TextMeshProUGUI>().text = Amenity.TagrgetableZoneNames[(int)Amenity.TargetedZone].ToString();
+        Range_image.color = RangeColors.GetColorForDistance(_range);
     }
 
     public void ChangeTargetedZone_moveLeft()

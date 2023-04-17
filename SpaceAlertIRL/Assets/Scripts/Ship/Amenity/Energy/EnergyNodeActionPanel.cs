@@ -8,7 +8,10 @@ public class EnergyNodeActionPanel : AmenityActionPanel<EnergyNode>
 {
     protected override void UpdateUI()
     {
-        transform.Find("Status").GetComponentInChildren<TextMeshProUGUI>().text = "Status : good";
-        transform.Find("Source").GetComponentInChildren<TextMeshProUGUI>().text = $"Source : {Amenity.GetSourceName()}";
+        var _source = Amenity.GetSourceName();
+        var _status = _source == null ? "not connected" : "connected";
+
+        transform.Find("Status").GetComponentInChildren<TextMeshProUGUI>().text = $"Status : {_status}";
+        transform.Find("Source").GetComponentInChildren<TextMeshProUGUI>().text = $"Source : {_source}";
     }
 }
