@@ -9,11 +9,10 @@ public class LaserActionPanel : AmenityActionPanel<Laser>
 {
     [SerializeField]
     GameObject ActiveCoolingButton;
+    [SerializeField]
+    Image ShootButton;
 
-    TextMeshProUGUI Status_text;
-    TextMeshProUGUI Damage_text;
-    TextMeshProUGUI Range_text;
-    TextMeshProUGUI Heat_text;
+    TextMeshProUGUI Status_text, Damage_text, Range_text, Heat_text, EnergyCost_text;
 
     Image Range_image;
 
@@ -23,6 +22,7 @@ public class LaserActionPanel : AmenityActionPanel<Laser>
         Damage_text = transform.Find("Damage").GetComponentInChildren<TextMeshProUGUI>();
         Range_text = transform.Find("Range").GetComponentInChildren<TextMeshProUGUI>();
         Heat_text = transform.Find("Heat").GetComponentInChildren<TextMeshProUGUI>();
+        EnergyCost_text = transform.Find("EnergyCost").GetComponentInChildren<TextMeshProUGUI>();
 
         Range_image = transform.Find("Range").Find("Image").GetComponentInChildren<Image>();
     }
@@ -36,22 +36,29 @@ public class LaserActionPanel : AmenityActionPanel<Laser>
     protected override void UpdateUI()
     {
         var _damage = Amenity.GetWeaponDamage();
+        var _energyCost = Amenity.GetEnergyCost();
         var _range = Amenity.GetWeaponRange();
         var _heat = Amenity.GetWeaponHeat();
-        bool _tooHot = Amenity.IsTooHotToShoot();
-        string _statusTest = _tooHot ? "high heat" : "ok";
+        bool _isTooHot = Amenity.IsTooHotToShoot();
+        string _status = _isTooHot ? "\nhigh heat" : "\nready to shoot";
 
-        Status_text.text = $"Status : {_statusTest}";
         Damage_text.text = $"Damage : {_damage}";
+        EnergyCost_text.text = $"Energy cost : {_energyCost}";
         Range_text.text = $"Range : {_range}";
         Heat_text.text = $"Heat : {_heat.ToString("0.00\\%")}";
+        Status_text.text = $"Status : {_status}";
 
         Range_image.color = RangeColors.GetColorForDistance(_range);
 
-        if (_tooHot && !Amenity.IsActivelyCooled())
-        { ActiveCoolingButton.SetActive(true); }
+        if (_isTooHot && !Amenity.IsActivelyCooled())
+            ActiveCoolingButton.SetActive(true);
         else
-        { ActiveCoolingButton.SetActive(false); }
+            ActiveCoolingButton.SetActive(false);
+
+        Color c = ShootButton.color;
+        c.a = _isTooHot ? 0.6f : 1f;
+        ShootButton.color = c;
+
     }
 
     public void RequestShootingAtClosesEnemy()

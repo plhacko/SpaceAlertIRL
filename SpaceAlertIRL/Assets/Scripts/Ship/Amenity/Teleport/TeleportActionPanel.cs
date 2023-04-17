@@ -5,11 +5,18 @@ using TMPro;
 
 public class TeleportActionPanel : AmenityActionPanel<Teleport>
 {
+    TextMeshProUGUI EnergyCost;
+
+    private void Awake()
+    {
+        EnergyCost = transform.Find("EnergyCost").GetComponentInChildren<TextMeshProUGUI>();
+    }
+
     protected override void UpdateUI()
     {
         var _energyCost = Amenity.GetEnergyCost();
 
-        transform.Find("EnergyCost").GetComponentInChildren<TextMeshProUGUI>().text = $"energy cost : {_energyCost}";
+        EnergyCost.text = $"energy cost : {_energyCost}";
     }
 
     public void TeleportCurrentPlayer()

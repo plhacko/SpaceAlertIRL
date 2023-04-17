@@ -23,6 +23,7 @@ public class Laser : Weapon<Laser>, IOnServerFixedUpdate
     public int GetWeaponDamage() => Damage.Value;
     public float GetWeaponRange() => Range.Value;
     public float GetWeaponHeat() => Heat.Value;
+    public int GetEnergyCost() => EnergyCostToShootConst;
 
     public bool IsTooHotToShoot() => Heat.Value > 0;
     public bool IsActivelyCooled() => CoolingModifier.Value == ActiveCoolingModifierConst;

@@ -39,13 +39,13 @@ public class RocketLauncherActionPanel : AmenityActionPanel<RocketLauncher>
         var _damage = rocket.Damage;
         var _range = rocket.Range;
         var _rocketCount = Amenity.NumberOfRockets;
-        var _status = _rocketCount > 0 ? "Status : iddle" : "Out of rockets";
+        var _status = _rocketCount > 0 ? "\nready to shoot" : "\nout of rockets";
 
-        Status_text.text = $"{_status}";
         Damage_text.text = $"Damage : {_damage}";
         Range_text.text = $"Range : {_range.ToString()}";
         RocketCount_text.text = $"Rockets : {_rocketCount}";
         TargetedZoneName_text.text = Amenity.TagrgetableZoneNames[(int)Amenity.TargetedZone].ToString();
+        Status_text.text = $"Status : {_status}";
 
         Range_image.color = RangeColors.GetColorForDistance(_range);
     }

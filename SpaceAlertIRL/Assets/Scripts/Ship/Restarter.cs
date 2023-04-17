@@ -20,7 +20,6 @@ public class Restarter : MonoBehaviour
     {
         IRestart[] objectsToRestart = GameObject.Find("ShipCanvas").GetComponentsInChildren<IRestart>();
 
-        int i = 0;
         foreach (var r in objectsToRestart)
         {
             r.Restart();

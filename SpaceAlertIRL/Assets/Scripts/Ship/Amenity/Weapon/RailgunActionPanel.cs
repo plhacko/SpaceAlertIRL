@@ -31,10 +31,13 @@ public class RailgunActionPanel : AmenityActionPanel<Railgun>
         var _range = Amenity.GetWeaponRange();
         var _chargingTime = Amenity.GetChargingTimeValue();
         var _timeToChargeConst = Amenity.GetTimeToChargeConst();
-
         var _chargePercentage = 100.0f * _chargingTime / _timeToChargeConst;
+        string _status;
+        if (_chargePercentage == 0) _status = "idle";
+        else if (_chargePercentage < 100) _status = "charging";
+        else _status = "\nready to shoot";
 
-        Status_text.text = "Status : good";
+        Status_text.text = $"Status : {_status}";
         Damage_text.text = $"Damage : {_damage}";
         Range_text.text = $"Range : {_range}";
         Charge_text.text = $"Charge : {_chargePercentage.ToString("0.##\\%")}";
