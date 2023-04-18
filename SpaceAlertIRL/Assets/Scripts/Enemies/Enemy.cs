@@ -210,7 +210,7 @@ public abstract class Enemy : NetworkBehaviour, IComparable<Enemy>, IOnServerFix
             DistanceMeterIcon.transform.localPosition = new Vector3(0, offset - 2 * offset * distance, 0);
 
             // set DistanceMeterIcon color
-            DistanceMeterIcon.GetComponent<Image>().color = RangeColors.GetColorForDistance(Distance);
+            DistanceMeterIcon.GetComponent<Image>().color = ProjectColors.GetColorForDistance(Distance);
 
             // set line
             UILine.UpdateUI();

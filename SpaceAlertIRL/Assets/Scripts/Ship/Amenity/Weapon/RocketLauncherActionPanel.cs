@@ -47,7 +47,7 @@ public class RocketLauncherActionPanel : AmenityActionPanel<RocketLauncher>
         TargetedZoneName_text.text = Amenity.TagrgetableZoneNames[(int)Amenity.TargetedZone].ToString();
         Status_text.text = $"Status : {_status}";
 
-        Range_image.color = RangeColors.GetColorForDistance(_range);
+        Range_image.color = ProjectColors.GetColorForDistance(_range);
     }
 
     public void ChangeTargetedZone_moveLeft()

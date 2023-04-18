@@ -5,7 +5,7 @@ using UnityEngine;
 
 public enum RangeEnum { Zero = 0, Close = 100, Mid = 200, Far = 300 };
 
-public static class RangeColors
+public static class ProjectColors
 {
     public static Color NeonGreen() => new Color(0.25f, 0.89f, 0f); // green
     public static Color NeonYellow() => new Color(1f, 1f, 0f); // yelow

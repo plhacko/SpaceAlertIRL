@@ -142,7 +142,7 @@ abstract public class EnemyIcon<T> : Icon where T : Enemy
                 DistanceMeterIcon.transform.localPosition = new Vector3(0, offset - 2 * offset * distance, 0);
 
                 // set DistanceMeterIcon color
-                DistanceMeterIcon.GetComponent<Image>().color = RangeColors.GetColorForDistance(Enemy.Distance);
+                DistanceMeterIcon.GetComponent<Image>().color = ProjectColors.GetColorForDistance(Enemy.Distance);
 
                 // set line
                 UILine.UpdateUI();

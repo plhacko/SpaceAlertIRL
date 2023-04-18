@@ -48,7 +48,7 @@ public class LaserActionPanel : AmenityActionPanel<Laser>
         Heat_text.text = $"Heat : {_heat.ToString("0.00\\%")}";
         Status_text.text = $"Status : {_status}";
 
-        Range_image.color = RangeColors.GetColorForDistance(_range);
+        Range_image.color = ProjectColors.GetColorForDistance(_range);
 
         if (_isTooHot && !Amenity.IsActivelyCooled())
             ActiveCoolingButton.SetActive(true);

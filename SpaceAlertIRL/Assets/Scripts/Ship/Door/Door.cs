@@ -36,7 +36,7 @@ public class Door : NetworkBehaviour, IRestart
     void UpdateUI()
     {
         if (IsOpen.Value)
-        { GetComponent<Image>().color = Color.green; }
+        { GetComponent<Image>().color = ProjectColors.NeonGreen(); }
         else { GetComponent<Image>().color = Color.white; }
     }
 

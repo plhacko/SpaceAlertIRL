@@ -42,7 +42,7 @@ public class RailgunActionPanel : AmenityActionPanel<Railgun>
         Range_text.text = $"Range : {_range}";
         Charge_text.text = $"Charge : {_chargePercentage.ToString("0.##\\%")}";
 
-        Range_image.color = RangeColors.GetColorForDistance(_range);
+        Range_image.color = ProjectColors.GetColorForDistance(_range);
     }
 
     public void RequestShootingAtClosesEnemy()
