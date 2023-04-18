@@ -31,7 +31,7 @@ public class Computer : Amenity<Computer>, IOnServerFixedUpdate
     [ClientRpc]
     void InstantiateScreensaverClientRpc(ClientRpcParams clientRpcParams = default)
     {
-        Instantiate(Screeensaver, parent: GameObject.Find("Canvas").transform);
+        Instantiate(Screeensaver);
     }
 
     public void RestartTimer(float newTimerTime = RestartTimerConst)
