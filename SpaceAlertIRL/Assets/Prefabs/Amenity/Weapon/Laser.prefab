@@ -13,6 +13,8 @@ GameObject:
   - component: {fileID: 111438814289287757}
   - component: {fileID: 111438814289287756}
   - component: {fileID: 2428886982412763007}
+  - component: {fileID: 497264889502540322}
+  - component: {fileID: 2152959640900468198}
   m_Layer: 5
   m_Name: Laser
   m_TagString: Untagged
@@ -106,3 +108,41 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   IconPrefab: {fileID: 5888922340692091892, guid: f46fce9b02c7fbf44a8ca65e75d44dbf, type: 3}
+--- !u!114 &497264889502540322
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 111438814289287761}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a8695521f0d02e499659fee002a26c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Padding:
+    m_Left: 0
+    m_Right: 0
+    m_Top: 0
+    m_Bottom: 0
+  m_ChildAlignment: 0
+  m_StartCorner: 0
+  m_StartAxis: 0
+  m_CellSize: {x: 8, y: 8}
+  m_Spacing: {x: 0, y: 0}
+  m_Constraint: 0
+  m_ConstraintCount: 2
+--- !u!114 &2152959640900468198
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 111438814289287761}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 940d9bfd6ec1b89489ddeb489db39068, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bubble_full_prefab: {fileID: 1953728356265883183, guid: f27a1b22d706022419ac79f63a06b98c, type: 3}
+  bubble_empty_prefab: {fileID: 4416432583568805683, guid: b89187170c504f14785f5add6a95bdc3, type: 3}

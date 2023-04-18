@@ -5,6 +5,17 @@ using TMPro;
 
 public class RocketLauncherIcon : AmenityIcon<RocketLauncher>
 {
-    protected override void UpdateUI() { }
+    BubbleProgressBar BubbleProgressBar;
+
+    private void Awake()
+    {
+        BubbleProgressBar = GetComponent<BubbleProgressBar>();
+    }
+
+    protected override void UpdateUI()
+    {
+        // shows visually how many rocket is being stored
+        BubbleProgressBar?.UpdateUI(Amenity.NumberOfRockets, Amenity.MaxNumberOfRockets);
+    }
 }
 

@@ -13,6 +13,8 @@ GameObject:
   - component: {fileID: 2206438937468458331}
   - component: {fileID: 2206438937468458332}
   - component: {fileID: 8180259713261768721}
+  - component: {fileID: 8051936946443040607}
+  - component: {fileID: 16774467288128661}
   m_Layer: 5
   m_Name: 'RocketLauncher '
   m_TagString: Untagged
@@ -37,7 +39,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2206438937468458330
 CanvasRenderer:
@@ -108,5 +110,42 @@ MonoBehaviour:
   IconPrefab: {fileID: 7081249087830598152, guid: c309ea298f3389a41982aeed7eb3fd02, type: 3}
   RocketPrefab: {fileID: 868332823138185189, guid: d7d1b492af8af9c488c6ae37923f309f, type: 3}
   TagrgetableZoneNames: 000000000100000002000000
-  NumberOfRockets:
-    m_InternalValue: 0
+  TargetedZone: 0
+--- !u!114 &8051936946443040607
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2206438937468458335}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 940d9bfd6ec1b89489ddeb489db39068, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bubble_full_prefab: {fileID: 1953728356265883183, guid: f27a1b22d706022419ac79f63a06b98c, type: 3}
+  bubble_empty_prefab: {fileID: 5807662963600589607, guid: 0f91a04de167575429ebdc97096acc33, type: 3}
+--- !u!114 &16774467288128661
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2206438937468458335}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a8695521f0d02e499659fee002a26c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Padding:
+    m_Left: 0
+    m_Right: 0
+    m_Top: 0
+    m_Bottom: 0
+  m_ChildAlignment: 0
+  m_StartCorner: 0
+  m_StartAxis: 0
+  m_CellSize: {x: 8, y: 8}
+  m_Spacing: {x: 0, y: 0}
+  m_Constraint: 0
+  m_ConstraintCount: 2

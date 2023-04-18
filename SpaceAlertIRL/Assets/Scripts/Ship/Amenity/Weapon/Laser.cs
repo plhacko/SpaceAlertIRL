@@ -28,12 +28,20 @@ public class Laser : Weapon<Laser>, IOnServerFixedUpdate
     public bool IsTooHotToShoot() => Heat.Value > 0;
     public bool IsActivelyCooled() => CoolingModifier.Value == ActiveCoolingModifierConst;
 
+    // UI 
+    BubbleProgressBar BubbleProgressBar;
+
     protected override void Start()
     {
+        // UI
+        BubbleProgressBar = GetComponent<BubbleProgressBar>();
+
         base.Start();
 
         UIActions.AddOnValueChangeDependency(Damage);
         UIActions.AddOnValueChangeDependency(Heat, Range, CoolingModifier);
+        UIActions.AddAction(UpdateUI);
+        UIActions.UpdateUI();
 
         ServerUpdater.Add(this.gameObject);
     }
@@ -135,6 +143,15 @@ public class Laser : Weapon<Laser>, IOnServerFixedUpdate
         Damage.Value = DamageConst;
         Range.Value = (float)RangeConst;
         Heat.Value = StartHeatConst;
+    }
+
+    void UpdateUI()
+    {
+        int amountOfShots = IsTooHotToShoot() ? 0 : 1;
+        const int maxAmountOfShots = 1;
+
+        // shows visually if the Laser can be shot
+        BubbleProgressBar?.UpdateUI(amountOfShots, maxAmountOfShots);
     }
 }
 

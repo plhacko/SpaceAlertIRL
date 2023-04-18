@@ -18,23 +18,30 @@ public class Railgun : Weapon<Railgun>
     NetworkVariable<float> Range = new NetworkVariable<float>((float)RangeConst);
     NetworkVariable<float> ChargingTime = new NetworkVariable<float>(0.0f);
 
+    // UI 
+    BubbleProgressBar BubbleProgressBar;
+
     public int GetDamageValue() => Damage.Value;
     public float GetWeaponRange() => Range.Value;
     public float GetChargingTimeValue() => ChargingTime.Value;
     public float GetTimeToChargeConst() => TimeToChargeConst;
 
 
-    bool IsCharged() => ChargingTime.Value >= TimeToChargeConst;
+    public bool IsCharged() => ChargingTime.Value >= TimeToChargeConst;
     void Discharge() { ChargingTime.Value = 0.0f; }
 
 
 
     protected override void Start()
     {
+        BubbleProgressBar = GetComponent<BubbleProgressBar>();
+
         base.Start();
 
         UIActions.AddOnValueChangeDependency(Damage);
         UIActions.AddOnValueChangeDependency(ChargingTime, Range);
+        UIActions.AddAction(UpdateUI);
+        UIActions.UpdateUI();
     }
 
     [ServerRpc(RequireOwnership = false)]
@@ -97,5 +104,14 @@ public class Railgun : Weapon<Railgun>
         Range.Value = (float)RangeConst;
         ChargingTime.Value = 0.0f;
 
+    }
+
+    void UpdateUI()
+    {
+        int amountOfShots = IsCharged() ? 1 : 0;
+        const int maxAmountOfShots = 1;
+
+        // shows visually if the Railgun can be shot
+        BubbleProgressBar?.UpdateUI(amountOfShots, maxAmountOfShots);
     }
 }

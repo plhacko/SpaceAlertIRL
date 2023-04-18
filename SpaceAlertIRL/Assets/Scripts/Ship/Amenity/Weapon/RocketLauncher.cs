@@ -18,15 +18,24 @@ public class RocketLauncher : Weapon<RocketLauncher>
     const int NumberOfRocketsConst = 3;
 
     public int NumberOfRockets { get => _NumberOfRockets.Value; }
+    public int MaxNumberOfRockets { get => NumberOfRocketsConst; }
     NetworkVariable<int> _NumberOfRockets;
+
+    // UI 
+    BubbleProgressBar BubbleProgressBar;
 
     protected override void Start()
     {
+        // UI
+        BubbleProgressBar = GetComponent<BubbleProgressBar>();
+
         base.Start();
 
         _NumberOfRockets = new NetworkVariable<int>(NumberOfRocketsConst);
 
         UIActions.AddOnValueChangeDependency(_NumberOfRockets);
+        UIActions.AddAction(UpdateUI);
+        UIActions.UpdateUI();
     }
 
     public void RequestLaunchingRocket(ZoneNames targetedzoneName)
@@ -59,5 +68,11 @@ public class RocketLauncher : Weapon<RocketLauncher>
     public override void Restart()
     {
         _NumberOfRockets.Value = NumberOfRocketsConst;
+    }
+
+    void UpdateUI()
+    {
+        // shows visually how many rocket is being stored
+        BubbleProgressBar?.UpdateUI(NumberOfRockets, MaxNumberOfRockets);
     }
 }
