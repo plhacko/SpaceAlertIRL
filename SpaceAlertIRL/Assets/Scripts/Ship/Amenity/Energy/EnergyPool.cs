@@ -14,9 +14,8 @@ public class EnergyPool : EnergyNode
     public NetworkVariable<int> MaxEnergyStorage;
     public NetworkVariable<int> EnergyStorage;
 
-    // UI
-    [SerializeField] GameObject EnergyCircle_full_prefab;
-    [SerializeField] GameObject EnergyCircle_empty_prefab;
+    // UI 
+    BubbleProgressBar BubbleProgressBar;
 
     // this is needed because otherwise it would spawn EnergyNodeIcon, not EnergyPoollIcon
     // (EnergyNode doesn't need it because it is derived from Amenity<EnergyNode>)
@@ -90,6 +89,9 @@ public class EnergyPool : EnergyNode
         EnergyStorage = new NetworkVariable<int>(StartingEnergyStorageConst);
         MaxEnergyStorage = new NetworkVariable<int>(MaxEnergyStorageConst);
 
+        // UI
+        BubbleProgressBar = GetComponent<BubbleProgressBar>();
+
         UIActions.AddOnValueChangeDependency(EnergyStorage, MaxEnergyStorage);
 
         UIActions.AddAction(UpdateUI);
@@ -106,20 +108,7 @@ public class EnergyPool : EnergyNode
 
     void UpdateUI()
     {
-        // reset self
-        foreach (Transform child in transform)
-        {
-            GameObject.Destroy(child.gameObject);
-        }
-
-        // spawn energy circles
-        for (int i = 0; i < EnergyStorage.Value; i++)
-        {
-            Instantiate(EnergyCircle_full_prefab, parent: transform);
-        }
-        for (int j = EnergyStorage.Value; j < MaxEnergyStorageConst; j++)
-        {
-            Instantiate(EnergyCircle_empty_prefab, parent: transform);
-        }
+        // shows visualy how much energy is being stored
+        BubbleProgressBar?.UpdateUI(EnergyStorage.Value, MaxEnergyStorageConst);
     }
 }

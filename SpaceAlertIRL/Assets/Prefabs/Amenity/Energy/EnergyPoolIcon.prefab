@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 6790588217361583513}
   - component: {fileID: 5173236414582779328}
   - component: {fileID: 5335509797862311923}
+  - component: {fileID: 5605247606166341323}
   m_Layer: 5
   m_Name: EnergyPoolIcon
   m_TagString: Untagged
@@ -69,7 +70,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: f5e61b8d3caf33b438db031bcff6bf1f, type: 3}
+  m_Sprite: {fileID: 21300000, guid: c0a3f02a5afc0d14dbc0f99e402e9e11, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -148,8 +149,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ActionPanelPrefab: {fileID: 1665385353437071244, guid: bda18434aa259cc43bd63a3bb876fba3, type: 3}
-  EnergyCircle_full_prefab: {fileID: 8067456770623628279, guid: e20cfd5350b0b6b43be3c69dbfcecaf4, type: 3}
-  EnergyCircle_empty_prefab: {fileID: 7345016042261358013, guid: 42aabeb9837c05343a6f9f303bf09536, type: 3}
 --- !u!114 &5335509797862311923
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -174,6 +173,20 @@ MonoBehaviour:
   m_Spacing: {x: 0, y: 0}
   m_Constraint: 0
   m_ConstraintCount: 2
+--- !u!114 &5605247606166341323
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1679262291737406133}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 940d9bfd6ec1b89489ddeb489db39068, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bubble_full_prefab: {fileID: 8067456770623628279, guid: e20cfd5350b0b6b43be3c69dbfcecaf4, type: 3}
+  bubble_empty_prefab: {fileID: 7345016042261358013, guid: 42aabeb9837c05343a6f9f303bf09536, type: 3}
 --- !u!1 &3134981520203750724
 GameObject:
   m_ObjectHideFlags: 0

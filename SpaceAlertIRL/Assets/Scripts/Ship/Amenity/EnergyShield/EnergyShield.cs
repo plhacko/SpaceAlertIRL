@@ -16,6 +16,9 @@ public class EnergyShield : Amenity<EnergyShield>
     public int MaxShieldValue { get => _MaxShieldValue.Value; }
     public int ShieldValue { get => _ShieldValue.Value; }
 
+    // UI
+    BubbleProgressBar BubbleProgressBar;
+
 #if (SERVER)
     private void RechargeEnergyShield(ulong clientId)
     {
@@ -53,12 +56,22 @@ public class EnergyShield : Amenity<EnergyShield>
     {
         base.Start();
 
+        BubbleProgressBar = GetComponent<BubbleProgressBar>();
+
         UIActions.AddOnValueChangeDependency(_ShieldValue, _MaxShieldValue);
+        UIActions.AddAction(UpdateUI);
+        UIActions.UpdateUI();
     }
 
     public override void Restart()
     {
         _MaxShieldValue.Value = MaxShieldValueConst;
         _ShieldValue.Value = ShieldValueConst;
+    }
+
+    void UpdateUI()
+    {
+        // spawn energy circles
+        BubbleProgressBar.UpdateUI(ShieldValue, MaxShieldValue);
     }
 }
