@@ -4,8 +4,5 @@ using UnityEngine;
 
 public class RailgunIcon : AmenityIcon<Railgun>
 {
-    protected override void UpdateUI()
-    {
-
-    }
+    protected override void UpdateUI() { }
 }

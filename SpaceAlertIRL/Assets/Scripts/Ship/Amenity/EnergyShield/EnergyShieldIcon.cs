@@ -19,10 +19,8 @@ public class EnergyShieldIcon : AmenityIcon<EnergyShield>
             var _energyShieldValue = Amenity.ShieldValue;
             var _energyShieldMaxValue = Amenity.MaxShieldValue;
 
-            GetComponentInChildren<TextMeshProUGUI>().text = $"E. Shield : {_energyShieldValue}/{_energyShieldMaxValue}";
-
             // spawn energy circles
-            BubbleProgressBar.UpdateUI(Amenity.ShieldValue, Amenity.MaxShieldValue);
+            BubbleProgressBar.UpdateUI(_energyShieldValue, _energyShieldMaxValue);
         }
     }
 }

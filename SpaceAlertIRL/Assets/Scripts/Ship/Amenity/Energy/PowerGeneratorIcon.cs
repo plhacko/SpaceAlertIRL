@@ -18,12 +18,6 @@ public class PowerGeneratorIcon : AmenityIcon<PowerGenerator>
         if (Amenity == null)
             return;
 
-        var _energyStorage = Amenity.EnergyStorage.Value;
-        var _maxEnergyStorage = Amenity.MaxEnergyStorage.Value;
-        var _energyPowerCellCount = Amenity.EnergyPowerCellCount.Value;
-        GetComponentInChildren<TextMeshProUGUI>().text = $"power : {_energyStorage}/{_maxEnergyStorage}({_energyPowerCellCount})";
-
-
         // spawn energy circles
         BubbleProgressBar.UpdateUI(Amenity.EnergyStorage.Value, Amenity.MaxEnergyStorage.Value);
 

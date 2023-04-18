@@ -5,8 +5,6 @@ using TMPro;
 
 public class RocketLauncherIcon : AmenityIcon<RocketLauncher>
 {
-    protected override void UpdateUI()
-    {
-        GetComponentInChildren<TextMeshProUGUI>().text = $"RocketLauncher";
-    }
+    protected override void UpdateUI() { }
 }
+

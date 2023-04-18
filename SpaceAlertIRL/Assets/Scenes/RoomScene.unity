@@ -2318,10 +2318,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1715309711}
     m_Modifications:
-    - target: {fileID: 1786050546427053272, guid: f46fce9b02c7fbf44a8ca65e75d44dbf, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 0}
     - target: {fileID: 5888922340692091892, guid: f46fce9b02c7fbf44a8ca65e75d44dbf, type: 3}
       propertyPath: m_Name
       value: LaserIcon
@@ -2409,10 +2405,6 @@ PrefabInstance:
     - target: {fileID: 5888922340692091893, guid: f46fce9b02c7fbf44a8ca65e75d44dbf, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7887463854535316483, guid: f46fce9b02c7fbf44a8ca65e75d44dbf, type: 3}
-      propertyPath: m_text
-      value: Laser 3r 5d
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f46fce9b02c7fbf44a8ca65e75d44dbf, type: 3}

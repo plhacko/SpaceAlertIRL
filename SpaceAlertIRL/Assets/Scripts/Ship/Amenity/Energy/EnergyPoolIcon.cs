@@ -19,9 +19,7 @@ public class EnergyPoolIcon : AmenityIcon<EnergyPool>
         var _energyStorage = Amenity.EnergyStorage.Value;
         var _maxEnergyStorage = Amenity.MaxEnergyStorage.Value;
 
-        GetComponentInChildren<TextMeshProUGUI>().text = $"power : {_energyStorage}/{_maxEnergyStorage}";
-
         // spawn energy circles
-        BubbleProgressBar.UpdateUI(Amenity.EnergyStorage.Value, Amenity.MaxEnergyStorage.Value);
+        BubbleProgressBar.UpdateUI(_energyStorage, _maxEnergyStorage);
     }
 }

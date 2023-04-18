@@ -7,6 +7,13 @@ using System;
 public class PlayerIcon : Icon
 {
     private Player Player;
+    
+    TextMeshProUGUI HeaderText;
+
+    private void Awake()
+    {
+        HeaderText = GetComponentInChildren<TextMeshProUGUI>();
+    }
 
     public void Initialise(Player player)
     {
@@ -28,6 +35,6 @@ public class PlayerIcon : Icon
 
     override protected void UpdateUI()
     {
-        GetComponentInChildren<TextMeshProUGUI>().text = $"{Player.Name} : {Player.CurrentRoomName.Value} : {Player.Status}";
+        HeaderText.text = $"{Player.Name} : {Player.CurrentRoomName.Value} : {Player.Status}";
     }
 }
