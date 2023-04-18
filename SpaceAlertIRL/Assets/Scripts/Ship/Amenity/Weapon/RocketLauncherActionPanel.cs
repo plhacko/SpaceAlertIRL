@@ -8,7 +8,7 @@ using UnityEngine.UI;
 public class RocketLauncherActionPanel : AmenityActionPanel<RocketLauncher>
 {
     TextMeshProUGUI Status_text, Damage_text, Range_text, RocketCount_text, TargetedZoneName_text;
-    Image Range_image;
+    Image Range_image, ShootButton;
 
     private void Awake()
     {
@@ -19,6 +19,7 @@ public class RocketLauncherActionPanel : AmenityActionPanel<RocketLauncher>
         TargetedZoneName_text = transform.Find("TargetedZoneName").GetComponentInChildren<TextMeshProUGUI>();
 
         Range_image = transform.Find("Range").Find("Image").GetComponentInChildren<Image>();
+        ShootButton = transform.Find("ShootButton").GetComponent<Image>();
     }
 
     public override void Initialise(RocketLauncher rl)
@@ -48,6 +49,10 @@ public class RocketLauncherActionPanel : AmenityActionPanel<RocketLauncher>
         Status_text.text = $"Status : {_status}";
 
         Range_image.color = ProjectColors.GetColorForDistance(_range);
+
+        Color c = ShootButton.color;
+        c.a = Amenity.NumberOfRockets > 0 ? 1f : 0.6f;
+        ShootButton.color = c;
     }
 
     public void ChangeTargetedZone_moveLeft()

@@ -9,12 +9,10 @@ public class LaserActionPanel : AmenityActionPanel<Laser>
 {
     [SerializeField]
     GameObject ActiveCoolingButton;
-    [SerializeField]
-    Image ShootButton;
 
     TextMeshProUGUI Status_text, Damage_text, Range_text, Heat_text, EnergyCost_text;
 
-    Image Range_image;
+    Image Range_image, ShootButton;
 
     private void Awake()
     {
@@ -25,6 +23,7 @@ public class LaserActionPanel : AmenityActionPanel<Laser>
         EnergyCost_text = transform.Find("EnergyCost").GetComponentInChildren<TextMeshProUGUI>();
 
         Range_image = transform.Find("Range").Find("Image").GetComponentInChildren<Image>();
+        ShootButton = transform.Find("ShootButton").GetComponent<Image>();
     }
 
     public override void Initialise(Laser laser)

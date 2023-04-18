@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 1365956781385319973}
   - component: {fileID: 5832824944363341088}
   m_Layer: 5
-  m_Name: PumpEnergy
+  m_Name: PumpEnergyButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

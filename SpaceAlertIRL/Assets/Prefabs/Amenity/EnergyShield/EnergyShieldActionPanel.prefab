@@ -396,7 +396,7 @@ GameObject:
   - component: {fileID: 8625293189928196938}
   - component: {fileID: 2801114993056403015}
   m_Layer: 5
-  m_Name: RechargeEnergyShield
+  m_Name: RechargeEnergyShieldButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

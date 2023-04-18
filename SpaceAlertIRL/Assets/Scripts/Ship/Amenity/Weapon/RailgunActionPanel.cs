@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class RailgunActionPanel : AmenityActionPanel<Railgun>
 {
     TextMeshProUGUI Status_text, Damage_text, Range_text, Charge_text;
-    Image Range_image;
+    Image Range_image, ShootButton, ChargeButton;
 
     private void Awake()
     {
@@ -17,6 +17,8 @@ public class RailgunActionPanel : AmenityActionPanel<Railgun>
         Charge_text = transform.Find("Charge").GetComponentInChildren<TextMeshProUGUI>();
 
         Range_image = transform.Find("Range").Find("Image").GetComponentInChildren<Image>();
+        ShootButton = transform.Find("ShootButton").GetComponent<Image>();
+        ChargeButton = transform.Find("ChargeButton").GetComponent<Image>();
     }
 
     public override void Initialise(Railgun railgun)
@@ -43,6 +45,16 @@ public class RailgunActionPanel : AmenityActionPanel<Railgun>
         Charge_text.text = $"Charge : {_chargePercentage.ToString("0.##\\%")}";
 
         Range_image.color = ProjectColors.GetColorForDistance(_range);
+
+
+        Color c;
+        c = ShootButton.color;
+        c.a = Amenity.IsCharged() ? 1f : 0.6f;
+        ShootButton.color = c;
+
+        c = ChargeButton.color;
+        c.a = Amenity.IsCharged() ? 0.6f : 1f;
+        ChargeButton.color = c;
     }
 
     public void RequestShootingAtClosesEnemy()

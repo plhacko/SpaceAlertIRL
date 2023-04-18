@@ -4,11 +4,25 @@ using UnityEngine;
 using TMPro;
 using System;
 using Unity.Netcode;
+using UnityEngine.UI;
 
 public class DoorActionPanel : ActionPanel
 {
     public Door Door;
-    // Start is called before the first frame update
+
+    // UI
+    TextMeshProUGUI DoorActivity, DoorStatus;
+    Image OpenButton, CloseButton;
+
+    private void Awake()
+    {
+        OpenButton = transform.Find("OpenButton").GetComponent<Image>();
+        CloseButton = transform.Find("CloseButton").GetComponent<Image>();
+
+        DoorStatus = transform.Find("DoorStatus").GetComponentInChildren<TextMeshProUGUI>();
+        DoorActivity = transform.Find("DoorActivity").GetComponentInChildren<TextMeshProUGUI>();
+    }
+
     void Start()
     {
         transform.Find("RoomIcon_A").GetComponentInChildren<TextMeshProUGUI>().text = $"RoomA : {Door.RoomA.Name}";
@@ -40,8 +54,17 @@ public class DoorActionPanel : ActionPanel
         var _percentege = 100 * Door.OpenningClosingProgress.Value / Door.TimeToOpenDoorsConst;
         string _status = Door.IsOpen.Value ? "open" : "closed";
 
-        transform.Find("DoorStatus").GetComponentInChildren<TextMeshProUGUI>().text = $"status : {_status}";
-        transform.Find("DoorActivity").GetComponentInChildren<TextMeshProUGUI>().text = $"activity : {_percentege.ToString("0.##\\%")}";
+        DoorStatus.text = $"status : {_status}";
+        DoorActivity.text = $"activity : {_percentege.ToString("0.##\\%")}";
+
+        Color c;
+        c = OpenButton.color;
+        c.a = Door.IsOpen.Value ? 0.6f : 1f;
+        OpenButton.color = c;
+
+        c = CloseButton.color;
+        c.a = Door.IsOpen.Value ? 1f : 0.6f;
+        CloseButton.color = c;
     }
 
     protected override void OnDisable()
