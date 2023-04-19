@@ -143,7 +143,10 @@ abstract public class EnemyIcon<T> : Icon where T : Enemy
 
                 // set DistanceMeterIcon color
                 DistanceMeterIcon.GetComponent<Image>().color = ProjectColors.GetColorForDistance(Enemy.Distance);
-
+                // set Distance
+                TextMeshProUGUI distance_text = transform.Find("Distance").GetComponentInChildren<TextMeshProUGUI>();
+                distance_text.text = Enemy.Distance.ToString("0.");
+                distance_text.color = ProjectColors.GetColorForDistance(Enemy.Distance);
                 // set line
                 UILine.UpdateUI();
 
