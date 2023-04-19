@@ -7,11 +7,15 @@ using UnityEngine.UI;
 
 public class EnergyShieldActionPanel : AmenityActionPanel<EnergyShield>
 {
+    TextMeshProUGUI Status, EnergyShield;
     Image RechargeEnergyShieldButton;
 
     private void Awake()
     {
         RechargeEnergyShieldButton = transform.Find("RechargeEnergyShieldButton").GetComponent<Image>();
+
+        Status = transform.Find("Status").GetComponentInChildren<TextMeshProUGUI>();
+        EnergyShield = transform.Find("EnergyShield").GetComponentInChildren<TextMeshProUGUI>();
     }
 
     public void RequestRechargeEnergyShield()
@@ -24,8 +28,8 @@ public class EnergyShieldActionPanel : AmenityActionPanel<EnergyShield>
         var _energyShieldValue = Amenity.ShieldValue;
         var _energyShieldMaxValue = Amenity.MaxShieldValue;
 
-        transform.Find("Status").GetComponentInChildren<TextMeshProUGUI>().text = "Status : good";
-        transform.Find("EnergyShield").GetComponentInChildren<TextMeshProUGUI>().text = $"E. Shield : {_energyShieldValue}/{_energyShieldMaxValue}";
+        Status.text = "Status : good";
+        EnergyShield.text = $"E. Shield : {_energyShieldValue}/{_energyShieldMaxValue}";
 
 
         Color c = RechargeEnergyShieldButton.color;

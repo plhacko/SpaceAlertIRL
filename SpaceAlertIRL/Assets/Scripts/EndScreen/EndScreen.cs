@@ -21,8 +21,6 @@ public class EndScreen : MonoBehaviour
             Victory.SetActive(true);
             Defeat.SetActive(false);
         }
-
-        //GameObject.Find("ShipCanvas")?.SetActive(false);
     }
 
     private bool IsDead()

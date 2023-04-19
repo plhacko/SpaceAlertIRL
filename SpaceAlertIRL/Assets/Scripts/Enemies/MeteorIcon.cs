@@ -7,6 +7,6 @@ public class MeteorIcon : EnemyIcon<Meteor>
 {
     protected override string GetEnemyActionDescriptionLine()
     {
-        return $"Impact ({Enemy.HP}) in {(Enemy.Distance / Enemy.Speed).ToString("0.00")}";
+        return $"Impact ({Enemy.HP}) in {(Enemy.Distance / Enemy.Speed).ToString("0.0")}";
     }
 }

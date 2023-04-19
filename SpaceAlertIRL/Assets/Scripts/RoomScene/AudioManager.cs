@@ -15,6 +15,7 @@ public class AudioManager : NetworkBehaviour
     AudioSource AudioSource_announcer;
     Queue<AudioClip> Announcer_que = new Queue<AudioClip>();
 
+
     private void Awake()
     {
         AudioSource_announcer = GetComponent<AudioSource>();
@@ -28,6 +29,7 @@ public class AudioManager : NetworkBehaviour
 
     static public AudioManager GetAudioManager()
     {
+        // TODO: ??singleton??
         return GameObject.Find("AudioManager").GetComponent<AudioManager>();
     }
 

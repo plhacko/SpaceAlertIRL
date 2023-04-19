@@ -10,7 +10,7 @@ using UnityEngine.UIElements;
 public class EnemySpawner : MonoBehaviour, IRestart
 {
     [SerializeField]
-    List<GameObject> LightEnemies;
+    List<GameObject> Enemies;
     [SerializeField]
     List<GameObject> Rockets;
     [SerializeField]
@@ -47,7 +47,7 @@ public class EnemySpawner : MonoBehaviour, IRestart
 
     public Enemy SpawnEnemy(string enemyName)
     {
-        foreach (var e in LightEnemies)
+        foreach (var e in Enemies)
         {
             if (e.name == enemyName) { return SpawnEnemy(e); }
         }
@@ -62,8 +62,8 @@ public class EnemySpawner : MonoBehaviour, IRestart
 
     public Enemy SpawnRnadomLightEmemy()
     {
-        int i = Random.Range(0, LightEnemies.Count);
-        return SpawnEnemy(LightEnemies[i]);
+        int i = Random.Range(0, Enemies.Count);
+        return SpawnEnemy(Enemies[i]);
     }
 
 #endif

@@ -6,11 +6,16 @@ using TMPro;
 
 public class EnergyNodeIcon : AmenityIcon<EnergyNode>
 {
+    TextMeshProUGUI Source;
+    private void Awake()
+    {
+        Source = GetComponentInChildren<TextMeshProUGUI>();
+    }
     protected override void UpdateUI()
     {
         if (Amenity != null)
         {
-            GetComponentInChildren<TextMeshProUGUI>().text = $"Source : {Amenity.GetSourceName()}";
+            Source.text = $"Source : {Amenity.GetSourceName()}";
         }
     }
 }

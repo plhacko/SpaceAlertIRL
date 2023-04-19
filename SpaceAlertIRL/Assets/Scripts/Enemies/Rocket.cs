@@ -24,7 +24,7 @@ public class Rocket : Enemy<Rocket>
         // checks for collisions
         foreach (Enemy e in Zone.GenrateSortedEnemyArray())
         {
-            if (e == this || !e.IsTragetabeByRocket()) { continue; }
+            if (e == this || !e.IsTragetabeByRocket) { continue; }
             else if (System.Math.Abs(e.Distance - newDistance) < 0.1f)
             {
                 e.TakeDamage(DamageConst);

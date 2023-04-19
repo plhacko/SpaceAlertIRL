@@ -21,10 +21,7 @@ public class DoorActionPanel : ActionPanel
 
         DoorStatus = transform.Find("DoorStatus").GetComponentInChildren<TextMeshProUGUI>();
         DoorActivity = transform.Find("DoorActivity").GetComponentInChildren<TextMeshProUGUI>();
-    }
 
-    void Start()
-    {
         transform.Find("RoomIcon_A").GetComponentInChildren<TextMeshProUGUI>().text = $"RoomA : {Door.RoomA.Name}";
         transform.Find("RoomIcon_B").GetComponentInChildren<TextMeshProUGUI>().text = $"RoomB : {Door.RoomB.Name}";
     }

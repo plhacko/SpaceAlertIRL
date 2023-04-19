@@ -4,13 +4,21 @@ using UnityEngine;
 using System;
 using TMPro;
 using UnityEngine.UI;
+using static UnityEngine.EventSystems.EventTrigger;
 
 public class EnergyPoolActionPanel : AmenityActionPanel<EnergyPool>
 {
+    TextMeshProUGUI Status, Source, Energy;
+
+
     Image PumpEnergyButton;
 
     private void Awake()
     {
+        Status = transform.Find("Status").GetComponentInChildren<TextMeshProUGUI>();
+        Source = transform.Find("Source").GetComponentInChildren<TextMeshProUGUI>();
+        Energy = transform.Find("Energy").GetComponentInChildren<TextMeshProUGUI>();
+
         PumpEnergyButton = transform.Find("PumpEnergyButton").GetComponent<Image>();
     }
 
@@ -31,11 +39,10 @@ public class EnergyPoolActionPanel : AmenityActionPanel<EnergyPool>
         else
             _status = "\nout of energy";
 
-        transform.Find("Status").GetComponentInChildren<TextMeshProUGUI>().text = $"Status : {_status}";
-        transform.Find("Source").GetComponentInChildren<TextMeshProUGUI>().text = $"Source : {_sourceName}";
-        transform.Find("Energy").GetComponentInChildren<TextMeshProUGUI>().text = $"Energy : {_energyStorage}/{_maxEnergyStorage}";
+        Status.text = $"Status : {_status}";
+        Source.text = $"Source : {_sourceName}";
+        Energy.text = $"Energy : {_energyStorage}/{_maxEnergyStorage}";
 
-        
         Color c = PumpEnergyButton.color;
         c.a = _energyStorage < _maxEnergyStorage ? 1f : 0.6f;
         PumpEnergyButton.color = c;

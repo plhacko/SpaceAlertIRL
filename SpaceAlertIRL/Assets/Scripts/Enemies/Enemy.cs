@@ -29,7 +29,7 @@ public abstract class Enemy : NetworkBehaviour, IComparable<Enemy>, IOnServerFix
     public float Distance { get => _Distance.Value; }
     public float Speed { get => _Speed.Value; set => _Speed.Value = value; }
     public float NextActionTime { get => _NextActionTime.Value; }
-    public virtual bool IsTragetabeByRocket() => true;
+    public virtual bool IsTragetabeByRocket { get => true; }
     public string NextActionDescription { get => _NextActionDescription.Value.ToString(); }
 
     // setters for data

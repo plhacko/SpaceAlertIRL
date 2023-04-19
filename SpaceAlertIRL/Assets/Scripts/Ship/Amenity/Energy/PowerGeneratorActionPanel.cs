@@ -5,13 +5,19 @@ using System;
 using TMPro;
 using Unity.Netcode;
 using UnityEngine.UI;
+using static UnityEngine.EventSystems.EventTrigger;
 
 public class PowerGeneratorActionPanel : AmenityActionPanel<PowerGenerator>
 {
+    TextMeshProUGUI Status, Energy, PowerCell;
     Image BurnPowerCellButton;
 
     private void Awake()
     {
+        Status = transform.Find("Status").GetComponentInChildren<TextMeshProUGUI>();
+        Energy = transform.Find("Energy").GetComponentInChildren<TextMeshProUGUI>();
+        PowerCell = transform.Find("PowerCell").GetComponentInChildren<TextMeshProUGUI>();
+
         BurnPowerCellButton = transform.Find("BurnPowerCellButton").GetComponent<Image>();
     }
     protected override void UpdateUI()
@@ -20,9 +26,9 @@ public class PowerGeneratorActionPanel : AmenityActionPanel<PowerGenerator>
         var _maxEnergyStorage = Amenity.MaxEnergyStorage;
         var _energyPowerCellCount = Amenity.EnergyPowerCellCount;
 
-        transform.Find("Status").GetComponentInChildren<TextMeshProUGUI>().text = "Status : good";
-        transform.Find("Energy").GetComponentInChildren<TextMeshProUGUI>().text = $"Energy : {_energyStorage}/{_maxEnergyStorage}";
-        transform.Find("PowerCell").GetComponentInChildren<TextMeshProUGUI>().text = $"Power Cell : {_energyPowerCellCount}";
+        Status.text = "Status : good";
+        Energy.text = $"Energy : {_energyStorage}/{_maxEnergyStorage}";
+        PowerCell.text = $"Power Cell : {_energyPowerCellCount}";
 
 
         Color c = BurnPowerCellButton.color;

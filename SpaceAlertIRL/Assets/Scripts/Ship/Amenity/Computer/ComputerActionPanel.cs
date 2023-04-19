@@ -5,11 +5,17 @@ using TMPro;
 
 public class ComputerActionPanel : AmenityActionPanel<Computer>
 {
+    TextMeshProUGUI Status;
+    private void Awake()
+    {
+        Status = transform.Find("Status").GetComponentInChildren<TextMeshProUGUI>();
+    }
+
     protected override void UpdateUI()
     {
         int _Timer = (int)Amenity.GetTimeToScreensaver();
 
-        transform.Find("Status").GetComponentInChildren<TextMeshProUGUI>().text = $"screen saver in: {_Timer / 60}m {_Timer % 60}s";
+        Status.text = $"screen saver in: {_Timer / 60}m {_Timer % 60}s";
     }
 
     public void RequestRestartTimer()

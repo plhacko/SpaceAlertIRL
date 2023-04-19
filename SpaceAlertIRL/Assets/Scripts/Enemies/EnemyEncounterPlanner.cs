@@ -54,7 +54,7 @@ public class EnemyEncounterPlanner : MonoBehaviour, IOnServerFixedUpdate, IResta
         }
     }
 
-    // IRestart contract
+    // IRestart 
     public void Restart()
     {
         Destroy(gameObject);
