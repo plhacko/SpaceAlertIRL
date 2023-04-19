@@ -7,10 +7,8 @@ using System;
 
 public class RoomNameToText : MonoBehaviour
 {
-    [SerializeField]
-    private TextMeshProUGUI RoomNameText;
-    [SerializeField]
-    private TextMeshProUGUI ZoneHPText;
+    TextMeshProUGUI RoomNameText, ZoneHPText, ZoneShieldText;
+
     [SerializeField]
     private Zone Zone;
 
@@ -18,7 +16,9 @@ public class RoomNameToText : MonoBehaviour
 
     void Start()
     {
-        RoomNameText = this.GetComponent<TextMeshProUGUI>();
+        RoomNameText = transform.Find("RoomNameText").GetComponent<TextMeshProUGUI>();
+        ZoneHPText = transform.Find("HP").GetComponentInChildren<TextMeshProUGUI>();
+        ZoneShieldText = transform.Find("Shield").GetComponentInChildren<TextMeshProUGUI>();
 
         // writes the name of the current room to the GUI (of the local player)
         string _roomName = Player.GetLocalPlayer()?.CurrentRoomName.Value.ToString();
@@ -40,14 +40,12 @@ public class RoomNameToText : MonoBehaviour
 
     protected void UpdateUI()
     {
-        if (Zone != null)
-        {
-            transform.Find("RoomHP").GetComponent<TextMeshProUGUI>().text = $"HP\n{Zone.HP}/{Zone.MaxHP}";
-        }
-        else
-        {
-            transform.Find("RoomHP").GetComponent<TextMeshProUGUI>().text = $"___"; // this happens when the player is using teleport
-        }
+        var _zoneHPText = Zone != null ? $"HP\n{Zone.HP}/{Zone.MaxHP}" : "___";
+        var _zoneShieldText = Zone != null ? $"SH\n{Zone.GetShieldValue()}/{Zone.GetMaxShieldValue()}" : "___";
+
+        ZoneHPText.text = _zoneHPText;
+        ZoneShieldText.text = _zoneShieldText;
+
     }
 
     protected void OnDisable()

@@ -6,6 +6,7 @@ using UnityEngine;
 using Unity.Netcode;
 using System;
 using TMPro;
+using System.Linq;
 
 public class Zone : NetworkBehaviour, IRestart
 {
@@ -20,6 +21,8 @@ public class Zone : NetworkBehaviour, IRestart
 
     public int HP { get => _HP.Value; }
     public int MaxHP { get => MaxHPConst; }
+    public int GetShieldValue() => GetComponentsInChildren<EnergyShield>().Sum(es => es.ShieldValue);
+    public int GetMaxShieldValue() => GetComponentsInChildren<EnergyShield>().Sum(es => es.MaxShieldValue);
 
     public Enemy[] GenrateSortedEnemyArray()
     {
@@ -99,13 +102,6 @@ public class Zone : NetworkBehaviour, IRestart
     void UpdateUI()
     {
         HPUI.text = HP.ToString();
-
-        var shield = 0;
-        foreach (EnergyShield es in GetComponentsInChildren<EnergyShield>())
-        {
-            shield += es.ShieldValue;
-        }
-
-        ShieldUI.text = shield.ToString();
+        ShieldUI.text = GetShieldValue().ToString();
     }
 }
