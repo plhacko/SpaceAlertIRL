@@ -9,7 +9,8 @@ public class PowerGenerator : EnergyPool
 {
     const int EnergyPowerCellStartCountConst = 3;
 
-    public NetworkVariable<int> EnergyPowerCellCount;
+    public NetworkVariable<int> _EnergyPowerCellCount;
+    public int EnergyPowerCellCount { get => _EnergyPowerCellCount.Value; protected set { _EnergyPowerCellCount.Value = value; } }
 
     // this is needed because otherwise it would spawn EnergyPoolIcon, not PowerGeneratorIcon
     // (EnergyNode doesn't need it because it is derived from Amenity<EnergyNode>)
@@ -24,10 +25,10 @@ public class PowerGenerator : EnergyPool
     {
         if (!NetworkManager.Singleton.IsServer) { throw new System.Exception("Is not a server"); }
 
-        if (EnergyPowerCellCount.Value > 0 && EnergyStorage.Value < MaxEnergyStorageConst)
+        if (EnergyPowerCellCount > 0 && EnergyStorage < MaxEnergyStorageConst)
         {
-            EnergyPowerCellCount.Value--;
-            EnergyStorage.Value = MaxEnergyStorageConst;
+            EnergyPowerCellCount--;
+            EnergyStorage = MaxEnergyStorageConst;
         }
     }
 #endif
@@ -42,13 +43,13 @@ public class PowerGenerator : EnergyPool
     protected override void Start()
     {
         base.Start();
-        EnergyPowerCellCount = new NetworkVariable<int>(EnergyPowerCellStartCountConst);
+        _EnergyPowerCellCount = new NetworkVariable<int>(EnergyPowerCellStartCountConst);
 
-        UIActions.AddOnValueChangeDependency(EnergyPowerCellCount);
+        UIActions.AddOnValueChangeDependency(_EnergyPowerCellCount);
     }
     public override void Restart()
     {
         base.Restart();
-        EnergyPowerCellCount.Value = EnergyPowerCellStartCountConst;
+        EnergyPowerCellCount = EnergyPowerCellStartCountConst;
     }
 }

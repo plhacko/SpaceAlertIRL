@@ -16,9 +16,9 @@ public class PowerGeneratorActionPanel : AmenityActionPanel<PowerGenerator>
     }
     protected override void UpdateUI()
     {
-        var _energyStorage = Amenity.EnergyStorage.Value;
-        var _maxEnergyStorage = Amenity.MaxEnergyStorage.Value;
-        var _energyPowerCellCount = Amenity.EnergyPowerCellCount.Value;
+        var _energyStorage = Amenity.EnergyStorage;
+        var _maxEnergyStorage = Amenity.MaxEnergyStorage;
+        var _energyPowerCellCount = Amenity.EnergyPowerCellCount;
 
         transform.Find("Status").GetComponentInChildren<TextMeshProUGUI>().text = "Status : good";
         transform.Find("Energy").GetComponentInChildren<TextMeshProUGUI>().text = $"Energy : {_energyStorage}/{_maxEnergyStorage}";

@@ -11,8 +11,11 @@ public class EnergyPool : EnergyNode
     public const int MaxEnergyStorageConst = 5;
     protected const int StartingEnergyStorageConst = 4;
 
-    public NetworkVariable<int> MaxEnergyStorage;
-    public NetworkVariable<int> EnergyStorage;
+    NetworkVariable<int> _MaxEnergyStorage;
+    public NetworkVariable<int> _EnergyStorage;
+
+    public int MaxEnergyStorage { get => _MaxEnergyStorage.Value; protected set { _MaxEnergyStorage.Value = value; } }
+    public int EnergyStorage { get => _EnergyStorage.Value; protected set { _EnergyStorage.Value = value; } }
 
     // UI 
     BubbleProgressBar BubbleProgressBar;
@@ -40,16 +43,16 @@ public class EnergyPool : EnergyNode
         var energyRequest = MaxEnergyStorageConst - AvailableEnergy();
         var pulledEnergy = Source.PullEnergyUpTo(energyRequest);
 
-        EnergyStorage.Value += pulledEnergy;
+        EnergyStorage += pulledEnergy;
     }
 
     public override bool PullEnergy(int amount)
     {
         if (!NetworkManager.Singleton.IsServer) { throw new System.Exception("Is not a server"); }
 
-        if (EnergyStorage.Value >= amount)
+        if (EnergyStorage >= amount)
         {
-            EnergyStorage.Value -= amount;
+            EnergyStorage -= amount;
             return true;
         }
         else
@@ -60,15 +63,15 @@ public class EnergyPool : EnergyNode
     {
         if (!NetworkManager.Singleton.IsServer) { throw new System.Exception("Is not a server"); }
 
-        if (EnergyStorage.Value >= amount)
+        if (EnergyStorage >= amount)
         {
-            EnergyStorage.Value -= amount;
+            EnergyStorage -= amount;
             return amount;
         }
         else
         {
-            int _tmp = EnergyStorage.Value;
-            EnergyStorage.Value = 0;
+            int _tmp = EnergyStorage;
+            EnergyStorage = 0;
             return _tmp;
         }
     }
@@ -76,7 +79,7 @@ public class EnergyPool : EnergyNode
     public override int AvailableEnergy()
     {
         if (!NetworkManager.Singleton.IsServer) { throw new System.Exception("Is not a server"); }
-        return EnergyStorage.Value;
+        return EnergyStorage;
     }
 #endif
 
@@ -86,13 +89,13 @@ public class EnergyPool : EnergyNode
     {
         base.Start();
 
-        EnergyStorage = new NetworkVariable<int>(StartingEnergyStorageConst);
-        MaxEnergyStorage = new NetworkVariable<int>(MaxEnergyStorageConst);
+        _EnergyStorage = new NetworkVariable<int>(StartingEnergyStorageConst);
+        _MaxEnergyStorage = new NetworkVariable<int>(MaxEnergyStorageConst);
 
         // UI
         BubbleProgressBar = GetComponent<BubbleProgressBar>();
 
-        UIActions.AddOnValueChangeDependency(EnergyStorage, MaxEnergyStorage);
+        UIActions.AddOnValueChangeDependency(_EnergyStorage, _MaxEnergyStorage);
 
         UIActions.AddAction(UpdateUI);
         UIActions.UpdateUI();
@@ -102,13 +105,13 @@ public class EnergyPool : EnergyNode
     {
         base.Restart();
 
-        EnergyStorage.Value = StartingEnergyStorageConst;
-        MaxEnergyStorage.Value = MaxEnergyStorageConst;
+        EnergyStorage = StartingEnergyStorageConst;
+        MaxEnergyStorage = MaxEnergyStorageConst;
     }
 
     void UpdateUI()
     {
         // shows visualy how much energy is being stored
-        BubbleProgressBar?.UpdateUI(EnergyStorage.Value, MaxEnergyStorageConst);
+        BubbleProgressBar?.UpdateUI(EnergyStorage, MaxEnergyStorageConst);
     }
 }

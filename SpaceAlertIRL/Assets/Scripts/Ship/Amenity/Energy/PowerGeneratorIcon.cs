@@ -19,7 +19,7 @@ public class PowerGeneratorIcon : AmenityIcon<PowerGenerator>
             return;
 
         // spawn energy circles
-        BubbleProgressBar.UpdateUI(Amenity.EnergyStorage.Value, Amenity.MaxEnergyStorage.Value);
+        BubbleProgressBar.UpdateUI(Amenity.EnergyStorage, Amenity.MaxEnergyStorage);
 
     }
 }

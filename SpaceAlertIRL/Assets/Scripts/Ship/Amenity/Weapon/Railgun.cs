@@ -14,21 +14,21 @@ public class Railgun : Weapon<Railgun>
     const float TimeToChargeConst = 5.0f;
     const float TimeToDischargeConst = 5.0f;
 
-    NetworkVariable<int> Damage = new NetworkVariable<int>(DamageConst);
-    NetworkVariable<float> Range = new NetworkVariable<float>((float)RangeConst);
-    NetworkVariable<float> ChargingTime = new NetworkVariable<float>(0.0f);
+    NetworkVariable<int> _Damage = new NetworkVariable<int>(DamageConst);
+    NetworkVariable<float> _Range = new NetworkVariable<float>((float)RangeConst);
+    NetworkVariable<float> _ChargingTime = new NetworkVariable<float>(0.0f);
 
     // UI 
     BubbleProgressBar BubbleProgressBar;
 
-    public int GetDamageValue() => Damage.Value;
-    public float GetWeaponRange() => Range.Value;
-    public float GetChargingTimeValue() => ChargingTime.Value;
-    public float GetTimeToChargeConst() => TimeToChargeConst;
+    public int Damage { get => _Damage.Value; private set { _Damage.Value = value; } }
+    public float Range { get => _Range.Value; private set { _Range.Value = value; } }
+    public float ChargingTime { get => _ChargingTime.Value; private set { _ChargingTime.Value = value; } }
+    public float TimeToCharge { get => TimeToChargeConst;}
 
 
-    public bool IsCharged() => ChargingTime.Value >= TimeToChargeConst;
-    void Discharge() { ChargingTime.Value = 0.0f; }
+    public bool IsCharged { get => ChargingTime >= TimeToChargeConst; }
+    void Discharge() { ChargingTime = 0.0f; }
 
 
 
@@ -38,8 +38,8 @@ public class Railgun : Weapon<Railgun>
 
         base.Start();
 
-        UIActions.AddOnValueChangeDependency(Damage);
-        UIActions.AddOnValueChangeDependency(ChargingTime, Range);
+        UIActions.AddOnValueChangeDependency(_Damage);
+        UIActions.AddOnValueChangeDependency(_ChargingTime, _Range);
         UIActions.AddAction(UpdateUI);
         UIActions.UpdateUI();
     }
@@ -47,12 +47,12 @@ public class Railgun : Weapon<Railgun>
     [ServerRpc(RequireOwnership = false)]
     void ChargeServerRpc(float deltaTime, ulong clientId) //must be ServerRpc
     {
-        float newValue = ChargingTime.Value + deltaTime;
+        float newValue = ChargingTime + deltaTime;
 
         if (newValue >= TimeToChargeConst)
-        { ChargingTime.Value = TimeToChargeConst; }
+        { ChargingTime = TimeToChargeConst; }
         else
-        { ChargingTime.Value = newValue; }
+        { ChargingTime = newValue; }
     }
 
     public void RequestCharging()
@@ -66,7 +66,7 @@ public class Railgun : Weapon<Railgun>
     {
         if (!NetworkManager.Singleton.IsServer) { throw new System.Exception("Is not a server"); }
 
-        if (!IsCharged())
+        if (!IsCharged)
         {
             AudioManager.GetAudioManager().RequestPlayingSentenceOnClient("weaponIsNotLoaded_r", clientId: clientId);
             return;
@@ -74,7 +74,7 @@ public class Railgun : Weapon<Railgun>
 
         Enemy enemy = Zone.ComputeClosestEnemy();
 
-        if (enemy == null || enemy.Distance > GetWeaponRange())
+        if (enemy == null || enemy.Distance > Range)
         {
             // notify the player
             AudioManager.GetAudioManager().RequestPlayingSentenceOnClient("noValidTargets_r", clientId: clientId);
@@ -88,7 +88,7 @@ public class Railgun : Weapon<Railgun>
             return;
         }
 
-        enemy.TakeDamage(Damage.Value);
+        enemy.TakeDamage(Damage);
         Discharge();
     }
 
@@ -100,15 +100,15 @@ public class Railgun : Weapon<Railgun>
 
     public override void Restart()
     {
-        Damage.Value = DamageConst;
-        Range.Value = (float)RangeConst;
-        ChargingTime.Value = 0.0f;
+        Damage = DamageConst;
+        Range = (float)RangeConst;
+        ChargingTime = 0.0f;
 
     }
 
     void UpdateUI()
     {
-        int amountOfShots = IsCharged() ? 1 : 0;
+        int amountOfShots = IsCharged ? 1 : 0;
         const int maxAmountOfShots = 1;
 
         // shows visually if the Railgun can be shot

@@ -13,7 +13,7 @@ public class RailgunIcon : AmenityIcon<Railgun>
     protected override void UpdateUI()
     {
 
-        int amountOfShots = Amenity.IsCharged() ? 1 : 0;
+        int amountOfShots = Amenity.IsCharged ? 1 : 0;
         const int maxAmountOfShots = 1;
 
         // shows visually if the Railgun can be shot

@@ -20,8 +20,8 @@ public class EnergyPoolActionPanel : AmenityActionPanel<EnergyPool>
     }
     protected override void UpdateUI()
     {
-        var _energyStorage = Amenity.EnergyStorage.Value;
-        var _maxEnergyStorage = Amenity.MaxEnergyStorage.Value;
+        var _energyStorage = Amenity.EnergyStorage;
+        var _maxEnergyStorage = Amenity.MaxEnergyStorage;
         var _sourceName = Amenity.GetSourceName();
         string _status;
         if (_energyStorage > _maxEnergyStorage / 2)

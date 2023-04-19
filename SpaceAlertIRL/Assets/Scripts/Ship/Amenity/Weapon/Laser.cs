@@ -15,18 +15,19 @@ public class Laser : Weapon<Laser>, IOnServerFixedUpdate
     const float NormalCoolingModifierConst = 3.0f;
     const float ActiveCoolingModifierConst = 2.0f * NormalCoolingModifierConst;
 
-    NetworkVariable<int> Damage = new NetworkVariable<int>(DamageConst);
-    NetworkVariable<float> Range = new NetworkVariable<float>((float)RangeConst);
-    NetworkVariable<float> Heat = new NetworkVariable<float>(StartHeatConst);
-    NetworkVariable<float> CoolingModifier = new NetworkVariable<float>(NormalCoolingModifierConst);
+    NetworkVariable<int> _Damage = new NetworkVariable<int>(DamageConst);
+    NetworkVariable<float> _Range = new NetworkVariable<float>((float)RangeConst);
+    NetworkVariable<float> _Heat = new NetworkVariable<float>(StartHeatConst);
+    NetworkVariable<float> _CoolingModifier = new NetworkVariable<float>(NormalCoolingModifierConst);
 
-    public int GetWeaponDamage() => Damage.Value;
-    public float GetWeaponRange() => Range.Value;
-    public float GetWeaponHeat() => Heat.Value;
-    public int GetEnergyCost() => EnergyCostToShootConst;
+    public int Damage { get => _Damage.Value; private set { _Damage.Value = value; }}
+    public float Range { get => _Range.Value; private set { _Range.Value = value; } }
+    public float Heat { get => _Heat.Value; private set { _Heat.Value = value; } }
+    public float CoolingModifier { get => _CoolingModifier.Value; private set { _CoolingModifier.Value = value; } }
+    public int EnergyCost { get => EnergyCostToShootConst; }
 
-    public bool IsTooHotToShoot() => Heat.Value > 0;
-    public bool IsActivelyCooled() => CoolingModifier.Value == ActiveCoolingModifierConst;
+    public bool IsTooHotToShoot { get => Heat > 0; }
+    public bool IsActivelyCooled { get => CoolingModifier == ActiveCoolingModifierConst; }
 
     // UI 
     BubbleProgressBar BubbleProgressBar;
@@ -38,8 +39,8 @@ public class Laser : Weapon<Laser>, IOnServerFixedUpdate
 
         base.Start();
 
-        UIActions.AddOnValueChangeDependency(Damage);
-        UIActions.AddOnValueChangeDependency(Heat, Range, CoolingModifier);
+        UIActions.AddOnValueChangeDependency(_Damage);
+        UIActions.AddOnValueChangeDependency(_Heat, _Range, _CoolingModifier);
         UIActions.AddAction(UpdateUI);
         UIActions.UpdateUI();
 
@@ -52,7 +53,7 @@ public class Laser : Weapon<Laser>, IOnServerFixedUpdate
         if (!NetworkManager.Singleton.IsServer) { throw new System.Exception("Is not a server"); }
 
         // heat check
-        if (IsTooHotToShoot())
+        if (IsTooHotToShoot)
         {
             // notify the player
             AudioManager.GetAudioManager().RequestPlayingSentenceOnClient("highHeatAlert_r", clientId: clientId);
@@ -61,7 +62,7 @@ public class Laser : Weapon<Laser>, IOnServerFixedUpdate
 
         // no enemy in range check
         Enemy enemy = Zone.ComputeClosestEnemy();
-        if (enemy == null || enemy.Distance > GetWeaponRange())
+        if (enemy == null || enemy.Distance > Range)
         {
             // notify the player
             AudioManager.GetAudioManager().RequestPlayingSentenceOnClient("noValidTargets_r", clientId: clientId);
@@ -76,8 +77,8 @@ public class Laser : Weapon<Laser>, IOnServerFixedUpdate
             return;
         }
 
-        Heat.Value = Heat.Value + HeatCostPerShotConst;
-        enemy.TakeDamage(Damage.Value);
+        Heat += HeatCostPerShotConst;
+        enemy.TakeDamage(Damage);
     }
 
 
@@ -91,7 +92,7 @@ public class Laser : Weapon<Laser>, IOnServerFixedUpdate
     void ActivateActiveCoolingServerRpc(ulong clientId)
     {
         // cooling already active check
-        if (IsActivelyCooled())
+        if (IsActivelyCooled)
         {
             // notify the player
             AudioManager.GetAudioManager().RequestPlayingSentenceOnClient("CoolingAlreadyActive_r", clientId: clientId); // TODO: add voice track
@@ -99,7 +100,7 @@ public class Laser : Weapon<Laser>, IOnServerFixedUpdate
         }
 
         // already cool check
-        if (!IsTooHotToShoot())
+        if (!IsTooHotToShoot)
         {
             // notify the player
             AudioManager.GetAudioManager().RequestPlayingSentenceOnClient("NoAditionalCoolingNeeded_r", clientId: clientId); // TODO: add voice track
@@ -114,7 +115,7 @@ public class Laser : Weapon<Laser>, IOnServerFixedUpdate
             return;
         }
 
-        CoolingModifier.Value = ActiveCoolingModifierConst;
+        CoolingModifier = ActiveCoolingModifierConst;
     }
 
 
@@ -127,27 +128,27 @@ public class Laser : Weapon<Laser>, IOnServerFixedUpdate
 
     public void ServerFixedUpdate()
     {
-        float newHeat = Heat.Value - Time.deltaTime * CoolingModifier.Value;
+        float newHeat = Heat - Time.deltaTime * CoolingModifier;
 
         if (newHeat <= 0.0f)
         {
-            Heat.Value = 0.0f;
-            CoolingModifier.Value = NormalCoolingModifierConst;
+            Heat = 0.0f;
+            CoolingModifier = NormalCoolingModifierConst;
         }
         else
-        { Heat.Value = newHeat; }
+        { Heat = newHeat; }
     }
 
     public override void Restart()
     {
-        Damage.Value = DamageConst;
-        Range.Value = (float)RangeConst;
-        Heat.Value = StartHeatConst;
+        Damage = DamageConst;
+        Range = (float)RangeConst;
+        Heat = StartHeatConst;
     }
 
     void UpdateUI()
     {
-        int amountOfShots = IsTooHotToShoot() ? 0 : 1;
+        int amountOfShots = IsTooHotToShoot ? 0 : 1;
         const int maxAmountOfShots = 1;
 
         // shows visually if the Laser can be shot

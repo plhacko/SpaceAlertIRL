@@ -34,11 +34,11 @@ public class LaserActionPanel : AmenityActionPanel<Laser>
 
     protected override void UpdateUI()
     {
-        var _damage = Amenity.GetWeaponDamage();
-        var _energyCost = Amenity.GetEnergyCost();
-        var _range = Amenity.GetWeaponRange();
-        var _heat = Amenity.GetWeaponHeat();
-        bool _isTooHot = Amenity.IsTooHotToShoot();
+        var _damage = Amenity.Damage;
+        var _energyCost = Amenity.EnergyCost;
+        var _range = Amenity.Range;
+        var _heat = Amenity.Heat;
+        bool _isTooHot = Amenity.IsTooHotToShoot;
         string _status = _isTooHot ? "\ncooling down" : "\nready to shoot";
 
         Damage_text.text = $"Damage : {_damage}";
@@ -49,7 +49,7 @@ public class LaserActionPanel : AmenityActionPanel<Laser>
 
         Range_image.color = ProjectColors.GetColorForDistance(_range);
 
-        if (_isTooHot && !Amenity.IsActivelyCooled())
+        if (_isTooHot && !Amenity.IsActivelyCooled)
             ActiveCoolingButton.SetActive(true);
         else
             ActiveCoolingButton.SetActive(false);

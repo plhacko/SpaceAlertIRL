@@ -29,10 +29,10 @@ public class RailgunActionPanel : AmenityActionPanel<Railgun>
 
     protected override void UpdateUI()
     {
-        var _damage = Amenity.GetDamageValue();
-        var _range = Amenity.GetWeaponRange();
-        var _chargingTime = Amenity.GetChargingTimeValue();
-        var _timeToChargeConst = Amenity.GetTimeToChargeConst();
+        var _damage = Amenity.Damage;
+        var _range = Amenity.Range;
+        var _chargingTime = Amenity.ChargingTime;
+        var _timeToChargeConst = Amenity.TimeToCharge;
         var _chargePercentage = 100.0f * _chargingTime / _timeToChargeConst;
         string _status;
         if (_chargePercentage == 0) _status = "idle";
@@ -49,11 +49,11 @@ public class RailgunActionPanel : AmenityActionPanel<Railgun>
 
         Color c;
         c = ShootButton.color;
-        c.a = Amenity.IsCharged() ? 1f : 0.6f;
+        c.a = Amenity.IsCharged ? 1f : 0.6f;
         ShootButton.color = c;
 
         c = ChargeButton.color;
-        c.a = Amenity.IsCharged() ? 0.6f : 1f;
+        c.a = Amenity.IsCharged ? 0.6f : 1f;
         ChargeButton.color = c;
     }
 

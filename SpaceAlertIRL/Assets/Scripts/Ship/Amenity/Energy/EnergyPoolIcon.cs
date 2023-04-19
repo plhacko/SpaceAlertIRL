@@ -16,8 +16,8 @@ public class EnergyPoolIcon : AmenityIcon<EnergyPool>
     {
         if (Amenity == null) return;
 
-        var _energyStorage = Amenity.EnergyStorage.Value;
-        var _maxEnergyStorage = Amenity.MaxEnergyStorage.Value;
+        var _energyStorage = Amenity.EnergyStorage;
+        var _maxEnergyStorage = Amenity.MaxEnergyStorage;
 
         // spawn energy circles
         BubbleProgressBar.UpdateUI(_energyStorage, _maxEnergyStorage);

@@ -17,10 +17,10 @@ public class RocketLauncher : Weapon<RocketLauncher>
 
     const int NumberOfRocketsConst = 3;
 
+    NetworkVariable<int> _NumberOfRockets;
     public int NumberOfRockets { get => _NumberOfRockets.Value; }
     public int MaxNumberOfRockets { get => NumberOfRocketsConst; }
-    NetworkVariable<int> _NumberOfRockets;
-
+    
     // UI 
     BubbleProgressBar BubbleProgressBar;
 
