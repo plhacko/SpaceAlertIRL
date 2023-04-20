@@ -61,6 +61,14 @@ abstract public class EnemyIcon<T> : Icon where T : Enemy
     [SerializeField] GameObject DistanceMeterIcon;
     RectTransform DistanceMeter;
     private Line UILine;
+    TextMeshProUGUI Distance_text;
+    Image Distance_image;
+
+    private void Awake()
+    {
+        Distance_text = transform.Find("Distance").GetComponentInChildren<TextMeshProUGUI>();
+        Distance_image = transform.Find("Distance").GetComponent<Image>();
+    }
 
     public void Initialise(T enemy)
     {
@@ -144,9 +152,9 @@ abstract public class EnemyIcon<T> : Icon where T : Enemy
                 // set DistanceMeterIcon color
                 DistanceMeterIcon.GetComponent<Image>().color = ProjectColors.GetColorForDistance(Enemy.Distance);
                 // set Distance
-                TextMeshProUGUI distance_text = transform.Find("Distance").GetComponentInChildren<TextMeshProUGUI>();
-                distance_text.text = Enemy.Distance.ToString("0.");
-                distance_text.color = ProjectColors.GetColorForDistance(Enemy.Distance);
+                
+                Distance_text.text = Enemy.Distance.ToString("0.");
+                Distance_image.color = ProjectColors.GetColorForDistance(Enemy.Distance);
                 // set line
                 UILine.UpdateUI();
 
