@@ -142,7 +142,8 @@ abstract public class EnemyIcon<T> : Icon where T : Enemy
             try
             {
                 // set DistanceMeterIcon
-                DistanceMeterIcon.transform.SetParent(DistanceMeter);
+                if (DistanceMeterIcon.transform.parent != DistanceMeter.transform)
+                    DistanceMeterIcon.transform.SetParent(DistanceMeter);
 
                 float offset = DistanceMeter.sizeDelta.y / 2;
                 var distance = Enemy.Distance / (int)RangeEnum.Far;
@@ -152,12 +153,11 @@ abstract public class EnemyIcon<T> : Icon where T : Enemy
                 // set DistanceMeterIcon color
                 DistanceMeterIcon.GetComponent<Image>().color = ProjectColors.GetColorForDistance(Enemy.Distance);
                 // set Distance
-                
+
                 Distance_text.text = Enemy.Distance.ToString("0.");
                 Distance_image.color = ProjectColors.GetColorForDistance(Enemy.Distance);
                 // set line
-                UILine.UpdateUI();
-
+                UILine.UpdateUI(DistanceMeterIcon.transform, transform);
             }
             catch (Exception)
             {

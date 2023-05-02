@@ -213,7 +213,7 @@ public abstract class Enemy : NetworkBehaviour, IComparable<Enemy>, IOnServerFix
             DistanceMeterIcon.GetComponent<Image>().color = ProjectColors.GetColorForDistance(Distance);
 
             // set line
-            UILine.UpdateUI();
+            UILine.UpdateUI(DistanceMeterIcon.transform, transform);
 
         }
         catch (Exception)
@@ -236,7 +236,7 @@ abstract public class Enemy<T> : Enemy where T : Enemy<T>
 
     public override void SpawnIconAsChild(GameObject parent)
     {
-        GameObject _go = Instantiate(IconPrefab, parent.transform.position, parent.transform.rotation, parent.transform);
+        GameObject _go = Instantiate(IconPrefab, parent: parent.transform);
         _go.GetComponent<EnemyIcon<T>>().Initialise((T)this);
     }
 }

@@ -7,9 +7,6 @@ using UnityEngine.UIElements;
 
 public class Line : MonoBehaviour
 {
-    [SerializeField] Transform StartPoint;
-    [SerializeField] Transform EndPoint;
-
     // auxiliary points
     Transform p1 ,p2;
 
@@ -22,13 +19,14 @@ public class Line : MonoBehaviour
 
         LR = GetComponent<UILineRenderer>();
     }
-
-    public void UpdateUI()
+    public void UpdateUI(Transform startPoint, Transform endPoint) => UpdateUI(startPoint.position, endPoint.position);
+        public void UpdateUI(Vector3 startPoint, Vector3 endPoint)
     {
-        p1.position = StartPoint.position;
-        p2.position = EndPoint.position;
-        LR.Points = new Vector2[] { p1.localPosition, p2.localPosition };
+        if (startPoint.x < 0.1f || endPoint.x < 0.1f)
+            return;
 
-        LR.SetAllDirty();
+        p1.position = startPoint;
+        p2.position = endPoint;
+        LR.Points = new Vector2[] { p1.localPosition, p2.localPosition };
     }
 }
