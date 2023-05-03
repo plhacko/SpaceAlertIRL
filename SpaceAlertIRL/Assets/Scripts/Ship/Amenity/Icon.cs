@@ -156,6 +156,7 @@ abstract public class EnemyIcon<T> : Icon where T : Enemy
 
                 Distance_text.text = Enemy.Distance.ToString("0.");
                 Distance_image.color = ProjectColors.GetColorForDistance(Enemy.Distance);
+
                 // set line
                 UILine.UpdateUI(DistanceMeterIcon.transform, transform);
             }
