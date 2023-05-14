@@ -44,7 +44,7 @@ public class LaserActionPanel : AmenityActionPanel<Laser>
         Damage_text.text = $"Damage : {_damage}";
         EnergyCost_text.text = $"Energy cost : {_energyCost}";
         Range_text.text = $"Range : {_range}";
-        Heat_text.text = $"Heat : {_heat.ToString("0.00\\%")}";
+        Heat_text.text = $"Heat : {_heat.ToString("0.0")}%";
         Status_text.text = $"Status : {_status}";
 
         Range_image.color = ProjectColors.GetColorForDistance(_range);

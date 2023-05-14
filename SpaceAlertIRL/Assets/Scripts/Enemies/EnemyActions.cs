@@ -24,21 +24,21 @@ sealed class SimpleAttack : EnemyAction
     public SimpleAttack(int damage, Zone zone, float timeSpan)
     { Damage = damage; Zone = zone; TimeSpan = timeSpan; }
 
-    public override string GetDescription() => $"Attack ({Damage})";
+    public override string GetDescription() => $"deals {Damage} damage";
 }
 
 sealed class Wait : EnemyAction
 {
     public override void ExecuteAction() { }
 
-    public override string GetDescription() => $"Wait";
+    public override string GetDescription() => $"waiting";
 
     public Wait(float waitTime) { TimeSpan = waitTime; }
 }
 
 sealed class LaunchRocket : EnemyAction
 {
-    public override string GetDescription() => $"Shoot Rocket ";
+    public override string GetDescription() => $"shoots a rocket";
     public override void ExecuteAction()
     {
         Enemy rocket = EnemySpawner.SpawnEnemy("Rocket");
@@ -52,7 +52,7 @@ sealed class LaunchRocket : EnemyAction
 
 sealed class TeleportAllPlayers : EnemyAction
 {
-    public override string GetDescription() => "teleport all players";
+    public override string GetDescription() => "teleports all players to random rooms";
     public override void ExecuteAction()
     {
         GameObject[] Rooms = GameObject.FindGameObjectsWithTag("Room");
@@ -86,7 +86,7 @@ sealed class CloseAllDoors : EnemyAction
 
 sealed class DepleteShields : EnemyAction
 {
-    public override string GetDescription() => $"{EnergyToDeplete} damage to all shields";
+    public override string GetDescription() => $"depletes _{EnergyToDeplete}_ from energy shields in each zone";
     public override void ExecuteAction()
     {
         GameObject[] Zones = GameObject.FindGameObjectsWithTag("Zone");
@@ -109,7 +109,7 @@ sealed class DepleteEnergy : EnemyAction
 {
     public override void ExecuteAction()
     {
-        EnergyPool[] energyPools = Zone.transform.Find("ShipCanvas").GetComponentsInChildren<EnergyPool>();
+        EnergyPool[] energyPools = Zone.transform.parent.GetComponentsInChildren<EnergyPool>();
 
         int _energyToDeplete = EnergyToDeplete;
         foreach (var e in energyPools)
@@ -117,7 +117,7 @@ sealed class DepleteEnergy : EnemyAction
             _energyToDeplete -= e.PullEnergyUpTo(_energyToDeplete);
         }
     }
-    public override string GetDescription() => $"deplete {EnergyToDeplete} energy";
+    public override string GetDescription() => $"depletes _{EnergyToDeplete}_ energy in each zone";
 
     int EnergyToDeplete;
     Zone Zone;
@@ -132,7 +132,7 @@ sealed class DepleteEnergy : EnemyAction
 sealed class SpeedUp : EnemyAction
 {
     public override void ExecuteAction() => Enemy.Speed += SpeedUpValue;
-    public override string GetDescription() => $"Speeds up by {SpeedUpValue}";
+    public override string GetDescription() => $"Speeds up from _{Enemy.Speed}_ to _{Enemy.Speed + SpeedUpValue}_";
 
     float SpeedUpValue;
     Enemy Enemy;
