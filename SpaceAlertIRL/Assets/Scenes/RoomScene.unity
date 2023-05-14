@@ -490,31 +490,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1795339574143480498, guid: e166ffc38bb06784297108763350c08d, type: 3}
       propertyPath: m_text
-      value: 'Player 2 : B3 : dead'
-      objectReference: {fileID: 0}
-    - target: {fileID: 1795339574143480498, guid: e166ffc38bb06784297108763350c08d, type: 3}
-      propertyPath: m_margin.w
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1795339574143480498, guid: e166ffc38bb06784297108763350c08d, type: 3}
-      propertyPath: m_margin.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1795339574143480498, guid: e166ffc38bb06784297108763350c08d, type: 3}
-      propertyPath: m_VerticalAlignment
-      value: 512
-      objectReference: {fileID: 0}
-    - target: {fileID: 1795339574143480501, guid: e166ffc38bb06784297108763350c08d, type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 350
-      objectReference: {fileID: 0}
-    - target: {fileID: 1795339574143480501, guid: e166ffc38bb06784297108763350c08d, type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 50
-      objectReference: {fileID: 0}
-    - target: {fileID: 1795339574143480501, guid: e166ffc38bb06784297108763350c08d, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 25
+      value: 'Player 1 : A1 : dead'
       objectReference: {fileID: 0}
     - target: {fileID: 2604790229346420036, guid: e166ffc38bb06784297108763350c08d, type: 3}
       propertyPath: m_Pivot.x
@@ -603,18 +579,6 @@ PrefabInstance:
     - target: {fileID: 2604790229346420037, guid: e166ffc38bb06784297108763350c08d, type: 3}
       propertyPath: m_Name
       value: PlayerIcon (1)
-      objectReference: {fileID: 0}
-    - target: {fileID: 2604790229346420091, guid: e166ffc38bb06784297108763350c08d, type: 3}
-      propertyPath: m_Color.b
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2604790229346420091, guid: e166ffc38bb06784297108763350c08d, type: 3}
-      propertyPath: m_Color.g
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2604790229346420091, guid: e166ffc38bb06784297108763350c08d, type: 3}
-      propertyPath: m_Color.r
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e166ffc38bb06784297108763350c08d, type: 3}
@@ -1894,7 +1858,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 52ef4c34b2142c445ad49d4381edf04a, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 4e677891b9cc50641ab001d0d42bb2f9, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

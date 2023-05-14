@@ -110,9 +110,8 @@ abstract public class EnemyIcon<T> : Icon where T : Enemy
         GameObject _go = Instantiate(EnemyInfoPanelPrefab, parent: actionPanel.transform);
     }
 
-
     protected virtual string GetEnemyNemeLine() => $"{Enemy.GetName()}";
-    protected virtual string GetEnemyActionDescriptionLine() => $"{Enemy.NextActionDescription} in {Enemy.NextActionTime.ToString("0.00")}";
+    protected virtual string GetEnemyActionDescriptionLine() => $"{Enemy.NextActionDescription} in {Enemy.NextActionTime.ToString("0.0")}s";
     protected override void UpdateUI()
     {
         if (Enemy != null)
