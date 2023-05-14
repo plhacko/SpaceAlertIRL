@@ -2031,6 +2031,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1133353201}
     m_Modifications:
+    - target: {fileID: 3899478328256950246, guid: 2d9808c28d5026243af697c61ecf6a96, type: 3}
+      propertyPath: m_text
+      value: ZoneName
+      objectReference: {fileID: 0}
+    - target: {fileID: 3899478328256950246, guid: 2d9808c28d5026243af697c61ecf6a96, type: 3}
+      propertyPath: m_fontStyle
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6827440840436348696, guid: 2d9808c28d5026243af697c61ecf6a96, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
