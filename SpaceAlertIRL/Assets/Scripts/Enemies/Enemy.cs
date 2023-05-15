@@ -42,7 +42,7 @@ public abstract class Enemy : NetworkBehaviour, IComparable<Enemy>, IOnServerFix
     protected NetworkVariable<float> _Speed = new NetworkVariable<float>();
     protected NetworkVariable<float> _Distance = new NetworkVariable<float>();
     protected NetworkVariable<float> _NextActionTime = new NetworkVariable<float>();
-    protected NetworkVariable<FixedString32Bytes> _NextActionDescription = new NetworkVariable<FixedString32Bytes>();
+    protected NetworkVariable<FixedString64Bytes> _NextActionDescription = new NetworkVariable<FixedString64Bytes>();
 
     protected Zone Zone;
 

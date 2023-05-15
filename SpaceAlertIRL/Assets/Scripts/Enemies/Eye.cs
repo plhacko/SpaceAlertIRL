@@ -14,7 +14,7 @@ public sealed class Eye : Enemy<Eye>
     {
         parity = (parity + 1) % 3;
 
-        if (parity == 0) { return new TeleportAllPlayers(20.0f); }
+        if (parity == 0) { return new TeleportAllPlayersToRandomDestination(20.0f); }
         else if (parity == 1) { return new CloseAllDoors(10.0f); }
         else { return new SimpleAttack(2, Zone, 10.0f); }
     }

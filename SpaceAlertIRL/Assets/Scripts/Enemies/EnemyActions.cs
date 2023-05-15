@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Unity.Netcode;
+using System.Linq;
 
 
 #if SERVER
@@ -29,7 +30,7 @@ sealed class SimpleAttack : EnemyAction
 
 sealed class Wait : EnemyAction
 {
-    public override void ExecuteAction() { }    
+    public override void ExecuteAction() { }
 
     public override string GetDescription() => $"waiting";
 
@@ -51,7 +52,7 @@ sealed class LaunchRocket : EnemyAction
     { EnemySpawner = enemySpawner; LaunchFrom = launchFrom; TimeSpan = timeSpan; }
 }
 
-sealed class TeleportAllPlayers : EnemyAction
+sealed class TeleportAllPlayersToRandomDestination : EnemyAction
 {
     public override string GetDescription() => "teleports all players to random rooms";
     public override void ExecuteAction()
@@ -65,13 +66,31 @@ sealed class TeleportAllPlayers : EnemyAction
             AudioManager.GetAudioManager().RequestPlayingSentenceOnClient("youHaveBeenTeleported_r");
         }
     }
-    public TeleportAllPlayers(float timeSpan)
+    public TeleportAllPlayersToRandomDestination(float timeSpan)
     { TimeSpan = timeSpan; }
+}
+
+sealed class TeleportAllPlayersToTisZone : EnemyAction
+{
+    public override string GetDescription() => "teleports all players to this zone";
+    public override void ExecuteAction()
+    {
+        foreach (Player player in Player.GetAllPlayers())
+        {
+            int rndId = Random.Range(0, Rooms.Length);
+            player.RequestChangingRoom(roomName: Rooms[rndId].name, ignoreRestrictions: true);
+
+            AudioManager.GetAudioManager().RequestPlayingSentenceOnClient("youHaveBeenTeleported_r");
+        }
+    }
+    readonly Room[] Rooms;
+    public TeleportAllPlayersToTisZone(float timeSpan, Zone zone)
+    { TimeSpan = timeSpan; Rooms = zone.GetComponentsInChildren<Room>(); }
 }
 
 sealed class CloseAllDoors : EnemyAction
 {
-    public override string GetDescription() => "closes sll doors";
+    public override string GetDescription() => "closes all doors";
     public override void ExecuteAction()
     {
         GameObject[] doors = GameObject.FindGameObjectsWithTag("Door");
@@ -84,6 +103,26 @@ sealed class CloseAllDoors : EnemyAction
     public CloseAllDoors(float timeSpan)
     { TimeSpan = timeSpan; }
 }
+
+sealed class CloseAllDoorsInZone : EnemyAction
+{
+    public override string GetDescription() => "closes all doors in current zone";
+    public override void ExecuteAction()
+    {
+        GameObject[] doors = GameObject.FindGameObjectsWithTag("Door");
+
+        foreach (var go in doors)
+        {
+            Door d = go.GetComponent<Door>();
+            if (Rooms.Contains(d.RoomA) || Rooms.Contains(d.RoomB))
+                d.RequestClosingFully();
+        }
+    }
+    readonly Room[] Rooms;
+    public CloseAllDoorsInZone(float timeSpan, Zone zone)
+    { TimeSpan = timeSpan; Rooms = zone.GetComponentsInChildren<Room>(); }
+}
+
 
 sealed class DepleteShields : EnemyAction
 {
