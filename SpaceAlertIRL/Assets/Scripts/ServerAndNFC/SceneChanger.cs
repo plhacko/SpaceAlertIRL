@@ -19,8 +19,7 @@ public class SceneChanger : MonoBehaviour
         }
         catch (System.Exception)
         {
-            // TODO: give the player some information abouth invalidity of scene name (tag name)
-            print("debug: invalid Scene");
+            print("invalid Scene");
         }
 
     }

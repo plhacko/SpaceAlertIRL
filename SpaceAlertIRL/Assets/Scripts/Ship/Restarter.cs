@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.Netcode;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public interface IRestart
 {
@@ -26,5 +27,10 @@ public class Restarter : MonoBehaviour
         }
 
         GameObject.Find("SceneChanger").GetComponent<SceneChanger>().ChangeScene("MenuScene");
+    }
+
+    public void QuitApplication()
+    {
+        Application.Quit();
     }
 }
