@@ -21,8 +21,7 @@ public class GetIPAddress : MonoBehaviour
         {
             if (ip.AddressFamily == AddressFamily.InterNetwork)
             {
-                localIP = ip.MapToIPv4().ToString();
-                break;
+                localIP = ip.ToString();
             }
         }
         return localIP;
