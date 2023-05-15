@@ -21,7 +21,7 @@ public class IsConnectedPanel : MonoBehaviour
 
     protected void UpdateUI()
     {
-        GetComponentInChildren<TextMeshProUGUI>().text = Player.IsConnectedToPanel.Value ? "connected" : "disconnected";
+        // GetComponentInChildren<TextMeshProUGUI>().text = Player.IsConnectedToPanel.Value ? "connected" : "disconnected";
     }
 
     private void OnDisable()

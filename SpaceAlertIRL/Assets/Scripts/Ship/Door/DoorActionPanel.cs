@@ -21,9 +21,6 @@ public class DoorActionPanel : ActionPanel
 
         DoorStatus = transform.Find("DoorStatus").GetComponentInChildren<TextMeshProUGUI>();
         DoorActivity = transform.Find("DoorActivity").GetComponentInChildren<TextMeshProUGUI>();
-
-        transform.Find("RoomIcon_A").GetComponentInChildren<TextMeshProUGUI>().text = $"RoomA : {Door.RoomA.Name}";
-        transform.Find("RoomIcon_B").GetComponentInChildren<TextMeshProUGUI>().text = $"RoomB : {Door.RoomB.Name}";
     }
 
     virtual public void Initialise(Door door)
@@ -34,6 +31,10 @@ public class DoorActionPanel : ActionPanel
         UpdateUIAction = UpdateUI;
         UpdateUIAction();
         Door.UIActions.AddAction(UpdateUIAction);
+
+        // is part of UI, but will ot change
+        transform.Find("RoomIcon_A").GetComponentInChildren<TextMeshProUGUI>().text = $"RoomA : {Door.RoomA.Name}";
+        transform.Find("RoomIcon_B").GetComponentInChildren<TextMeshProUGUI>().text = $"RoomB : {Door.RoomB.Name}";
     }
 
     public void OpenDoor()
@@ -48,19 +49,19 @@ public class DoorActionPanel : ActionPanel
 
     private void UpdateUI()
     {
-        var _percentege = 100 * Door.OpenningClosingProgress.Value / Door.TimeToOpenDoorsConst;
-        string _status = Door.IsOpen.Value ? "open" : "closed";
+        var _percentege = 100 * Door.OpenningClosingProgress / Door.TimeToOpenDoorsConst;
+        string _status = Door.IsOpen ? "open" : "closed";
 
         DoorStatus.text = $"status : {_status}";
         DoorActivity.text = $"activity : {_percentege.ToString("0.##\\%")}";
 
         Color c;
         c = OpenButton.color;
-        c.a = Door.IsOpen.Value ? 0.6f : 1f;
+        c.a = Door.IsOpen ? 0.6f : 1f;
         OpenButton.color = c;
 
         c = CloseButton.color;
-        c.a = Door.IsOpen.Value ? 1f : 0.6f;
+        c.a = Door.IsOpen ? 1f : 0.6f;
         CloseButton.color = c;
     }
 
@@ -78,11 +79,11 @@ public class DoorActionPanel : ActionPanel
 
         if (player.CurrentRoomName.Value != Door.RoomA.Name)
         {
-            player.RequestChangingRoom(roomName: Door.RoomA.Name, conectToPanel: true, ignoreRestrictions: true);
+            player.RequestChangingRoom(roomName: Door.RoomA.Name, ignoreRestrictions: true);
         }
         else if (player.CurrentRoomName.Value != Door.RoomB.Name)
         {
-            player.RequestChangingRoom(Door.RoomB.Name, conectToPanel: true, ignoreRestrictions: true);
+            player.RequestChangingRoom(Door.RoomB.Name, ignoreRestrictions: true);
         }
         else
         { Debug.Log("player is not at the same room as doors and is trying to go through"); }

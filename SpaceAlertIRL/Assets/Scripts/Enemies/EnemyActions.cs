@@ -59,7 +59,7 @@ sealed class TeleportAllPlayers : EnemyAction
         foreach (Player player in Player.GetAllPlayers())
         {
             int rndId = Random.Range(0, Rooms.Length);
-            player.RequestChangingRoom(roomName: Rooms[rndId].name, conectToPanel: false, ignoreRestrictions: true);
+            player.RequestChangingRoom(roomName: Rooms[rndId].name, ignoreRestrictions: true);
 
             AudioManager.GetAudioManager().RequestPlayingSentenceOnClient("youHaveBeenTeleported_r");
         }

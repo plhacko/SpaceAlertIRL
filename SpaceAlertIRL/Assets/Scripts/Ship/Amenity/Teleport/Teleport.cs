@@ -28,7 +28,7 @@ public class Teleport : Amenity<Teleport>
             return;
         }
 
-        Player.GetLocalPlayer()?.RequestChangingRoom("Teleport", conectToPanel: false, ignoreRestrictions: true);
+        Player.GetLocalPlayer()?.RequestChangingRoom("Teleport", ignoreRestrictions: true);
         AudioManager.GetAudioManager().RequestPlayingSentenceOnClient("youHaveBeenTeleported_r", clientId: clientId);
     }
 }

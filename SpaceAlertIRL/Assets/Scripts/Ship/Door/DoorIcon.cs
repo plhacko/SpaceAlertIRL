@@ -38,10 +38,10 @@ public class DoorIcon : Icon
     {
         if (Door != null && NextRoom != null)
         {
-            string _status = Door.IsOpen.Value ? "open" : "close";
+            string _status = Door.IsOpen ? "open" : "close";
             GetComponentInChildren<TextMeshProUGUI>().text = $"{NextRoom.Name} : {_status}";
 
-            if (Door.IsOpen.Value)
+            if (Door.IsOpen)
             { GetComponent<Image>().color = Color.green; }
             else { GetComponent<Image>().color = Color.white; }
         }

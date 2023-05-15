@@ -26,11 +26,7 @@ public class ActionPanelSpawner : MonoBehaviour
     private void Start()
     {
         Color = GetComponent<Image>().color;
-
         ResetSelf();
-
-        if (!Player.GetLocalPlayer().IsConnectedToPanel.Value)
-        { Destroy(gameObject); }
     }
 
     private void OnDisable()

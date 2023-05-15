@@ -15,9 +15,6 @@ public class Player : NetworkBehaviour, IRestart
     // this singals, where the player is currently loccated
     // the important part is, that the players can't change this variable themself, they must request the server
     public NetworkVariable<FixedString32Bytes> CurrentRoomName = new NetworkVariable<FixedString32Bytes>(StartingRoom);
-
-    // if is connected to the panel the player canot change rooms until he/she disconnects
-    public NetworkVariable<bool> IsConnectedToPanel = new NetworkVariable<bool>(true);
     
     private NetworkVariable<FixedString32Bytes> _Name = new NetworkVariable<FixedString32Bytes>(BasePlayerName);
 
@@ -44,19 +41,18 @@ public class Player : NetworkBehaviour, IRestart
         return null;
     }
 
-    public void RequestChangingRoom(string roomName, bool conectToPanel, bool ignoreRestrictions = false)
+    public void RequestChangingRoom(string roomName, bool ignoreRestrictions = false)
     {
-        if (roomName == CurrentRoomName.Value && conectToPanel == IsConnectedToPanel.Value) { return; }
+        if (roomName == CurrentRoomName.Value) { return; }
 
         ulong clientId = NetworkManager.Singleton.LocalClientId;
-        ChangeRoomServerRpc(roomName, conectToPanel, clientId, ignoreRestrictions);
+        ChangeRoomServerRpc(roomName, clientId, ignoreRestrictions);
     }
 
     void Start()
     {
         UIActions = new UpdateUIActions();
         UIActions.AddOnValueChangeDependency(CurrentRoomName);
-        UIActions.AddOnValueChangeDependency(IsConnectedToPanel);
         if (IsLocalPlayer)
         { UIActions.AddAction(RestartScene);}
 
@@ -65,7 +61,7 @@ public class Player : NetworkBehaviour, IRestart
     }
 
     [ServerRpc]
-    void ChangeRoomServerRpc(FixedString32Bytes newRoomName, bool conectToPanel, ulong clientId, bool ignoreRestrictions = false, ServerRpcParams rpcParams = default)
+    void ChangeRoomServerRpc(FixedString32Bytes newRoomName, ulong clientId, bool ignoreRestrictions = false, ServerRpcParams rpcParams = default)
     {
         // going through the teleport
         if (CurrentRoomName.Value == "Teleport")
@@ -79,11 +75,6 @@ public class Player : NetworkBehaviour, IRestart
         { CurrentRoomName.Value = newRoomName; }
         else if (CurrentRoomName.Value == newRoomName)
         { }
-        else if (IsConnectedToPanel.Value)
-        {
-            // if the player is still connected to the panel and is trying to change rooms, give the player audio feed back
-            AudioManager.GetAudioManager().RequestPlayingSentenceOnClient("youShellNotPass_r disconnectThePanel_r", clientId: clientId);
-        }
         else if (!CanGoThroughDoors())
         {
             // if there are no doors to go through, give the player audio feed back
@@ -94,17 +85,13 @@ public class Player : NetworkBehaviour, IRestart
             CurrentRoomName.Value = newRoomName;
         }
 
-        // sets if the player is connected to panel (only if the tag is the same as the room the player is right now in)
-        if (CurrentRoomName.Value == newRoomName)
-        { IsConnectedToPanel.Value = conectToPanel; }
-
         bool CanGoThroughDoors()
         {
             // going through the doors
             Room r = GameObject.Find(CurrentRoomName.Value.ToString()).GetComponent<Room>();
             foreach (var d in r.Doors)
             {
-                if (d.IsOpen.Value && (d.RoomA.Name == newRoomName || d.RoomB.Name == newRoomName))
+                if (d.IsOpen && (d.RoomA.Name == newRoomName || d.RoomB.Name == newRoomName))
                 {
                     return true;
                 }
@@ -132,7 +119,6 @@ public class Player : NetworkBehaviour, IRestart
     public void Restart()
     {
         CurrentRoomName.Value = StartingRoom;
-        IsConnectedToPanel.Value = true;
         _Name.Value = BasePlayerName;
     }
 }

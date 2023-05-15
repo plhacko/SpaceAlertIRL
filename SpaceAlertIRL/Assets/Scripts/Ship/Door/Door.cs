@@ -13,21 +13,29 @@ public class Door : NetworkBehaviour, IRestart
 
     public string Name { get => gameObject.name; }
 
-    public Room RoomA;
-    public Room RoomB;
+    [SerializeField] public Room RoomA;
+    [SerializeField] public Room RoomB;
 
-    public NetworkVariable<bool> IsOpen = new NetworkVariable<bool>(true);
-    public NetworkVariable<float> OpenningClosingProgress = new NetworkVariable<float>(0.0f);
+    [SerializeField] bool IsOpenFromStart = true;
+    NetworkVariable<bool> _IsOpen;
+    NetworkVariable<float> _OpenningClosingProgress;
+
+    public bool IsOpen { get => _IsOpen.Value; }
+    public float OpenningClosingProgress { get => _OpenningClosingProgress.Value; }
 
     public UpdateUIActions UIActions = new UpdateUIActions();
 
     void Start()
     {
+        _IsOpen = new NetworkVariable<bool>(IsOpenFromStart);
+        _OpenningClosingProgress = new NetworkVariable<float>(TimeToOpenDoorsConst);
+
+
         AddSelfToRoom(RoomA);
         AddSelfToRoom(RoomB);
 
-        UIActions.AddOnValueChangeDependency(IsOpen);
-        UIActions.AddOnValueChangeDependency(OpenningClosingProgress);
+        UIActions.AddOnValueChangeDependency(_IsOpen);
+        UIActions.AddOnValueChangeDependency(_OpenningClosingProgress);
 
         UpdateUI();
         UIActions.AddAction(UpdateUI);
@@ -35,9 +43,9 @@ public class Door : NetworkBehaviour, IRestart
 
     void UpdateUI()
     {
-        if (IsOpen.Value)
-        { GetComponent<Image>().color = ProjectColors.NeonGreen(); }
-        else { GetComponent<Image>().color = Color.white; }
+        if (_IsOpen.Value)
+        { GetComponent<Image>().color = Color.white; }
+        else { GetComponent<Image>().color = ProjectColors.NeonYellow(); }
     }
 
 #if (SERVER)
@@ -45,25 +53,25 @@ public class Door : NetworkBehaviour, IRestart
     [ServerRpc(RequireOwnership = false)]
     void OpenCloseServerRpc(float deltaTime, ulong clientId)
     {
-        float _newOpenning = OpenningClosingProgress.Value + deltaTime;
+        float _newOpenning = _OpenningClosingProgress.Value + deltaTime;
         if (_newOpenning <= 0)
         {
-            IsOpen.Value = false;
-            OpenningClosingProgress.Value = 0.0f;
+            _IsOpen.Value = false;
+            _OpenningClosingProgress.Value = 0.0f;
         }
         else if (_newOpenning >= TimeToOpenDoorsConst)
         {
-            IsOpen.Value = true;
-            OpenningClosingProgress.Value = TimeToOpenDoorsConst;
+            _IsOpen.Value = true;
+            _OpenningClosingProgress.Value = TimeToOpenDoorsConst;
         }
         else
-        { OpenningClosingProgress.Value = _newOpenning; }
+        { _OpenningClosingProgress.Value = _newOpenning; }
     }
     [ServerRpc(RequireOwnership = false)]
     void SetIsOpenServerRpc(bool isOpen)
     {
-        IsOpen.Value = isOpen;
-        OpenningClosingProgress.Value = isOpen ? TimeToOpenDoorsConst : 0.0f;
+        _IsOpen.Value = isOpen;
+        _OpenningClosingProgress.Value = isOpen ? TimeToOpenDoorsConst : 0.0f;
     }
 #endif
 
@@ -82,19 +90,12 @@ public class Door : NetworkBehaviour, IRestart
         OpenCloseServerRpc(-Time.deltaTime, clientId);
     }
 
-    void AddSelfToRoom(Room r)
-    {
-        r.AddDoor(this);
-    }
+    void AddSelfToRoom(Room r) => r.AddDoor(this);
 
-    public bool IsConnectedToRoom(Room r)
-    {
-        return r == RoomA || r == RoomB;
-    }
-
+    public bool IsConnectedToRoom(Room r) => (r == RoomA || r == RoomB);
     public void Restart()
     {
-        IsOpen.Value = false;
-        OpenningClosingProgress.Value = 0.0f;
+        _IsOpen.Value = IsOpenFromStart;
+        _OpenningClosingProgress.Value = TimeToOpenDoorsConst;
     }
 }
