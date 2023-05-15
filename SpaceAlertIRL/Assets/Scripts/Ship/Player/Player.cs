@@ -9,7 +9,7 @@ using System.Net;
 
 public class Player : NetworkBehaviour, IRestart
 {
-    const string BasePlayerName = "pName";
+    const string BasePlayerName = "noName";
     const string StartingRoom = "B0";
 
     // this singals, where the player is currently loccated
