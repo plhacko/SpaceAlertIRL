@@ -19,8 +19,8 @@ sealed class SimpleAttack : EnemyAction
 {
     public override void ExecuteAction() { Zone.TakeDmage(Damage); }
 
-    int Damage;
-    Zone Zone;
+    readonly int Damage;
+    readonly Zone Zone;
     public SimpleAttack(int damage, Zone zone, float timeSpan)
     { Damage = damage; Zone = zone; TimeSpan = timeSpan; }
 
@@ -29,7 +29,7 @@ sealed class SimpleAttack : EnemyAction
 
 sealed class Wait : EnemyAction
 {
-    public override void ExecuteAction() { }
+    public override void ExecuteAction() { }    
 
     public override string GetDescription() => $"waiting";
 
@@ -44,8 +44,9 @@ sealed class LaunchRocket : EnemyAction
         Enemy rocket = EnemySpawner.SpawnEnemy("Rocket");
         rocket?.SetDistance(LaunchFrom.Distance - 0.2f);
     }
-    EnemySpawner EnemySpawner;
-    Enemy LaunchFrom;
+
+    readonly EnemySpawner EnemySpawner;
+    readonly Enemy LaunchFrom;
     public LaunchRocket(EnemySpawner enemySpawner, Enemy launchFrom, float timeSpan)
     { EnemySpawner = enemySpawner; LaunchFrom = launchFrom; TimeSpan = timeSpan; }
 }
@@ -97,7 +98,7 @@ sealed class DepleteShields : EnemyAction
         }
     }
 
-    int EnergyToDeplete;
+    readonly int EnergyToDeplete;
     public DepleteShields(int eneryToDeplete, float timeSpan)
     {
         TimeSpan = timeSpan;
@@ -119,8 +120,8 @@ sealed class DepleteEnergy : EnemyAction
     }
     public override string GetDescription() => $"depletes _{EnergyToDeplete}_ energy in each zone";
 
-    int EnergyToDeplete;
-    Zone Zone;
+    readonly int EnergyToDeplete;
+    readonly Zone Zone;
     public DepleteEnergy(int eneryToDeplete, float timeSpan, Zone zone)
     {
         TimeSpan = timeSpan;
@@ -134,8 +135,8 @@ sealed class SpeedUp : EnemyAction
     public override void ExecuteAction() => Enemy.Speed += SpeedUpValue;
     public override string GetDescription() => $"Speeds up from _{Enemy.Speed}_ to _{Enemy.Speed + SpeedUpValue}_";
 
-    float SpeedUpValue;
-    Enemy Enemy;
+    readonly float SpeedUpValue;
+    readonly Enemy Enemy;
     public SpeedUp(Enemy enemy, float speedUpValue)
     {
         SpeedUpValue = speedUpValue;

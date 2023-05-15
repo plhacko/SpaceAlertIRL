@@ -8,7 +8,6 @@ public class PlayerIconSpawner : MonoBehaviour
     [SerializeField]
     private GameObject PlayerIconPrefab;
 
-    // Start is called before the first frame update
     void Start()
     {
         SpawnAllPlayerIcons();
