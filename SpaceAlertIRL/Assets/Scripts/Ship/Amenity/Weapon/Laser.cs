@@ -56,7 +56,7 @@ public class Laser : Weapon<Laser>, IOnServerFixedUpdate
         if (IsTooHotToShoot)
         {
             // notify the player
-            AudioManager.GetAudioManager().RequestPlayingSentenceOnClient("highHeatAlert_r", clientId: clientId);
+            AudioManager.Instance.RequestPlayingSentenceOnClient("highHeatAlert_r", clientId: clientId);
             return;
         }
 
@@ -65,7 +65,7 @@ public class Laser : Weapon<Laser>, IOnServerFixedUpdate
         if (enemy == null || enemy.Distance > Range)
         {
             // notify the player
-            AudioManager.GetAudioManager().RequestPlayingSentenceOnClient("noValidTargets_r", clientId: clientId);
+            AudioManager.Instance.RequestPlayingSentenceOnClient("noValidTargets_r", clientId: clientId);
             return;
         }
 
@@ -73,7 +73,7 @@ public class Laser : Weapon<Laser>, IOnServerFixedUpdate
         if (!Room.EnergySource.PullEnergy(EnergyCostToShootConst))
         {
             // notify the player
-            AudioManager.GetAudioManager().RequestPlayingSentenceOnClient("notEnoughEnergy_r", clientId: clientId);
+            AudioManager.Instance.RequestPlayingSentenceOnClient("notEnoughEnergy_r", clientId: clientId);
             return;
         }
 
@@ -95,7 +95,7 @@ public class Laser : Weapon<Laser>, IOnServerFixedUpdate
         if (IsActivelyCooled)
         {
             // notify the player
-            AudioManager.GetAudioManager().RequestPlayingSentenceOnClient("CoolingAlreadyActive_r", clientId: clientId); // TODO: add voice track
+            AudioManager.Instance.RequestPlayingSentenceOnClient("CoolingAlreadyActive_r", clientId: clientId); // TODO: add voice track
             return;
         }
 
@@ -103,7 +103,7 @@ public class Laser : Weapon<Laser>, IOnServerFixedUpdate
         if (!IsTooHotToShoot)
         {
             // notify the player
-            AudioManager.GetAudioManager().RequestPlayingSentenceOnClient("NoAditionalCoolingNeeded_r", clientId: clientId); // TODO: add voice track
+            AudioManager.Instance.RequestPlayingSentenceOnClient("NoAditionalCoolingNeeded_r", clientId: clientId); // TODO: add voice track
             return;
         }
 
@@ -111,7 +111,7 @@ public class Laser : Weapon<Laser>, IOnServerFixedUpdate
         if (!Room.EnergySource.PullEnergy(EnergyCostToActiveCoolingConst))
         {
             // notify the player
-            AudioManager.GetAudioManager().RequestPlayingSentenceOnClient("notEnoughEnergy_r", clientId: clientId);
+            AudioManager.Instance.RequestPlayingSentenceOnClient("notEnoughEnergy_r", clientId: clientId);
             return;
         }
 

@@ -63,7 +63,7 @@ sealed class TeleportAllPlayersToRandomDestination : EnemyAction
             int rndId = Random.Range(0, Rooms.Length);
             player.RequestChangingRoom(roomName: Rooms[rndId].name, ignoreRestrictions: true);
 
-            AudioManager.GetAudioManager().RequestPlayingSentenceOnClient("youHaveBeenTeleported_r");
+            AudioManager.Instance.RequestPlayingSentenceOnClient("youHaveBeenTeleported_r");
         }
     }
     public TeleportAllPlayersToRandomDestination(float timeSpan)
@@ -80,7 +80,7 @@ sealed class TeleportAllPlayersToTisZone : EnemyAction
             int rndId = Random.Range(0, Rooms.Length);
             player.RequestChangingRoom(roomName: Rooms[rndId].name, ignoreRestrictions: true);
 
-            AudioManager.GetAudioManager().RequestPlayingSentenceOnClient("youHaveBeenTeleported_r");
+            AudioManager.Instance.RequestPlayingSentenceOnClient("youHaveBeenTeleported_r");
         }
     }
     readonly Room[] Rooms;

@@ -174,7 +174,7 @@ public abstract class Enemy : NetworkBehaviour, IComparable<Enemy>, IOnServerFix
         if (!silent)
         {
             string _zoneName = GetComponentInParent<Zone>().gameObject.name + "_r";
-            AudioManager.GetAudioManager().RequestPlayingSentenceOnClient($"{_zoneName} enemyTerminated_r", removeDuplicates: false);
+            AudioManager.Instance.RequestPlayingSentenceOnClient($"{_zoneName} enemyTerminated_r", removeDuplicates: false);
         }
 
         _HP.Value = 0;

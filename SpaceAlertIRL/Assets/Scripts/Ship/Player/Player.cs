@@ -67,7 +67,7 @@ public class Player : NetworkBehaviour, IRestart
         if (CurrentRoomName.Value == "Teleport")
         {
             ignoreRestrictions = true;
-            AudioManager.GetAudioManager().RequestPlayingSentenceOnClient("youHaveBeenTeleported_r", clientId: clientId);
+            AudioManager.Instance.RequestPlayingSentenceOnClient("youHaveBeenTeleported_r", clientId: clientId);
         }
 
         // set new room name
@@ -78,7 +78,7 @@ public class Player : NetworkBehaviour, IRestart
         else if (!CanGoThroughDoors())
         {
             // if there are no doors to go through, give the player audio feed back
-            AudioManager.GetAudioManager().RequestPlayingSentenceOnClient("youShellNotPass_r doorsAreClosed_r", clientId: clientId);
+            AudioManager.Instance.RequestPlayingSentenceOnClient("youShellNotPass_r doorsAreClosed_r", clientId: clientId);
         }
         else
         {

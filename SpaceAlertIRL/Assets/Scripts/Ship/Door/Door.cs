@@ -18,9 +18,11 @@ public class Door : NetworkBehaviour, IRestart
 
     [SerializeField] bool IsOpenFromStart = true;
     NetworkVariable<bool> _IsOpen;
+    NetworkVariable<bool> _IsLocked;
     NetworkVariable<float> _OpenningClosingProgress;
 
     public bool IsOpen { get => _IsOpen.Value; }
+    public bool IsLocked { get => _IsLocked.Value; }
     public float OpenningClosingProgress { get => _OpenningClosingProgress.Value; }
 
     public UpdateUIActions UIActions = new UpdateUIActions();
@@ -28,6 +30,7 @@ public class Door : NetworkBehaviour, IRestart
     void Start()
     {
         _IsOpen = new NetworkVariable<bool>(IsOpenFromStart);
+        _IsLocked = new NetworkVariable<bool>(false);
         _OpenningClosingProgress = new NetworkVariable<float>(TimeToOpenDoorsConst);
 
 
@@ -53,6 +56,12 @@ public class Door : NetworkBehaviour, IRestart
     [ServerRpc(RequireOwnership = false)]
     void OpenCloseServerRpc(float deltaTime, ulong clientId)
     {
+        if (IsLocked)
+        {
+            AudioManager.Instance.RequestPlayingSentenceOnClient("doorsAreLocked_r", clientId: clientId);
+            return;
+        }
+
         float _newOpenning = _OpenningClosingProgress.Value + deltaTime;
         if (_newOpenning <= 0)
         {

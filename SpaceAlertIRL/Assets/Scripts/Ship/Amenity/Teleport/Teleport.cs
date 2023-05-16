@@ -24,11 +24,11 @@ public class Teleport : Amenity<Teleport>
         if (!Room.EnergySource.PullEnergy(EnergyCostConst))
         {
             // notify the player
-            AudioManager.GetAudioManager().RequestPlayingSentenceOnClient("notEnoughEnergy_r", clientId: clientId);
+            AudioManager.Instance.RequestPlayingSentenceOnClient("notEnoughEnergy_r", clientId: clientId);
             return;
         }
 
         Player.GetLocalPlayer()?.RequestChangingRoom("Teleport", ignoreRestrictions: true);
-        AudioManager.GetAudioManager().RequestPlayingSentenceOnClient("youHaveBeenTeleported_r", clientId: clientId);
+        AudioManager.Instance.RequestPlayingSentenceOnClient("youHaveBeenTeleported_r", clientId: clientId);
     }
 }

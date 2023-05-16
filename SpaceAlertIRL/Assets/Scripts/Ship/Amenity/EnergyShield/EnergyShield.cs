@@ -32,7 +32,7 @@ public class EnergyShield : Amenity<EnergyShield>
         if (receivedEnergy == 0)
         {
             // message for the player, tahat there was not enough energy
-            AudioManager.GetAudioManager().RequestPlayingSentenceOnClient("netEnoughEnergy_r", clientId: clientId);
+            AudioManager.Instance.RequestPlayingSentenceOnClient("netEnoughEnergy_r", clientId: clientId);
         }
         else { GetComponentInParent<Zone>().UIActions.UpdateUI(); }
     }

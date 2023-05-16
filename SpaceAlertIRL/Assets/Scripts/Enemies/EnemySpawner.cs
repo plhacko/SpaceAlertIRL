@@ -40,7 +40,7 @@ public class EnemySpawner : MonoBehaviour, IRestart
         if (!silent)
         {
             string _zoneName = GetComponentInParent<Zone>().gameObject.name + "_r";
-            AudioManager.GetAudioManager().RequestPlayingSentenceOnClient($"{_zoneName} enemyDetected_r", removeDuplicates: false);
+            AudioManager.Instance.RequestPlayingSentenceOnClient($"{_zoneName} enemyDetected_r", removeDuplicates: false);
         }
         return go.GetComponent<Enemy>();
     }

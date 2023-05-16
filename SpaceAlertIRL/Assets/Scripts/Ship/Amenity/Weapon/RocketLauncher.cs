@@ -57,11 +57,11 @@ public class RocketLauncher : Weapon<RocketLauncher>
             Enemy enemy = TargetedZone.GetComponentInChildren<EnemySpawner>().SpawnEnemy(RocketPrefab, silent: true);
             if (enemy.GetType() == typeof(Rocket))
             { ((Rocket)enemy)?.ChangeDirection(); }
-            AudioManager.GetAudioManager().RequestPlayingSentenceOnClient("rocketLaunched_r", removeDuplicates: false); // TODO: missing voicetrack
+            AudioManager.Instance.RequestPlayingSentenceOnClient("rocketLaunched_r", removeDuplicates: false); // TODO: missing voicetrack
         }
         else
         {
-            AudioManager.GetAudioManager().RequestPlayingSentenceOnClient("notEnoughRockets_r", clientId: clientId);
+            AudioManager.Instance.RequestPlayingSentenceOnClient("notEnoughRockets_r", clientId: clientId);
         }
     }
 

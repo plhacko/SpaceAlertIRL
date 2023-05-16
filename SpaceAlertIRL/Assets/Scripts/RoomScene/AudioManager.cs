@@ -26,13 +26,11 @@ public class AudioManager : NetworkBehaviour
         {
             SoundDict.Add(sound.name, sound);
         }
-    }
 
-    static public AudioManager GetAudioManager()
-    {
-        // TODO: ??singleton??
-        return GameObject.Find("AudioManager").GetComponent<AudioManager>();
+        if (Instance == null)
+            Instance = this;
     }
+    public static AudioManager Instance { get; private set; }
 
     public void PlaySentenceLoclaly(string sentence, bool removeDuplicates = true)
     {

@@ -68,7 +68,7 @@ public class Railgun : Weapon<Railgun>
 
         if (!IsCharged)
         {
-            AudioManager.GetAudioManager().RequestPlayingSentenceOnClient("weaponIsNotLoaded_r", clientId: clientId);
+            AudioManager.Instance.RequestPlayingSentenceOnClient("weaponIsNotLoaded_r", clientId: clientId);
             return;
         }
 
@@ -77,14 +77,14 @@ public class Railgun : Weapon<Railgun>
         if (enemy == null || enemy.Distance > Range)
         {
             // notify the player
-            AudioManager.GetAudioManager().RequestPlayingSentenceOnClient("noValidTargets_r", clientId: clientId);
+            AudioManager.Instance.RequestPlayingSentenceOnClient("noValidTargets_r", clientId: clientId);
             return;
         }
 
         if (!Room.EnergySource.PullEnergy(EnergyCostToShootConst))
         {
             // notify the player
-            AudioManager.GetAudioManager().RequestPlayingSentenceOnClient("notEnoughEnergy_r", clientId: clientId);
+            AudioManager.Instance.RequestPlayingSentenceOnClient("notEnoughEnergy_r", clientId: clientId);
             return;
         }
 
