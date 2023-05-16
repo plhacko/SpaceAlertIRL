@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Unity.Netcode;
 using System.Linq;
+using UnityEditor;
 
 
 #if SERVER
@@ -123,6 +124,67 @@ sealed class CloseAllDoorsInZone : EnemyAction
     { TimeSpan = timeSpan; Rooms = zone.GetComponentsInChildren<Room>(); }
 }
 
+sealed class LockAllDoorsInZoneForTime : EnemyAction
+{
+    public override string GetDescription() => $"locks all doors in zone for {WaitTime.ToString("0.0")}s";
+    public override void ExecuteAction()
+    {
+        GameObject[] doors = GameObject.FindGameObjectsWithTag("Door");
+
+        foreach (var go in doors)
+        {
+            Door d = go.GetComponent<Door>();
+            if (Rooms.Contains(d.RoomA) || Rooms.Contains(d.RoomB))
+            {
+                d.RequestLocking();
+                d.StartCoroutine(UnlockDoorAfterWhile(d, WaitTime));
+            }
+        }
+    }
+    IEnumerator UnlockDoorAfterWhile(Door d, float waitTime)
+    {
+        yield return new Wait(waitTime);
+        d.RequestUnlocking();
+    }
+
+    readonly Room[] Rooms;
+    readonly long WaitTime;
+    public LockAllDoorsInZoneForTime(float timeSpan, long waitTime, Zone zone)
+    { TimeSpan = timeSpan; Rooms = zone.GetComponentsInChildren<Room>(); WaitTime = waitTime; }
+}
+
+sealed class LockRandomNDoorsForTime : EnemyAction
+{
+    public override string GetDescription() => $"locks _{NumberOfDoorsToLock}_ random doors for {WaitTime.ToString("0.0")}s";
+    public override void ExecuteAction()
+    {
+        GameObject[] doors = GameObject.FindGameObjectsWithTag("Door");
+
+        for (int i = 0; i < NumberOfDoorsToLock; i++)
+        {
+            Door d = doors[Random.Range(0, doors.Length)].GetComponent<Door>();
+            CloseAndOpen(d);
+        }
+
+
+
+        void CloseAndOpen(Door d)
+        {
+            d.RequestLocking();
+            d.StartCoroutine(UnlockDoorAfterWhile(d, WaitTime));
+        }
+    }
+    IEnumerator UnlockDoorAfterWhile(Door d, float waitTime)
+    {
+        yield return new Wait(waitTime);
+        d.RequestUnlocking();
+    }
+
+    readonly float WaitTime;
+    readonly int NumberOfDoorsToLock;
+    public LockRandomNDoorsForTime(float timeSpan, float waitTime, int numberOfDoorsToLock)
+    { TimeSpan = timeSpan; WaitTime = waitTime; NumberOfDoorsToLock = numberOfDoorsToLock; }
+}
 
 sealed class DepleteShields : EnemyAction
 {

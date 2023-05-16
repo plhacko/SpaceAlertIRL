@@ -43,6 +43,7 @@ public class DoorIcon : Icon
 
             if (Door.IsOpen)
             { GetComponent<Image>().color = Color.white; }
+            else if (Door.IsLocked) { GetComponent<Image>().color = ProjectColors.NeonRed(); }
             else { GetComponent<Image>().color = ProjectColors.NeonYellow(); }
         }
     }

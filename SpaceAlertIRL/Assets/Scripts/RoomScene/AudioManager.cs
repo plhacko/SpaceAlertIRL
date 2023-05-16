@@ -74,7 +74,33 @@ public class AudioManager : NetworkBehaviour
         PlaySentenceLoclaly(sentences, removeDuplicates);
     }
 
-    void FixedUpdate()
+    public void RequestVibratingSentenceOnClient(VibrationDuration millis, ulong? clientId = null)
+        => RequestVibratingSentenceOnClient((long)millis, clientId);
+
+    public void RequestVibratingSentenceOnClient(long millis, ulong? clientId = null)
+    {
+        ClientRpcParams clientRpcParams;
+        if (clientId != null) // broadcast to specific client
+        {
+            clientRpcParams = new ClientRpcParams
+            {
+                Send = new ClientRpcSendParams { TargetClientIds = new ulong[] { clientId.Value } }
+            };
+        }
+        else // broadcast to all clients
+        { clientRpcParams = default; }
+
+        VibrateClientRpc(millis, clientRpcParams);
+    }
+
+    [ClientRpc]
+    void VibrateClientRpc(long millis, ClientRpcParams clientRpcParams = default)
+    {
+        Vibration.Vibrate(millis);
+    }
+
+
+    void Update()
     {
         if (AudioSource_announcer.isPlaying || Announcer_que.Count == 0) { return; }
 

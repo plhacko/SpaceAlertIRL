@@ -20,7 +20,7 @@ public class Laser : Weapon<Laser>, IOnServerFixedUpdate
     NetworkVariable<float> _Heat = new NetworkVariable<float>(StartHeatConst);
     NetworkVariable<float> _CoolingModifier = new NetworkVariable<float>(NormalCoolingModifierConst);
 
-    public int Damage { get => _Damage.Value; private set { _Damage.Value = value; }}
+    public int Damage { get => _Damage.Value; private set { _Damage.Value = value; } }
     public float Range { get => _Range.Value; private set { _Range.Value = value; } }
     public float Heat { get => _Heat.Value; private set { _Heat.Value = value; } }
     public float CoolingModifier { get => _CoolingModifier.Value; private set { _CoolingModifier.Value = value; } }
@@ -57,6 +57,7 @@ public class Laser : Weapon<Laser>, IOnServerFixedUpdate
         {
             // notify the player
             AudioManager.Instance.RequestPlayingSentenceOnClient("highHeatAlert_r", clientId: clientId);
+            AudioManager.Instance.RequestVibratingSentenceOnClient(VibrationDuration.error, clientId: clientId);
             return;
         }
 
@@ -66,6 +67,7 @@ public class Laser : Weapon<Laser>, IOnServerFixedUpdate
         {
             // notify the player
             AudioManager.Instance.RequestPlayingSentenceOnClient("noValidTargets_r", clientId: clientId);
+            AudioManager.Instance.RequestVibratingSentenceOnClient(VibrationDuration.error, clientId: clientId);
             return;
         }
 
@@ -74,11 +76,17 @@ public class Laser : Weapon<Laser>, IOnServerFixedUpdate
         {
             // notify the player
             AudioManager.Instance.RequestPlayingSentenceOnClient("notEnoughEnergy_r", clientId: clientId);
+            AudioManager.Instance.RequestVibratingSentenceOnClient(VibrationDuration.error, clientId: clientId);
             return;
         }
 
+        // success
         Heat += HeatCostPerShotConst;
         enemy.TakeDamage(Damage);
+        
+        AudioManager.Instance.RequestVibratingSentenceOnClient(VibrationDuration.success, clientId: clientId);
+        if (enemy != null)
+            AudioManager.Instance.RequestPlayingSentenceOnClient("enemyDamaged_r", clientId: clientId); // TODO: add voicetrack
     }
 
 
@@ -88,6 +96,7 @@ public class Laser : Weapon<Laser>, IOnServerFixedUpdate
         ShootAtClosestEnemyServerRpc(clientId);
     }
 
+    // is not currently used in the game, code might be not up to date
     [ServerRpc(RequireOwnership = false)]
     void ActivateActiveCoolingServerRpc(ulong clientId)
     {
@@ -118,7 +127,7 @@ public class Laser : Weapon<Laser>, IOnServerFixedUpdate
         CoolingModifier = ActiveCoolingModifierConst;
     }
 
-
+    // is not currently used in the game, code might be not up to date
     public void RequestActivateActiveCooling()
     {
         ulong clientId = NetworkManager.Singleton.LocalClientId;

@@ -46,8 +46,9 @@ public class Door : NetworkBehaviour, IRestart
 
     void UpdateUI()
     {
-        if (_IsOpen.Value)
+        if (IsOpen)
         { GetComponent<Image>().color = Color.white; }
+        else if (IsLocked) { GetComponent<Image>().color = ProjectColors.NeonRed(); }
         else { GetComponent<Image>().color = ProjectColors.NeonYellow(); }
     }
 
@@ -79,25 +80,36 @@ public class Door : NetworkBehaviour, IRestart
     [ServerRpc(RequireOwnership = false)]
     void SetIsOpenServerRpc(bool isOpen)
     {
+        if (IsLocked) return;
+
         _IsOpen.Value = isOpen;
         _OpenningClosingProgress.Value = isOpen ? TimeToOpenDoorsConst : 0.0f;
     }
+
+    [ServerRpc(RequireOwnership = false)]
+    void LockUnlockServerRpc(bool isLocked)
+    {
+        _IsLocked.Value = isLocked;
+        _IsLocked.Value = isLocked;
+        _OpenningClosingProgress.Value = isLocked ? TimeToOpenDoorsConst : 0.0f;
+    }
 #endif
 
-    public void RequesOpennigFully() { SetIsOpenServerRpc(true); }
-    public void RequestClosingFully() { SetIsOpenServerRpc(false); }
+    public void RequesOpennigFully() => SetIsOpenServerRpc(true);
+    public void RequestClosingFully() => SetIsOpenServerRpc(false);
 
     public void RequestOpenning()
     {
         ulong clientId = NetworkManager.Singleton.LocalClientId;
         OpenCloseServerRpc(Time.deltaTime, clientId);
     }
-
     public void RequestClosing()
     {
         ulong clientId = NetworkManager.Singleton.LocalClientId;
         OpenCloseServerRpc(-Time.deltaTime, clientId);
     }
+    public void RequestUnlocking() => LockUnlockServerRpc(false);
+    public void RequestLocking() => LockUnlockServerRpc(true);
 
     void AddSelfToRoom(Room r) => r.AddDoor(this);
 

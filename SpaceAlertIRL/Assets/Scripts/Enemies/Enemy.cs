@@ -7,6 +7,7 @@ using Unity.Netcode;
 using System;
 using Unity.Collections;
 using UnityEngine.UI;
+using UnityEditor.PackageManager;
 
 public abstract class Enemy : NetworkBehaviour, IComparable<Enemy>, IOnServerFixedUpdate
 {
@@ -175,6 +176,7 @@ public abstract class Enemy : NetworkBehaviour, IComparable<Enemy>, IOnServerFix
         {
             string _zoneName = GetComponentInParent<Zone>().gameObject.name + "_r";
             AudioManager.Instance.RequestPlayingSentenceOnClient($"{_zoneName} enemyTerminated_r", removeDuplicates: false);
+            AudioManager.Instance.RequestVibratingSentenceOnClient(VibrationDuration.error);
         }
 
         _HP.Value = 0;
