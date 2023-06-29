@@ -11,8 +11,6 @@ using UnityEditor;
 
 public abstract class EnemyAction
 {
-    public float TimeSpan { get; protected set; }
-
     public abstract void ExecuteAction();
     public abstract string GetDescription();
 }
@@ -23,8 +21,8 @@ sealed class SimpleAttack : EnemyAction
 
     readonly int Damage;
     readonly Zone Zone;
-    public SimpleAttack(int damage, Zone zone, float timeSpan)
-    { Damage = damage; Zone = zone; TimeSpan = timeSpan; }
+    public SimpleAttack(int damage, Zone zone)
+    { Damage = damage; Zone = zone; }
 
     public override string GetDescription() => $"deals {Damage} damage";
 }
@@ -33,9 +31,9 @@ sealed class Wait : EnemyAction
 {
     public override void ExecuteAction() { }
 
-    public override string GetDescription() => $"waiting";
-
-    public Wait(float waitTime) { TimeSpan = waitTime; }
+    public override string GetDescription() => CustomMessage;
+    string CustomMessage;
+    public Wait(string customMessage = "waiting") { CustomMessage = customMessage; }
 }
 
 sealed class LaunchRocket : EnemyAction
@@ -44,13 +42,13 @@ sealed class LaunchRocket : EnemyAction
     public override void ExecuteAction()
     {
         Enemy rocket = EnemySpawner.SpawnEnemy("Rocket");
-        rocket?.SetDistance(LaunchFrom.Distance - 0.2f);
+        rocket.Distance = LaunchFrom.Distance - 0.2f;
     }
 
     readonly EnemySpawner EnemySpawner;
     readonly Enemy LaunchFrom;
-    public LaunchRocket(EnemySpawner enemySpawner, Enemy launchFrom, float timeSpan)
-    { EnemySpawner = enemySpawner; LaunchFrom = launchFrom; TimeSpan = timeSpan; }
+    public LaunchRocket(EnemySpawner enemySpawner, Enemy launchFrom)
+    { EnemySpawner = enemySpawner; LaunchFrom = launchFrom; }
 }
 
 sealed class TeleportAllPlayersToRandomDestination : EnemyAction
@@ -67,11 +65,11 @@ sealed class TeleportAllPlayersToRandomDestination : EnemyAction
             AudioManager.Instance.RequestPlayingSentenceOnClient("youHaveBeenTeleported_r");
         }
     }
-    public TeleportAllPlayersToRandomDestination(float timeSpan)
-    { TimeSpan = timeSpan; }
+    public TeleportAllPlayersToRandomDestination()
+    { }
 }
 
-sealed class TeleportAllPlayersToTisZone : EnemyAction
+sealed class TeleportAllPlayersToThisZone : EnemyAction
 {
     public override string GetDescription() => "teleports all players to this zone";
     public override void ExecuteAction()
@@ -85,8 +83,8 @@ sealed class TeleportAllPlayersToTisZone : EnemyAction
         }
     }
     readonly Room[] Rooms;
-    public TeleportAllPlayersToTisZone(float timeSpan, Zone zone)
-    { TimeSpan = timeSpan; Rooms = zone.GetComponentsInChildren<Room>(); }
+    public TeleportAllPlayersToThisZone(Zone zone)
+    { Rooms = zone.GetComponentsInChildren<Room>(); }
 }
 
 sealed class CloseAllDoors : EnemyAction
@@ -101,8 +99,8 @@ sealed class CloseAllDoors : EnemyAction
             d.GetComponent<Door>().RequestClosingFully();
         }
     }
-    public CloseAllDoors(float timeSpan)
-    { TimeSpan = timeSpan; }
+    public CloseAllDoors()
+    { }
 }
 
 sealed class CloseAllDoorsInZone : EnemyAction
@@ -120,8 +118,8 @@ sealed class CloseAllDoorsInZone : EnemyAction
         }
     }
     readonly Room[] Rooms;
-    public CloseAllDoorsInZone(float timeSpan, Zone zone)
-    { TimeSpan = timeSpan; Rooms = zone.GetComponentsInChildren<Room>(); }
+    public CloseAllDoorsInZone(Zone zone)
+    { Rooms = zone.GetComponentsInChildren<Room>(); }
 }
 
 sealed class LockAllDoorsInZoneForTime : EnemyAction
@@ -143,14 +141,14 @@ sealed class LockAllDoorsInZoneForTime : EnemyAction
     }
     IEnumerator UnlockDoorAfterWhile(Door d, float waitTime)
     {
-        yield return new Wait(waitTime);
+        yield return new WaitForSeconds(waitTime);
         d.RequestUnlocking();
     }
 
     readonly Room[] Rooms;
     readonly long WaitTime;
-    public LockAllDoorsInZoneForTime(float timeSpan, long waitTime, Zone zone)
-    { TimeSpan = timeSpan; Rooms = zone.GetComponentsInChildren<Room>(); WaitTime = waitTime; }
+    public LockAllDoorsInZoneForTime(long waitTime, Zone zone)
+    { Rooms = zone.GetComponentsInChildren<Room>(); WaitTime = waitTime; }
 }
 
 sealed class LockRandomNDoorsForTime : EnemyAction
@@ -163,12 +161,11 @@ sealed class LockRandomNDoorsForTime : EnemyAction
         for (int i = 0; i < NumberOfDoorsToLock; i++)
         {
             Door d = doors[Random.Range(0, doors.Length)].GetComponent<Door>();
-            CloseAndOpen(d);
+            LockAndUnlock(d);
         }
 
 
-
-        void CloseAndOpen(Door d)
+        void LockAndUnlock(Door d)
         {
             d.RequestLocking();
             d.StartCoroutine(UnlockDoorAfterWhile(d, WaitTime));
@@ -176,14 +173,14 @@ sealed class LockRandomNDoorsForTime : EnemyAction
     }
     IEnumerator UnlockDoorAfterWhile(Door d, float waitTime)
     {
-        yield return new Wait(waitTime);
+        yield return new WaitForSeconds(waitTime);
         d.RequestUnlocking();
     }
 
     readonly float WaitTime;
     readonly int NumberOfDoorsToLock;
-    public LockRandomNDoorsForTime(float timeSpan, float waitTime, int numberOfDoorsToLock)
-    { TimeSpan = timeSpan; WaitTime = waitTime; NumberOfDoorsToLock = numberOfDoorsToLock; }
+    public LockRandomNDoorsForTime(float waitTime, int numberOfDoorsToLock)
+    { WaitTime = waitTime; NumberOfDoorsToLock = numberOfDoorsToLock; }
 }
 
 sealed class DepleteShields : EnemyAction
@@ -200,10 +197,28 @@ sealed class DepleteShields : EnemyAction
     }
 
     readonly int EnergyToDeplete;
-    public DepleteShields(int eneryToDeplete, float timeSpan)
+    public DepleteShields(int eneryToDeplete)
+    { EnergyToDeplete = eneryToDeplete; }
+}
+
+sealed class DepleteAllEnergy : EnemyAction
+{
+    public override string GetDescription() => $"depletes all energy on the ship";
+    public override void ExecuteAction()
     {
-        TimeSpan = timeSpan;
-        EnergyToDeplete = eneryToDeplete;
+        GameObject[] Zones = GameObject.FindGameObjectsWithTag("Zone");
+
+        foreach (var z in Zones)
+        {
+            z.GetComponent<Zone>().DepleteEnergyShiealds(int.MaxValue);
+            EnergyPool[] energyPools = z.GetComponentsInChildren<EnergyPool>();
+            foreach (var ep in energyPools)
+            { ep.PullEnergyUpTo(int.MaxValue); }
+        }
+    }
+
+    public DepleteAllEnergy()
+    {
     }
 }
 
@@ -223,9 +238,9 @@ sealed class DepleteEnergy : EnemyAction
 
     readonly int EnergyToDeplete;
     readonly Zone Zone;
-    public DepleteEnergy(int eneryToDeplete, float timeSpan, Zone zone)
+    public DepleteEnergy(int eneryToDeplete, Zone zone)
     {
-        TimeSpan = timeSpan;
+
         EnergyToDeplete = eneryToDeplete;
         Zone = zone;
     }

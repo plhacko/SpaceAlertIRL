@@ -90,8 +90,11 @@ public class Door : NetworkBehaviour, IRestart
     void LockUnlockServerRpc(bool isLocked)
     {
         _IsLocked.Value = isLocked;
-        _IsLocked.Value = isLocked;
-        _OpenningClosingProgress.Value = isLocked ? TimeToOpenDoorsConst : 0.0f;
+        if (isLocked) // closing doors while locking
+        {
+            _IsOpen.Value = false;
+            _OpenningClosingProgress.Value = 0.0f;
+        }
     }
 #endif
 

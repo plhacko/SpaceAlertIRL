@@ -36,5 +36,5 @@ public class Meteor : Enemy<Meteor>
         }
     }
 
-    protected override EnemyAction DecideNextAction() => new Wait(float.MaxValue);
+    protected override EnemyAction DecideNextAction() => new Wait();
 }

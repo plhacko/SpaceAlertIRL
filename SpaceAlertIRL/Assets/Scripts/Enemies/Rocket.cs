@@ -43,6 +43,5 @@ public class Rocket : Enemy<Rocket>
     {
         base.Die(silent);
     }
-    protected override EnemyAction DecideNextAction() => new Wait(float.MaxValue);
-
+    protected override EnemyAction DecideNextAction() => new Wait();
 }

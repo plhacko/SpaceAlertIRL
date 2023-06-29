@@ -2844,6 +2844,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1133353201}
     m_Modifications:
+    - target: {fileID: 536323234094250282, guid: 2d9808c28d5026243af697c61ecf6a96, type: 3}
+      propertyPath: m_Color.b
+      value: 0.16078432
+      objectReference: {fileID: 0}
+    - target: {fileID: 536323234094250282, guid: 2d9808c28d5026243af697c61ecf6a96, type: 3}
+      propertyPath: m_Color.g
+      value: 0.16078432
+      objectReference: {fileID: 0}
     - target: {fileID: 3899478328256950246, guid: 2d9808c28d5026243af697c61ecf6a96, type: 3}
       propertyPath: m_text
       value: ZoneName

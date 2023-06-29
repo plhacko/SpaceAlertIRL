@@ -1511,6 +1511,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 888982829}
     m_Modifications:
+    - target: {fileID: 909053267044719513, guid: 1962d40852b80b5489c093e4385fa21c, type: 3}
+      propertyPath: m_FontData.m_Alignment
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 909053267067954468, guid: 1962d40852b80b5489c093e4385fa21c, type: 3}
       propertyPath: m_Name
       value: PlayerNameSetter
@@ -1598,6 +1602,10 @@ PrefabInstance:
     - target: {fileID: 909053267067954469, guid: 1962d40852b80b5489c093e4385fa21c, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 909053267371833994, guid: 1962d40852b80b5489c093e4385fa21c, type: 3}
+      propertyPath: m_FontData.m_Alignment
+      value: 4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1962d40852b80b5489c093e4385fa21c, type: 3}

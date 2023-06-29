@@ -12,8 +12,8 @@ public class EnergyCloud : Enemy<EnergyCloud>
     protected override EnemyAction DecideNextAction()
     {
         if (parity)
-        { return new DepleteEnergy(2,20.0f, Zone); }
+        { return new DepleteEnergy(2, Zone); }
         else
-        { return new DepleteShields(2,20.0f); }
+        { return new DepleteShields(2); }
     }
 }

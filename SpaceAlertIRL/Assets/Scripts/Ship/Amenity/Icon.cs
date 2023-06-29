@@ -100,18 +100,14 @@ abstract public class EnemyIcon<T> : Icon where T : Enemy
     public void SpawnInfoPanel()
     {
         var actionPanel = GameObject.Find("ActionPanel");
-        if (actionPanel == null)
+        if (actionPanel != null)
         {
-            // audio message
-            AudioManager.Instance.PlaySentenceLoclaly("accessDenied_r actionPanelIsDisabled_r");
-            return;
+            GameObject _go = Instantiate(EnemyInfoPanelPrefab, parent: actionPanel.transform);
         }
-
-        GameObject _go = Instantiate(EnemyInfoPanelPrefab, parent: actionPanel.transform);
     }
 
     protected virtual string GetEnemyNemeLine() => $"{Enemy.GetName()}";
-    protected virtual string GetEnemyActionDescriptionLine() => $"{Enemy.NextActionDescription} in {Enemy.NextActionTime.ToString("0.0")}s";
+    protected virtual string GetEnemyActionDescriptionLine() => $"{Enemy.NextActionDescription}";
     protected override void UpdateUI()
     {
         if (Enemy != null)

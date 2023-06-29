@@ -39,7 +39,7 @@ public class LaserActionPanel : AmenityActionPanel<Laser>
         var _range = Amenity.Range;
         var _heat = Amenity.Heat;
         bool _isTooHot = Amenity.IsTooHotToShoot;
-        string _status = _isTooHot ? "\ncooling down" : "\nready to shoot";
+        string _status = _isTooHot ? "cooling" : "ready";
 
         Damage_text.text = $"Damage : {_damage}";
         EnergyCost_text.text = $"Energy cost : {_energyCost}";

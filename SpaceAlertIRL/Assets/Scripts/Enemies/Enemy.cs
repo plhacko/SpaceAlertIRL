@@ -16,25 +16,23 @@ public abstract class Enemy : NetworkBehaviour, IComparable<Enemy>, IOnServerFix
 
     abstract public string GetName();
 
+    // constants
     abstract protected int StratingHPConst { get; }
     abstract protected int MaxEnergyShieldConst { get; }
     abstract protected float StartingSpeedConst { get; }
     virtual protected RangeEnum StartingDistanceConst { get => RangeEnum.Far; }
     abstract protected float EnergyShieldRegenerationTimeConst { get; }
 
-    // geters for data
-    public int HP { get => _HP.Value; }
+    // getters and setters for data (is mostly a wrapper for network variables)
+    public int HP { get => _HP.Value; set { _HP.Value = value; } }
     public int MaxHP { get => StratingHPConst; }
-    public int EnergyShield { get => _EnergyShield.Value; }
+    public int EnergyShield { get => _EnergyShield.Value; set { _EnergyShield.Value = value; } }
     public int MaxEnergyShield { get => MaxEnergyShieldConst; }
-    public float Distance { get => _Distance.Value; }
+    public float EnergyShieldRegenerationTime { get => _EnergyShieldRegenerationTime.Value; set { _EnergyShieldRegenerationTime.Value = value; } }
+    public float Distance { get => _Distance.Value; set { _Distance.Value = value; } }
     public float Speed { get => _Speed.Value; set => _Speed.Value = value; }
-    public float NextActionTime { get => _NextActionTime.Value; }
     public virtual bool IsTragetabeByRocket { get => true; }
-    public string NextActionDescription { get => _NextActionDescription.Value.ToString(); }
-
-    // setters for data
-    public void SetDistance(float newDistance) { _Distance.Value = newDistance; }
+    public string NextActionDescription { get => _NextActionDescription.Value.ToString(); set { _NextActionDescription.Value = value; } }
 
     // NetworkVariables
     protected NetworkVariable<int> _HP = new NetworkVariable<int>();
@@ -42,7 +40,6 @@ public abstract class Enemy : NetworkBehaviour, IComparable<Enemy>, IOnServerFix
     protected NetworkVariable<float> _EnergyShieldRegenerationTime = new NetworkVariable<float>();
     protected NetworkVariable<float> _Speed = new NetworkVariable<float>();
     protected NetworkVariable<float> _Distance = new NetworkVariable<float>();
-    protected NetworkVariable<float> _NextActionTime = new NetworkVariable<float>();
     protected NetworkVariable<FixedString64Bytes> _NextActionDescription = new NetworkVariable<FixedString64Bytes>();
 
     protected Zone Zone;
@@ -54,7 +51,6 @@ public abstract class Enemy : NetworkBehaviour, IComparable<Enemy>, IOnServerFix
 
     public abstract void SpawnIconAsChild(GameObject parent);
 
-
     public virtual void Start()
     {
         DistanceMeter = transform.parent.GetComponent<EnemySpawner>().GetDistanceMeter().GetComponent<RectTransform>();
@@ -62,22 +58,25 @@ public abstract class Enemy : NetworkBehaviour, IComparable<Enemy>, IOnServerFix
         UILine = GetComponentInChildren<Line>();
 
         UIActions.AddOnValueChangeDependency(_HP, _EnergyShield);
-        UIActions.AddOnValueChangeDependency(_Distance, _Speed, _NextActionTime);
+        UIActions.AddOnValueChangeDependency(_Distance, _Speed);
         UIActions.AddOnValueChangeDependency(_NextActionDescription);
 
         UIActions.AddAction(UpdateUI);
         UIActions.UpdateUI();
+
+        // choose first action
+        NextEnemyAction = DecideNextAction();
+        NextActionDescription = NextEnemyAction.GetDescription();
     }
 
     public virtual void Initialise()
     {
-        _HP.Value = StratingHPConst;
-        _EnergyShield.Value = MaxEnergyShieldConst;
-        _EnergyShieldRegenerationTime.Value = 0.0f;
-        _Distance.Value = (float)StartingDistanceConst;
-        _Speed.Value = StartingSpeedConst;
-        _NextActionTime.Value = 0.0f;
-        _NextActionDescription.Value = "";
+        HP = StratingHPConst;
+        EnergyShield = MaxEnergyShieldConst;
+        EnergyShieldRegenerationTime = 0.0f;
+        Distance = (float)StartingDistanceConst;
+        Speed = StartingSpeedConst;
+        NextActionDescription = "";
 
         Zone = GetComponentInParent<Zone>();
 
@@ -87,64 +86,55 @@ public abstract class Enemy : NetworkBehaviour, IComparable<Enemy>, IOnServerFix
 
     void IOnServerFixedUpdate.ServerFixedUpdate()
     {
-        DistanceChange();
+        DistanceChange(); // may trigger action
         EnergyShieldsRegeneration();
-        ActionTimer();
     }
 
     protected virtual void DistanceChange()
     {
-        float newDistance = _Distance.Value - Time.deltaTime * _Speed.Value;
+        float newDistance = Distance - Time.deltaTime * Speed;
+
+        // action triggers if the ship passed Mid/Close/Zero ranges
+        if (newDistance <= (int)RangeEnum.Mid && Distance > (int)RangeEnum.Mid
+            || newDistance <= (int)RangeEnum.Close && Distance > (int)RangeEnum.Close
+            || newDistance <= (int)RangeEnum.Zero && Distance > (int)RangeEnum.Zero)
+        {
+            NextEnemyAction?.ExecuteAction();
+            NextEnemyAction = DecideNextAction();
+            NextActionDescription = NextEnemyAction.GetDescription() ?? "no action";
+        }
+        
+        // normal movement (sets distance)
         if (newDistance > 0)
-        { _Distance.Value = newDistance; }
-        else
-        { _Distance.Value = 0; Impact(); }
+        { Distance = newDistance; }
+        else { Distance = 0; Impact(); }
     }
     protected virtual void EnergyShieldsRegeneration()
     {
-        if (_EnergyShield.Value == MaxEnergyShieldConst)
-        { _EnergyShieldRegenerationTime.Value = 0; }
+        if (EnergyShield == MaxEnergyShieldConst)
+        { EnergyShieldRegenerationTime = 0; }
         else
         {
-            float newTime = _EnergyShieldRegenerationTime.Value + Time.deltaTime;
+            float newTime = EnergyShieldRegenerationTime + Time.deltaTime;
             if (newTime < EnergyShieldRegenerationTimeConst)
             {
-                _EnergyShieldRegenerationTime.Value = newTime;
+                EnergyShieldRegenerationTime = newTime;
             }
             else
             {
-                _EnergyShieldRegenerationTime.Value = 0.0f;
-                _EnergyShield.Value = MaxEnergyShieldConst;
+                EnergyShieldRegenerationTime = 0.0f;
+                EnergyShield = MaxEnergyShieldConst;
             }
         }
     }
     EnemyAction NextEnemyAction;
     protected abstract EnemyAction DecideNextAction();
-    protected virtual void ActionTimer()
-    {
-        if (NextEnemyAction == null)
-        {
-            NextEnemyAction = DecideNextAction();
-            _NextActionDescription.Value = NextEnemyAction.GetDescription() ?? "no action";
-        }
-
-        float newTime = _NextActionTime.Value - Time.deltaTime;
-        if (newTime <= 0)
-        {
-            NextEnemyAction.ExecuteAction();
-            NextEnemyAction = DecideNextAction();
-            _NextActionDescription.Value = NextEnemyAction.GetDescription() ?? "no action";
-            _NextActionTime.Value = NextEnemyAction.TimeSpan;
-        }
-        else
-        { _NextActionTime.Value = newTime; }
-    }
 
 #endif
 
     protected virtual void Impact()
     {
-        _HP.Value = 0;
+        HP = 0;
         GetComponent<NetworkObject>().Despawn(true);
     }
 
@@ -153,33 +143,33 @@ public abstract class Enemy : NetworkBehaviour, IComparable<Enemy>, IOnServerFix
         if (damage < 0) { Debug.Log("damage can't be negative"); return; }
 
         // damageToShields
-        int damageToShields = System.Math.Min(_EnergyShield.Value, damage);
+        int damageToShields = System.Math.Min(EnergyShield, damage);
         damage -= damageToShields;
-        _EnergyShield.Value = _EnergyShield.Value - damageToShields;
+        EnergyShield = EnergyShield - damageToShields;
 
         // damaheTuHull
-        int _newHP = _HP.Value - damage;
-        if (_newHP > 0)
-        { _HP.Value = _newHP; }
+        int newHP = HP - damage;
+        if (newHP > 0)
+        { HP = newHP; }
         else
         {
-            _HP.Value = 0;
+            HP = 0;
             Die();
         }
 
         // shield regeneratin will start all over
-        _EnergyShieldRegenerationTime.Value = 0;
+        EnergyShieldRegenerationTime = 0;
     }
     virtual public void Die(bool silent = false)
     {
         if (!silent)
         {
-            string _zoneName = GetComponentInParent<Zone>().gameObject.name + "_r";
-            AudioManager.Instance.RequestPlayingSentenceOnClient($"{_zoneName} enemyTerminated_r", removeDuplicates: false);
+            string zoneName = GetComponentInParent<Zone>().gameObject.name + "_r";
+            AudioManager.Instance.RequestPlayingSentenceOnClient($"{zoneName} enemyTerminated_r", removeDuplicates: false);
             AudioManager.Instance.RequestVibratingSentenceOnClient(VibrationDuration.error);
         }
 
-        _HP.Value = 0;
+        HP = 0;
         GetComponent<NetworkObject>().Despawn();
     }
     public int CompareTo(Enemy e)
@@ -238,8 +228,8 @@ abstract public class Enemy<T> : Enemy where T : Enemy<T>
 
     public override void SpawnIconAsChild(GameObject parent)
     {
-        GameObject _go = Instantiate(IconPrefab, parent: parent.transform);
-        _go.GetComponent<EnemyIcon<T>>().Initialise((T)this);
+        GameObject go = Instantiate(IconPrefab, parent: parent.transform);
+        go.GetComponent<EnemyIcon<T>>().Initialise((T)this);
     }
 }
 
