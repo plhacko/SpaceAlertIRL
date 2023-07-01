@@ -7,6 +7,6 @@ public class MeteorIcon : EnemyIcon<Meteor>
 {
     protected override string GetEnemyActionDescriptionLine()
     {
-        return $"Deals _{Enemy.HP}_ damage on impact.";
+        return $"Deals {Enemy.HP} damage on impact.";
     }
 }

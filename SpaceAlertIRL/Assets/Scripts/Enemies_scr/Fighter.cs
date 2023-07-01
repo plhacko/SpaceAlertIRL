@@ -10,19 +10,20 @@ public class Fighter : Enemy<Fighter>
     protected override float EnergyShieldRegenerationTimeConst => 2.0f;
 
 
-    const RangeEnum RocketRange = RangeEnum.Mid;
-    const int SimpleAttackDamage = 3;
-
-    int RocketCount = 1;
-
+    int Iterator = 0;
     protected override EnemyAction DecideNextAction()
     {
-        if (RocketCount > 0 && (float)RocketRange > Distance)
+        Iterator++;
+        switch (Iterator)
         {
-            RocketCount--;
-            return new LaunchRocket(GetComponentInParent<EnemySpawner>(), this);
+            case 1:
+                return new LaunchRocket(GetComponentInParent<EnemySpawner>(), this);
+            case 2:
+                return new SimpleAttack(2, Zone);
+            case 3:
+                return new SimpleAttack(4, Zone);
+            default:
+                return new Wait("");
         }
-        else
-        { return new SimpleAttack(SimpleAttackDamage, Zone); }
     }
 }

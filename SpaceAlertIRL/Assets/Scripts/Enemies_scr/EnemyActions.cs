@@ -5,6 +5,7 @@ using UnityEngine;
 using Unity.Netcode;
 using System.Linq;
 using UnityEditor;
+using System.Text;
 
 
 #if SERVER
@@ -13,6 +14,30 @@ public abstract class EnemyAction
 {
     public abstract void ExecuteAction();
     public abstract string GetDescription();
+}
+
+sealed class CombinedAction : EnemyAction
+{
+    public override void ExecuteAction()
+    {
+        foreach (EnemyAction ea in EnemyActions)
+        { ea.ExecuteAction(); }
+    }
+
+    public override string GetDescription()
+    {
+        StringBuilder sb = new StringBuilder();
+        foreach (EnemyAction ea in EnemyActions)
+        { sb.AppendLine(ea.GetDescription()); }
+
+        return sb.ToString();
+    }
+
+    EnemyAction[] EnemyActions;
+    public CombinedAction(params EnemyAction[] enemyActions)
+    {
+        EnemyActions = enemyActions;
+    }
 }
 
 sealed class SimpleAttack : EnemyAction
@@ -65,8 +90,7 @@ sealed class TeleportAllPlayersToRandomDestination : EnemyAction
             AudioManager.Instance.RequestPlayingSentenceOnClient("youHaveBeenTeleported_r");
         }
     }
-    public TeleportAllPlayersToRandomDestination()
-    { }
+    public TeleportAllPlayersToRandomDestination() { }
 }
 
 sealed class TeleportAllPlayersToThisZone : EnemyAction
@@ -99,8 +123,7 @@ sealed class CloseAllDoors : EnemyAction
             d.GetComponent<Door>().RequestClosingFully();
         }
     }
-    public CloseAllDoors()
-    { }
+    public CloseAllDoors() { }
 }
 
 sealed class CloseAllDoorsInZone : EnemyAction
@@ -153,7 +176,7 @@ sealed class LockAllDoorsInZoneForTime : EnemyAction
 
 sealed class LockRandomNDoorsForTime : EnemyAction
 {
-    public override string GetDescription() => $"locks _{NumberOfDoorsToLock}_ random doors for {WaitTime.ToString("0.0")}s";
+    public override string GetDescription() => $"locks {NumberOfDoorsToLock} random doors for {WaitTime.ToString("0.0")}s";
     public override void ExecuteAction()
     {
         GameObject[] doors = GameObject.FindGameObjectsWithTag("Door");
@@ -185,7 +208,7 @@ sealed class LockRandomNDoorsForTime : EnemyAction
 
 sealed class DepleteShields : EnemyAction
 {
-    public override string GetDescription() => $"depletes _{EnergyToDeplete}_ from energy shields in each zone";
+    public override string GetDescription() => $"depletes {EnergyToDeplete} from energy shields in each zone";
     public override void ExecuteAction()
     {
         GameObject[] Zones = GameObject.FindGameObjectsWithTag("Zone");
@@ -217,28 +240,26 @@ sealed class DepleteAllEnergy : EnemyAction
         }
     }
 
-    public DepleteAllEnergy()
-    {
-    }
+    public DepleteAllEnergy() { }
 }
 
-sealed class DepleteEnergy : EnemyAction
+sealed class DepleteEnergyInZone : EnemyAction
 {
     public override void ExecuteAction()
     {
-        EnergyPool[] energyPools = Zone.transform.parent.GetComponentsInChildren<EnergyPool>();
+        EnergyPool[] energyPools = Zone.transform.GetComponentsInChildren<EnergyPool>();
 
-        int _energyToDeplete = EnergyToDeplete;
+        int energyToDeplete = EnergyToDeplete;
         foreach (var e in energyPools)
         {
-            _energyToDeplete -= e.PullEnergyUpTo(_energyToDeplete);
+            energyToDeplete -= e.PullEnergyUpTo(energyToDeplete);
         }
     }
-    public override string GetDescription() => $"depletes _{EnergyToDeplete}_ energy in each zone";
+    public override string GetDescription() => $"depletes {EnergyToDeplete} energy in {Zone.name}";
 
     readonly int EnergyToDeplete;
     readonly Zone Zone;
-    public DepleteEnergy(int eneryToDeplete, Zone zone)
+    public DepleteEnergyInZone(int eneryToDeplete, Zone zone)
     {
 
         EnergyToDeplete = eneryToDeplete;
@@ -249,7 +270,7 @@ sealed class DepleteEnergy : EnemyAction
 sealed class SpeedUp : EnemyAction
 {
     public override void ExecuteAction() => Enemy.Speed += SpeedUpValue;
-    public override string GetDescription() => $"Speeds up from _{Enemy.Speed}_ to _{Enemy.Speed + SpeedUpValue}_";
+    public override string GetDescription() => $"Speeds up from {Enemy.Speed} to {Enemy.Speed + SpeedUpValue}";
 
     readonly float SpeedUpValue;
     readonly Enemy Enemy;
