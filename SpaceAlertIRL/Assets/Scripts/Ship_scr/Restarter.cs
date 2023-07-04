@@ -29,6 +29,21 @@ public class Restarter : MonoBehaviour
         GameObject.Find("SceneChanger").GetComponent<SceneChanger>().ChangeScene("MenuScene");
     }
 
+    public void RestartAllPlayers()
+    {
+        RestartAllPlayersServerRpc();
+    }
+
+    [ServerRpc]
+    private void RestartAllPlayersServerRpc()
+    {
+
+        foreach (var p in Player.GetAllPlayers())
+        {
+            p.Restart();
+        }
+    }
+
     public void QuitApplication()
     {
         Application.Quit();

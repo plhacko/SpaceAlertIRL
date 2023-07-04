@@ -15,7 +15,7 @@ public class Player : NetworkBehaviour, IRestart
     // this singals, where the player is currently loccated
     // the important part is, that the players can't change this variable themself, they must request the server
     public NetworkVariable<FixedString32Bytes> CurrentRoomName = new NetworkVariable<FixedString32Bytes>(StartingRoom);
-    
+
     private NetworkVariable<FixedString32Bytes> _Name = new NetworkVariable<FixedString32Bytes>(BasePlayerName);
 
     public UpdateUIActions UIActions;
@@ -54,7 +54,7 @@ public class Player : NetworkBehaviour, IRestart
         UIActions = new UpdateUIActions();
         UIActions.AddOnValueChangeDependency(CurrentRoomName);
         if (IsLocalPlayer)
-        { UIActions.AddAction(RestartScene);}
+        { UIActions.AddAction(RestartScene); }
 
         UIActions = new UpdateUIActions();
         UIActions.AddOnValueChangeDependency(_Name);
@@ -101,7 +101,7 @@ public class Player : NetworkBehaviour, IRestart
     }
 
     void RestartScene()
-    {
+    {   
         SceneManager.LoadScene("RoomScene");
     }
 
@@ -119,6 +119,5 @@ public class Player : NetworkBehaviour, IRestart
     public void Restart()
     {
         CurrentRoomName.Value = StartingRoom;
-        _Name.Value = BasePlayerName;
     }
 }

@@ -17,7 +17,6 @@ public class ServerUpdater : NetworkBehaviour
 {
     [SerializeField]
     static bool Stop = false;
-
     static public void StopUpdating() { Stop = false; }
     static public void ResumeUpdating() { Stop = true; }
 
