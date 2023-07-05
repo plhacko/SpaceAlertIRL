@@ -51,4 +51,7 @@ MonoBehaviour:
   EnemiesToSpawn:
   - Enemy: 1
     SpawnTime: 0
+    ZoneName: 0
+  - Enemy: 6
+    SpawnTime: 0
     ZoneName: 1

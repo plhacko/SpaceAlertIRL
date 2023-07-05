@@ -62,7 +62,7 @@ public class EnemyEncounterPlanner : MonoBehaviour, IOnServerFixedUpdate, IResta
 
 }
 public enum ZoneNames { ZoneAlpha, ZoneBravo, ZoneCharlie, ZoneDelta, ZoneEcho, ZoneFoxtrod }
-public enum EnumOfEnemies { rndLightEnemy, Meteor, Fighter, Eye, EnergyCloud, Rocket }
+public enum EnumOfEnemies { rndLightEnemy, Meteor, Fighter, Eye, EnergyCloud, Rocket, Drednot }
 [System.Serializable]
 public struct EnemyTimeStruct
 {

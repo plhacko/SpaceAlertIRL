@@ -6,8 +6,7 @@ public class EnergyCloud : Enemy<EnergyCloud>
 {
     protected override int StratingHPConst => 1;
     protected override int MaxEnergyShieldConst => 9;
-    protected override float StartingSpeedConst => 4.0f;
-    protected override float EnergyShieldRegenerationTimeConst => 2.0f;
+    protected override float StartingSpeedConst => 2.0f;
     
     int Iterator = 0;
     protected override EnemyAction DecideNextAction()

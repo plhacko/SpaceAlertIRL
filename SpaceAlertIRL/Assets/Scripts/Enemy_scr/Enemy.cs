@@ -21,7 +21,7 @@ public abstract class Enemy : NetworkBehaviour, IComparable<Enemy>, IOnServerFix
     abstract protected int MaxEnergyShieldConst { get; }
     abstract protected float StartingSpeedConst { get; }
     virtual protected RangeEnum StartingDistanceConst { get => RangeEnum.Far; }
-    abstract protected float EnergyShieldRegenerationTimeConst { get; }
+    virtual protected float EnergyShieldRegenerationTimeConst { get=>5.0f; }
 
     // getters and setters for data (is mostly a wrapper for network variables)
     public int HP { get => _HP.Value; set { _HP.Value = value; } }

@@ -2,11 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Fighter : Enemy<Fighter>
+public class Drednot : Enemy<Drednot>
 {
-    protected override int StratingHPConst => 4;
+    protected override int StratingHPConst => 6;
     protected override int MaxEnergyShieldConst => 2;
-    protected override float StartingSpeedConst => 4.0f;
+    protected override float StartingSpeedConst => 2.0f;
 
 
     int Iterator = 0;
@@ -16,11 +16,11 @@ public class Fighter : Enemy<Fighter>
         switch (Iterator)
         {
             case 1:
-                return new SimpleAttack(2, Zone);
+                return new SimpleAttack(3, Zone);
             case 2:
-                return new LaunchRocket(GetComponentInParent<EnemySpawner>(), this); 
+                return new SimpleAttack(3, Zone);
             case 3:
-                return new SimpleAttack(4, Zone);
+                return new SimpleAttack(5, Zone);
             default:
                 return new Wait("");
         }

@@ -12,7 +12,6 @@ public class Rocket : Enemy<Rocket>
     protected override int MaxEnergyShieldConst => 0;
     protected override float StartingSpeedConst => 7.0f;
     protected override RangeEnum StartingDistanceConst => RangeEnum.Zero;
-    protected override float EnergyShieldRegenerationTimeConst => 0.0f;
 
     public int Damage { get => DamageConst; }
     public float Range { get => (float)MaxRangeConst; }
