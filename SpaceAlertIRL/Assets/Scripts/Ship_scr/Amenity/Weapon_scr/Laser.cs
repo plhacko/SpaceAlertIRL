@@ -104,7 +104,7 @@ public class Laser : Weapon<Laser>, IOnServerFixedUpdate
         if (IsActivelyCooled)
         {
             // notify the player
-            AudioManager.Instance.RequestPlayingSentenceOnClient("CoolingAlreadyActive_r", clientId: clientId); // TODO: add voice track
+            AudioManager.Instance.RequestPlayingSentenceOnClient("coolingAlreadyActive_r", clientId: clientId); // TODO: add voice track
             return;
         }
 
@@ -112,7 +112,7 @@ public class Laser : Weapon<Laser>, IOnServerFixedUpdate
         if (!IsTooHotToShoot)
         {
             // notify the player
-            AudioManager.Instance.RequestPlayingSentenceOnClient("NoAditionalCoolingNeeded_r", clientId: clientId); // TODO: add voice track
+            AudioManager.Instance.RequestPlayingSentenceOnClient("noAditionalCoolingNeeded_r", clientId: clientId); // TODO: add voice track
             return;
         }
 

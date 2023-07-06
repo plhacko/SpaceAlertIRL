@@ -6,6 +6,8 @@ using TMPro;
 using Unity.Collections;
 using UnityEngine.UI;
 using System.Net;
+using System;
+using System.Collections.Generic;
 
 public class Player : NetworkBehaviour, IRestart
 {
@@ -14,14 +16,17 @@ public class Player : NetworkBehaviour, IRestart
 
     // this singals, where the player is currently loccated
     // the important part is, that the players can't change this variable themself, they must request the server
-    public NetworkVariable<FixedString32Bytes> CurrentRoomName = new NetworkVariable<FixedString32Bytes>(StartingRoom);
-
+    private NetworkVariable<FixedString32Bytes> _CurrentRoomName = new NetworkVariable<FixedString32Bytes>(StartingRoom);
     private NetworkVariable<FixedString32Bytes> _Name = new NetworkVariable<FixedString32Bytes>(BasePlayerName);
+    private NetworkVariable<bool> _IsDead = new NetworkVariable<bool>(false);
+
+    public FixedString32Bytes CurrentRoomName { get => _CurrentRoomName.Value; private set { _CurrentRoomName.Value = value; } }
+    public FixedString32Bytes Name { get => _Name.Value; private set { _Name.Value = value; } }
+    public bool IsDead { get => _IsDead.Value; private set { _IsDead.Value = value; } }
 
     public UpdateUIActions UIActions;
 
-    public string Status { get => "alive"; }
-    public string Name { get => _Name.Value.ToString(); }
+    public string Status { get => _IsDead.Value ? "dead" : "alive"; }
 
     public static Player[] GetAllPlayers()
     {
@@ -30,6 +35,23 @@ public class Player : NetworkBehaviour, IRestart
         for (int i = 0; i < playerObjects.Length; i++)
         { players[i] = playerObjects[i].GetComponent<Player>(); }
         return players;
+    }
+    public static Player[] GetAllPlayersInZone(Zone zone)
+    {
+        Player[] allPlayers = GetAllPlayers();
+        Room[] roomsInZone = zone.GetComponentsInChildren<Room>();
+
+        List<Player> playersInZone = new List<Player>();
+        foreach (Player p in allPlayers)
+        {
+            string playerRoomName = p.CurrentRoomName.ToString();
+            foreach (Room r in roomsInZone)
+            {
+                if (playerRoomName == r.name)
+                { playersInZone.Add(p); break; }
+            }
+        }
+        return playersInZone.ToArray();
     }
     public static Player GetLocalPlayer()
     {
@@ -52,12 +74,11 @@ public class Player : NetworkBehaviour, IRestart
     void Start()
     {
         UIActions = new UpdateUIActions();
-        UIActions.AddOnValueChangeDependency(CurrentRoomName);
+        UIActions.AddOnValueChangeDependency(_CurrentRoomName);
+        UIActions.AddOnValueChangeDependency(_IsDead);
         if (IsLocalPlayer)
         { UIActions.AddAction(RestartScene); }
 
-        UIActions = new UpdateUIActions();
-        UIActions.AddOnValueChangeDependency(_Name);
     }
 
     [ServerRpc]
@@ -72,7 +93,7 @@ public class Player : NetworkBehaviour, IRestart
 
         // set new room name
         if (ignoreRestrictions)
-        { CurrentRoomName.Value = newRoomName; }
+        { CurrentRoomName = newRoomName; }
         else if (CurrentRoomName.Value == newRoomName)
         { }
         else if (!CanGoThroughDoors())
@@ -82,7 +103,7 @@ public class Player : NetworkBehaviour, IRestart
         }
         else
         {
-            CurrentRoomName.Value = newRoomName;
+            CurrentRoomName = newRoomName;
         }
 
         bool CanGoThroughDoors()
@@ -101,7 +122,7 @@ public class Player : NetworkBehaviour, IRestart
     }
 
     void RestartScene()
-    {   
+    {
         SceneManager.LoadScene("RoomScene");
     }
 
@@ -113,11 +134,17 @@ public class Player : NetworkBehaviour, IRestart
     [ServerRpc]
     void RequestSettingPlayerNameServerRpc(string playerName)
     {
-        _Name.Value = playerName;
+        Name = playerName;
     }
 
     public void Restart()
     {
-        CurrentRoomName.Value = StartingRoom;
+        CurrentRoomName = StartingRoom;
+        IsDead = false;
+    }
+
+    internal void Kill()
+    {
+        IsDead = true;
     }
 }

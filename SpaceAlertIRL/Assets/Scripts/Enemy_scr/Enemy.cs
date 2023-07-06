@@ -127,7 +127,7 @@ public abstract class Enemy : NetworkBehaviour, IComparable<Enemy>, IOnServerFix
             }
         }
     }
-    EnemyAction NextEnemyAction;
+    protected EnemyAction NextEnemyAction;
     protected abstract EnemyAction DecideNextAction();
 
 #endif

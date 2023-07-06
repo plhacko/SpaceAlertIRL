@@ -49,7 +49,7 @@ sealed class SimpleAttack : EnemyAction
     public SimpleAttack(int damage, Zone zone)
     { Damage = damage; Zone = zone; }
 
-    public override string GetDescription() => $"deals {Damage} damage";
+    public override string GetDescription() => $"Deals {Damage} damage";
 }
 
 sealed class Wait : EnemyAction
@@ -58,12 +58,12 @@ sealed class Wait : EnemyAction
 
     public override string GetDescription() => CustomMessage;
     string CustomMessage;
-    public Wait(string customMessage = "waiting") { CustomMessage = customMessage; }
+    public Wait(string customMessage = "Waiting") { CustomMessage = customMessage; }
 }
 
 sealed class LaunchRocket : EnemyAction
 {
-    public override string GetDescription() => $"shoots a rocket";
+    public override string GetDescription() => $"Shoots a rocket";
     public override void ExecuteAction()
     {
         Enemy rocket = EnemySpawner.SpawnEnemy("Rocket");
@@ -78,7 +78,7 @@ sealed class LaunchRocket : EnemyAction
 
 sealed class TeleportAllPlayersToRandomDestination : EnemyAction
 {
-    public override string GetDescription() => "teleports all players to random rooms";
+    public override string GetDescription() => "Teleports all players to random rooms";
     public override void ExecuteAction()
     {
         GameObject[] Rooms = GameObject.FindGameObjectsWithTag("Room");
@@ -95,25 +95,26 @@ sealed class TeleportAllPlayersToRandomDestination : EnemyAction
 
 sealed class TeleportAllPlayersToThisZone : EnemyAction
 {
-    public override string GetDescription() => "teleports all players to this zone";
+    public override string GetDescription() => "Teleports all players to this zone";
     public override void ExecuteAction()
     {
+        Room[] rooms = Zone.GetComponentsInChildren<Room>();
         foreach (Player player in Player.GetAllPlayers())
         {
-            int rndId = Random.Range(0, Rooms.Length);
-            player.RequestChangingRoom(roomName: Rooms[rndId].name, ignoreRestrictions: true);
+            int rndId = Random.Range(0, rooms.Length);
+            player.RequestChangingRoom(roomName: rooms[rndId].name, ignoreRestrictions: true);
 
             AudioManager.Instance.RequestPlayingSentenceOnClient("youHaveBeenTeleported_r");
         }
     }
-    readonly Room[] Rooms;
+    Zone Zone;
     public TeleportAllPlayersToThisZone(Zone zone)
-    { Rooms = zone.GetComponentsInChildren<Room>(); }
+    { Zone = zone; }
 }
 
 sealed class CloseAllDoors : EnemyAction
 {
-    public override string GetDescription() => "closes all doors";
+    public override string GetDescription() => "Closes all doors";
     public override void ExecuteAction()
     {
         GameObject[] doors = GameObject.FindGameObjectsWithTag("Door");
@@ -128,7 +129,7 @@ sealed class CloseAllDoors : EnemyAction
 
 sealed class CloseAllDoorsInZone : EnemyAction
 {
-    public override string GetDescription() => "closes all doors in current zone";
+    public override string GetDescription() => "Closes all doors in current zone";
     public override void ExecuteAction()
     {
         GameObject[] doors = GameObject.FindGameObjectsWithTag("Door");
@@ -147,7 +148,7 @@ sealed class CloseAllDoorsInZone : EnemyAction
 
 sealed class LockAllDoorsInZoneForTime : EnemyAction
 {
-    public override string GetDescription() => $"locks all doors in zone for {WaitTime.ToString("0.0")}s";
+    public override string GetDescription() => $"Locks all doors in zone for {WaitTime.ToString("0.0")}s";
     public override void ExecuteAction()
     {
         GameObject[] doors = GameObject.FindGameObjectsWithTag("Door");
@@ -176,7 +177,7 @@ sealed class LockAllDoorsInZoneForTime : EnemyAction
 
 sealed class LockRandomNDoorsForTime : EnemyAction
 {
-    public override string GetDescription() => $"locks {NumberOfDoorsToLock} random doors for {WaitTime.ToString("0.0")}s";
+    public override string GetDescription() => $"Locks {NumberOfDoorsToLock} random doors for {WaitTime.ToString("0.0")}s";
     public override void ExecuteAction()
     {
         GameObject[] doors = GameObject.FindGameObjectsWithTag("Door");
@@ -208,7 +209,7 @@ sealed class LockRandomNDoorsForTime : EnemyAction
 
 sealed class DepleteShields : EnemyAction
 {
-    public override string GetDescription() => $"depletes {EnergyToDeplete} from energy shields in each zone";
+    public override string GetDescription() => $"Depletes {EnergyToDeplete} from energy shields in each zone";
     public override void ExecuteAction()
     {
         GameObject[] Zones = GameObject.FindGameObjectsWithTag("Zone");
@@ -226,7 +227,7 @@ sealed class DepleteShields : EnemyAction
 
 sealed class DepleteAllEnergy : EnemyAction
 {
-    public override string GetDescription() => $"depletes all energy on the ship";
+    public override string GetDescription() => $"Depletes all energy on the ship";
     public override void ExecuteAction()
     {
         GameObject[] Zones = GameObject.FindGameObjectsWithTag("Zone");
@@ -255,7 +256,7 @@ sealed class DepleteEnergyInZone : EnemyAction
             energyToDeplete -= e.PullEnergyUpTo(energyToDeplete);
         }
     }
-    public override string GetDescription() => $"depletes {EnergyToDeplete} energy in {Zone.name}";
+    public override string GetDescription() => $"Depletes {EnergyToDeplete} energy in {Zone.name}";
 
     readonly int EnergyToDeplete;
     readonly Zone Zone;
@@ -280,6 +281,35 @@ sealed class SpeedUp : EnemyAction
         Enemy = enemy;
     }
 }
+
+sealed class Heal : EnemyAction
+{
+    public override void ExecuteAction() => Enemy.HP = System.Math.Min(Enemy.MaxHP, Enemy.HP + HealValue);
+    public override string GetDescription() => $"Heals for up to {HealValue} hp";
+
+    readonly int HealValue;
+    readonly Enemy Enemy;
+    public Heal(Enemy enemy, int heal)
+    {
+        HealValue = heal;
+        Enemy = enemy;
+    }
+}
+
+sealed class KillEveryoneInZone : EnemyAction
+{
+    public override string GetDescription() => "Kills everyone in zone";
+    public override void ExecuteAction()
+    {
+        foreach (var p in Player.GetAllPlayersInZone(Zone))
+        {
+            p.Kill();
+        }
+    }
+    readonly Zone Zone;
+    public KillEveryoneInZone(Zone zone)
+    { Zone = zone; }
+} 
 
 #endif
 
