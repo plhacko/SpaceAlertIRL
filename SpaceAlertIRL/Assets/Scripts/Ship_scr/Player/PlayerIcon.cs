@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using System;
+using UnityEngine.UI;
 
 public class PlayerIcon : Icon
 {
     private Player Player;
-    
+
     TextMeshProUGUI HeaderText;
 
     private void Awake()
@@ -36,5 +37,8 @@ public class PlayerIcon : Icon
     override protected void UpdateUI()
     {
         HeaderText.text = $"{Player.Name} : {Player.CurrentRoomName.Value} : {Player.Status}";
+
+        if (Player.IsDead)
+        { GetComponent<Image>().color = ProjectColors.NeonRed(); }
     }
 }

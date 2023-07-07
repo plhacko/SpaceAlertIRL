@@ -11,7 +11,7 @@ using System.Collections.Generic;
 
 public class Player : NetworkBehaviour, IRestart
 {
-    const string BasePlayerName = "noName";
+    const string BasePlayerName = "NotSure";
     const string StartingRoom = "B0";
 
     // this singals, where the player is currently loccated
@@ -84,6 +84,13 @@ public class Player : NetworkBehaviour, IRestart
     [ServerRpc]
     void ChangeRoomServerRpc(FixedString32Bytes newRoomName, ulong clientId, bool ignoreRestrictions = false, ServerRpcParams rpcParams = default)
     {
+        // deatch Check
+        if (IsDead)
+        {
+            AudioManager.Instance.RequestVibratingSentenceOnClient(VibrationDuration.error, clientId: clientId);
+            return;
+        }
+
         // going through the teleport
         if (CurrentRoomName.Value == "Teleport")
         {

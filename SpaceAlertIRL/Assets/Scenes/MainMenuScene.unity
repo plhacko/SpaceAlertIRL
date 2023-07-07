@@ -7617,5 +7617,9 @@ PrefabInstance:
       propertyPath: m_Name
       value: IonCannon
       objectReference: {fileID: 0}
+    - target: {fileID: 5559366748942145083, guid: 49e1de77f04444d4e8205b2363c19090, type: 3}
+      propertyPath: TargetedZone
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 49e1de77f04444d4e8205b2363c19090, type: 3}

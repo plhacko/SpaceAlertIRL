@@ -109,7 +109,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   IconPrefab: {fileID: 7081249087830598152, guid: c309ea298f3389a41982aeed7eb3fd02, type: 3}
   RocketPrefab: {fileID: 868332823138185189, guid: d7d1b492af8af9c488c6ae37923f309f, type: 3}
-  TagrgetableZoneNames: 000000000100000002000000
+  TargetableZoneNames: 000000000100000002000000
   TargetedZone: 0
 --- !u!114 &8051936946443040607
 MonoBehaviour:
