@@ -770,11 +770,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Fighter, HP : 4/4, ES : 2/2
+  m_text: 'Fighter
 
-    Attack(3) in 5.23
-
-    Distance : 10
+    action descripton
 
 '
   m_isRightToLeft: 0

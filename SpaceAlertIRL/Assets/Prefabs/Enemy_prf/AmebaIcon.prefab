@@ -220,9 +220,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: 'Ameba
 
-    Damage : 5
-
-    Impact in : 10
+    action descripton
 
 '
   m_isRightToLeft: 0

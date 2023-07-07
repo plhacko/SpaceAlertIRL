@@ -849,9 +849,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: 'Rocket
 
-    Attack(3) in 5.23
-
-    Distance : 10
+    action descripton
 
 '
   m_isRightToLeft: 0

@@ -409,6 +409,7 @@ MonoBehaviour:
   DontUnload:
   - {fileID: 1180635064711109872}
   - {fileID: 1500084840}
+  - {fileID: 1832390799}
 --- !u!1001 &463200824
 PrefabInstance:
   m_ObjectHideFlags: 0
