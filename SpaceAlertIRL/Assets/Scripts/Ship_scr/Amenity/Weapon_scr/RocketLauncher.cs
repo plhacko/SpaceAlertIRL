@@ -10,7 +10,7 @@ public class RocketLauncher : Weapon<RocketLauncher>
     public GameObject RocketPrefab; // must contain class Rocket
 
     [SerializeField]
-    public ZoneNames[] TagrgetableZoneNames;
+    public ZoneNames[] TargetableZoneNames;
 
     [SerializeField]
     public ZoneNames TargetedZone;

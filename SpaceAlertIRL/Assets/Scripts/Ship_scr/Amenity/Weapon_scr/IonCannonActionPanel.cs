@@ -1,13 +1,14 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
-using System.Security.Cryptography;
 using UnityEngine.UI;
 
-public class RocketLauncherActionPanel : AmenityActionPanel<RocketLauncher>
+public class IonCannonActionPanel : AmenityActionPanel<IonCannon>
 {
-    TextMeshProUGUI Status_text, Damage_text, Range_text, RocketCount_text, TargetedZoneName_text;
+    TextMeshProUGUI Status_text, Damage_text, Range_text, Heat_text, EnergyCost_text, TargetedZoneName_text;
+
     Image Range_image, ShootButton;
 
     private void Awake()
@@ -15,42 +16,43 @@ public class RocketLauncherActionPanel : AmenityActionPanel<RocketLauncher>
         Status_text = transform.Find("Status").GetComponentInChildren<TextMeshProUGUI>();
         Damage_text = transform.Find("Damage").GetComponentInChildren<TextMeshProUGUI>();
         Range_text = transform.Find("Range").GetComponentInChildren<TextMeshProUGUI>();
-        RocketCount_text = transform.Find("RocketCount").GetComponentInChildren<TextMeshProUGUI>();
+        Heat_text = transform.Find("Heat").GetComponentInChildren<TextMeshProUGUI>();
+        EnergyCost_text = transform.Find("EnergyCost").GetComponentInChildren<TextMeshProUGUI>();
         TargetedZoneName_text = transform.Find("TargetedZoneName").GetComponentInChildren<TextMeshProUGUI>();
 
         Range_image = transform.Find("Range").Find("Image").GetComponentInChildren<Image>();
         ShootButton = transform.Find("ShootButton").GetComponent<Image>();
     }
 
-    public override void Initialise(RocketLauncher rl)
+    public override void Initialise(IonCannon ionCannon)
     {
-        base.Initialise(rl);
-
+        base.Initialise(ionCannon);
         // target zone is chozen based on the "TargetedZone"
-        ZoneNames _zoneName = Amenity.TargetableZoneNames[(int)rl.TargetedZone];
+        ZoneNames _zoneName = Amenity.TargetableZoneNames[(int)ionCannon.TargetedZone];
         Zone _zone = GameObject.Find(_zoneName.ToString()).GetComponent<Zone>();
         transform.GetComponentInChildren<EnemyIconSpawner>().Initialise(_zone);
     }
 
     protected override void UpdateUI()
     {
-        Rocket rocket = Amenity.RocketPrefab.GetComponent<Rocket>();
+        var _damage = Amenity.Damage;
+        var _energyCost = Amenity.EnergyCost;
+        var _range = Amenity.Range;
+        var _heat = Amenity.Heat;
+        bool _isTooHot = Amenity.IsTooHotToShoot;
+        string _status = _isTooHot ? "cooling" : "ready";
 
-        var _damage = rocket.Damage;
-        var _range = rocket.Range;
-        var _rocketCount = Amenity.NumberOfRockets;
-        var _status = _rocketCount > 0 ? "\nready to shoot" : "\nout of rockets";
-
-        Damage_text.text = $"Damage : {_damage}";
-        Range_text.text = $"Range : {_range.ToString()}";
-        RocketCount_text.text = $"Rockets : {_rocketCount}";
-        TargetedZoneName_text.text = Amenity.TargetableZoneNames[(int)Amenity.TargetedZone].ToString();
+        Damage_text.text = $"Depletes up to {_damage} energy in all ships";
+        EnergyCost_text.text = $"Energy cost : {_energyCost}";
+        Range_text.text = $"Range : {_range}";
+        Heat_text.text = $"Heat : {_heat.ToString("0.0")}%";
         Status_text.text = $"Status : {_status}";
+        TargetedZoneName_text.text = Amenity.TargetableZoneNames[(int)Amenity.TargetedZone].ToString();
 
         Range_image.color = ProjectColors.GetColorForDistance(_range);
 
         Color c = ShootButton.color;
-        c.a = Amenity.NumberOfRockets > 0 ? 1f : 0.6f;
+        c.a = _isTooHot ? 0.6f : 1f;
         ShootButton.color = c;
     }
 
@@ -81,8 +83,9 @@ public class RocketLauncherActionPanel : AmenityActionPanel<RocketLauncher>
             UpdateUI();
         }
     }
-    public void RequestShootingRocket()
+
+    public void RequestShootingAtEnemies()
     {
-        Amenity.RequestLaunchingRocket(Amenity.TargetableZoneNames[(int)Amenity.TargetedZone]);
+        Amenity.RequestShootingAtEnemies();
     }
 }

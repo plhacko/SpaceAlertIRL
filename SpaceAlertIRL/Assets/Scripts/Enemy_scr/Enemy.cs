@@ -21,7 +21,7 @@ public abstract class Enemy : NetworkBehaviour, IComparable<Enemy>, IOnServerFix
     abstract protected int MaxEnergyShieldConst { get; }
     abstract protected float StartingSpeedConst { get; }
     virtual protected RangeEnum StartingDistanceConst { get => RangeEnum.Far; }
-    virtual protected float EnergyShieldRegenerationTimeConst { get=>5.0f; }
+    virtual protected float EnergyShieldRegenerationTimeConst { get => 5.0f; }
 
     // getters and setters for data (is mostly a wrapper for network variables)
     public int HP { get => _HP.Value; set { _HP.Value = value; } }
@@ -103,7 +103,7 @@ public abstract class Enemy : NetworkBehaviour, IComparable<Enemy>, IOnServerFix
             NextEnemyAction = DecideNextAction();
             NextActionDescription = NextEnemyAction.GetDescription() ?? "no action";
         }
-        
+
         // normal movement (sets distance)
         if (newDistance > 0)
         { Distance = newDistance; }
@@ -138,16 +138,21 @@ public abstract class Enemy : NetworkBehaviour, IComparable<Enemy>, IOnServerFix
         GetComponent<NetworkObject>().Despawn(true);
     }
 
+    public int DeleteEnergyShields(int damage)
+    {
+        int damageToShields = System.Math.Min(EnergyShield, damage);
+        EnergyShield -= damageToShields;
+        return damage - damageToShields;
+    }
+
     virtual public void TakeDamage(int damage) // the weapon is needed if there is a special exception
     {
         if (damage < 0) { Debug.Log("damage can't be negative"); return; }
 
-        // damageToShields
-        int damageToShields = System.Math.Min(EnergyShield, damage);
-        damage -= damageToShields;
-        EnergyShield = EnergyShield - damageToShields;
-
-        // damaheTuHull
+        // damage to shields
+        damage = DeleteEnergyShields(damage);
+        
+        // damage to hull
         int newHP = HP - damage;
         if (newHP > 0)
         { HP = newHP; }
