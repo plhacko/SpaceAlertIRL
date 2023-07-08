@@ -62,10 +62,6 @@ public abstract class Enemy : NetworkBehaviour, IComparable<Enemy>, IOnServerFix
 
         UIActions.AddAction(UpdateUI);
         UIActions.UpdateUI();
-
-        // choose first action
-        NextEnemyAction = DecideNextAction();
-        NextActionDescription = NextEnemyAction.GetDescription();
     }
 
     public virtual void Initialise()
@@ -79,6 +75,10 @@ public abstract class Enemy : NetworkBehaviour, IComparable<Enemy>, IOnServerFix
 
         Zone = GetComponentInParent<Zone>();
         Zone.ReportAddingEnemy();
+
+        // choose first action
+        NextEnemyAction = DecideNextAction();
+        NextActionDescription = NextEnemyAction.GetDescription();
 
         ServerUpdater.Add(this.gameObject);
     }
