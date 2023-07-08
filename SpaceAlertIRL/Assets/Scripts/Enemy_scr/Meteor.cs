@@ -10,7 +10,7 @@ public class Meteor : Enemy<Meteor>
 {
     protected override int StratingHPConst => 7;
     protected override int MaxEnergyShieldConst => 0;
-    protected override float StartingSpeedConst => 2.5f;
+    protected override float StartingSpeedConst => 3f;
 
     protected override void Impact()
     {

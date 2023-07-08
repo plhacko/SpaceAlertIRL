@@ -23,4 +23,10 @@ public class MenuCanvas : MonoBehaviour
             HostMenu.SetActive(false);
         }
     }
+
+    public void Disconnect()
+    {
+        NetworkManager.Singleton.Shutdown();
+        UnityEngine.SceneManagement.SceneManager.LoadScene("MainMenuScene");
+    }
 }

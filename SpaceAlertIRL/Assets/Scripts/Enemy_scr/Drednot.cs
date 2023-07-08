@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class Drednot : Enemy<Drednot>
 {
-    protected override int StratingHPConst => 6;
-    protected override int MaxEnergyShieldConst => 2;
+    protected override int StratingHPConst => 7;
+    protected override int MaxEnergyShieldConst => 3;
     protected override float StartingSpeedConst => 2.0f;
 
 
@@ -16,9 +16,13 @@ public class Drednot : Enemy<Drednot>
         switch (Iterator)
         {
             case 1:
-                return new SimpleAttack(3, Zone);
+                return new CombinedAction(
+                    new SimpleAttack(2, Zone),
+                    new SpeedUp(this, 1));
             case 2:
-                return new SimpleAttack(3, Zone);
+                return new CombinedAction(
+                    new SimpleAttack(3, Zone),
+                    new SpeedUp(this, 1));
             case 3:
                 return new SimpleAttack(5, Zone);
             default:

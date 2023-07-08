@@ -285,7 +285,7 @@ sealed class SpeedUp : EnemyAction
 sealed class Heal : EnemyAction
 {
     public override void ExecuteAction() => Enemy.HP = System.Math.Min(Enemy.MaxHP, Enemy.HP + HealValue);
-    public override string GetDescription() => $"Heals for up to {HealValue} hp";
+    public override string GetDescription() => $"Heals for {HealValue} hp";
 
     readonly int HealValue;
     readonly Enemy Enemy;

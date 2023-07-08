@@ -7,6 +7,6 @@ public class RocketIcon : EnemyIcon<Rocket>
 {
     protected override string GetEnemyActionDescriptionLine()
     {
-        return $"Attack({Enemy.Damage}) on colision";
+        return $"Deals {Enemy.Damage} damage on colision";
     }
 }
