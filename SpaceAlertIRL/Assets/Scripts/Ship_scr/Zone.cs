@@ -17,10 +17,12 @@ public class Zone : NetworkBehaviour, IRestart
 
     const int MaxHPConst = 5;
 
-    NetworkVariable<int> _HP = new NetworkVariable<int>(MaxHPConst);
+    private NetworkVariable<int> _HP = new NetworkVariable<int>(MaxHPConst);
+    private NetworkVariable<int> _NumberOfEnemies = new NetworkVariable<int>(0); // is mostly used to updateUI if an enemy is added or removed
 
-    public int HP { get => _HP.Value; }
+    public int HP { get => _HP.Value; private set { _HP.Value = value; } }
     public int MaxHP { get => MaxHPConst; }
+    public int NumberOfEnemies { get => _NumberOfEnemies.Value; private set { _NumberOfEnemies.Value = value; } }
     public int GetShieldValue() => GetComponentsInChildren<EnergyShield>().Sum(es => es.ShieldValue);
     public int GetMaxShieldValue() => GetComponentsInChildren<EnergyShield>().Sum(es => es.MaxShieldValue);
 
@@ -48,7 +50,7 @@ public class Zone : NetworkBehaviour, IRestart
 
     private void Start()
     {
-        UIActions.AddOnValueChangeDependency(_HP);
+        UIActions.AddOnValueChangeDependency(_HP, _NumberOfEnemies);
 
         HPUI = transform.Find("HP").GetComponentInChildren<TextMeshProUGUI>();
         ShieldUI = transform.Find("Shield").GetComponentInChildren<TextMeshProUGUI>();
@@ -72,9 +74,9 @@ public class Zone : NetworkBehaviour, IRestart
         if (damage == 0) { UIActions.UpdateUI(); } // updates UI if the shields dealed with all the damage
 
         // do damage to the ship
-        int _hp = _HP.Value - damage;
-        if (_hp > 0) { _HP.Value = _hp; }
-        else { _HP.Value = 0; Die(); }
+        int _hp = HP - damage;
+        if (_hp > 0) { HP = _hp; }
+        else { HP = 0; Die(); }
     }
 
     public void DepleteEnergyShiealds(int damage)
@@ -87,6 +89,9 @@ public class Zone : NetworkBehaviour, IRestart
         UIActions.UpdateUI();
     }
 
+    public void ReportAddingEnemy() { NumberOfEnemies++; }
+    public void ReportRemovingEnemy() { NumberOfEnemies--; }
+
     private void Die()
     {
         ServerUpdater.StopUpdating();
@@ -95,7 +100,7 @@ public class Zone : NetworkBehaviour, IRestart
 
     public void Restart()
     {
-        _HP.Value = MaxHPConst;
+        HP = MaxHPConst;
     }
 #endif
 

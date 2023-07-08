@@ -32,7 +32,7 @@ public class Rocket : Enemy<Rocket>
             }
         }
         if (newDistance > (float)MaxRangeConst)
-        { Impact(); }
+        { Impact();}
         if (newDistance < 0) // the rocket has dmaged the players ship 
         { Zone.TakeDmage(DamageConst); Impact(); }
 

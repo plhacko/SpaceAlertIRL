@@ -6,7 +6,7 @@ public sealed class Eye : Enemy<Eye>
 {
     protected override int StratingHPConst => 12;
     protected override int MaxEnergyShieldConst => 0;
-    protected override float StartingSpeedConst => 2.0f;
+    protected override float StartingSpeedConst => 4.0f;
 
     int Iterator = 0;
     protected override EnemyAction DecideNextAction()

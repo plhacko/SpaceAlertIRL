@@ -352,14 +352,14 @@ MonoBehaviour:
     on the screen. Most of the things should be self explanatory but there might
     be some hiccups so we will briefly go over them.
 
-    
 
-    The top of the
-    screen should be obvious, there is a list of players with information about where
-    they are and a menu button. Right underneath is the name of the room you are
-    currently in and HP (red) and Shields (blue) of the zone you are currently in.
 
-    
+    The top of the screen
+    should be obvious, there is a list of players with information about where they
+    are and a menu button. Right underneath is the name of the room you are currently
+    in and HP (red) and Shields (blue) of the zone you are currently in.
+
+
 
     Then
     there are buttons corresponding to the doors leading out of the room and then
@@ -367,11 +367,11 @@ MonoBehaviour:
     you press those, you will be shown the panel, where you can interact with them.
     This panel takes up the rest of the screen.
 
-    
 
-    Lastly there is a timer
-    of the mission and button that closes the panel of the amenities and shows you
-    the diagram of the ship, enemies in each Zone and their distances from the ship.'
+
+    Lastly there is a timer of
+    the mission and button that closes the panel of the amenities and shows you the
+    diagram of the ship, enemies in each Zone and their distances from the ship.'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1348,27 +1348,27 @@ MonoBehaviour:
 
     A1, B1, C1
 
-    (To write this text to the tags
-    please feel free to use any third-party. This game does not allow writing to
-    the NFC tags)
+    (To write this text to the tags please
+    feel free to use any third-party. This game does not allow writing to the NFC
+    tags)
 
-    
 
-    Each of these codes represents a room, to which the
-    NFC tag corresponds so it is recommended to note that somewhere on the tag.
 
-    
+    Each of these codes represents a room, to which the NFC tag corresponds
+    so it is recommended to note that somewhere on the tag.
 
-    After
-    you are finished, please deploy those tags into your game area (flat, room, ...),
-    so everybody knows where they are. Distances are completely up to you, but at
-    the beginning, we recommend smaller ones with ordering corresponding to the ship
+
+
+    After you are
+    finished, please deploy those tags into your game area (flat, room, ...), so
+    everybody knows where they are. Distances are completely up to you, but at the
+    beginning, we recommend smaller ones with ordering corresponding to the ship
     layout.
 
-    
 
-    The whole game area must be well covered by Wifi, but more
-    on that later.
+
+    The whole game area must be well covered by Wifi, but more on
+    that later.
 
 '
   m_isRightToLeft: 0
@@ -3624,28 +3624,28 @@ MonoBehaviour:
     Power
     generator
 
-    Stores energy and provides power for its room. Has a limited
-    amount of powercells. If you burn the powercell, the power generator will gain
-    energy up to its maximum amount.
+    Stores energy and provides power for its room. Has a limited amount
+    of powercells. If you burn the powercell, the power generator will gain energy
+    up to its maximum amount.
 
-    
+
 
     Energy pool
 
-    Stores energy
-    and provides power for its room. Is linked to the power generator and can transfer
-    energy from it to itself. Always transfers the maximum amount possible.
+    Stores energy and provides
+    power for its room. Is linked to the power generator and can transfer energy
+    from it to itself. Always transfers the maximum amount possible.
 
-    
+
 
     Energy
     node
 
-    Is linked to an energy pool or power generator. The linked device
-    then provides energy for the room. In your ship the link is always to a device
-    in the same zone.
+    Is linked to an energy pool or power generator. The linked device then
+    provides energy for the room. In your ship the link is always to a device in
+    the same zone.
 
-    
+
 
 '
   m_isRightToLeft: 0
@@ -8889,23 +8889,22 @@ MonoBehaviour:
     Shields. If any of those HP drops to 0, you lose and the game is over. But if
     you manage to survive the whole 8 minutes, you win.
 
-    
 
-    The ship is
-    equipped with lasers, Railguns, rocket launchers, and energy shields, so it should
-    not be an issue to deal with them.
 
-    
+    The ship is equipped
+    with lasers, Railguns, rocket launchers, and energy shields, so it should not
+    be an issue to deal with them.
 
-    This requires you to all be in
-    the same location and to be able to move throughout the real world. (small flat
-    or even a bigger room should be sufficient)
 
-    
 
-    note: as a board game
-    it is not necessary for every player to read this manual, one person should be
-    sufficient.
+    This requires you to all be in the same
+    location and to be able to move throughout the real world. (small flat or even
+    a bigger room should be sufficient)
+
+
+
+    note: as a board game it is not necessary
+    for every player to read this manual, one person should be sufficient.
 
 '
   m_isRightToLeft: 0
@@ -8934,7 +8933,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 15.4
+  m_fontSize: 14.2
   m_fontSizeBase: 16
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -11694,19 +11693,19 @@ MonoBehaviour:
     Wifi (LAN) and all of you (1-4 players, recommended 2-3) have to have downloaded
     the Space Alert IRL app on your Android devices.
 
-    
 
-    After that, one
-    of you has to become a host (button Host) and other Clients (button Client).
-    The app will ask you to input a local ip address, this address is written on
-    the screen of the host player, so use this one. If for any reason this doesn''t
-    work, try to scan your LAN for IPv4s using third party apps. Or you can try another
-    player to be the host.
 
-    
+    After that, one of you
+    has to become a host (button Host) and other Clients (button Client). The app
+    will ask you to input a local ip address, this address is written on the screen
+    of the host player, so use this one. If for any reason this doesn''t work, try
+    to scan your LAN for IPv4s using third party apps. Or you can try another player
+    to be the host.
 
-    After everyone joins, you all can choose
-    a custom name and the Host can choose an encounter, thus starting the game.
+
+
+    After everyone joins, you all can choose a custom name
+    and the Host can choose an encounter, thus starting the game.
 
 '
   m_isRightToLeft: 0

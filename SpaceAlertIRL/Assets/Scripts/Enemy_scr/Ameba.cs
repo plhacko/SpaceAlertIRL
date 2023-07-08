@@ -5,7 +5,7 @@ using UnityEngine;
 public class Ameba : Enemy<Ameba>
 {
     protected override int StratingHPConst => 6;
-    protected override int MaxEnergyShieldConst => 2;
+    protected override int MaxEnergyShieldConst => 3;
     protected override float StartingSpeedConst => 2.0f;
 
     private bool WasDamaged = false;

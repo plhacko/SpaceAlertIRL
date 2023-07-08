@@ -79,6 +79,7 @@ public abstract class Enemy : NetworkBehaviour, IComparable<Enemy>, IOnServerFix
         NextActionDescription = "";
 
         Zone = GetComponentInParent<Zone>();
+        Zone.ReportAddingEnemy();
 
         ServerUpdater.Add(this.gameObject);
     }
@@ -131,13 +132,6 @@ public abstract class Enemy : NetworkBehaviour, IComparable<Enemy>, IOnServerFix
     protected abstract EnemyAction DecideNextAction();
 
 #endif
-
-    protected virtual void Impact()
-    {
-        HP = 0;
-        GetComponent<NetworkObject>().Despawn(true);
-    }
-
     public int DeleteEnergyShields(int damage)
     {
         int damageToShields = System.Math.Min(EnergyShield, damage);
@@ -151,30 +145,40 @@ public abstract class Enemy : NetworkBehaviour, IComparable<Enemy>, IOnServerFix
 
         // damage to shields
         damage = DeleteEnergyShields(damage);
-        
+
         // damage to hull
         int newHP = HP - damage;
         if (newHP > 0)
         { HP = newHP; }
         else
-        {
-            HP = 0;
-            Die();
-        }
+        { Die(); }
 
         // shield regeneratin will start all over
         EnergyShieldRegenerationTime = 0;
     }
+    protected virtual void Impact()
+    {
+        string zoneName = GetComponentInParent<Zone>().gameObject.name + "_r";
+        AudioManager.Instance.RequestPlayingSentenceOnClient($"{zoneName} enemyDidLastActionAndLeft_r", removeDuplicates: false); // TODO: add audiotrack
+        AudioManager.Instance.RequestVibratingSentenceOnClient(VibrationDuration.error);
+
+        HP = 0;
+        Zone.ReportRemovingEnemy();
+        GetComponent<NetworkObject>().Despawn(true);
+    }
+
+    public virtual bool IsDead => (HP <= 0);
     virtual public void Die(bool silent = false)
     {
         if (!silent)
         {
             string zoneName = GetComponentInParent<Zone>().gameObject.name + "_r";
             AudioManager.Instance.RequestPlayingSentenceOnClient($"{zoneName} enemyTerminated_r", removeDuplicates: false);
-            AudioManager.Instance.RequestVibratingSentenceOnClient(VibrationDuration.error);
+            AudioManager.Instance.RequestVibratingSentenceOnClient(VibrationDuration.success);
         }
 
         HP = 0;
+        Zone.ReportRemovingEnemy();
         GetComponent<NetworkObject>().Despawn();
     }
     public int CompareTo(Enemy e)

@@ -5,7 +5,7 @@ using UnityEngine;
 public class EnergyCloud : Enemy<EnergyCloud>
 {
     protected override int StratingHPConst => 1;
-    protected override int MaxEnergyShieldConst => 9;
+    protected override int MaxEnergyShieldConst => 8;
     protected override float StartingSpeedConst => 2.0f;
     
     int Iterator = 0;

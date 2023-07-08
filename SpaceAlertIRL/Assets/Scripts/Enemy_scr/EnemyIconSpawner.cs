@@ -21,6 +21,7 @@ public class EnemyIconSpawner : ActionPanel
         UpdateUIAction = SpawnAllEnemies;
         UpdateUIAction += UpdateZoneNameText;
         UpdateUIAction();
+        Zone.UIActions.AddAction(UpdateUIAction);
     }
     public void UpdateZoneNameText()
     {
@@ -28,28 +29,23 @@ public class EnemyIconSpawner : ActionPanel
     }
     public void ChangeZone(Zone zone)
     {
+        Zone.UIActions.RemoveAction(UpdateUIAction);
         Zone = zone;
+        Zone.UIActions.AddAction(UpdateUIAction);
+
         UpdateUIAction();
     }
 
-    // TODO: substutude this FixedUpdate for a action that happens when the number of enemis in the zone is changed
-    private void FixedUpdate()
-    {
-        SpawnAllEnemies();
-    }
-
-    private Enemy[] EnemiesInZone = new Enemy[] { };
     private void SpawnAllEnemies()
     {
         Enemy[] _enemiesInZone = Zone.GenrateSortedEnemyArray();
-        if (EnemiesInZone.SequenceEqual(_enemiesInZone)) { return; }
-        EnemiesInZone = _enemiesInZone;
 
         // spawn enemy Icons
         ResetSelf();
         foreach (Enemy enemy in _enemiesInZone)
         {
-            enemy.SpawnIconAsChild(gameObject);
+            if (!enemy.IsDead)
+            { enemy.SpawnIconAsChild(gameObject); }
         }
     }
 
@@ -64,5 +60,7 @@ public class EnemyIconSpawner : ActionPanel
     }
 
     protected override void OnDisable()
-    { }
+    {
+        Zone?.UIActions.RemoveAction(UpdateUIAction);
+    }
 }
