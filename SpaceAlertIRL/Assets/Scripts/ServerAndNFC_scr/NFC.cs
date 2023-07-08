@@ -29,9 +29,7 @@ public class NFC : MonoBehaviour
 
     public void RequestRoomChangeForCurrentPlayer(string tagInfo)
     {
-        // TODO: redo after redoing NFC tags
-        string[] splited = tagInfo.Split();
-        Player.GetLocalPlayer()?.RequestChangingRoom(roomName: splited[1]);
+        Player.GetLocalPlayer()?.RequestChangingRoom(roomName: tagInfo);
     }
 
     string DetectNFCTag()
