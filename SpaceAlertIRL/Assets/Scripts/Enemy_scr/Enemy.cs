@@ -7,7 +7,6 @@ using Unity.Netcode;
 using System;
 using Unity.Collections;
 using UnityEngine.UI;
-using UnityEditor.PackageManager;
 
 public abstract class Enemy : NetworkBehaviour, IComparable<Enemy>, IOnServerFixedUpdate
 {
