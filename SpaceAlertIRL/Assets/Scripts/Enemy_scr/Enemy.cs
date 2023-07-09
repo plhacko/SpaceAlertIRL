@@ -74,7 +74,6 @@ public abstract class Enemy : NetworkBehaviour, IComparable<Enemy>, IOnServerFix
         NextActionDescription = "";
 
         Zone = GetComponentInParent<Zone>();
-        Zone.ReportAddingEnemy();
 
         // choose first action
         NextEnemyAction = DecideNextAction();
@@ -162,7 +161,6 @@ public abstract class Enemy : NetworkBehaviour, IComparable<Enemy>, IOnServerFix
         AudioManager.Instance.RequestVibratingSentenceOnClient(VibrationDuration.error);
 
         HP = 0;
-        Zone.ReportRemovingEnemy();
         GetComponent<NetworkObject>().Despawn(true);
     }
 
@@ -177,7 +175,6 @@ public abstract class Enemy : NetworkBehaviour, IComparable<Enemy>, IOnServerFix
         }
 
         HP = 0;
-        Zone.ReportRemovingEnemy();
         GetComponent<NetworkObject>().Despawn();
     }
     public int CompareTo(Enemy e)

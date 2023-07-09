@@ -18,31 +18,35 @@ public class EnemyIconSpawner : ActionPanel
     public void Initialise(Zone zone)
     {
         Zone = zone;
-        UpdateUIAction = SpawnAllEnemies;
-        UpdateUIAction += UpdateZoneNameText;
-        UpdateUIAction();
-        Zone.UIActions.AddAction(UpdateUIAction);
     }
+
+    void FixedUpdate()
+    {
+        SpawnAllEnemies();
+    }
+
     public void UpdateZoneNameText()
     {
         ZoneNameText.text = Zone.name;
     }
     public void ChangeZone(Zone zone)
     {
-        Zone.UIActions.RemoveAction(UpdateUIAction);
         Zone = zone;
-        Zone.UIActions.AddAction(UpdateUIAction);
-
-        UpdateUIAction();
+        UpdateZoneNameText();
     }
 
+    private Enemy[] EnemiesInZone = new Enemy[] { };
     private void SpawnAllEnemies()
     {
-        Enemy[] _enemiesInZone = Zone.GenrateSortedEnemyArray();
+        Enemy[] enemiesInZone = Zone.GenrateSortedEnemyArray();
+        if (EnemiesInZone.SequenceEqual(enemiesInZone))
+        { return; }
+        else
+        { EnemiesInZone = enemiesInZone; }
 
         // spawn enemy Icons
         ResetSelf();
-        foreach (Enemy enemy in _enemiesInZone)
+        foreach (Enemy enemy in enemiesInZone)
         {
             if (!enemy.IsDead)
             { enemy.SpawnIconAsChild(gameObject); }
@@ -60,7 +64,5 @@ public class EnemyIconSpawner : ActionPanel
     }
 
     protected override void OnDisable()
-    {
-        Zone?.UIActions.RemoveAction(UpdateUIAction);
-    }
+    { }
 }
