@@ -11,8 +11,7 @@ public class Railgun : Weapon<Railgun>
     const RangeEnum RangeConst = RangeEnum.Mid;
     const int EnergyCostToShootConst = 0;
 
-    const float TimeToChargeConst = 5.0f;
-    const float TimeToDischargeConst = 5.0f;
+    const float TimeToChargeConst = 20.0f;
 
     NetworkVariable<int> _Damage = new NetworkVariable<int>(DamageConst);
     NetworkVariable<float> _Range = new NetworkVariable<float>((float)RangeConst);

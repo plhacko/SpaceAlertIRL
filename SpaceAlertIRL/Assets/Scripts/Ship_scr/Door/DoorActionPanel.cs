@@ -13,6 +13,7 @@ public class DoorActionPanel : ActionPanel
     // UI
     TextMeshProUGUI DoorActivity, DoorStatus;
     Image OpenButton, CloseButton;
+    GameObject DebugGo;
 
     private void Awake()
     {
@@ -21,6 +22,8 @@ public class DoorActionPanel : ActionPanel
 
         DoorStatus = transform.Find("DoorStatus").GetComponentInChildren<TextMeshProUGUI>();
         DoorActivity = transform.Find("DoorActivity").GetComponentInChildren<TextMeshProUGUI>();
+
+        DebugGo = transform.Find("DebugGo").gameObject;
     }
 
     virtual public void Initialise(Door door)
@@ -63,6 +66,12 @@ public class DoorActionPanel : ActionPanel
         c = CloseButton.color;
         c.a = Door.IsOpen ? 1f : 0.6f;
         CloseButton.color = c;
+
+        // debug go button
+        if (Door.ShowDebugGoPanel)
+        { DebugGo.SetActive(true); }
+        else
+        { DebugGo.SetActive(false); }
     }
 
     protected override void OnDisable()

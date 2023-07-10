@@ -100,31 +100,49 @@ public class Player : NetworkBehaviour, IRestart
 
         // set new room name
         if (ignoreRestrictions)
-        { CurrentRoomName = newRoomName; }
-        else if (CurrentRoomName.Value == newRoomName)
-        { }
-        else if (!CanGoThroughDoors())
+        { CurrentRoomName = newRoomName; return; }
+
+        if (CurrentRoomName.Value == newRoomName)
+        { return; }
+
+        List<Door> doors = FindGoThroughDoors();
+        if (doors.Count == 0)
         {
-            // if there are no doors to go through, give the player audio feed back
+            AudioManager.Instance.RequestPlayingSentenceOnClient("notConnectedByDoors_r", clientId: clientId); // TODO: add voicetrack
+            return;
+        }
+        if (AreAllDoorsClosed(doors))
+        {
             AudioManager.Instance.RequestPlayingSentenceOnClient("doorsAreClosed_r", clientId: clientId);
+            return;
         }
         else
         {
             CurrentRoomName = newRoomName;
         }
 
-        bool CanGoThroughDoors()
+        bool AreAllDoorsClosed(List<Door> doors)
         {
+            foreach (Door d in doors)
+            { if (d.IsOpen) { return true; } }
+            return false;
+        }
+
+        // returns list of doors that lead to the next room
+        List<Door> FindGoThroughDoors()
+        {
+            List<Door> result = new List<Door>();
+
             // going through the doors
             Room r = GameObject.Find(CurrentRoomName.Value.ToString()).GetComponent<Room>();
             foreach (var d in r.Doors)
             {
-                if (d.IsOpen && (d.RoomA.Name == newRoomName || d.RoomB.Name == newRoomName))
+                if (d.RoomA.Name == newRoomName || d.RoomB.Name == newRoomName)
                 {
-                    return true;
+                    result.Add(d);
                 }
             }
-            return false;
+            return result;
         }
     }
 

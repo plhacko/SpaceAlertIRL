@@ -12,8 +12,9 @@ public class Laser : Weapon<Laser>, IOnServerFixedUpdate
     const float StartHeatConst = 0.0f; // 0%
     const float MaxHeatConst = 100.0f; // 100%
     const float HeatCostPerShotConst = MaxHeatConst;
-    const float NormalCoolingModifierConst = 3.0f;
+    const float NormalCoolingModifierConst = 2.0f;
     const float ActiveCoolingModifierConst = 2.0f * NormalCoolingModifierConst;
+    // note: Active cooling functionality is implemented, but was finally decided not to use it
 
     NetworkVariable<int> _Damage = new NetworkVariable<int>(DamageConst);
     NetworkVariable<float> _Range = new NetworkVariable<float>((float)RangeConst);

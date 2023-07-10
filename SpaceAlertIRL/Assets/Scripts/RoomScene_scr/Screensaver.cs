@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Screensaver : MonoBehaviour
 {
-    const float StartTimeConst = 10.0f; // 10 s
+    const float StartTimeConst = 20.0f; // 20 s
 
     float TimeToCloseScreensaver = StartTimeConst; // time to close screensaver
 
