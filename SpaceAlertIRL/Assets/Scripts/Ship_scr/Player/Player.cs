@@ -124,8 +124,8 @@ public class Player : NetworkBehaviour, IRestart
         bool AreAllDoorsClosed(List<Door> doors)
         {
             foreach (Door d in doors)
-            { if (d.IsOpen) { return true; } }
-            return false;
+            { if (d.IsOpen) { return false; } }
+            return true;
         }
 
         // returns list of doors that lead to the next room
