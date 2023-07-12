@@ -6,6 +6,7 @@ using UnityEngine;
 public class GameMenu : MonoBehaviour
 {
     [SerializeField] GameObject[] OnlyHost;
+    [SerializeField] GameObject[] OnlyClient;
 
     private void OnEnable()
     {
@@ -13,5 +14,12 @@ public class GameMenu : MonoBehaviour
         {
             go.SetActive(NetworkManager.Singleton.IsServer);
         }
+
+        foreach (var go in OnlyClient)
+        {
+            go.SetActive(NetworkManager.Singleton.IsClient);
+        }
     }
+
+
 }

@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class ActionPanelSpawner : MonoBehaviour
 {
-    Color Color;
+    private Color Color;
 
     public void ResetSelf()
     {
@@ -26,7 +26,7 @@ public class ActionPanelSpawner : MonoBehaviour
     private void Start()
     {
         Color = GetComponent<Image>().color;
-        ResetSelf();
+        HideActionPanel();
     }
 
     private void OnDisable()

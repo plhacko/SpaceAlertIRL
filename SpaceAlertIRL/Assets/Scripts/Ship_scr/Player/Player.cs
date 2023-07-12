@@ -79,6 +79,16 @@ public class Player : NetworkBehaviour, IRestart
         if (IsLocalPlayer)
         { UIActions.AddAction(RestartScene); }
 
+        // UI
+        foreach (var pis in FindObjectsOfType<PlayerIconSpawner>())
+        { pis.SpawnAllPlayerIcons(); }
+    }
+
+    void OnDisable()
+    {
+        // UI
+        foreach (var pis in FindObjectsOfType<PlayerIconSpawner>())
+        { pis.SpawnAllPlayerIcons(); }
     }
 
     [ServerRpc]
@@ -87,7 +97,7 @@ public class Player : NetworkBehaviour, IRestart
         // deatch Check
         if (IsDead)
         {
-            if (!silent) { AudioManager.Instance.RequestVibratingSentenceOnClient(VibrationDuration.error, clientId: clientId);}
+            if (!silent) { AudioManager.Instance.RequestVibratingSentenceOnClient(VibrationDuration.error, clientId: clientId); }
             return;
         }
 

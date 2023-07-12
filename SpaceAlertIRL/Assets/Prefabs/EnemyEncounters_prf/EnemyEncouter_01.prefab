@@ -50,5 +50,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   EnemiesToSpawn:
   - Enemy: 1
-    SpawnTime: 0
+    SpawnTime: 20
     ZoneName: 0

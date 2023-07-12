@@ -13,7 +13,7 @@ public class PlayerIconSpawner : MonoBehaviour
         SpawnAllPlayerIcons();
     }
 
-    void SpawnAllPlayerIcons()
+    public void SpawnAllPlayerIcons()
     {
         // remove old ones
         foreach (Transform child in transform)
