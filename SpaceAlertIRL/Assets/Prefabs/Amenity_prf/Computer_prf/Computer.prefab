@@ -13,6 +13,8 @@ GameObject:
   - component: {fileID: 487819878700682181}
   - component: {fileID: 487819878700682178}
   - component: {fileID: 487819878700682179}
+  - component: {fileID: 20007190967407589}
+  - component: {fileID: 5405616410419676376}
   m_Layer: 5
   m_Name: Computer
   m_TagString: Untagged
@@ -107,3 +109,41 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   IconPrefab: {fileID: 5519645531974405814, guid: 8f74c81e30128d14392c5f64500ee87b, type: 3}
   Screeensaver: {fileID: 3001488032752547956, guid: e0e3ebf6f34983441baae9123392be4b, type: 3}
+--- !u!114 &20007190967407589
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 487819878700682177}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 940d9bfd6ec1b89489ddeb489db39068, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bubble_full_prefab: {fileID: 7345016042261358013, guid: 2f61c54ac90d03c4aab7623ed90bf104, type: 3}
+  bubble_empty_prefab: {fileID: 8067456770623628279, guid: 98ee2cecd7687e24babfcee50d1097e9, type: 3}
+--- !u!114 &5405616410419676376
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 487819878700682177}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a8695521f0d02e499659fee002a26c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Padding:
+    m_Left: 0
+    m_Right: 0
+    m_Top: 0
+    m_Bottom: 0
+  m_ChildAlignment: 0
+  m_StartCorner: 0
+  m_StartAxis: 0
+  m_CellSize: {x: 8, y: 8}
+  m_Spacing: {x: 0, y: 0}
+  m_Constraint: 0
+  m_ConstraintCount: 2

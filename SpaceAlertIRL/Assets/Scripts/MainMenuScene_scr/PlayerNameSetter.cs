@@ -6,6 +6,11 @@ using UnityEngine.UI;
 
 public class PlayerNameSetter : MonoBehaviour
 {
+    void Start()
+    {
+        GetComponent<InputField>().text = Player.GetLocalPlayer().Name.ToString();
+    }
+
     public void RequetsSettingLocalPlayerName()
     {
         string playerName = GetComponent<InputField>().text;

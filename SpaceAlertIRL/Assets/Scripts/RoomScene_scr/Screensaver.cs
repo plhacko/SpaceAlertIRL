@@ -4,9 +4,15 @@ using UnityEngine;
 
 public class Screensaver : MonoBehaviour
 {
-    const float StartTimeConst = 20.0f; // 20 s
+    const float DurationTimeConst_max = 20.0f; // 20 s
+    const float DurationTimeConst_min = 10.0f; // 10 s
 
-    float TimeToCloseScreensaver = StartTimeConst; // time to close screensaver
+    float TimeToCloseScreensaver = float.MaxValue; // time to close screensaver
+
+    private void Start()
+    {
+        TimeToCloseScreensaver = Random.Range(DurationTimeConst_min, DurationTimeConst_max);
+    }
 
     void FixedUpdate()
     {

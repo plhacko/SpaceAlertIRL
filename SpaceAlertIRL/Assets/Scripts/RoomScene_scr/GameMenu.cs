@@ -17,7 +17,7 @@ public class GameMenu : MonoBehaviour
 
         foreach (var go in OnlyClient)
         {
-            go.SetActive(NetworkManager.Singleton.IsClient);
+            go.SetActive(!NetworkManager.Singleton.IsServer);
         }
     }
 

@@ -11,11 +11,14 @@ public class Computer : Amenity<Computer>, IOnServerFixedUpdate
 
     NetworkVariable<float> _Timer = new NetworkVariable<float>(RestartTimerConst);
     public float Timer { get => _Timer.Value; protected set { _Timer.Value = value; } }
+    public float Timer_maxValue { get => RestartTimerConst; }
     public float GetTimeToScreensaver() => Timer;
 
     [SerializeField]
     GameObject Screeensaver;
 
+    // UI
+    BubbleProgressBar BubbleProgressBar;
 
 #if SERVER
     public void ServerFixedUpdate()
@@ -52,13 +55,23 @@ public class Computer : Amenity<Computer>, IOnServerFixedUpdate
     {
         base.Start();
 
-        UIActions.AddOnValueChangeDependency(_Timer);
+        // UI
+        BubbleProgressBar = GetComponent<BubbleProgressBar>();
 
+        UIActions.AddOnValueChangeDependency(_Timer);
+        UIActions.AddAction(UpdateUI);
         ServerUpdater.Add(this.gameObject);
     }
 
     public override void Restart()
     {
         Timer = RestartTimerConst;
+    }
+
+    void UpdateUI()
+    {
+        // spawn circles
+        int _ = (int)(Timer / (Timer_maxValue / 6));
+        BubbleProgressBar.UpdateUI(_, 5);
     }
 }

@@ -25,6 +25,7 @@ public class Player : NetworkBehaviour, IRestart
     public bool IsDead { get => _IsDead.Value; private set { _IsDead.Value = value; } }
 
     public UpdateUIActions UIActions;
+    public UpdateUIActions UIActions_name;
 
     public string Status { get => _IsDead.Value ? "dead" : "alive"; }
 
@@ -73,6 +74,9 @@ public class Player : NetworkBehaviour, IRestart
 
     void Start()
     {
+        UIActions_name = new UpdateUIActions();
+        UIActions_name.AddOnValueChangeDependency(_Name);
+
         UIActions = new UpdateUIActions();
         UIActions.AddOnValueChangeDependency(_CurrentRoomName);
         UIActions.AddOnValueChangeDependency(_IsDead);

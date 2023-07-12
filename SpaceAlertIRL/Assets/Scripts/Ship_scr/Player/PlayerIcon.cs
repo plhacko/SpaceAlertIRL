@@ -24,6 +24,7 @@ public class PlayerIcon : Icon
         UpdateUIAction();
 
         Player.UIActions.AddAction(UpdateUIAction);
+        Player.UIActions_name.AddAction(UpdateUIAction);
     }
 
     override protected void OnDisable()
