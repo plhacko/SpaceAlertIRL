@@ -16,20 +16,29 @@ public class NFC : MonoBehaviour
         // this script works nony on Android
         if (Application.platform != RuntimePlatform.Android) { return; }
 
+
         string newTagOutput = DetectNFCTag();
-        if (newTagOutput == "debug")
+        if (newTagOutput == null)
+        { return; }
+
+        else if (newTagOutput == "debug")
         { TagOutput = newTagOutput; return; }
 
-        if (newTagOutput != null && TagOutput != newTagOutput)
+        else if (TagOutput != newTagOutput)
         {
             TagOutput = newTagOutput;
             RequestRoomChangeForCurrentPlayer(TagOutput);
         }
+
+        else if (Player.GetLocalPlayer()?.CurrentRoomName != TagOutput)
+        {
+            RequestRoomChangeForCurrentPlayer(TagOutput, silent: true);
+        }
     }
 
-    public void RequestRoomChangeForCurrentPlayer(string tagInfo)
+    public void RequestRoomChangeForCurrentPlayer(string tagInfo, bool silent = false)
     {
-        Player.GetLocalPlayer()?.RequestChangingRoom(roomName: tagInfo);
+        Player.GetLocalPlayer()?.RequestChangingRoom(roomName: tagInfo, silent: silent);
     }
 
     string DetectNFCTag()

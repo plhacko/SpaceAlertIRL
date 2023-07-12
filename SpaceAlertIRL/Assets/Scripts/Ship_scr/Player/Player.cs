@@ -63,12 +63,12 @@ public class Player : NetworkBehaviour, IRestart
         return null;
     }
 
-    public void RequestChangingRoom(string roomName, bool ignoreRestrictions = false)
+    public void RequestChangingRoom(string roomName, bool ignoreRestrictions = false, bool silent = false)
     {
         if (roomName == CurrentRoomName.Value) { return; }
 
         ulong clientId = NetworkManager.Singleton.LocalClientId;
-        ChangeRoomServerRpc(roomName, clientId, ignoreRestrictions);
+        ChangeRoomServerRpc(newRoomName: roomName, clientId: clientId, ignoreRestrictions: ignoreRestrictions, silent: silent);
     }
 
     void Start()
@@ -82,12 +82,12 @@ public class Player : NetworkBehaviour, IRestart
     }
 
     [ServerRpc]
-    void ChangeRoomServerRpc(FixedString32Bytes newRoomName, ulong clientId, bool ignoreRestrictions = false, ServerRpcParams rpcParams = default)
+    void ChangeRoomServerRpc(FixedString32Bytes newRoomName, ulong clientId, bool ignoreRestrictions = false, bool silent = false, ServerRpcParams rpcParams = default)
     {
         // deatch Check
         if (IsDead)
         {
-            AudioManager.Instance.RequestVibratingSentenceOnClient(VibrationDuration.error, clientId: clientId);
+            if (!silent) { AudioManager.Instance.RequestVibratingSentenceOnClient(VibrationDuration.error, clientId: clientId);}
             return;
         }
 
@@ -95,7 +95,7 @@ public class Player : NetworkBehaviour, IRestart
         if (CurrentRoomName.Value == "Teleport")
         {
             ignoreRestrictions = true;
-            AudioManager.Instance.RequestPlayingSentenceOnClient("youHaveBeenTeleported_r", clientId: clientId);
+            if (!silent) { AudioManager.Instance.RequestPlayingSentenceOnClient("youHaveBeenTeleported_r", clientId: clientId); }
         }
 
         // set new room name
@@ -108,12 +108,12 @@ public class Player : NetworkBehaviour, IRestart
         List<Door> doors = FindGoThroughDoors();
         if (doors.Count == 0)
         {
-            AudioManager.Instance.RequestPlayingSentenceOnClient("notConnectedByDoors_r", clientId: clientId); // TODO: add voicetrack
+            if (!silent) { AudioManager.Instance.RequestPlayingSentenceOnClient("notConnectedByDoors_r", clientId: clientId); }// TODO: add voicetrack
             return;
         }
         if (AreAllDoorsClosed(doors))
         {
-            AudioManager.Instance.RequestPlayingSentenceOnClient("doorsAreClosed_r", clientId: clientId);
+            if (!silent) { AudioManager.Instance.RequestPlayingSentenceOnClient("doorsAreClosed_r", clientId: clientId); }
             return;
         }
         else

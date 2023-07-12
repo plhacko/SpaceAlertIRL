@@ -218,12 +218,12 @@ public abstract class Enemy : NetworkBehaviour, IComparable<Enemy>, IOnServerFix
             Debug.Log($"No DistanceMeterIcon setup in icon of enemy \"{this.GetName()}\"");
             Debug.Log($"DistanceMeterIcon {DistanceMeterIcon}\n DistanceMeter {DistanceMeter}\nUILine {UILine}");
         }
+    }
 
-        // destroy DistanceMeterIcon if this enemy dies
-        if (HP == 0)
-        {
-            Destroy(DistanceMeterIcon);
-        }
+    protected virtual void OnDisable()
+    {
+        if (DistanceMeterIcon != null)
+        { Destroy(DistanceMeterIcon); }
     }
 }
 
