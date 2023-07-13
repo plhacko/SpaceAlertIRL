@@ -9,7 +9,7 @@ public class Line : MonoBehaviour
 {
     UILineRenderer LR;
     [SerializeField] bool AppearSlowly = true;
-    [SerializeField] float LineAppearSpeed = 0.42f;
+    [SerializeField] float LineAppearSpeed;
     void Awake()
     {
         LR = GetComponent<UILineRenderer>();

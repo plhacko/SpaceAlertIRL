@@ -16,6 +16,7 @@ public class ComputerIcon : AmenityIcon<Computer>
         if (Amenity != null)
         {
             int _ = (int)(Amenity.Timer / (Amenity.Timer_maxValue / 6));
+            _ = System.Math.Min(_, 5);
             BubbleProgressBar.UpdateUI(_, 5);
         }
     }

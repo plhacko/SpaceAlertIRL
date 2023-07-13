@@ -72,6 +72,7 @@ public class Computer : Amenity<Computer>, IOnServerFixedUpdate
     {
         // spawn circles
         int _ = (int)(Timer / (Timer_maxValue / 6));
+        _ = System.Math.Min(_, 5);
         BubbleProgressBar.UpdateUI(_, 5);
     }
 }
