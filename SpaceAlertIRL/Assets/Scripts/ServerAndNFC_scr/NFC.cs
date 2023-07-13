@@ -21,18 +21,20 @@ public class NFC : MonoBehaviour
         if (newTagOutput == null)
         { return; }
 
-        else if (newTagOutput == "debug")
+        if (newTagOutput == "debug")
         { TagOutput = newTagOutput; return; }
 
-        else if (TagOutput != newTagOutput)
+        if (TagOutput != newTagOutput)
         {
             TagOutput = newTagOutput;
             RequestRoomChangeForCurrentPlayer(TagOutput);
+            return;
         }
-
-        else if (Player.GetLocalPlayer()?.CurrentRoomName != TagOutput)
+        string currentRoomName = Player.GetLocalPlayer()?.CurrentRoomName.ToString();
+        if (currentRoomName != TagOutput && currentRoomName != "Teleport")
         {
             RequestRoomChangeForCurrentPlayer(TagOutput, silent: true);
+            return;
         }
     }
 
