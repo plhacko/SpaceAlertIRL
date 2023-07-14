@@ -2597,7 +2597,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1513755474735238615, guid: 19077885d8e223a4d93de7f7ad083471, type: 3}
       propertyPath: m_fontSize
-      value: 11.6
+      value: 41.5
       objectReference: {fileID: 0}
     - target: {fileID: 6679778563134041744, guid: 19077885d8e223a4d93de7f7ad083471, type: 3}
       propertyPath: GlobalObjectIdHash
@@ -4740,19 +4740,13 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1513755474735238615, guid: 19077885d8e223a4d93de7f7ad083471, type: 3}
       propertyPath: m_text
-      value: A0
+      value: 'A0
+
+'
       objectReference: {fileID: 0}
     - target: {fileID: 1513755474735238615, guid: 19077885d8e223a4d93de7f7ad083471, type: 3}
       propertyPath: m_fontSize
       value: 42.9
-      objectReference: {fileID: 0}
-    - target: {fileID: 5806863765495078296, guid: 19077885d8e223a4d93de7f7ad083471, type: 3}
-      propertyPath: m_CellSize.x
-      value: 40
-      objectReference: {fileID: 0}
-    - target: {fileID: 5806863765495078296, guid: 19077885d8e223a4d93de7f7ad083471, type: 3}
-      propertyPath: m_CellSize.y
-      value: 40
       objectReference: {fileID: 0}
     - target: {fileID: 6679778563134041744, guid: 19077885d8e223a4d93de7f7ad083471, type: 3}
       propertyPath: GlobalObjectIdHash
@@ -8994,7 +8988,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1513755474735238615, guid: 19077885d8e223a4d93de7f7ad083471, type: 3}
       propertyPath: m_fontSize
-      value: 11.6
+      value: 42.9
       objectReference: {fileID: 0}
     - target: {fileID: 6679778563134041744, guid: 19077885d8e223a4d93de7f7ad083471, type: 3}
       propertyPath: GlobalObjectIdHash
@@ -10874,7 +10868,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1513755474735238615, guid: 19077885d8e223a4d93de7f7ad083471, type: 3}
       propertyPath: m_fontSize
-      value: 11.6
+      value: 42.9
       objectReference: {fileID: 0}
     - target: {fileID: 6679778563134041744, guid: 19077885d8e223a4d93de7f7ad083471, type: 3}
       propertyPath: GlobalObjectIdHash
@@ -12869,6 +12863,14 @@ PrefabInstance:
       propertyPath: Mute
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8804520636853698678, guid: e4e63b4585bbc2645bc36de3e58a5cb3, type: 3}
+      propertyPath: LogMessagePanel
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8804520636853698678, guid: e4e63b4585bbc2645bc36de3e58a5cb3, type: 3}
+      propertyPath: LogMessagePrefab
+      value: 
+      objectReference: {fileID: 3696502644736405142, guid: 59acad3c0a6b13841aece8d8cdcc3250, type: 3}
     - target: {fileID: 8804520636853698678, guid: e4e63b4585bbc2645bc36de3e58a5cb3, type: 3}
       propertyPath: Sounds.Array.size
       value: 20

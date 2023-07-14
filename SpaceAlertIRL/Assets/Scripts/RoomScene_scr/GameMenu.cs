@@ -1,12 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using Unity.Netcode;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameMenu : MonoBehaviour
 {
     [SerializeField] GameObject[] OnlyHost;
     [SerializeField] GameObject[] OnlyClient;
+
+    [SerializeField] GameObject MuteAudioButton;
+    [SerializeField] GameObject MuteLogButton;
+    [SerializeField] NotificationMessagePanel NotificationMessagePanel;
 
     private void OnEnable()
     {
@@ -21,5 +27,27 @@ public class GameMenu : MonoBehaviour
         }
     }
 
+    public void MuteAudio()
+    {
+        AudioManager am = AudioManager.Instance;
+        bool setSilent = !am.Silent;
+        am.Mute(setSilent);
 
+        var text = MuteAudioButton.GetComponentInChildren<Text>();
+        if (text != null)
+        {
+            text.text = setSilent ? "Unmute audio" : "Mute audio";
+        }
+    }
+    public void MuteLog()
+    {
+        bool setSilent = !NotificationMessagePanel.Silent;
+        NotificationMessagePanel.Mute(setSilent);
+
+        var text = MuteLogButton.GetComponentInChildren<Text>();
+        if (text != null)
+        {
+            text.text = setSilent ? "Unmute log" : "Mute log";
+        }
+    }
 }

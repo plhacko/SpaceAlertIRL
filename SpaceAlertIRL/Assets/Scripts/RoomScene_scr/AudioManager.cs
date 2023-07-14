@@ -8,13 +8,31 @@ using Unity.Netcode;
 using Unity.Collections;
 
 
-public class AudioManager : NetworkBehaviour
+public class AudioManager : NetworkBehaviour, IRestart
 {
+    public bool Silent { get; private set; } = false;
+    public void Mute(bool setSilent)
+    {
+        Silent = setSilent;
+        if(Silent) { Announcer_que.Clear(); AudioSource_announcer.Stop(); }
+    }
     public List<AudioClip> Sounds;
     Dictionary<string, AudioClip> SoundDict;
 
     AudioSource AudioSource_announcer;
     Queue<AudioClip> Announcer_que = new Queue<AudioClip>();
+
+    List<string> LogMessages = new List<string>();
+    NotificationMessagePanel _NotificationMessagePanel;
+    NotificationMessagePanel NotificationMessagePanel
+    {
+        get
+        {
+            if (_NotificationMessagePanel == null)
+            { _NotificationMessagePanel = GameObject.Find("NotificationMessagePanel")?.GetComponent<NotificationMessagePanel>(); }
+            return _NotificationMessagePanel;
+        }
+    }
 
 
     private void Awake()
@@ -34,6 +52,13 @@ public class AudioManager : NetworkBehaviour
 
     public void PlaySentenceLoclaly(string sentence, bool removeDuplicates = true)
     {
+        // log the messgae in text format
+        LogMessages.Add(sentence);
+        NotificationMessagePanel?.InstatiateMessage(sentence);
+
+        // silent check
+        if (Silent) { return; }
+        // play audio
         AudioClip audioClip;
         // sentence might contain multiple sentences
         foreach (string s in sentence.Split())
@@ -108,5 +133,11 @@ public class AudioManager : NetworkBehaviour
 
         AudioSource_announcer.clip = sound;
         AudioSource_announcer.Play();
+    }
+
+    public void Restart()
+    {
+        LogMessages.Clear();
+        Announcer_que.Clear();
     }
 }
