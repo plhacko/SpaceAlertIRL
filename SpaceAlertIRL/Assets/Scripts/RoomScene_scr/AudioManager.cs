@@ -23,17 +23,6 @@ public class AudioManager : NetworkBehaviour, IRestart
     Queue<AudioClip> Announcer_que = new Queue<AudioClip>();
 
     List<string> LogMessages = new List<string>();
-    NotificationMessagePanel _NotificationMessagePanel;
-    NotificationMessagePanel NotificationMessagePanel
-    {
-        get
-        {
-            if (_NotificationMessagePanel == null)
-            { _NotificationMessagePanel = GameObject.Find("NotificationMessagePanel")?.GetComponent<NotificationMessagePanel>(); }
-            return _NotificationMessagePanel;
-        }
-    }
-
 
     private void Awake()
     {
@@ -54,7 +43,7 @@ public class AudioManager : NetworkBehaviour, IRestart
     {
         // log the messgae in text format
         LogMessages.Add(sentence);
-        NotificationMessagePanel?.InstatiateMessage(sentence);
+        NotificationMessagePanel.Instance?.InstatiateMessage(sentence);
 
         // silent check
         if (Silent) { return; }

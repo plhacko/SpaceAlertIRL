@@ -2210,6 +2210,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.x
       value: -27
       objectReference: {fileID: 0}
+    - target: {fileID: 7944574687800237911, guid: a81c4bb69a0e9e744a9a68e003eb75f3, type: 3}
+      propertyPath: m_CellSize.x
+      value: 100
+      objectReference: {fileID: 0}
     - target: {fileID: 8437359358592261965, guid: a81c4bb69a0e9e744a9a68e003eb75f3, type: 3}
       propertyPath: m_SizeDelta.x
       value: 423.52

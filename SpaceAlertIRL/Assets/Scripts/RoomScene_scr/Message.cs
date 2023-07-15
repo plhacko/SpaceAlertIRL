@@ -21,7 +21,7 @@ public class Message : MonoBehaviour
     {
         yield return new WaitForSeconds(VisibleTime);
         Color c = Text.color;
-        for (float alpha = 1f; alpha >= 0; alpha -= 0.1f)
+        for (float alpha = 1f; alpha >= 0; alpha -= 0.05f)
         {
             c.a = alpha;
             Text.color = c;

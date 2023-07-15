@@ -8,12 +8,30 @@ public class NotificationMessagePanel : MonoBehaviour
     [SerializeField] GameObject LogMessagePrefab;
     public bool Silent { get; private set; } = false;
 
+    static NotificationMessagePanel _Instance;
+    public static NotificationMessagePanel Instance
+    {
+        get
+        {
+            if (_Instance == null)
+            { _Instance = FindObjectOfType<NotificationMessagePanel>(); }
+            return _Instance;
+        }
+        private set { _Instance = value; }
+    }
+
+    void Awake()
+    {
+        if (Instance == null)
+            Instance = this;
+    }
+
     public void InstatiateMessage(string message)
     {
         if (Silent)
         { return; }
 
-        message = UpperToSpaces(message); // 'HelloWorld_r' -> 'hello world'
+        message = UpperToSpaces(message); // wewrites the message based on previous example 'HelloWorld_r' -> 'hello world'
         var go = Instantiate(LogMessagePrefab, parent: transform);
         go.GetComponent<Message>().Initialise(message);
     }
