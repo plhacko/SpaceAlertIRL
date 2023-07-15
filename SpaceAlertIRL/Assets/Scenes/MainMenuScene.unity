@@ -3278,8 +3278,9 @@ MonoBehaviour:
     and was heavily inspired by the board game Space Alert by game designer Vlaada
     Chvatil (thus the name).\r\n\nMost of the icons in this game were sourced from
     https://game-icons.net/ by following authors: Delapouite, sbed, Lorc, Guard13007,
-    Skoll, PriorBlue. Some Icons were lightly changed. (licence CC BY 3.0)\n\r\nMany
-    thanks to Jakub Gemrot, who lead the thesis.\r\n\r\nI hope you will have fun.\r\nTom\xE1\u0161
+    Skoll, PriorBlue. Some Icons were lightly changed. (licence CC BY 3.0)\n\r\nAudio
+    was altered using tools from lingojam.com/RobotVoiceChanger.\n\nMany thanks to
+    Jakub Gemrot, who lead the thesis.\r\n\r\nI hope you will have fun.\r\nTom\xE1\u0161
     Plh\xE1k\r\n(creator and author of the thesis)"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -3307,7 +3308,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 15.4
+  m_fontSize: 14.1
   m_fontSizeBase: 16
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -5052,7 +5053,7 @@ MonoBehaviour:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
     m_FontSize: 30
     m_FontStyle: 0
-    m_BestFit: 0
+    m_BestFit: 1
     m_MinSize: 0
     m_MaxSize: 230
     m_Alignment: 4
@@ -5061,7 +5062,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Back
+  m_Text: Back to main menu
 --- !u!222 &916360552
 CanvasRenderer:
   m_ObjectHideFlags: 0
