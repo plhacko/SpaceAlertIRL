@@ -20,6 +20,7 @@ public class ComputerActionPanel : AmenityActionPanel<Computer>
 
     public void RequestRestartTimer()
     {
-        Amenity.RequestRestartTimerServerRpc();
+        ulong clientId = Unity.Netcode.NetworkManager.Singleton.LocalClientId;
+        Amenity.RequestRestartTimerServerRpc(clientId: clientId);
     }
 }

@@ -12860,42 +12860,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: AudioManager
       objectReference: {fileID: 0}
-    - target: {fileID: 8804520636853698676, guid: e4e63b4585bbc2645bc36de3e58a5cb3, type: 3}
-      propertyPath: Mute
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8804520636853698678, guid: e4e63b4585bbc2645bc36de3e58a5cb3, type: 3}
-      propertyPath: LogMessagePanel
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 8804520636853698678, guid: e4e63b4585bbc2645bc36de3e58a5cb3, type: 3}
-      propertyPath: LogMessagePrefab
-      value: 
-      objectReference: {fileID: 3696502644736405142, guid: 59acad3c0a6b13841aece8d8cdcc3250, type: 3}
-    - target: {fileID: 8804520636853698678, guid: e4e63b4585bbc2645bc36de3e58a5cb3, type: 3}
-      propertyPath: Sounds.Array.size
-      value: 20
-      objectReference: {fileID: 0}
-    - target: {fileID: 8804520636853698678, guid: e4e63b4585bbc2645bc36de3e58a5cb3, type: 3}
-      propertyPath: Sounds.Array.data[16]
-      value: 
-      objectReference: {fileID: 8300000, guid: cd819ffa542a8944180001f2780578d6, type: 3}
-    - target: {fileID: 8804520636853698678, guid: e4e63b4585bbc2645bc36de3e58a5cb3, type: 3}
-      propertyPath: Sounds.Array.data[17]
-      value: 
-      objectReference: {fileID: 8300000, guid: 1a4e7cd2925c08340916b3cc6a886165, type: 3}
-    - target: {fileID: 8804520636853698678, guid: e4e63b4585bbc2645bc36de3e58a5cb3, type: 3}
-      propertyPath: Sounds.Array.data[18]
-      value: 
-      objectReference: {fileID: 8300000, guid: 3e4e66a29a876b146ba6924b4cd73705, type: 3}
-    - target: {fileID: 8804520636853698678, guid: e4e63b4585bbc2645bc36de3e58a5cb3, type: 3}
-      propertyPath: Sounds.Array.data[19]
-      value: 
-      objectReference: {fileID: 8300000, guid: c837bba508a1fd340a840e7ae067ed22, type: 3}
-    - target: {fileID: 8804520636853698678, guid: e4e63b4585bbc2645bc36de3e58a5cb3, type: 3}
-      propertyPath: Sounds.Array.data[20]
-      value: 
-      objectReference: {fileID: 8300000, guid: c837bba508a1fd340a840e7ae067ed22, type: 3}
     - target: {fileID: 8804520636853698679, guid: e4e63b4585bbc2645bc36de3e58a5cb3, type: 3}
       propertyPath: m_RootOrder
       value: 8

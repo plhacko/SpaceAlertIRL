@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Unity.Netcode;
+using UnityEngine.UI.Extensions;
 
 // expodes on contact with different enemy (in future enemies might shoot rockets as well)
 public class Rocket : Enemy<Rocket>
@@ -38,6 +39,12 @@ public class Rocket : Enemy<Rocket>
 
         _Distance.Value = newDistance;
     }
+
+    protected override void Impact(bool silent = true)
+    {
+        base.Impact(silent);
+    }
+
     public override void Die(bool silent = true)
     {
         base.Die(silent);

@@ -59,7 +59,7 @@ public class RocketLauncher : Weapon<RocketLauncher>
             { ((Rocket)enemy)?.ChangeDirection(); }
 
             AudioManager.Instance.RequestVibratingSentenceOnClient(VibrationDuration.success, clientId: clientId);
-            AudioManager.Instance.RequestPlayingSentenceOnClient("rocketLaunched_r", removeDuplicates: false); // TODO: missing voicetrack
+            AudioManager.Instance.RequestPlayingSentenceOnClient("rocketLaunched_r", removeDuplicates: false); // TODO: missing voicetrack // rm
         }
         else
         {

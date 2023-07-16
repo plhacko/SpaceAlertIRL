@@ -12,13 +12,13 @@ public class Meteor : Enemy<Meteor>
     protected override int MaxEnergyShieldConst => 0;
     protected override float StartingSpeedConst => 3f;
 
-    protected override void Impact()
+    protected override void Impact(bool silent = false)
     {
         if (!NetworkManager.Singleton.IsServer)
         { throw new System.Exception("this method should be called only on server"); }
 
         Zone.TakeDmage(this.HP, this);
-        base.Impact();
+        base.Impact(silent);
     }
 
     public override void TakeDamage(int damage)

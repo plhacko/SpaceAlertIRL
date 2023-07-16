@@ -21,7 +21,7 @@ public class PowerGenerator : EnergyPool
     }
 
 #if (SERVER)
-    public override void GetEnergy()
+    public override void GetEnergy(ulong clientId)
     {
         if (!NetworkManager.Singleton.IsServer) { throw new System.Exception("Is not a server"); }
 
@@ -29,14 +29,22 @@ public class PowerGenerator : EnergyPool
         {
             EnergyPowerCellCount--;
             EnergyStorage = MaxEnergyStorageConst;
+
+            AudioManager.Instance.RequestVibratingSentenceOnClient(VibrationDuration.success, clientId: clientId);
+        }
+        else
+        {
+            // message for the player, tahat there was not enough energy
+            AudioManager.Instance.RequestPlayingSentenceOnClient("notEnoughEnergy_r", clientId: clientId);
+            AudioManager.Instance.RequestVibratingSentenceOnClient(VibrationDuration.error, clientId: clientId);
         }
     }
 #endif
 
     [ServerRpc(RequireOwnership = false)]
-    public void RequestBurningPowerCellServerRpc()
+    public void RequestBurningPowerCellServerRpc(ulong clientId)
     {
-        GetEnergy();
+        GetEnergy(clientId: clientId);
     }
 
     // Start is called before the first frame update

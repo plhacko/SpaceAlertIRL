@@ -64,12 +64,19 @@ public class Zone : NetworkBehaviour, IRestart
         { throw new System.Exception("this method should be called only on server"); }
 
         // reduce damage by shiealds
-        EnergyShield[] energyShieldArray = GetComponentsInChildren<EnergyShield>(); // TODO: ? array sort this based on smothing ?
+        EnergyShield[] energyShieldArray = GetComponentsInChildren<EnergyShield>();
         foreach (EnergyShield es in energyShieldArray)
         {
             es.AbsorbDamage(ref damage);
         }
         if (damage == 0) { UIActions.UpdateUI(); } // updates UI if the shields dealed with all the damage
+
+        // audio feedback
+        if (damage > 0)
+        { AudioManager.Instance.RequestPlayingSentenceOnClient($"{gameObject.name} zoneDamaged_r"); }
+        else if (GetShieldValue() == 0)
+        { AudioManager.Instance.RequestPlayingSentenceOnClient($"{gameObject.name} shieldsDepleted_r"); }
+        
 
         // do damage to the ship
         int _hp = HP - damage;

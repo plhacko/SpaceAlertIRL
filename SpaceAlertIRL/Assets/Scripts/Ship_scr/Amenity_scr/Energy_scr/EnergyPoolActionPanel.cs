@@ -24,7 +24,8 @@ public class EnergyPoolActionPanel : AmenityActionPanel<EnergyPool>
 
     public void RequestEnergyTranfer()
     {
-        Amenity.RequestEnergyTransferServerRpc();
+        ulong clientId = Unity.Netcode.NetworkManager.Singleton.LocalClientId;
+        Amenity.RequestEnergyTransferServerRpc(clientId:clientId);
     }
     protected override void UpdateUI()
     {

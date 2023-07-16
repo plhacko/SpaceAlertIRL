@@ -154,12 +154,14 @@ public abstract class Enemy : NetworkBehaviour, IComparable<Enemy>, IOnServerFix
         // shield regeneratin will start all over
         EnergyShieldRegenerationTime = 0;
     }
-    protected virtual void Impact()
+    protected virtual void Impact(bool silent = false)
     {
-        string zoneName = GetComponentInParent<Zone>().gameObject.name + "_r";
-        AudioManager.Instance.RequestPlayingSentenceOnClient($"{zoneName} enemyDidLastActionAndLeft_r", removeDuplicates: false); // TODO: add audiotrack
-        AudioManager.Instance.RequestVibratingSentenceOnClient(VibrationDuration.error);
-
+        if (!silent)
+        {
+            string zoneName = GetComponentInParent<Zone>().gameObject.name + "_r";
+            AudioManager.Instance.RequestPlayingSentenceOnClient($"{zoneName} enemyDidLastActionAndLeft_r", removeDuplicates: false);
+            AudioManager.Instance.RequestVibratingSentenceOnClient(VibrationDuration.error);
+        }
         HP = 0;
         GetComponent<NetworkObject>().Despawn(true);
     }

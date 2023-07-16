@@ -29,12 +29,17 @@ public class EnergyShield : Amenity<EnergyShield>
         int receivedEnergy = Room.EnergySource.PullEnergyUpTo(requestedEnergy);
         _ShieldValue.Value = _ShieldValue.Value + receivedEnergy;
 
-        if (receivedEnergy == 0)
+        if (receivedEnergy > 0)
         {
-            // message for the player, tahat there was not enough energy
-            AudioManager.Instance.RequestPlayingSentenceOnClient("netEnoughEnergy_r", clientId: clientId);
+            AudioManager.Instance.RequestVibratingSentenceOnClient(VibrationDuration.success, clientId: clientId);
+            GetComponentInParent<Zone>().UIActions.UpdateUI();
         }
-        else { GetComponentInParent<Zone>().UIActions.UpdateUI(); }
+        else
+        {
+            if (ShieldValue != MaxShieldValue)
+            { AudioManager.Instance.RequestPlayingSentenceOnClient("notEnoughEnergy_r", clientId: clientId); }
+            AudioManager.Instance.RequestVibratingSentenceOnClient(VibrationDuration.error, clientId: clientId);
+        }
     }
 
     public void AbsorbDamage(ref int dmg)

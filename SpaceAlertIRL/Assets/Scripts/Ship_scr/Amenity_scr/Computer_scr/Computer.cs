@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Unity.Netcode;
+using UnityEditor.PackageManager;
 
 public class Computer : Amenity<Computer>, IOnServerFixedUpdate
 {
@@ -46,9 +47,10 @@ public class Computer : Amenity<Computer>, IOnServerFixedUpdate
 #endif
 
     [ServerRpc(RequireOwnership = false)]
-    public void RequestRestartTimerServerRpc()
+    public void RequestRestartTimerServerRpc(ulong? clientId)
     {
         RestartTimer();
+        AudioManager.Instance.RequestVibratingSentenceOnClient(VibrationDuration.success, clientId: clientId);
     }
 
     protected override void Start()

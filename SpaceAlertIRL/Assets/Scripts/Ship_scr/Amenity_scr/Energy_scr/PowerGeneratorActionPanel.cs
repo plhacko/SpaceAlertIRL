@@ -38,6 +38,7 @@ public class PowerGeneratorActionPanel : AmenityActionPanel<PowerGenerator>
 
     public void RequestBurningOfPowerCell()
     {
-        Amenity.RequestBurningPowerCellServerRpc();
+        ulong clientId = NetworkManager.Singleton.LocalClientId;
+        Amenity.RequestBurningPowerCellServerRpc(clientId: clientId);
     }
 }

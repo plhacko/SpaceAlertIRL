@@ -29,14 +29,14 @@ public class EnergyPool : EnergyNode
     }
 
     [ServerRpc(RequireOwnership = false)]
-    public void RequestEnergyTransferServerRpc()
+    public void RequestEnergyTransferServerRpc(ulong clientId)
     {
-        GetEnergy();
+        GetEnergy(clientId: clientId);
     }
 
-    // hose methods should be called only by server
+    // those methods should be called only by server
 #if (SERVER)
-    public virtual void GetEnergy()
+    public virtual void GetEnergy(ulong clientId)
     {
         if (!NetworkManager.Singleton.IsServer) { throw new System.Exception("Is not a server"); }
 
@@ -44,6 +44,15 @@ public class EnergyPool : EnergyNode
         var pulledEnergy = Source.PullEnergyUpTo(energyRequest);
 
         EnergyStorage += pulledEnergy;
+
+        // audio feedback
+        if (pulledEnergy > 0)
+        { AudioManager.Instance.RequestVibratingSentenceOnClient(VibrationDuration.success, clientId: clientId); }
+        else
+        {
+            AudioManager.Instance.RequestPlayingSentenceOnClient("notEnoughEnergy_r", clientId: clientId);
+            AudioManager.Instance.RequestVibratingSentenceOnClient(VibrationDuration.error, clientId: clientId);
+        }
     }
 
     public override bool PullEnergy(int amount)

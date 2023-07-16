@@ -4,7 +4,8 @@ using System.Collections;
 
 public enum VibrationDuration : long
 {
-    success = 500,
+    acknowledgement = 100,
+    success = 400,
     error = 1000,
     alarm = 10_000,
 }
