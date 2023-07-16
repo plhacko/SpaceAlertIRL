@@ -21,7 +21,7 @@ public class PowerGenerator : EnergyPool
     }
 
 #if (SERVER)
-    public override void GetEnergy(ulong clientId)
+    internal override void GetEnergy(ulong clientId)
     {
         if (!NetworkManager.Singleton.IsServer) { throw new System.Exception("Is not a server"); }
 
@@ -35,8 +35,8 @@ public class PowerGenerator : EnergyPool
         else
         {
             // message for the player, tahat there was not enough energy
-            AudioManager.Instance.RequestPlayingSentenceOnClient("notEnoughEnergy_r", clientId: clientId);
-            AudioManager.Instance.RequestVibratingSentenceOnClient(VibrationDuration.error, clientId: clientId);
+            AudioManager.Instance.RequestPlayingSentenceOnClient("notEnoughPowerCells_r", clientId: clientId);
+            AudioManager.Instance.RequestVibratingSentenceOnClient(VibrationDuration.fail, clientId: clientId);
         }
     }
 #endif

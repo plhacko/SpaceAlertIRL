@@ -21,14 +21,19 @@ public class Teleport : Amenity<Teleport>
     void TeleportPlayerServerRpc(ulong clientId)
     {
         // request energy
-        if (!Room.EnergySource.PullEnergy(EnergyCostConst))
+        if (Room.EnergySource.PullEnergy(EnergyCostConst)) // success
         {
-            // notify the player
-            AudioManager.Instance.RequestPlayingSentenceOnClient("notEnoughEnergy_r", clientId: clientId);
-            return;
+            Player.GetLocalPlayer()?.RequestChangingRoom("Teleport", ignoreRestrictions: true);
+            
+            // feedback
+            AudioManager.Instance.RequestPlayingSentenceOnClient("youHaveBeenTeleported_r", clientId: clientId);
+            AudioManager.Instance.RequestVibratingSentenceOnClient(VibrationDuration.success, clientId: clientId);
         }
-
-        Player.GetLocalPlayer()?.RequestChangingRoom("Teleport", ignoreRestrictions: true);
-        AudioManager.Instance.RequestPlayingSentenceOnClient("youHaveBeenTeleported_r", clientId: clientId);
+        else //fail
+        {
+            // feedback
+            AudioManager.Instance.RequestPlayingSentenceOnClient("notEnoughEnergy_r", clientId: clientId);
+            AudioManager.Instance.RequestVibratingSentenceOnClient(VibrationDuration.fail, clientId: clientId);
+        }
     }
 }

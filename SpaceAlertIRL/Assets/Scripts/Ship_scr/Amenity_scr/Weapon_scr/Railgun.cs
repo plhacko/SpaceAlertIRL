@@ -74,7 +74,7 @@ public class Railgun : Weapon<Railgun>
         if (!IsCharged)
         {
             AudioManager.Instance.RequestPlayingSentenceOnClient("weaponIsNotLoaded_r", clientId: clientId);
-            AudioManager.Instance.RequestVibratingSentenceOnClient(VibrationDuration.error, clientId: clientId);
+            AudioManager.Instance.RequestVibratingSentenceOnClient(VibrationDuration.fail, clientId: clientId);
             return;
         }
 
@@ -83,7 +83,7 @@ public class Railgun : Weapon<Railgun>
         if (enemy == null || enemy.Distance > Range)
         {
             // notify the player
-            AudioManager.Instance.RequestVibratingSentenceOnClient(VibrationDuration.error, clientId: clientId);
+            AudioManager.Instance.RequestVibratingSentenceOnClient(VibrationDuration.fail, clientId: clientId);
             AudioManager.Instance.RequestPlayingSentenceOnClient("noValidTargets_r", clientId: clientId);
             return;
         }
@@ -91,7 +91,7 @@ public class Railgun : Weapon<Railgun>
         if (!Room.EnergySource.PullEnergy(EnergyCostToShootConst)) // curenty the cost is 0, in future it might change
         {
             // notify the player
-            AudioManager.Instance.RequestVibratingSentenceOnClient(VibrationDuration.error, clientId: clientId);
+            AudioManager.Instance.RequestVibratingSentenceOnClient(VibrationDuration.fail, clientId: clientId);
             AudioManager.Instance.RequestPlayingSentenceOnClient("notEnoughEnergy_r", clientId: clientId);
             return;
         }

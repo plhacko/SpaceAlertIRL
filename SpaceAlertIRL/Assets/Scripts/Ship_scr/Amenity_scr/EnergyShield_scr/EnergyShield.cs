@@ -38,7 +38,7 @@ public class EnergyShield : Amenity<EnergyShield>
         {
             if (ShieldValue != MaxShieldValue)
             { AudioManager.Instance.RequestPlayingSentenceOnClient("notEnoughEnergy_r", clientId: clientId); }
-            AudioManager.Instance.RequestVibratingSentenceOnClient(VibrationDuration.error, clientId: clientId);
+            AudioManager.Instance.RequestVibratingSentenceOnClient(VibrationDuration.fail, clientId: clientId);
         }
     }
 

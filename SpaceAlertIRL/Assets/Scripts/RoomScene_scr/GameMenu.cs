@@ -11,6 +11,7 @@ public class GameMenu : MonoBehaviour
     [SerializeField] GameObject[] OnlyClient;
 
     [SerializeField] GameObject MuteAudioButton;
+    [SerializeField] GameObject MuteVibrationsButton;
     [SerializeField] GameObject MuteLogButton;
     [SerializeField] NotificationMessagePanel NotificationMessagePanel;
 
@@ -37,6 +38,18 @@ public class GameMenu : MonoBehaviour
         if (text != null)
         {
             text.text = setSilent ? "Unmute audio" : "Mute audio";
+        }
+    }
+    public void MuteVibrations()
+    {
+        AudioManager am = AudioManager.Instance;
+        bool setSilent = !am.SilentVibrations;
+        am.MuteVibrations(setSilent);
+
+        var text = MuteVibrationsButton.GetComponentInChildren<Text>();
+        if (text != null)
+        {
+            text.text = setSilent ? "Unmute vibrations" : "Mute vibrations";
         }
     }
     public void MuteLog()

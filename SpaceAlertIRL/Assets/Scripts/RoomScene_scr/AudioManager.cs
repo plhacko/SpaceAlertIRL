@@ -14,8 +14,14 @@ public class AudioManager : NetworkBehaviour, IRestart
     public void Mute(bool setSilent)
     {
         Silent = setSilent;
-        if(Silent) { Announcer_que.Clear(); AudioSource_announcer.Stop(); }
+        if (Silent) { Announcer_que.Clear(); AudioSource_announcer.Stop(); }
     }
+    public bool SilentVibrations { get; private set; } = false;
+    public void MuteVibrations(bool setSilent)
+    {
+        SilentVibrations = setSilent;
+    }
+
     public List<AudioClip> Sounds;
     Dictionary<string, AudioClip> SoundDict;
 
@@ -93,6 +99,9 @@ public class AudioManager : NetworkBehaviour, IRestart
 
     public void RequestVibratingSentenceOnClient(long millis, ulong? clientId = null)
     {
+        if (SilentVibrations)
+        { return; }
+
         ClientRpcParams clientRpcParams;
         if (clientId != null) // broadcast to specific client
         {

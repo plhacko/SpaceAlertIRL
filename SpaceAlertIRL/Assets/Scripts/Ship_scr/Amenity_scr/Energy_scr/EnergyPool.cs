@@ -36,7 +36,7 @@ public class EnergyPool : EnergyNode
 
     // those methods should be called only by server
 #if (SERVER)
-    public virtual void GetEnergy(ulong clientId)
+    internal virtual void GetEnergy(ulong clientId)
     {
         if (!NetworkManager.Singleton.IsServer) { throw new System.Exception("Is not a server"); }
 
@@ -51,7 +51,7 @@ public class EnergyPool : EnergyNode
         else
         {
             AudioManager.Instance.RequestPlayingSentenceOnClient("notEnoughEnergy_r", clientId: clientId);
-            AudioManager.Instance.RequestVibratingSentenceOnClient(VibrationDuration.error, clientId: clientId);
+            AudioManager.Instance.RequestVibratingSentenceOnClient(VibrationDuration.fail, clientId: clientId);
         }
     }
 

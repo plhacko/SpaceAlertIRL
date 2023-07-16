@@ -57,7 +57,7 @@ public class IonCannon : Weapon<IonCannon>, IOnServerFixedUpdate
         {
             // notify the player
             AudioManager.Instance.RequestPlayingSentenceOnClient("highHeatAlert_r", clientId: clientId);
-            AudioManager.Instance.RequestVibratingSentenceOnClient(VibrationDuration.error, clientId: clientId);
+            AudioManager.Instance.RequestVibratingSentenceOnClient(VibrationDuration.fail, clientId: clientId);
             return;
         }
 
@@ -74,7 +74,7 @@ public class IonCannon : Weapon<IonCannon>, IOnServerFixedUpdate
         {
             // notify the player
             AudioManager.Instance.RequestPlayingSentenceOnClient("noValidTargets_r", clientId: clientId);
-            AudioManager.Instance.RequestVibratingSentenceOnClient(VibrationDuration.error, clientId: clientId);
+            AudioManager.Instance.RequestVibratingSentenceOnClient(VibrationDuration.fail, clientId: clientId);
             return;
         }
 
@@ -83,7 +83,7 @@ public class IonCannon : Weapon<IonCannon>, IOnServerFixedUpdate
         {
             // notify the player
             AudioManager.Instance.RequestPlayingSentenceOnClient("notEnoughEnergy_r", clientId: clientId);
-            AudioManager.Instance.RequestVibratingSentenceOnClient(VibrationDuration.error, clientId: clientId);
+            AudioManager.Instance.RequestVibratingSentenceOnClient(VibrationDuration.fail, clientId: clientId);
             return;
         }
 

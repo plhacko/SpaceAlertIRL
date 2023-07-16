@@ -101,7 +101,8 @@ public class Player : NetworkBehaviour, IRestart
         // deatch Check
         if (IsDead)
         {
-            if (!silent) { AudioManager.Instance.RequestVibratingSentenceOnClient(VibrationDuration.error, clientId: clientId); }
+            if (!silent)
+            { AudioManager.Instance.RequestVibratingSentenceOnClient(VibrationDuration.fail, clientId: clientId); }
             return;
         }
 
@@ -109,12 +110,19 @@ public class Player : NetworkBehaviour, IRestart
         if (CurrentRoomName.Value == "Teleport")
         {
             ignoreRestrictions = true;
-            if (!silent) { AudioManager.Instance.RequestPlayingSentenceOnClient("youHaveBeenTeleported_r", clientId: clientId); }
+            if (!silent)
+            {
+                AudioManager.Instance.RequestPlayingSentenceOnClient("youHaveBeenTeleported_r", clientId: clientId);
+                AudioManager.Instance.RequestVibratingSentenceOnClient(VibrationDuration.success, clientId: clientId);
+            }
         }
 
         // set new room name
         if (ignoreRestrictions)
-        { CurrentRoomName = newRoomName; return; }
+        {
+            if (!silent) { AudioManager.Instance.RequestVibratingSentenceOnClient(VibrationDuration.success, clientId: clientId); }
+            CurrentRoomName = newRoomName; return;
+        }
 
         if (CurrentRoomName.Value == newRoomName)
         { return; }
@@ -122,17 +130,27 @@ public class Player : NetworkBehaviour, IRestart
         List<Door> doors = FindGoThroughDoors();
         if (doors.Count == 0)
         {
-            if (!silent) { AudioManager.Instance.RequestPlayingSentenceOnClient("notConnectedByDoors_r", clientId: clientId); }// TODO: add voicetrack
+            if (!silent)
+            {
+                AudioManager.Instance.RequestPlayingSentenceOnClient("notConnectedByDoors_r", clientId: clientId);
+                AudioManager.Instance.RequestVibratingSentenceOnClient(VibrationDuration.fail, clientId: clientId);
+            }
             return;
         }
         if (AreAllDoorsClosed(doors))
         {
-            if (!silent) { AudioManager.Instance.RequestPlayingSentenceOnClient("doorsAreClosed_r", clientId: clientId); }
+            if (!silent)
+            {
+                AudioManager.Instance.RequestPlayingSentenceOnClient("doorsAreClosed_r", clientId: clientId);
+                AudioManager.Instance.RequestVibratingSentenceOnClient(VibrationDuration.fail, clientId: clientId);
+            }
             return;
         }
         else
         {
             CurrentRoomName = newRoomName;
+            AudioManager.Instance.RequestVibratingSentenceOnClient(VibrationDuration.success, clientId: clientId);
+            return;
         }
 
         bool AreAllDoorsClosed(List<Door> doors)

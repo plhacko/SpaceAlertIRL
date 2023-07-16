@@ -63,7 +63,7 @@ public class RocketLauncher : Weapon<RocketLauncher>
         }
         else
         {
-            AudioManager.Instance.RequestVibratingSentenceOnClient(VibrationDuration.error, clientId: clientId);
+            AudioManager.Instance.RequestVibratingSentenceOnClient(VibrationDuration.fail, clientId: clientId);
             AudioManager.Instance.RequestPlayingSentenceOnClient("notEnoughRockets_r", clientId: clientId);
         }
     }

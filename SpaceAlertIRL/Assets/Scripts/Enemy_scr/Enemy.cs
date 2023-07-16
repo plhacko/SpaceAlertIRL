@@ -160,7 +160,7 @@ public abstract class Enemy : NetworkBehaviour, IComparable<Enemy>, IOnServerFix
         {
             string zoneName = GetComponentInParent<Zone>().gameObject.name + "_r";
             AudioManager.Instance.RequestPlayingSentenceOnClient($"{zoneName} enemyDidLastActionAndLeft_r", removeDuplicates: false);
-            AudioManager.Instance.RequestVibratingSentenceOnClient(VibrationDuration.error);
+            AudioManager.Instance.RequestVibratingSentenceOnClient(VibrationDuration.fail);
         }
         HP = 0;
         GetComponent<NetworkObject>().Despawn(true);

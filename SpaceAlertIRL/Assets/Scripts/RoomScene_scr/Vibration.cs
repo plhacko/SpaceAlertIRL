@@ -6,7 +6,7 @@ public enum VibrationDuration : long
 {
     acknowledgement = 100,
     success = 400,
-    error = 1000,
+    fail = 1000,
     alarm = 10_000,
 }
 
