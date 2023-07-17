@@ -32,12 +32,14 @@ public class PowerGenerator : EnergyPool
 
             AudioManager.Instance.RequestVibratingSentenceOnClient(VibrationDuration.success, clientId: clientId);
         }
-        else
+        else if (EnergyPowerCellCount == 0)
         {
             // message for the player, tahat there was not enough energy
             AudioManager.Instance.RequestPlayingSentenceOnClient("notEnoughPowerCells_r", clientId: clientId);
             AudioManager.Instance.RequestVibratingSentenceOnClient(VibrationDuration.fail, clientId: clientId);
         }
+        else
+        { AudioManager.Instance.RequestVibratingSentenceOnClient(VibrationDuration.fail, clientId: clientId); }
     }
 #endif
 

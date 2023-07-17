@@ -59,8 +59,6 @@ public class GameMenu : MonoBehaviour
 
         var text = MuteLogButton.GetComponentInChildren<Text>();
         if (text != null)
-        {
-            text.text = setSilent ? "Unmute log" : "Mute log";
-        }
+        { text.text = setSilent ? "Unmute log" : "Mute log"; }
     }
 }

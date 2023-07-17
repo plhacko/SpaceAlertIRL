@@ -48,7 +48,7 @@ public abstract class Enemy : NetworkBehaviour, IComparable<Enemy>, IOnServerFix
     GameObject DistanceMeterIcon;
     Line UILine;
 
-    public abstract void SpawnIconAsChild(GameObject parent);
+    public abstract GameObject SpawnIconAsChild(GameObject parent);
 
     public virtual void Start()
     {
@@ -159,7 +159,7 @@ public abstract class Enemy : NetworkBehaviour, IComparable<Enemy>, IOnServerFix
         if (!silent)
         {
             string zoneName = GetComponentInParent<Zone>().gameObject.name + "_r";
-            AudioManager.Instance.RequestPlayingSentenceOnClient($"{zoneName} enemyDidLastActionAndLeft_r", removeDuplicates: false);
+            AudioManager.Instance.RequestPlayingSentenceOnClient($"{zoneName} enemyLeft_r", removeDuplicates: false);
             AudioManager.Instance.RequestVibratingSentenceOnClient(VibrationDuration.fail);
         }
         HP = 0;
@@ -233,10 +233,11 @@ abstract public class Enemy<T> : Enemy where T : Enemy<T>
 {
     public override string GetName() => typeof(T).Name;
 
-    public override void SpawnIconAsChild(GameObject parent)
+    public override GameObject SpawnIconAsChild(GameObject parent)
     {
         GameObject go = Instantiate(IconPrefab, parent: parent.transform);
         go.GetComponent<EnemyIcon<T>>().Initialise((T)this);
+        return go;
     }
 }
 

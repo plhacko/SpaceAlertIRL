@@ -73,9 +73,9 @@ public class Zone : NetworkBehaviour, IRestart
 
         // audio feedback
         if (damage > 0)
-        { AudioManager.Instance.RequestPlayingSentenceOnClient($"{gameObject.name} zoneDamaged_r"); }
+        { AudioManager.Instance.RequestPlayingSentenceOnClient($"{gameObject.name + "_r"} zoneDamaged_r"); }
         else if (GetShieldValue() == 0)
-        { AudioManager.Instance.RequestPlayingSentenceOnClient($"{gameObject.name} shieldsDepleted_r"); }
+        { AudioManager.Instance.RequestPlayingSentenceOnClient($"{gameObject.name + "_r"} shieldsDepleted_r"); }
         
 
         // do damage to the ship

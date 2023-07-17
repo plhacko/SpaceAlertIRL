@@ -9,8 +9,6 @@ using UnityEngine.UI;
 
 public class Door : NetworkBehaviour, IRestart
 {
-    public static bool ShowDebugGoPanel = true;
-
     public const float TimeToOpenDoorsConst = 2.0f;
 
     public string Name { get => gameObject.name; }

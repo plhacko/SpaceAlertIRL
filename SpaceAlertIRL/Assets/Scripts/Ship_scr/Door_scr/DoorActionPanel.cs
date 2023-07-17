@@ -23,7 +23,13 @@ public class DoorActionPanel : ActionPanel
         DoorStatus = transform.Find("DoorStatus").GetComponentInChildren<TextMeshProUGUI>();
         DoorActivity = transform.Find("DoorActivity").GetComponentInChildren<TextMeshProUGUI>();
 
+
+        // debug go button (visible only in Editor)
         DebugGo = transform.Find("DebugGo").gameObject;
+        if (Application.isEditor)
+        { DebugGo?.SetActive(true); }
+        else
+        { DebugGo?.SetActive(false); }
     }
 
     virtual public void Initialise(Door door)
@@ -66,12 +72,6 @@ public class DoorActionPanel : ActionPanel
         c = CloseButton.color;
         c.a = Door.IsOpen ? 1f : 0.6f;
         CloseButton.color = c;
-
-        // debug go button
-        if (Door.ShowDebugGoPanel)
-        { DebugGo.SetActive(true); }
-        else
-        { DebugGo.SetActive(false); }
     }
 
     protected override void OnDisable()
