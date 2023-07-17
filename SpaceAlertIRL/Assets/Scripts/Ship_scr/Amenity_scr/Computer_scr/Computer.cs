@@ -46,7 +46,7 @@ public class Computer : Amenity<Computer>, IOnServerFixedUpdate
 #endif
 
     [ServerRpc(RequireOwnership = false)]
-    public void RequestRestartTimerServerRpc(ulong? clientId)
+    public void RequestRestartTimerServerRpc(ulong clientId)
     {
         RestartTimer();
         AudioManager.Instance.RequestVibratingSentenceOnClient(VibrationDuration.success, clientId: clientId);

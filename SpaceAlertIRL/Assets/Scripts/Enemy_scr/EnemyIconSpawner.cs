@@ -18,6 +18,7 @@ public class EnemyIconSpawner : ActionPanel
     public void Initialise(Zone zone)
     {
         Zone = zone;
+        UpdateZoneNameText();
     }
 
     void FixedUpdate()
