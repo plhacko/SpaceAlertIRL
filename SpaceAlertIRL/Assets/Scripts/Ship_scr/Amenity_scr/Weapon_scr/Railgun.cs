@@ -100,8 +100,6 @@ public class Railgun : Weapon<Railgun>
         Discharge();
 
         AudioManager.Instance.RequestVibratingSentenceOnClient(VibrationDuration.success, clientId: clientId);
-        if (enemy != null)
-            AudioManager.Instance.RequestPlayingSentenceOnClient("enemyDamaged_r", clientId: clientId);
     }
 
     public void RequestShootingAtClosesEnemy()

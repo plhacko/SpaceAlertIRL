@@ -48,6 +48,8 @@ public class EnergyPool : EnergyNode
         // audio feedback
         if (pulledEnergy > 0)
         { AudioManager.Instance.RequestVibratingSentenceOnClient(VibrationDuration.success, clientId: clientId); }
+        else if (EnergyStorage == MaxEnergyStorage)
+        { AudioManager.Instance.RequestVibratingSentenceOnClient(VibrationDuration.fail, clientId: clientId); }
         else
         {
             AudioManager.Instance.RequestPlayingSentenceOnClient("notEnoughEnergy_r", clientId: clientId);

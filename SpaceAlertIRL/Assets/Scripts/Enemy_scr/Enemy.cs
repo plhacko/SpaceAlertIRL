@@ -39,7 +39,7 @@ public abstract class Enemy : NetworkBehaviour, IComparable<Enemy>, IOnServerFix
     protected NetworkVariable<float> _EnergyShieldRegenerationTime = new NetworkVariable<float>();
     protected NetworkVariable<float> _Speed = new NetworkVariable<float>();
     protected NetworkVariable<float> _Distance = new NetworkVariable<float>();
-    protected NetworkVariable<FixedString64Bytes> _NextActionDescription = new NetworkVariable<FixedString64Bytes>();
+    protected NetworkVariable<FixedString128Bytes> _NextActionDescription = new NetworkVariable<FixedString128Bytes>();
 
     protected Zone Zone;
 
@@ -147,7 +147,10 @@ public abstract class Enemy : NetworkBehaviour, IComparable<Enemy>, IOnServerFix
         // damage to hull
         int newHP = HP - damage;
         if (newHP > 0)
-        { HP = newHP; }
+        {
+            HP = newHP;
+            AudioManager.Instance.RequestPlayingSentenceOnClient("enemyDamaged_r");
+        }
         else
         { Die(); }
 

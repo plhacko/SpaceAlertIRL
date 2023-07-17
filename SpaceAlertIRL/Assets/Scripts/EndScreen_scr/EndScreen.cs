@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Netcode;
 using UnityEngine;
 
 public class EndScreen : MonoBehaviour
@@ -9,6 +10,11 @@ public class EndScreen : MonoBehaviour
     [SerializeField]
     GameObject Defeat;
 
+    [SerializeField]
+    GameObject[] OnlyHost;
+    [SerializeField]
+    GameObject[] OnlyClient;
+
     void Start()
     {
         if (IsDead())
@@ -16,11 +22,16 @@ public class EndScreen : MonoBehaviour
             Victory.SetActive(false);
             Defeat.SetActive(true);
         }
-        else 
+        else
         {
             Victory.SetActive(true);
             Defeat.SetActive(false);
         }
+
+        foreach (GameObject go in OnlyHost)
+        { go.SetActive(NetworkManager.Singleton.IsServer); }
+        foreach (GameObject go in OnlyClient)
+        { go.SetActive(!NetworkManager.Singleton.IsServer); }
     }
 
     private bool IsDead()

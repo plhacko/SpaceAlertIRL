@@ -6,6 +6,7 @@ using UnityEngine;
 using Unity.Netcode;
 using System;
 using UnityEngine.UI;
+using System.Xml.Schema;
 
 public class Door : NetworkBehaviour, IRestart
 {
@@ -21,9 +22,9 @@ public class Door : NetworkBehaviour, IRestart
     NetworkVariable<bool> _IsLocked;
     NetworkVariable<float> _OpenningClosingProgress;
 
-    public bool IsOpen { get => _IsOpen.Value; }
-    public bool IsLocked { get => _IsLocked.Value; }
-    public float OpenningClosingProgress { get => _OpenningClosingProgress.Value; }
+    public bool IsOpen { get => _IsOpen.Value; private set { _IsOpen.Value = value; } }
+    public bool IsLocked { get => _IsLocked.Value; private set { _IsLocked.Value = value; } }
+    public float OpenningClosingProgress { get => _OpenningClosingProgress.Value; private set { _OpenningClosingProgress.Value = value; } }
 
     public UpdateUIActions UIActions = new UpdateUIActions();
 
@@ -37,7 +38,7 @@ public class Door : NetworkBehaviour, IRestart
         AddSelfToRoom(RoomA);
         AddSelfToRoom(RoomB);
 
-        UIActions.AddOnValueChangeDependency(_IsOpen);
+        UIActions.AddOnValueChangeDependency(_IsOpen, _IsLocked);
         UIActions.AddOnValueChangeDependency(_OpenningClosingProgress);
 
         UpdateUI();
@@ -63,37 +64,37 @@ public class Door : NetworkBehaviour, IRestart
             return;
         }
 
-        float _newOpenning = _OpenningClosingProgress.Value + deltaTime;
+        float _newOpenning = OpenningClosingProgress + deltaTime;
         if (_newOpenning <= 0)
         {
-            _IsOpen.Value = false;
-            _OpenningClosingProgress.Value = 0.0f;
+            IsOpen = false;
+            OpenningClosingProgress = 0.0f;
         }
         else if (_newOpenning >= TimeToOpenDoorsConst)
         {
-            _IsOpen.Value = true;
-            _OpenningClosingProgress.Value = TimeToOpenDoorsConst;
+            IsOpen = true;
+            OpenningClosingProgress = TimeToOpenDoorsConst;
         }
         else
-        { _OpenningClosingProgress.Value = _newOpenning; }
+        { OpenningClosingProgress = _newOpenning; }
     }
     [ServerRpc(RequireOwnership = false)]
     void SetIsOpenServerRpc(bool isOpen)
     {
         if (IsLocked) return;
 
-        _IsOpen.Value = isOpen;
-        _OpenningClosingProgress.Value = isOpen ? TimeToOpenDoorsConst : 0.0f;
+        IsOpen = isOpen;
+        OpenningClosingProgress = isOpen ? TimeToOpenDoorsConst : 0.0f;
     }
 
     [ServerRpc(RequireOwnership = false)]
     void LockUnlockServerRpc(bool isLocked)
     {
-        _IsLocked.Value = isLocked;
+        IsLocked = isLocked;
         if (isLocked) // closing doors while locking
         {
-            _IsOpen.Value = false;
-            _OpenningClosingProgress.Value = 0.0f;
+            IsOpen = false;
+            OpenningClosingProgress = 0.0f;
         }
     }
 #endif
@@ -119,7 +120,7 @@ public class Door : NetworkBehaviour, IRestart
     public bool IsConnectedToRoom(Room r) => (r == RoomA || r == RoomB);
     public void Restart()
     {
-        _IsOpen.Value = IsOpenFromStart;
-        _OpenningClosingProgress.Value = TimeToOpenDoorsConst;
+        IsOpen = IsOpenFromStart;
+        OpenningClosingProgress = TimeToOpenDoorsConst;
     }
 }
