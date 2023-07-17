@@ -51,7 +51,7 @@ public class Railgun : Weapon<Railgun>
         if (newValue >= TimeToChargeConst)
         {
             ChargingTime = TimeToChargeConst;
-            AudioManager.Instance.RequestPlayingSentenceOnClient("railGunCharged_r", clientId: clientId); // TODO: missing
+            AudioManager.Instance.RequestPlayingSentenceOnClient("railgunCharged_r", clientId: clientId); // TODO: missing
         }
         else
         {
