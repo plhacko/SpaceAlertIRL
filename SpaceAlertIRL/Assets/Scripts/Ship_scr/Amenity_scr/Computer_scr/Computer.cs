@@ -21,14 +21,23 @@ public class Computer : Amenity<Computer>, IOnServerFixedUpdate
     BubbleProgressBar BubbleProgressBar;
 
 #if SERVER
+    private bool wasAnnounced = false;
     public void ServerFixedUpdate()
     {
         float newTime = Timer - Time.deltaTime;
+
         if (newTime > 0.0f) { Timer = newTime; }
         else
         {
             RestartTimer();
             InstantiateScreensaverClientRpc();
+        }
+
+        // voice announcement, that Screeensaver will happen in 15sec
+        if (!wasAnnounced && Timer < 15.0f)
+        {
+            AudioManager.Instance.RequestPlayingSentenceOnClient("screensaverIn15seconds_r");
+            wasAnnounced = true;
         }
     }
 
@@ -41,6 +50,7 @@ public class Computer : Amenity<Computer>, IOnServerFixedUpdate
     public void RestartTimer(float newTimerTime = RestartTimerConst)
     {
         Timer = newTimerTime;
+        wasAnnounced = false;
     }
 
 #endif

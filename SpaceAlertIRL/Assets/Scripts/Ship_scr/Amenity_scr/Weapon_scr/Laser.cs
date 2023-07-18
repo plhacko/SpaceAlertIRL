@@ -86,8 +86,6 @@ public class Laser : Weapon<Laser>, IOnServerFixedUpdate
         enemy.TakeDamage(Damage);
         
         AudioManager.Instance.RequestVibratingSentenceOnClient(VibrationDuration.success, clientId: clientId);
-        if (enemy != null)
-            AudioManager.Instance.RequestPlayingSentenceOnClient("enemyDamaged_r", clientId: clientId); // TODO: add voicetrack
     }
 
 

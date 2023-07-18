@@ -10,7 +10,7 @@ public class Meteor : Enemy<Meteor>
 {
     protected override int StratingHPConst => 7;
     protected override int MaxEnergyShieldConst => 0;
-    protected override float StartingSpeedConst => 3f;
+    protected override float StartingSpeedConst => 3.5f;
 
     protected override void Impact(bool silent = false)
     {
@@ -21,18 +21,15 @@ public class Meteor : Enemy<Meteor>
         base.Impact(silent);
     }
 
-    public override void TakeDamage(int damage)
+    protected override bool IsLessThan15secFromTheNextAction(float distance)
     {
-        if (damage < 0) { Debug.Log("damage can't be negative"); return; }
-
-        int _newHP = _HP.Value - damage;
-        if (_newHP > 0)
-        { _HP.Value = _newHP; }
-        else
+        foreach (RangeEnum range in new RangeEnum[] { RangeEnum.Zero })
         {
-            _HP.Value = 0;
-            Die();
+            float delta = (distance - (int)range) / Speed;
+            if (delta < 15.0f && delta > 0.0f)
+            { return true; }
         }
+        return false;
     }
 
     protected override EnemyAction DecideNextAction() => new Wait();

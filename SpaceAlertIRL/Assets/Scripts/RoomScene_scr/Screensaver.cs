@@ -18,9 +18,6 @@ public class Screensaver : MonoBehaviour
     {
         float newTime = TimeToCloseScreensaver - Time.deltaTime;
         if (newTime > 0.0f) { TimeToCloseScreensaver = newTime; }
-        else
-        {
-            GameObject.Destroy(gameObject);
-        }
+        else { GameObject.Destroy(gameObject); }
     }
 }

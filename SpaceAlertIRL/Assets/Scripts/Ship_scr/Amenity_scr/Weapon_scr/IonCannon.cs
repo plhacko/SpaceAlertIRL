@@ -89,12 +89,11 @@ public class IonCannon : Weapon<IonCannon>, IOnServerFixedUpdate
 
         // success
         AudioManager.Instance.RequestVibratingSentenceOnClient(VibrationDuration.success, clientId: clientId);
-        AudioManager.Instance.RequestPlayingSentenceOnClient("enemyDamaged_r", clientId: clientId); // TODO: add voicetrack
-
+        
         Heat += HeatCostPerShotConst;
         foreach (Enemy e in enemiesInRange)
         {
-            e.DeleteEnergyShields(Damage);
+            e.DepleteEnergyShields(Damage);
         }
     }
 

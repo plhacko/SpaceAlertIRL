@@ -89,18 +89,28 @@ public abstract class Enemy : NetworkBehaviour, IComparable<Enemy>, IOnServerFix
         EnergyShieldsRegeneration();
     }
 
-    protected virtual void DistanceChange()
+    private bool wasActionAnnounced = false;
+    protected virtual void DistanceChange(bool silent = false)
     {
         float newDistance = Distance - Time.deltaTime * Speed;
+
+        // voice announcement, that an action will happen in 15sec
+        if (!wasActionAnnounced && IsLessThan15secFromTheNextAction(newDistance))
+        {
+            if (!silent) { AudioManager.Instance.RequestPlayingSentenceOnClient($"{Zone.name + "_r"} enemyActionIn15seconds_r"); }
+            wasActionAnnounced = true;
+        }
 
         // action triggers if the ship passed Mid/Close/Zero ranges
         if (newDistance <= (int)RangeEnum.Mid && Distance > (int)RangeEnum.Mid
             || newDistance <= (int)RangeEnum.Close && Distance > (int)RangeEnum.Close
             || newDistance <= (int)RangeEnum.Zero && Distance > (int)RangeEnum.Zero)
         {
+            if (!silent && !NextEnemyAction.IsSilent) { AudioManager.Instance.RequestPlayingSentenceOnClient($"{Zone.name + "_r"} enemyActionExecuted_r"); }
             NextEnemyAction?.ExecuteAction();
             NextEnemyAction = DecideNextAction();
             NextActionDescription = NextEnemyAction.GetDescription() ?? "no action";
+            wasActionAnnounced = false;
         }
 
         // normal movement (sets distance)
@@ -108,6 +118,17 @@ public abstract class Enemy : NetworkBehaviour, IComparable<Enemy>, IOnServerFix
         { Distance = newDistance; }
         else { Distance = 0; Impact(); }
     }
+    protected virtual bool IsLessThan15secFromTheNextAction(float distance)
+    {
+        foreach (RangeEnum range in new RangeEnum[] { RangeEnum.Mid, RangeEnum.Close, RangeEnum.Zero })
+        {
+            float delta = (distance - (int)range) / Speed;
+            if (delta < 15.0f && delta > 0.0f)
+            { return true; }
+        }
+        return false;
+    }
+
     protected virtual void EnergyShieldsRegeneration()
     {
         if (EnergyShield == MaxEnergyShieldConst)
@@ -130,26 +151,26 @@ public abstract class Enemy : NetworkBehaviour, IComparable<Enemy>, IOnServerFix
     protected abstract EnemyAction DecideNextAction();
 
 #endif
-    public int DeleteEnergyShields(int damage)
+    public int DepleteEnergyShields(int damage)
     {
         int damageToShields = System.Math.Min(EnergyShield, damage);
         EnergyShield -= damageToShields;
         return damage - damageToShields;
     }
 
-    virtual public void TakeDamage(int damage) // the weapon is needed if there is a special exception
+    virtual public void TakeDamage(int damage, bool silent = false) // the weapon is needed if there is a special exception
     {
         if (damage < 0) { Debug.Log("damage can't be negative"); return; }
 
         // damage to shields
-        damage = DeleteEnergyShields(damage);
+        damage = DepleteEnergyShields(damage);
 
         // damage to hull
         int newHP = HP - damage;
         if (newHP > 0)
         {
             HP = newHP;
-            AudioManager.Instance.RequestPlayingSentenceOnClient("enemyDamaged_r");
+            if (!silent) { AudioManager.Instance.RequestPlayingSentenceOnClient($"{Zone.name + "_r"} enemyDamaged_r"); }
         }
         else
         { Die(); }

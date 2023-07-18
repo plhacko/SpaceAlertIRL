@@ -14,6 +14,7 @@ public abstract class EnemyAction
 {
     public abstract void ExecuteAction();
     public abstract string GetDescription();
+    public virtual bool IsSilent { get => false; }
 }
 
 sealed class CombinedAction : EnemyAction
@@ -55,7 +56,7 @@ sealed class SimpleAttack : EnemyAction
 sealed class Wait : EnemyAction
 {
     public override void ExecuteAction() { }
-
+    public override bool IsSilent => true;
     public override string GetDescription() => CustomMessage;
     string CustomMessage;
     public Wait(string customMessage = "Waiting") { CustomMessage = customMessage; }
@@ -309,7 +310,7 @@ sealed class KillEveryoneInZone : EnemyAction
     readonly Zone Zone;
     public KillEveryoneInZone(Zone zone)
     { Zone = zone; }
-} 
+}
 
 #endif
 

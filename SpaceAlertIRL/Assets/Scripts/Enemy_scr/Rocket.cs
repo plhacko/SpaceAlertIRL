@@ -17,7 +17,7 @@ public class Rocket : Enemy<Rocket>
     public int Damage { get => DamageConst; }
     public float Range { get => (float)MaxRangeConst; }
     public void ChangeDirection() { _Speed.Value = -_Speed.Value; }
-    protected override void DistanceChange()
+    protected override void DistanceChange(bool silent = false)
     {
         float newDistance = _Distance.Value - Time.deltaTime * _Speed.Value;
 

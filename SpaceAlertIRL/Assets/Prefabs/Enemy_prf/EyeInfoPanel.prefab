@@ -543,7 +543,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'teleports all players to it''s zone
+  m_text: 'teleports all players to random rooms
 
     heals for 4 hp'
   m_isRightToLeft: 0

@@ -10,9 +10,9 @@ public class Ameba : Enemy<Ameba>
 
     private bool WasDamaged => HP < MaxHP;
 
-    public override void TakeDamage(int damage)
+    public override void TakeDamage(int damage, bool silent = false)
     {
-        base.TakeDamage(damage);
+        base.TakeDamage(damage, silent);
 
         if (WasDamaged)
         {
