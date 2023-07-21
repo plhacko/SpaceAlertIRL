@@ -7,6 +7,8 @@ public class IsPlayerDeadCheck : MonoBehaviour
     [SerializeField]
     GameObject[] DontUnload;
 
+    // if the player is dead, this will deactivate most of the panels in UICanvas
+    // so the player can't access it 
     void Awake()
     {
         if (!Player.GetLocalPlayer().IsDead)

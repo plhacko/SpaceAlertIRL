@@ -10,11 +10,11 @@ using Unity.Collections;
 
 public class AudioManager : NetworkBehaviour, IRestart
 {
-    public bool Silent { get; private set; } = false;
+    public bool SilentAudio { get; private set; } = false;
     public void Mute(bool setSilent)
     {
-        Silent = setSilent;
-        if (Silent) { Announcer_que.Clear(); AudioSource_announcer.Stop(); }
+        SilentAudio = setSilent;
+        if (SilentAudio) { AudioClip_que.Clear(); AudioSource_announcer.Stop(); }
     }
     public bool SilentVibrations { get; private set; } = false;
     public void MuteVibrations(bool setSilent)
@@ -26,7 +26,8 @@ public class AudioManager : NetworkBehaviour, IRestart
     Dictionary<string, AudioClip> SoundDict;
 
     AudioSource AudioSource_announcer;
-    Queue<AudioClip> Announcer_que = new Queue<AudioClip>();
+    Queue<string> Sentence_que = new Queue<string>();
+    Queue<AudioClip> AudioClip_que = new Queue<AudioClip>();
 
     List<string> LogMessages = new List<string>();
 
@@ -52,27 +53,13 @@ public class AudioManager : NetworkBehaviour, IRestart
         NotificationMessagePanel.Instance?.InstatiateMessage(sentence);
 
         // silent check
-        if (Silent) { return; }
-        // play audio
-        AudioClip audioClip;
-        // sentence might contain multiple sentences
-        foreach (string s in sentence.Split())
-        {
-            if (SoundDict.ContainsKey(s))
-            { audioClip = SoundDict[s]; }
-            else if (s == "") { continue; }
-            else
-            {
-                audioClip = SoundDict["voiceTrackNotFound_r"];
-                Debug.Log($"voicetrack: \"{s}\" is missing");
-            }
+        if (SilentAudio) { return; }
 
-            if (!removeDuplicates || !Announcer_que.Contains(audioClip))
-            { Announcer_que.Enqueue(audioClip); }
-        }
+        if (!removeDuplicates || !Sentence_que.Contains(sentence))
+        { Sentence_que.Enqueue(sentence); }
     }
 
-    public void RequestPlayingSentenceOnClient(FixedString64Bytes sentence, bool removeDuplicates = true, ulong? clientId = null)
+    public void RequestPlayingSentenceOnClient(string sentence, bool removeDuplicates = true, ulong? clientId = null)
     {
         ClientRpcParams clientRpcParams;
         if (clientId != null) // broadcast to specific client
@@ -85,7 +72,7 @@ public class AudioManager : NetworkBehaviour, IRestart
         else // broadcast to all clients
         { clientRpcParams = default; }
 
-        PlaySentenceClientRpc(sentence.ToString(), removeDuplicates, clientRpcParams);
+        PlaySentenceClientRpc(sentence, removeDuplicates, clientRpcParams);
     }
 
     [ClientRpc]
@@ -125,17 +112,47 @@ public class AudioManager : NetworkBehaviour, IRestart
 
     void Update()
     {
-        if (AudioSource_announcer.isPlaying || Announcer_que.Count == 0) { return; }
+        // waits for previous clip to finish playing
+        if (AudioSource_announcer.isPlaying) { return; }
 
-        AudioClip sound = Announcer_que.Dequeue();
+        // if entire sentence was played, loads the next one
+        if (AudioClip_que.Count == 0)
+        { TryToLoadNextSentence(); }
 
+        // nothing was loaded check
+        if (AudioClip_que.Count == 0) { return; }
+
+        AudioClip sound = AudioClip_que.Dequeue();
         AudioSource_announcer.clip = sound;
         AudioSource_announcer.Play();
+
+        bool TryToLoadNextSentence()
+        {
+            if (Sentence_que.Count == 0) { return false; }
+
+            string sentence = Sentence_que.Dequeue();
+            foreach (string s in sentence.Split())
+            {
+                AudioClip audioClip;
+                if (SoundDict.ContainsKey(s))
+                { audioClip = SoundDict[s]; }
+                else if (s == "") { continue; }
+                else
+                {
+                    audioClip = SoundDict["voiceTrackNotFound_r"];
+                    Debug.Log($"voicetrack: \"{s}\" is missing");
+                }
+
+                AudioClip_que.Enqueue(audioClip);
+            }
+
+            return true;
+        }
     }
 
     public void Restart()
     {
         LogMessages.Clear();
-        Announcer_que.Clear();
+        AudioClip_que.Clear();
     }
 }

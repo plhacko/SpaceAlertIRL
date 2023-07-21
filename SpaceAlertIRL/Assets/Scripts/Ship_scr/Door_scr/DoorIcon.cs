@@ -12,7 +12,7 @@ public class DoorIcon : Icon
     protected GameObject ActionPanelPrefab;
 
     private Door Door;
-    private Room NextRoom; //this is the room, that the player is NOT in
+    private Room NextRoom; // this is the room, that the player is NOT in
 
     override protected void OnDisable()
     {

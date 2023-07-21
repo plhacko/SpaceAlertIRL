@@ -73,10 +73,10 @@ public class Zone : NetworkBehaviour, IRestart
 
         // audio feedback
         if (damage > 0)
-        { AudioManager.Instance.RequestPlayingSentenceOnClient($"{gameObject.name + "_r"} zoneDamaged_r"); }
+        { AudioManager.Instance.RequestPlayingSentenceOnClient($"{gameObject.name + "_r"} zoneDamaged_r", removeDuplicates: false); }
         else if (GetShieldValue() == 0)
-        { AudioManager.Instance.RequestPlayingSentenceOnClient($"{gameObject.name + "_r"} shieldsDepleted_r"); }
-        
+        { AudioManager.Instance.RequestPlayingSentenceOnClient($"{gameObject.name + "_r"} shieldsDepleted_r", removeDuplicates: false); }
+
 
         // do damage to the ship
         int _hp = HP - damage;

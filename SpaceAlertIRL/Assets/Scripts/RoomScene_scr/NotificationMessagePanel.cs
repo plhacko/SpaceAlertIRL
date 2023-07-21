@@ -31,7 +31,7 @@ public class NotificationMessagePanel : MonoBehaviour
         if (Silent)
         { return; }
 
-        message = UpperToSpaces(message); // wewrites the message based on previous example 'HelloWorld_r' -> 'hello world'
+        message = UpperToSpaces(message); // rewrites the message based on previous example 'HelloWorld_r' -> 'hello world'
         var go = Instantiate(LogMessagePrefab, parent: transform);
         go.GetComponent<Message>().Initialise(message);
     }

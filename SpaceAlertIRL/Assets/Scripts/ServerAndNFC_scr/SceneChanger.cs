@@ -27,7 +27,6 @@ public class SceneChanger : MonoBehaviour
     public void StartGame()
     {
         GameObject.Find("Restarter").GetComponent<Restarter>().RestartAllPlayers();
-        //// ChangeScene("RoomScene");
     }
 
     public void Exit()

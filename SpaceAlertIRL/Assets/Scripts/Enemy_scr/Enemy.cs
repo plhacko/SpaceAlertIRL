@@ -97,7 +97,7 @@ public abstract class Enemy : NetworkBehaviour, IComparable<Enemy>, IOnServerFix
         // voice announcement, that an action will happen in 15sec
         if (!wasActionAnnounced && IsLessThan15secFromTheNextAction(newDistance))
         {
-            if (!silent) { AudioManager.Instance.RequestPlayingSentenceOnClient($"{Zone.name + "_r"} enemyActionIn15seconds_r"); }
+            if (!silent) { AudioManager.Instance.RequestPlayingSentenceOnClient($"{Zone.name + "_r"} enemyActionIn15seconds_r", removeDuplicates: false); }
             wasActionAnnounced = true;
         }
 
@@ -106,7 +106,7 @@ public abstract class Enemy : NetworkBehaviour, IComparable<Enemy>, IOnServerFix
             || newDistance <= (int)RangeEnum.Close && Distance > (int)RangeEnum.Close
             || newDistance <= (int)RangeEnum.Zero && Distance > (int)RangeEnum.Zero)
         {
-            if (!silent && !NextEnemyAction.IsSilent) { AudioManager.Instance.RequestPlayingSentenceOnClient($"{Zone.name + "_r"} enemyActionExecuted_r"); }
+            if (!silent && !NextEnemyAction.IsSilent) { AudioManager.Instance.RequestPlayingSentenceOnClient($"{Zone.name + "_r"} enemyActionExecuted_r", removeDuplicates: false); }
             NextEnemyAction?.ExecuteAction();
             NextEnemyAction = DecideNextAction();
             NextActionDescription = NextEnemyAction.GetDescription() ?? "no action";
@@ -170,7 +170,7 @@ public abstract class Enemy : NetworkBehaviour, IComparable<Enemy>, IOnServerFix
         if (newHP > 0)
         {
             HP = newHP;
-            if (!silent) { AudioManager.Instance.RequestPlayingSentenceOnClient($"{Zone.name + "_r"} enemyDamaged_r"); }
+            if (!silent) { AudioManager.Instance.RequestPlayingSentenceOnClient($"{Zone.name + "_r"} enemyDamaged_r", removeDuplicates: false); }
         }
         else
         { Die(); }

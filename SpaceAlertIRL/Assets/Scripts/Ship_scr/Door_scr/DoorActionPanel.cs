@@ -81,7 +81,7 @@ public class DoorActionPanel : ActionPanel
         { Door.UIActions.RemoveAction(UpdateUIAction); }
     }
 
-    // TODO: this will be repleaced with NFC and for now is used for developement purpose
+    // this is for debuging purpouses only
     public void RequestRoomChangeForLocalPlayer()
     {
         Player player = Player.GetLocalPlayer();

@@ -31,7 +31,7 @@ public class GameMenu : MonoBehaviour
     public void MuteAudio()
     {
         AudioManager am = AudioManager.Instance;
-        bool setSilent = !am.Silent;
+        bool setSilent = !am.SilentAudio;
         am.Mute(setSilent);
 
         var text = MuteAudioButton.GetComponentInChildren<Text>();
